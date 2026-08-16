@@ -1,0 +1,17 @@
+# Nextcloud / Windows / macOS
+.nextcloudsync.log
+.sync_*.db*
+*.~lock*
+Desktop.ini
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Python
+__pycache__/
+*.pyc

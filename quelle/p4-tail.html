@@ -1,0 +1,121 @@
+  <!-- ===================== LIEDER ===================== -->
+  <section id="lieder" class="chapter">
+    <div class="chapter-head">
+      <span class="kicker">Der Liederteil</span>
+      <h2>26 Lieder, aufsteigend</h2>
+    </div>
+    <p>Sortiert nach Schwierigkeit, nicht nach Beliebtheit. Stufe 1 kannst du heute, Stufe 4 in etwa acht Wochen.
+    Jedes Lied zeigt oben, welche Griffe es braucht — sind alle grün in deinem Kopf, kannst du das Lied.</p>
+
+    <div class="note">
+      <span class="lbl">Wie du eine Liedseite liest</span>
+      <p>Jede Zeile besteht aus <strong>Takten</strong> — den Kästchen nebeneinander. In jedem Kästchen steht der Akkord,
+      der dort gegriffen wird; ein <strong>·</strong> heißt „vorherigen Akkord weiterhalten“. Ein Takt sind vier Schläge
+      (im Walzertakt drei). Darunter steht die Textzeile beziehungsweise dein Eingabefeld.</p>
+    </div>
+
+    <div class="note warm">
+      <span class="lbl">Ehrlichkeitshinweis</span>
+      <p>Das hier sind <strong>Begleitfassungen für Anfänger</strong>: Griffe auf die einfachsten Varianten reduziert,
+      manchmal in eine leichtere Tonart geschoben, Zwischenakkorde weggelassen. Bei den mit
+      <span class="badge ok">geprüft</span> markierten Liedern habe ich die Akkorde gegen veröffentlichte Charts abgeglichen
+      (Quellen stehen unter dem Lied). Bei den übrigen ist die Fassung nach Gehör vereinfacht — wenn dir eine Stelle
+      schräg vorkommt, hat das Original dort wahrscheinlich einen Zwischenakkord. Trau deinem Ohr und ändere sie.</p>
+    </div>
+
+    <div class="filters" id="filters">
+      <span class="lbl">Filter</span>
+      <button class="btn on" data-lvl="0">Alle</button>
+      <button class="btn" data-lvl="1">Stufe 1</button>
+      <button class="btn" data-lvl="2">Stufe 2</button>
+      <button class="btn" data-lvl="3">Stufe 3</button>
+      <button class="btn" data-lvl="4">Stufe 4</button>
+      <button class="btn" data-lvl="star">★ Deine Wunschlieder</button>
+    </div>
+
+    <div class="songlist" id="songlist"></div>
+  </section>
+
+  <!-- ===================== PLAN ===================== -->
+  <section id="plan" class="chapter">
+    <div class="chapter-head">
+      <span class="kicker">Nachschlagen</span>
+      <h2>Acht Wochen bis zum Feuer</h2>
+    </div>
+    <p>Der Plan geht von <strong>15 Minuten am Tag</strong> aus, an sechs Tagen die Woche. Nicht von zwei Stunden am Sonntag —
+    das funktioniert bei einem Instrument nachweislich schlechter. Häkchen bleiben gespeichert.</p>
+
+    <div class="card" style="max-width:var(--read);">
+      <h4>Die Tagesration: 15 Minuten</h4>
+      <div class="tablewrap" style="margin:.6rem 0 0;border:0;">
+        <table>
+          <tr><td class="num" style="width:4.5em;">3 Min</td><td>Stimmen und aufwärmen: jeden bekannten Akkord einmal greifen und durchzupfen</td></tr>
+          <tr><td class="num">5 Min</td><td>Wechseluhr — die zwei Akkorde, die diese Woche neu sind</td></tr>
+          <tr><td class="num">5 Min</td><td>Das Lied der Woche, langsam, mit Zählen</td></tr>
+          <tr><td class="num">2 Min</td><td>Irgendetwas, das dir Spaß macht. Ohne Ziel. Das ist der Teil, der dich morgen wiederkommen lässt.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div id="planlist" style="margin-top:2rem;"></div>
+  </section>
+
+  <!-- ===================== WERKZEUG ===================== -->
+  <section id="werkzeug" class="chapter">
+    <div class="chapter-head">
+      <span class="kicker">Nachschlagen</span>
+      <h2>Werkzeugkasten</h2>
+    </div>
+
+    <h3>Fehlersuche</h3>
+    <div class="tablewrap">
+      <table>
+        <tr><th>Das Problem</th><th>Fast immer die Ursache</th><th>Was hilft</th></tr>
+        <tr><td>Eine Saite schnarrt</td><td>Finger zu weit vom Bundstäbchen oder zu wenig Druck</td><td>Finger dichter ans Stäbchen schieben</td></tr>
+        <tr><td>Eine Saite klingt gar nicht</td><td>Ein Nachbarfinger liegt flach darauf</td><td>Finger steiler aufsetzen, Handgelenk nach vorn</td></tr>
+        <tr><td>Klingt hart und blechern</td><td>Du schlägst über dem Schallloch an</td><td>Weiter hoch: dorthin, wo der Hals endet</td></tr>
+        <tr><td>Ständig verstimmt</td><td>Neue Saiten dehnen sich</td><td>1–2 Wochen aussitzen, vorher jedes Mal neu stimmen</td></tr>
+        <tr><td>Fingerkuppen tun weh</td><td>Normal in Woche 1–3</td><td>Kürzer, aber öfter üben. Nach ~3 Wochen ist die Hornhaut da</td></tr>
+        <tr><td>Der Wechsel kommt zu spät</td><td>Du wartest, bis der letzte Schlag vorbei ist</td><td>Finger schon <em>während</em> des letzten Aufschlags lösen</td></tr>
+        <tr><td>Alles klingt gehetzt</td><td>Kein Zählen</td><td>Laut mitzählen. Ja, laut. Es hilft mehr als alles andere</td></tr>
+      </table>
+    </div>
+
+    <h3>Wo du die Liedtexte herbekommst</h3>
+    <p>Für die Zeilenfelder in diesem Buch brauchst du die Originaltexte. Legale Quellen:</p>
+    <ul>
+      <li><strong>Genius</strong> oder <strong>Musixmatch</strong> — beide haben Lizenzverträge mit den Verlagen.</li>
+      <li><strong>Der Untertitel der Originalfolge</strong> — bei Spongebob und Pokémon der genaueste Weg, gerade für die deutschen Fassungen.</li>
+      <li><strong>Ultimate Guitar</strong> — Text plus Akkorde, falls du meine Fassung mit einer anderen vergleichen willst.</li>
+      <li>Für gemeinfreie Lieder: <strong>Liederprojekt</strong> (SWR/Carus) und das <strong>Deutsche Volksliedarchiv</strong>.</li>
+    </ul>
+
+    <h3>Einkaufsliste</h3>
+    <div class="tablewrap">
+      <table>
+        <tr><th>Was</th><th>Warum</th><th>Etwa</th></tr>
+        <tr><td>Konzert-Ukulele</td><td>Größe mit dem besten Verhältnis aus Klang und Platz</td><td class="num">60–120 €</td></tr>
+        <tr><td>Clip-Stimmgerät</td><td>Funktioniert auch am lauten Lagerfeuer, wo eine App versagt</td><td class="num">8–15 €</td></tr>
+        <tr><td>Ersatzsaiten (Aquila Nylgut)</td><td>Eine Saite reißt immer beim falschen Anlass</td><td class="num">8–12 €</td></tr>
+        <tr><td>Gepolsterte Tasche</td><td>Damit sie mitkommt statt zu Hause zu bleiben</td><td class="num">15–30 €</td></tr>
+        <tr><td>Ukulele-Kapo <span style="color:var(--ink-faint)">(optional)</span></td><td>Macht aus jedem Barré einen offenen Griff</td><td class="num">~8 €</td></tr>
+      </table>
+    </div>
+
+    <h3>Wenn du mehr Lieder willst</h3>
+    <p>Dieses Buch hat einen Begleit-Skill: Sag im Chat einfach <strong>„neues Lied fürs Ukulele-Buch: …“</strong> und nenne den Titel.
+    Das Lied wird recherchiert, in eine anfängertaugliche Tonart gebracht, an der richtigen Stufe einsortiert und ins Buch eingebaut —
+    Griffbilder, Raster, Textfelder, alles.</p>
+    <p>Naheliegende nächste Kandidaten aus deiner Ecke: <em>Digimon – Leb deinen Traum</em>, <em>Dragon Ball</em>,
+    <em>Detektiv Conan</em>, <em>Sailor Moon</em>, <em>Heidi</em>, <em>Wickie</em>, <em>Die Simpsons</em>, <em>Gravity Falls</em>,
+    <em>Adventure Time</em>.</p>
+
+    <div class="footer">
+      <p>Lagerfeuer-Ukulele · Ukulele in C-Stimmung (g–C–E–A) · Alle Fassungen sind vereinfachte Begleitversionen für
+      Anfänger. Liedtexte urheberrechtlich geschützter Werke sind nicht abgedruckt; die Eingabefelder speichern
+      ausschließlich lokal in deinem Browser.</p>
+    </div>
+  </section>
+</main>
+
+<div id="pop" role="tooltip" aria-hidden="true"></div>
