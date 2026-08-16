@@ -67,7 +67,8 @@ function songHTML(s){
           + '<button class="btn sq" data-x="-1" aria-label="einen Halbton tiefer">−</button>'
           + '<span class="val">'+(n>0?"+"+n:n)+'</span>'
           + '<button class="btn sq" data-x="1" aria-label="einen Halbton höher">+</button>'
-          + '<button class="btn sq" data-x="0">0</button></div>'
+          + '<button class="btn sq" data-x="0" aria-label="zurück in die Ausgangstonart"'
+          + ' title="zurück in die Ausgangstonart">↺</button></div>'
       + '</div>'
     + '</div>'
     + '<div class="song-chords">' + s.chords.map(function(c){

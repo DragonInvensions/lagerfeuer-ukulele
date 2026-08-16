@@ -30,6 +30,8 @@
 
   --shell:1180px;
   --read:66ch;
+  --songscale:1;      /* Textgroesse im Liederteil, per Knopf umschaltbar */
+  --topbar:52px;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
@@ -172,7 +174,8 @@ hr{border:0;border-top:1px solid var(--rule);margin:2.5rem 0;}
 }
 
 /* ============ SECTIONS ============ */
-section{scroll-margin-top:70px;}
+section{scroll-margin-top:calc(var(--topbar) + 10px);}
+.song{scroll-margin-top:calc(var(--topbar) + 10px);}
 .chapter{padding:3.5rem 0 1rem;}
 .chapter-head{border-top:3px solid var(--rule-strong);padding-top:1rem;margin-bottom:1.75rem;}
 .chapter-head .kicker{
@@ -210,10 +213,10 @@ h4{font-family:var(--f-ui);font-size:.98rem;font-weight:700;margin:1.4rem 0 .4re
 
 table{border-collapse:collapse;width:100%;font-family:var(--f-ui);font-size:.88rem;}
 .tablewrap{overflow-x:auto;margin:1.3rem 0;border:1px solid var(--rule);border-radius:10px;background:var(--surface);}
-th,td{padding:.55rem .8rem;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap;}
+th,td{padding:.55rem .8rem;text-align:left;border-bottom:1px solid var(--rule);}
 th{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.06em;font-size:.74rem;color:var(--ink-soft);}
 tr:last-child td{border-bottom:0;}
-td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;}
+td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap;}
 
 /* ============ CHORD DIAGRAMS ============ */
 .chordgrid{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.2rem 0;}
@@ -310,21 +313,29 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;}
 .row{margin-bottom:.7rem;}
 .bars{display:flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--paper);}
 .bar{
-  flex:1;min-width:0;padding:.4rem .3rem;text-align:center;
+  flex:1;min-width:0;display:flex;align-items:stretch;
   border-left:1px solid var(--rule);
 }
 .bar:first-child{border-left:0;}
-.bar .hold{color:var(--ink-faint);font-family:var(--f-mono);font-size:.9rem;}
+/* Der ganze Takt ist antippbar, nicht nur der Text — wichtig am Handy */
+.bar .chip,.bar .hold{
+  flex:1;min-width:0;display:flex;align-items:center;justify-content:center;
+  padding:.5rem .15rem;min-height:2.6em;
+  font-size:calc(.95rem * var(--songscale));
+}
+.bar .chip:hover{text-decoration:none;background:var(--accent-soft);}
+.bar .hold{color:var(--ink-faint);font-family:var(--f-mono);}
 .line{
-  font-size:1rem;padding:.25rem .2rem 0;line-height:1.45;
+  font-size:calc(1rem * var(--songscale));padding:.25rem .2rem 0;line-height:1.45;
   display:flex;align-items:baseline;gap:.5rem;
 }
 .line.pd{color:var(--ink);}
 .line input{
   flex:1;min-width:0;border:0;border-bottom:1px dashed var(--rule);background:none;
-  font-family:var(--f-body);font-size:1rem;color:var(--ink);padding:.15rem .2rem;
+  font-family:var(--f-body);font-size:max(16px, calc(1rem * var(--songscale)));
+  color:var(--ink);padding:.15rem .2rem;
 }
-.line input::placeholder{color:var(--ink-faint);font-style:italic;font-size:.9rem;}
+.line input::placeholder{color:var(--ink-faint);font-style:italic;font-size:.92em;}
 .line input:focus{outline:none;border-bottom-color:var(--accent);}
 .rowlabel{font-family:var(--f-mono);font-size:.68rem;color:var(--ink-faint);flex:none;width:1.6em;text-align:right;}
 .song-note{
@@ -373,6 +384,66 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;}
   *{transition:none !important;animation:none !important;}
 }
 
+/* ============ HANDY ============ */
+@media (max-width:700px){
+  body{font-size:16px;}
+  .main{padding-left:.7rem;padding-right:.7rem;}
+
+  /* Markenschriftzug weicht den Bedienknoepfen */
+  .bname{display:none;}
+  .topbar-in{gap:.4rem;}
+  .btn{padding:.45rem .6rem;}
+  .btn.sq{min-width:40px;min-height:36px;justify-content:center;}
+
+  /* Mehr Breite fuer das Taktraster */
+  .song-head,.song-body{padding-left:.8rem;padding-right:.8rem;}
+  .song-title h3{font-size:1.2rem;}
+  .badges{margin-left:0;width:100%;}
+
+  /* Griffbilder als eine wischbare Zeile statt zwei Bloecken */
+  .song-chords{
+    padding:.7rem .8rem;flex-wrap:nowrap;overflow-x:auto;
+    scrollbar-width:thin;-webkit-overflow-scrolling:touch;
+  }
+  .song-chords .chordcard{flex:none;}
+
+  /* Transponieren als eigene Zeile mit daumengerechten Knoepfen */
+  .song-meta{gap:.7rem 1.2rem;}
+  .xpose{margin-left:0;width:100%;margin-top:.3rem;gap:.4rem;}
+  .xpose .val{min-width:3em;}
+
+  .sec-name{font-size:.8rem;}
+  .rowlabel{width:1.3em;}
+  .row{margin-bottom:.9rem;}
+
+  /* Tabellen: enger setzen statt seitlich wegscrollen */
+  th,td{padding:.5rem .55rem;}
+  table{font-size:.84rem;}
+
+  .week{grid-template-columns:44px 1fr;gap:.7rem;}
+  .week .wno{font-size:1.6rem;}
+  .task{padding:.15rem 0;}
+  .task input{width:18px;height:18px;}
+
+  .chordgrid{gap:.5rem;}
+  .chordcard{width:92px;}
+  .tuner button{width:58px;height:58px;}
+  .stroke{width:34px;height:46px;}
+}
+
+@media (max-width:400px){
+  .main{padding-left:.5rem;padding-right:.5rem;}
+  .song-head,.song-body{padding-left:.6rem;padding-right:.6rem;}
+  .song-chords{padding-left:.6rem;padding-right:.6rem;}
+  .bar .chip,.bar .hold{padding:.5rem .05rem;}
+}
+
+/* Zeigegeraete ohne Hover (Touch): kein Hover-Rauschen */
+@media (hover:none){
+  .chip:hover{text-decoration:none;}
+  .btn:hover{border-color:var(--rule);color:var(--ink);}
+}
+
 /* ============ PRINT ============ */
 @media print{
   :root{--paper:#fff;--surface:#fff;--surface-2:#fff;--ink:#000;--ink-soft:#333;--ink-faint:#666;
@@ -409,9 +480,13 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;}
   <div class="topbar-in">
     <a class="brand" href="#top">
       <span class="strings" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      Lagerfeuer-Ukulele
+      <span class="bname">Lagerfeuer-Ukulele</span>
     </a>
-    <button class="btn sq" id="tocBtn" aria-label="Inhaltsverzeichnis öffnen">☰ Inhalt</button>
+    <button class="btn sq" id="tocBtn" aria-label="Inhaltsverzeichnis öffnen">☰</button>
+    <button class="btn sq" id="sizeBtn" aria-label="Textgröße der Lieder ändern"
+            title="Textgröße der Lieder">A</button>
+    <button class="btn sq" id="wakeBtn" aria-label="Bildschirm anlassen"
+            title="Bildschirm beim Spielen anlassen" hidden>Wach</button>
     <button class="btn sq" id="themeBtn" aria-label="Hell/Dunkel umschalten">◐</button>
   </div>
 </header>
@@ -439,6 +514,18 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;}
       Stufe 4 braucht ein paar Wochen. Der 8-Wochen-Plan verknüpft beides und sagt dir jeden Tag, was dran ist.
       Fang heute mit Kapitel 1 an und spiel spätestens in 20 Minuten dein erstes Lied.
     </p>
+    <div class="note">
+      <span class="lbl">Am Handy</span>
+      <p>Oben in der Leiste liegen drei Knöpfe, die beim Spielen zählen:
+      <strong>☰</strong> öffnet das Inhaltsverzeichnis, <strong>A</strong> schaltet die Textgröße
+      im Liederteil in drei Stufen hoch — nimm die größte, wenn das Handy vor dir auf dem Tisch
+      liegt und du eine Armlänge entfernt sitzt. <strong>Wach</strong> hält den Bildschirm an,
+      damit er dir nicht mitten im Lied ausgeht. <strong>◐</strong> schaltet auf dunkel,
+      was am Abend angenehmer ist und weniger Akku zieht.</p>
+      <p>Jeder Akkord im ganzen Buch ist antippbar — am Handy reicht ein Tipp irgendwo in den
+      Takt, dann klappt das Griffbild auf.</p>
+    </div>
+
     <div class="note warm">
       <span class="lbl">Zu den Liedtexten</span>
       <p>Die Texte von Spongebob, Pokémon &amp; Co. sind urheberrechtlich geschützt — ich darf sie hier nicht abdrucken.
@@ -1127,9 +1214,15 @@ function showPop(el, name){
   pop.innerHTML = '<div class="cname">'+esc(name)+'</div>'+chordSVG(name,1.5);
   pop.classList.add("on"); pop.setAttribute("aria-hidden","false");
   var r = el.getBoundingClientRect();
-  var top = r.bottom + window.scrollY + 6;
+  var vh = document.documentElement.clientHeight;
+  var vw = document.documentElement.clientWidth;
+  // Passt es unter den Akkord? Sonst darueber setzen — sonst waere es am
+  // unteren Bildschirmrand nicht sichtbar.
+  var unten = r.bottom + 6 + pop.offsetHeight <= vh - 8;
+  var top = unten ? r.bottom + window.scrollY + 6
+                  : r.top + window.scrollY - pop.offsetHeight - 6;
   var left = r.left + window.scrollX + r.width/2 - pop.offsetWidth/2;
-  left = Math.max(8, Math.min(left, document.documentElement.clientWidth - pop.offsetWidth - 8));
+  left = Math.max(8, Math.min(left, vw - pop.offsetWidth - 8));
   pop.style.top = top+"px"; pop.style.left = left+"px";
   popFor = el;
 }
@@ -1272,6 +1365,59 @@ document.getElementById("themeBtn").addEventListener("click", function(){
   root.setAttribute("data-theme", next);
   try{ localStorage.setItem("uke.theme", next); }catch(e){}
 });
+
+/* ---------- Textgroesse im Liederteil ---------- */
+var SIZES = [
+  {v:1,    label:"A",   name:"normal"},
+  {v:1.18, label:"A+",  name:"groß"},
+  {v:1.38, label:"A++", name:"sehr groß"}
+];
+var sizeBtn = document.getElementById("sizeBtn");
+var sizeIdx = 0;
+try{ var ss = parseInt(localStorage.getItem("uke.size"), 10); if(ss >= 0 && ss < SIZES.length) sizeIdx = ss; }catch(e){}
+function applySize(){
+  var s = SIZES[sizeIdx];
+  root.style.setProperty("--songscale", s.v);
+  sizeBtn.textContent = s.label;
+  sizeBtn.classList.toggle("on", sizeIdx > 0);
+  sizeBtn.setAttribute("aria-label", "Textgröße der Lieder: " + s.name + " — tippen zum Wechseln");
+}
+applySize();
+sizeBtn.addEventListener("click", function(){
+  sizeIdx = (sizeIdx + 1) % SIZES.length;
+  applySize();
+  try{ localStorage.setItem("uke.size", String(sizeIdx)); }catch(e){}
+});
+
+/* ---------- Bildschirm anlassen (Wake Lock) ---------- */
+var wakeBtn = document.getElementById("wakeBtn");
+if("wakeLock" in navigator){
+  wakeBtn.hidden = false;
+  var wakeOn = false, lock = null;
+  var setWakeUI = function(){
+    wakeBtn.classList.toggle("on", wakeOn);
+    wakeBtn.setAttribute("aria-pressed", wakeOn ? "true" : "false");
+    wakeBtn.title = wakeOn ? "Bildschirm bleibt an — tippen zum Ausschalten"
+                           : "Bildschirm beim Spielen anlassen";
+  };
+  var acquire = function(){
+    navigator.wakeLock.request("screen").then(function(l){
+      lock = l;
+      l.addEventListener("release", function(){ lock = null; });
+    }).catch(function(){ wakeOn = false; setWakeUI(); });
+  };
+  wakeBtn.addEventListener("click", function(){
+    wakeOn = !wakeOn;
+    if(wakeOn){ acquire(); }
+    else if(lock){ lock.release().catch(function(){}); lock = null; }
+    setWakeUI();
+  });
+  // Nach Tabwechsel oder Bildschirmsperre geht die Sperre verloren — wieder holen
+  document.addEventListener("visibilitychange", function(){
+    if(wakeOn && lock === null && document.visibilityState === "visible") acquire();
+  });
+  setWakeUI();
+}
 
 /* ---------- Inhaltsverzeichnis (mobil) ---------- */
 var toc = document.getElementById("toc"), scrim = document.getElementById("scrim");
@@ -1741,7 +1887,8 @@ function songHTML(s){
           + '<button class="btn sq" data-x="-1" aria-label="einen Halbton tiefer">−</button>'
           + '<span class="val">'+(n>0?"+"+n:n)+'</span>'
           + '<button class="btn sq" data-x="1" aria-label="einen Halbton höher">+</button>'
-          + '<button class="btn sq" data-x="0">0</button></div>'
+          + '<button class="btn sq" data-x="0" aria-label="zurück in die Ausgangstonart"'
+          + ' title="zurück in die Ausgangstonart">↺</button></div>'
       + '</div>'
     + '</div>'
     + '<div class="song-chords">' + s.chords.map(function(c){

@@ -157,9 +157,15 @@ function showPop(el, name){
   pop.innerHTML = '<div class="cname">'+esc(name)+'</div>'+chordSVG(name,1.5);
   pop.classList.add("on"); pop.setAttribute("aria-hidden","false");
   var r = el.getBoundingClientRect();
-  var top = r.bottom + window.scrollY + 6;
+  var vh = document.documentElement.clientHeight;
+  var vw = document.documentElement.clientWidth;
+  // Passt es unter den Akkord? Sonst darueber setzen — sonst waere es am
+  // unteren Bildschirmrand nicht sichtbar.
+  var unten = r.bottom + 6 + pop.offsetHeight <= vh - 8;
+  var top = unten ? r.bottom + window.scrollY + 6
+                  : r.top + window.scrollY - pop.offsetHeight - 6;
   var left = r.left + window.scrollX + r.width/2 - pop.offsetWidth/2;
-  left = Math.max(8, Math.min(left, document.documentElement.clientWidth - pop.offsetWidth - 8));
+  left = Math.max(8, Math.min(left, vw - pop.offsetWidth - 8));
   pop.style.top = top+"px"; pop.style.left = left+"px";
   popFor = el;
 }
@@ -302,6 +308,59 @@ document.getElementById("themeBtn").addEventListener("click", function(){
   root.setAttribute("data-theme", next);
   try{ localStorage.setItem("uke.theme", next); }catch(e){}
 });
+
+/* ---------- Textgroesse im Liederteil ---------- */
+var SIZES = [
+  {v:1,    label:"A",   name:"normal"},
+  {v:1.18, label:"A+",  name:"groß"},
+  {v:1.38, label:"A++", name:"sehr groß"}
+];
+var sizeBtn = document.getElementById("sizeBtn");
+var sizeIdx = 0;
+try{ var ss = parseInt(localStorage.getItem("uke.size"), 10); if(ss >= 0 && ss < SIZES.length) sizeIdx = ss; }catch(e){}
+function applySize(){
+  var s = SIZES[sizeIdx];
+  root.style.setProperty("--songscale", s.v);
+  sizeBtn.textContent = s.label;
+  sizeBtn.classList.toggle("on", sizeIdx > 0);
+  sizeBtn.setAttribute("aria-label", "Textgröße der Lieder: " + s.name + " — tippen zum Wechseln");
+}
+applySize();
+sizeBtn.addEventListener("click", function(){
+  sizeIdx = (sizeIdx + 1) % SIZES.length;
+  applySize();
+  try{ localStorage.setItem("uke.size", String(sizeIdx)); }catch(e){}
+});
+
+/* ---------- Bildschirm anlassen (Wake Lock) ---------- */
+var wakeBtn = document.getElementById("wakeBtn");
+if("wakeLock" in navigator){
+  wakeBtn.hidden = false;
+  var wakeOn = false, lock = null;
+  var setWakeUI = function(){
+    wakeBtn.classList.toggle("on", wakeOn);
+    wakeBtn.setAttribute("aria-pressed", wakeOn ? "true" : "false");
+    wakeBtn.title = wakeOn ? "Bildschirm bleibt an — tippen zum Ausschalten"
+                           : "Bildschirm beim Spielen anlassen";
+  };
+  var acquire = function(){
+    navigator.wakeLock.request("screen").then(function(l){
+      lock = l;
+      l.addEventListener("release", function(){ lock = null; });
+    }).catch(function(){ wakeOn = false; setWakeUI(); });
+  };
+  wakeBtn.addEventListener("click", function(){
+    wakeOn = !wakeOn;
+    if(wakeOn){ acquire(); }
+    else if(lock){ lock.release().catch(function(){}); lock = null; }
+    setWakeUI();
+  });
+  // Nach Tabwechsel oder Bildschirmsperre geht die Sperre verloren — wieder holen
+  document.addEventListener("visibilitychange", function(){
+    if(wakeOn && lock === null && document.visibilityState === "visible") acquire();
+  });
+  setWakeUI();
+}
 
 /* ---------- Inhaltsverzeichnis (mobil) ---------- */
 var toc = document.getElementById("toc"), scrim = document.getElementById("scrim");
