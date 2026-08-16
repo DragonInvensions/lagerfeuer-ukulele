@@ -67,6 +67,8 @@
 }
 
 *{box-sizing:border-box;}
+/* display-Regeln von .btn & Co. duerfen [hidden] nicht aushebeln */
+[hidden]{display:none !important;}
 body{
   margin:0;
   background:var(--paper);
@@ -380,6 +382,177 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .footer{border-top:3px solid var(--rule-strong);margin-top:4rem;padding-top:1.5rem;
   font-family:var(--f-ui);font-size:.8rem;color:var(--ink-faint);}
 
+/* ============ SEITEN / ROUTER ============ */
+.view[hidden]{display:none !important;}
+
+/* ============ STARTSEITE ============ */
+.startgrid{
+  display:grid;gap:.7rem;margin:2rem 0 2.5rem;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+}
+.tile{
+  display:flex;flex-direction:column;gap:.2rem;
+  background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+  padding:1rem 1.1rem;text-decoration:none;color:var(--ink);
+  transition:border-color .12s,transform .12s;
+}
+a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
+.tile.wide{grid-column:1/-1;}
+.tile-k{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.1em;
+  font-size:.68rem;font-weight:700;color:var(--ember);}
+.tile-t{font-family:var(--f-display);text-transform:uppercase;font-size:1.35rem;
+  font-weight:700;line-height:1.1;letter-spacing:.01em;}
+.tile-d{font-size:.88rem;color:var(--ink-soft);line-height:1.35;}
+.bar-outer{display:block;height:7px;border-radius:4px;background:var(--surface-2);
+  overflow:hidden;margin:.5rem 0 .45rem;}
+.bar-in{display:block;height:100%;background:var(--accent);border-radius:4px;transition:width .3s;}
+.tile.plain{cursor:default;}
+.wunsch{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.45rem;}
+.wunsch a{
+  font-family:var(--f-ui);font-size:.8rem;font-weight:600;text-decoration:none;
+  border:1px solid var(--rule);border-radius:999px;padding:.22rem .6rem;color:var(--accent);
+}
+.wunsch a:hover{border-color:var(--accent);background:var(--accent-soft);}
+
+/* ============ KURSLISTE ============ */
+.kurslist{display:flex;flex-direction:column;gap:.5rem;margin:1.5rem 0;}
+.kcard{
+  display:flex;align-items:center;gap:.9rem;text-decoration:none;color:var(--ink);
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:.85rem 1rem;
+}
+.kcard:hover{border-color:var(--accent);}
+.knum{font-family:var(--f-mono);font-size:1rem;font-weight:700;color:var(--accent);
+  min-width:1.6em;text-align:center;}
+.kmain{display:flex;flex-direction:column;flex:1;min-width:0;}
+.kt{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.03em;
+  font-weight:700;font-size:1.02rem;}
+.kd{font-family:var(--f-ui);font-size:.8rem;color:var(--ink-faint);}
+.chev{color:var(--ink-faint);font-size:1.3rem;line-height:1;flex:none;}
+
+/* ============ LIEDERLISTE ============ */
+.search{
+  width:100%;max-width:var(--read);margin:1.4rem 0 .9rem;
+  border:1px solid var(--rule);border-radius:10px;background:var(--surface);
+  padding:.65rem .9rem;font-family:var(--f-ui);font-size:max(16px,.95rem);color:var(--ink);
+}
+.search:focus{outline:none;border-color:var(--accent);}
+.songlist{display:flex;flex-direction:column;gap:.4rem;margin-top:1rem;}
+.scard{
+  display:flex;align-items:center;gap:.85rem;text-decoration:none;color:var(--ink);
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:.7rem .9rem;
+}
+.scard:hover{border-color:var(--accent);}
+.scard-lvl{
+  font-family:var(--f-mono);font-weight:700;font-size:.8rem;color:var(--ember);
+  background:var(--ember-soft);border-radius:6px;width:26px;height:26px;flex:none;
+  display:flex;align-items:center;justify-content:center;
+}
+.scard-main{display:flex;flex-direction:column;flex:1;min-width:0;}
+.scard-t{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.02em;
+  font-weight:700;font-size:1rem;line-height:1.2;}
+.scard-t .star{color:var(--accent);}
+.scard-s{font-family:var(--f-ui);font-size:.76rem;color:var(--ink-faint);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.scard-c{font-family:var(--f-mono);font-size:.74rem;color:var(--accent);margin-top:.15rem;}
+.scard-right{display:flex;align-items:center;gap:.5rem;flex:none;}
+.pill{font-family:var(--f-ui);font-size:.68rem;color:var(--ink-faint);
+  border:1px solid var(--rule);border-radius:999px;padding:.12rem .45rem;white-space:nowrap;}
+.nohits{color:var(--ink-faint);font-style:italic;margin-top:1.5rem;}
+.lead-kurz{font-size:.95rem;color:var(--ink-soft);}
+
+/* Zusammenklappbare Hinweise — stehen unter der Liste, nicht davor */
+.hinweise{
+  margin-top:1.2rem;border:1px solid var(--rule);border-radius:10px;
+  background:var(--surface);max-width:var(--read);overflow:hidden;
+}
+.hinweise summary{
+  cursor:pointer;padding:.7rem .95rem;list-style:none;
+  font-family:var(--f-display);text-transform:uppercase;letter-spacing:.07em;
+  font-size:.76rem;font-weight:700;color:var(--accent);
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+}
+.hinweise.warm summary{color:var(--ember);}
+.hinweise summary::-webkit-details-marker{display:none;}
+.hinweise summary::after{content:"+";font-family:var(--f-mono);font-size:1rem;}
+.hinweise[open] summary::after{content:"−";}
+.hinweise[open] summary{border-bottom:1px solid var(--rule);}
+.hinweise p{margin:.8rem .95rem;font-size:.92rem;color:var(--ink-soft);}
+
+/* ============ LIEDSEITE ============ */
+.crumb{font-family:var(--f-ui);font-size:.8rem;color:var(--ink-faint);
+  text-decoration:none;display:inline-block;margin-bottom:.5rem;}
+.crumb:hover{color:var(--accent);}
+.song-strum{padding:.9rem 1.25rem;border-bottom:1px solid var(--rule);}
+.patternbox.compact{margin:0;background:transparent;border:0;padding:0;}
+.patternbox.compact .ptop{margin-bottom:.5rem;}
+.songnav{display:flex;justify-content:space-between;gap:1rem;margin-top:1.6rem;
+  padding-top:1rem;border-top:1px solid var(--rule);}
+.songnav a{font-family:var(--f-ui);font-size:.85rem;text-decoration:none;
+  color:var(--ink-soft);max-width:45%;}
+.songnav a:hover{color:var(--accent);}
+
+/* Textwerkzeug */
+.lyrbar{
+  display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;
+  background:var(--surface-2);border-radius:10px;padding:.75rem .9rem;margin-bottom:1.3rem;
+}
+.lyrbar-txt{font-family:var(--f-ui);font-size:.85rem;color:var(--ink-soft);flex:1;min-width:180px;}
+.lyrbar-q{display:block;font-size:.76rem;color:var(--ink-faint);margin-top:.2rem;}
+.lyrbar-btns{display:flex;gap:.4rem;}
+
+/* ============ BLATT (Text einfügen) ============ */
+.sheet{position:fixed;inset:0;z-index:300;background:rgba(10,20,18,.5);
+  display:flex;align-items:flex-end;justify-content:center;}
+.sheet[hidden]{display:none;}
+.sheet-in{
+  background:var(--surface);width:min(640px,100%);max-height:88vh;
+  border-radius:14px 14px 0 0;display:flex;flex-direction:column;
+  border:1px solid var(--rule);border-bottom:0;
+}
+.sheet-head{display:flex;align-items:center;gap:1rem;padding:.9rem 1.1rem;
+  border-bottom:1px solid var(--rule);}
+.sheet-head h3{margin:0;font-size:1.05rem;flex:1;}
+.sheet-body{padding:1rem 1.1rem;overflow-y:auto;}
+.sheet-body p{font-size:.88rem;color:var(--ink-soft);}
+#sheetText{
+  width:100%;min-height:34vh;border:1px solid var(--rule);border-radius:8px;
+  background:var(--paper);color:var(--ink);padding:.7rem .8rem;
+  font-family:var(--f-body);font-size:max(16px,.95rem);line-height:1.5;resize:vertical;
+}
+#sheetText:focus{outline:none;border-color:var(--accent);}
+.sheet-count{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-faint);margin-top:.5rem;}
+.sheet-count.ok{color:var(--accent);font-weight:700;}
+.sheet-count.zuviel{color:var(--ember);}
+.sheet-foot{display:flex;gap:.5rem;justify-content:flex-end;padding:.85rem 1.1rem;
+  border-top:1px solid var(--rule);}
+
+/* ============ SICHERN ============ */
+.sicherctl{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;}
+.sicherinfo{font-family:var(--f-ui);font-size:.78rem;color:var(--accent);}
+.sicherbox{
+  width:100%;min-height:110px;margin-top:.8rem;border:1px solid var(--rule);border-radius:8px;
+  background:var(--paper);color:var(--ink-soft);padding:.6rem .7rem;
+  font-family:var(--f-mono);font-size:.72rem;resize:vertical;
+}
+.sicherbox:focus{outline:none;border-color:var(--accent);}
+.wcount{font-family:var(--f-mono);font-size:.74rem;color:var(--ink-faint);font-weight:400;}
+
+/* ============ REITERLEISTE UNTEN ============ */
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:90;
+  display:flex;background:var(--surface);border-top:1px solid var(--rule);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.tabbar a{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:.5rem .2rem .55rem;text-decoration:none;color:var(--ink-faint);
+  font-family:var(--f-ui);font-size:.68rem;font-weight:600;
+}
+.tabbar a .ico{font-size:1.15rem;line-height:1;}
+.tabbar a.on{color:var(--accent);}
+@media (min-width:1240px){ .tabbar{display:none;} }
+@media (max-width:1239px){ .main{padding-bottom:5.5rem;} }
+
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;animation:none !important;}
 }
@@ -429,6 +602,30 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   .chordcard{width:92px;}
   .tuner button{width:58px;height:58px;}
   .stroke{width:34px;height:46px;}
+
+  /* Vorspann kompakt halten — darunter beginnt sofort die Navigation */
+  .hero{padding:1.4rem 0 1.2rem;}
+  .hero h1{font-size:2.3rem;}
+  .hero .lede{font-size:.95rem;line-height:1.45;}
+  .hero-facts{gap:.35rem;margin-top:1rem;}
+  .fact{font-size:.7rem;padding:.22rem .55rem;}
+
+  /* Neue Bausteine am Handy */
+  .startgrid{grid-template-columns:1fr 1fr;gap:.5rem;margin:1.5rem 0 2rem;}
+  .tile{padding:.8rem .85rem;}
+  .tile-t{font-size:1.15rem;}
+  .tile-d{font-size:.8rem;}
+  .song-strum{padding:.9rem .8rem;}
+  .lyrbar{padding:.7rem .8rem;}
+  .lyrbar-btns{width:100%;}
+  .lyrbar-btns .btn{flex:1;justify-content:center;}
+  .sheet-in{border-radius:14px 14px 0 0;max-height:92vh;}
+  .songnav a{font-size:.8rem;}
+}
+
+@media (max-width:400px){
+  .scard{padding:.6rem .7rem;gap:.6rem;}
+  .scard-s{display:none;}
 }
 
 @media (max-width:400px){
@@ -459,20 +656,20 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 
 <nav class="toc" id="toc" aria-label="Inhaltsverzeichnis">
   <h2>Handwerk</h2>
-  <a href="#instrument"><span class="num">01</span>Dein Instrument</a>
-  <a href="#griffbilder"><span class="num">02</span>Griffbilder lesen</a>
-  <a href="#ersteGriffe"><span class="num">03</span>Die ersten drei Griffe</a>
-  <a href="#rhythmus"><span class="num">04</span>Rhythmus &amp; Schlagmuster</a>
-  <a href="#lagerfeuergriffe"><span class="num">05</span>Die Lagerfeuer-Griffe</a>
-  <a href="#barre"><span class="num">06</span>Barré &amp; harte Griffe</a>
-  <a href="#transponieren"><span class="num">07</span>Tonart &amp; Transponieren</a>
-  <a href="#lagerfeuer"><span class="num">08</span>Am Lagerfeuer</a>
+  <a href="#/instrument"><span class="num">01</span>Dein Instrument</a>
+  <a href="#/griffbilder"><span class="num">02</span>Griffbilder lesen</a>
+  <a href="#/ersteGriffe"><span class="num">03</span>Die ersten drei Griffe</a>
+  <a href="#/rhythmus"><span class="num">04</span>Rhythmus &amp; Schlagmuster</a>
+  <a href="#/lagerfeuergriffe"><span class="num">05</span>Die Lagerfeuer-Griffe</a>
+  <a href="#/barre"><span class="num">06</span>Barré &amp; harte Griffe</a>
+  <a href="#/transponieren"><span class="num">07</span>Tonart &amp; Transponieren</a>
+  <a href="#/lagerfeuer"><span class="num">08</span>Am Lagerfeuer</a>
   <h2>Nachschlagen</h2>
-  <a href="#lexikon">Akkord-Lexikon</a>
-  <a href="#plan">8-Wochen-Plan</a>
-  <a href="#werkzeug">Werkzeugkasten</a>
+  <a href="#/lexikon">Akkord-Lexikon</a>
+  <a href="#/plan">8-Wochen-Plan</a>
+  <a href="#/werkzeug">Werkzeugkasten</a>
   <h2>Lieder</h2>
-  <a href="#lieder">Alle Lieder &amp; Filter</a>
+  <a href="#/lieder">Alle Lieder &amp; Filter</a>
   <div id="tocSongs"></div>
 </nav>
 
@@ -482,6 +679,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
       <span class="strings" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       <span class="bname">Lagerfeuer-Ukulele</span>
     </a>
+    <button class="btn sq" id="backBtn" aria-label="Zurück" hidden>‹</button>
     <button class="btn sq" id="tocBtn" aria-label="Inhaltsverzeichnis öffnen">☰</button>
     <button class="btn sq" id="sizeBtn" aria-label="Textgröße der Lieder ändern"
             title="Textgröße der Lieder">A</button>
@@ -493,6 +691,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 
 <main class="main" id="top">
 
+  <section id="start" class="chapter view">
   <div class="hero">
     <div class="eyebrow">Ukulele von null — bis das Lagerfeuer mitsingt</div>
     <h1>Vier Saiten,<br><em>ein Lagerfeuer</em></h1>
@@ -507,7 +706,8 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
     </div>
   </div>
 
-  <section id="sostart" class="chapter">
+    <div class="startgrid" id="startgrid"></div>
+
     <p style="max-width:var(--read);font-size:1.05rem;">
       <strong>So benutzt du dieses Buch.</strong> Die Kapitel 1 bis 8 sind das Handwerk — lies sie der Reihe nach,
       aber nicht alle auf einmal. Der Liederteil ist nach Schwierigkeit sortiert: Stufe 1 braucht einen Finger,
@@ -528,15 +728,18 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 
     <div class="note warm">
       <span class="lbl">Zu den Liedtexten</span>
-      <p>Die Texte von Spongebob, Pokémon &amp; Co. sind urheberrechtlich geschützt — ich darf sie hier nicht abdrucken.
+      <p>Die Texte von SpongeBob, Pokémon &amp; Co. sind urheberrechtlich geschützt — ich darf sie hier nicht abdrucken.
       Was du bekommst, ist das, was beim Spielen wirklich zählt: das vollständige Akkord-Raster, Takt für Takt, Zeile für Zeile.
-      Unter jeder Zeile ist ein Feld. Schreib deinen Text selbst hinein (die Zeilennummern passen zu den Zeilen des Originals) —
-      das Buch merkt sich alles in deinem Browser. Bei gemeinfreien Liedern steht der Text komplett da.</p>
+      Bei gemeinfreien Liedern steht der Text komplett da.</p>
+      <p><strong>Damit das schnell geht</strong>, hat jedes geschützte Lied den Knopf <strong>Text einfügen</strong>:
+      Du kopierst den Text einmal von einer der verlinkten Quellen, fügst ihn in einem Rutsch ein, und das Buch
+      verteilt ihn Zeile für Zeile auf die Takte. Unter <a href="#/werkzeug">Werkzeugkasten</a> kannst du alle
+      eingetragenen Texte sichern und auf ein anderes Gerät übertragen.</p>
     </div>
   </section>
 
   <!-- ===================== 01 INSTRUMENT ===================== -->
-  <section id="instrument" class="chapter">
+  <section id="instrument" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 01</span>
       <h2>Dein Instrument</h2>
@@ -599,7 +802,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   </section>
 
   <!-- ===================== 02 GRIFFBILDER ===================== -->
-  <section id="griffbilder" class="chapter">
+  <section id="griffbilder" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 02</span>
       <h2>Griffbilder lesen</h2>
@@ -650,7 +853,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   </section>
 
   <!-- ===================== 03 ERSTE GRIFFE ===================== -->
-  <section id="ersteGriffe" class="chapter">
+  <section id="ersteGriffe" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 03</span>
       <h2>Die ersten drei Griffe</h2>
@@ -688,11 +891,11 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
       oder über dumpfe Saiten — aber halte den Takt. Ein falscher Akkord im Takt klingt am Lagerfeuer richtig.
       Ein richtiger Akkord außerhalb des Takts reißt das ganze Lied auseinander.</p>
     </div>
-    <p><strong>Jetzt spielbar:</strong> <a href="#s-bruderjakob">Bruder Jakob</a> (nur C), <a href="#s-entchen">Alle meine Entchen</a>,
-    <a href="#s-haenschen">Hänschen klein</a>.</p>
+    <p><strong>Jetzt spielbar:</strong> <a href="#/lied/bruderjakob">Bruder Jakob</a> (nur C), <a href="#/lied/entchen">Alle meine Entchen</a>,
+    <a href="#/lied/haenschen">Hänschen klein</a>.</p>
   </section>
   <!-- ===================== 04 RHYTHMUS ===================== -->
-  <section id="rhythmus" class="chapter">
+  <section id="rhythmus" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 04</span>
       <h2>Rhythmus &amp; Schlagmuster</h2>
@@ -734,7 +937,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   </section>
 
   <!-- ===================== 05 LAGERFEUERGRIFFE ===================== -->
-  <section id="lagerfeuergriffe" class="chapter">
+  <section id="lagerfeuergriffe" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 05</span>
       <h2>Die Lagerfeuer-Griffe</h2>
@@ -765,14 +968,14 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
     <h3>Die vier Zauberakkorde</h3>
     <p>Es gibt eine Akkordfolge, mit der du buchstäblich hunderte Popsongs begleiten kannst:</p>
     <p style="font-family:var(--f-mono);font-size:1.5rem;color:var(--accent);font-weight:700;letter-spacing:.06em;">C&nbsp;—&nbsp;G&nbsp;—&nbsp;Am&nbsp;—&nbsp;F</p>
-    <p>In diesem Buch findest du sie unter anderem bei <a href="#s-imyours">I'm Yours</a>, <a href="#s-letitbe">Let It Be</a>,
-    <a href="#s-countryroads">Country Roads</a> und <a href="#s-standbyme">Stand By Me</a> (dort in der Reihenfolge C – Am – F – G).
+    <p>In diesem Buch findest du sie unter anderem bei <a href="#/lied/imyours">I'm Yours</a>, <a href="#/lied/letitbe">Let It Be</a>,
+    <a href="#/lied/countryroads">Country Roads</a> und <a href="#/lied/standbyme">Stand By Me</a> (dort in der Reihenfolge C – Am – F – G).
     Wenn du am Lagerfeuer sitzt und ein Lied nicht kennst: Probier diese vier. Die Trefferquote ist absurd hoch.</p>
 
     <h3>Der Fünfziger-Kreis</h3>
     <p style="font-family:var(--f-mono);font-size:1.5rem;color:var(--accent);font-weight:700;letter-spacing:.06em;">C&nbsp;—&nbsp;Am&nbsp;—&nbsp;Dm&nbsp;—&nbsp;G</p>
     <p>Die zweite große Folge — die Grundlage von tausend Fünfzigerjahre-Balladen. Und, wie du gleich sehen wirst,
-    von <a href="#s-hosezerrissen">Die Hose zerrissen</a>. Genau deshalb klingt das Lied wie ein Lagerfeuer-Klassiker
+    von <a href="#/lied/hosezerrissen">Die Hose zerrissen</a>. Genau deshalb klingt das Lied wie ein Lagerfeuer-Klassiker
     aus einer anderen Zeit: Es ist einer.</p>
 
     <h4>Wechselpaare zum Drillen</h4>
@@ -790,7 +993,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   </section>
 
   <!-- ===================== 06 BARRE ===================== -->
-  <section id="barre" class="chapter">
+  <section id="barre" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 06</span>
       <h2>Barré &amp; harte Griffe</h2>
@@ -823,7 +1026,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   </section>
 
   <!-- ===================== 07 TRANSPONIEREN ===================== -->
-  <section id="transponieren" class="chapter">
+  <section id="transponieren" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 07</span>
       <h2>Tonart &amp; Transponieren</h2>
@@ -876,7 +1079,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   </section>
 
   <!-- ===================== 08 LAGERFEUER ===================== -->
-  <section id="lagerfeuer" class="chapter">
+  <section id="lagerfeuer" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 08</span>
       <h2>Am Lagerfeuer</h2>
@@ -889,7 +1092,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
     <ul>
       <li>Bei geradem Takt (4/4): <strong>„Und — zwo — drei — vier —“</strong> im Tempo des Liedes, dann geht's los.</li>
       <li>Bei Walzertakt (3/4): <strong>„Zwei — drei —“</strong>.</li>
-      <li>Bei einem Auftakt (das Lied fängt <em>vor</em> der Eins an, wie bei <a href="#s-geburtstag">Zum Geburtstag viel Glück</a>):
+      <li>Bei einem Auftakt (das Lied fängt <em>vor</em> der Eins an, wie bei <a href="#/lied/geburtstag">Zum Geburtstag viel Glück</a>):
       zähl einen ganzen Takt vor und sing die Auftaktsilbe auf der letzten Zählzeit.</li>
     </ul>
 
@@ -917,7 +1120,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   </section>
 
   <!-- ===================== LEXIKON ===================== -->
-  <section id="lexikon" class="chapter">
+  <section id="lexikon" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Nachschlagen</span>
       <h2>Akkord-Lexikon</h2>
@@ -935,45 +1138,55 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
     <div class="chordgrid" data-chords="Em,Bb,B7,Bm,Cm,Fm,Eb,E,Ab,F#m"></div>
   </section>
   <!-- ===================== LIEDER ===================== -->
-  <section id="lieder" class="chapter">
+  <section id="lieder" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Der Liederteil</span>
       <h2>26 Lieder, aufsteigend</h2>
     </div>
-    <p>Sortiert nach Schwierigkeit, nicht nach Beliebtheit. Stufe 1 kannst du heute, Stufe 4 in etwa acht Wochen.
-    Jedes Lied zeigt oben, welche Griffe es braucht — sind alle grün in deinem Kopf, kannst du das Lied.</p>
+    <p class="lead-kurz">Stufe 1 kannst du heute, Stufe 4 in etwa acht Wochen. Die Zahl links ist die Stufe,
+    darunter stehen die Griffe, die das Lied braucht.</p>
 
-    <div class="note">
-      <span class="lbl">Wie du eine Liedseite liest</span>
-      <p>Jede Zeile besteht aus <strong>Takten</strong> — den Kästchen nebeneinander. In jedem Kästchen steht der Akkord,
-      der dort gegriffen wird; ein <strong>·</strong> heißt „vorherigen Akkord weiterhalten“. Ein Takt sind vier Schläge
-      (im Walzertakt drei). Darunter steht die Textzeile beziehungsweise dein Eingabefeld.</p>
-    </div>
-
-    <div class="note warm">
-      <span class="lbl">Ehrlichkeitshinweis</span>
-      <p>Das hier sind <strong>Begleitfassungen für Anfänger</strong>: Griffe auf die einfachsten Varianten reduziert,
-      manchmal in eine leichtere Tonart geschoben, Zwischenakkorde weggelassen. Bei den mit
-      <span class="badge ok">geprüft</span> markierten Liedern habe ich die Akkorde gegen veröffentlichte Charts abgeglichen
-      (Quellen stehen unter dem Lied). Bei den übrigen ist die Fassung nach Gehör vereinfacht — wenn dir eine Stelle
-      schräg vorkommt, hat das Original dort wahrscheinlich einen Zwischenakkord. Trau deinem Ohr und ändere sie.</p>
-    </div>
+    <input type="search" id="songSearch" class="search" placeholder="Lied oder Akkord suchen …"
+           aria-label="Lieder durchsuchen" autocomplete="off">
 
     <div class="filters" id="filters">
-      <span class="lbl">Filter</span>
       <button class="btn on" data-lvl="0">Alle</button>
       <button class="btn" data-lvl="1">Stufe 1</button>
       <button class="btn" data-lvl="2">Stufe 2</button>
       <button class="btn" data-lvl="3">Stufe 3</button>
       <button class="btn" data-lvl="4">Stufe 4</button>
-      <button class="btn" data-lvl="star">★ Deine Wunschlieder</button>
+      <button class="btn" data-lvl="star">★ Wunschlieder</button>
     </div>
 
     <div class="songlist" id="songlist"></div>
+    <p id="noHits" class="nohits" hidden>Nichts gefunden. Andere Schreibweise probieren?</p>
+
+    <details class="hinweise">
+      <summary>Wie du eine Liedseite liest</summary>
+      <p>Jede Zeile besteht aus <strong>Takten</strong> — den Kästchen nebeneinander. In jedem Kästchen steht der Akkord,
+      der dort gegriffen wird; ein <strong>·</strong> heißt „vorherigen Akkord weiterhalten“. Ein Takt sind vier Schläge
+      (im Walzertakt drei). Darunter steht die Textzeile beziehungsweise dein Eingabefeld.</p>
+      <p>Oben auf jeder Liedseite siehst du die Griffbilder, das Schlagmuster zum Anhören und den
+      Transponier-Knopf, mit dem du das Lied in deine Stimmlage schiebst.</p>
+    </details>
+
+    <details class="hinweise warm">
+      <summary>Woher die Akkorde kommen</summary>
+      <p>Das hier sind <strong>Begleitfassungen für Anfänger</strong>: Griffe auf die einfachsten Varianten reduziert,
+      manchmal in eine leichtere Tonart geschoben, Zwischenakkorde weggelassen. Bei den mit
+      <span class="badge ok">geprüft</span> markierten Liedern habe ich die Akkorde gegen veröffentlichte Charts abgeglichen
+      (Quellen stehen unter dem Lied). Bei den übrigen ist die Fassung nach Gehör vereinfacht — wenn dir eine Stelle
+      schräg vorkommt, hat das Original dort wahrscheinlich einen Zwischenakkord. Trau deinem Ohr und ändere sie.</p>
+    </details>
+  </section>
+
+  <!-- ===================== EINE LIEDSEITE ===================== -->
+  <section id="lied" class="chapter view">
+    <div id="songview"></div>
   </section>
 
   <!-- ===================== PLAN ===================== -->
-  <section id="plan" class="chapter">
+  <section id="plan" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Nachschlagen</span>
       <h2>Acht Wochen bis zum Feuer</h2>
@@ -997,7 +1210,7 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   </section>
 
   <!-- ===================== WERKZEUG ===================== -->
-  <section id="werkzeug" class="chapter">
+  <section id="werkzeug" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Nachschlagen</span>
       <h2>Werkzeugkasten</h2>
@@ -1038,6 +1251,21 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
       </table>
     </div>
 
+    <h3>Deine Texte sichern und übertragen</h3>
+    <p>Alles, was du in die Textzeilen schreibst — und die Häkchen im Übungsplan — liegt nur im Browser
+    <em>dieses</em> Geräts. Was du am Rechner einträgst, steht nicht automatisch auf dem Handy. Damit du nicht
+    doppelt tippst: Hier holst du dir alles als Textblock, den du dir selbst schickst und auf dem anderen
+    Gerät wieder einsetzt.</p>
+    <div class="card" style="max-width:var(--read);">
+      <div class="sicherctl">
+        <button class="btn" id="expBtn">Alles herausholen</button>
+        <button class="btn" id="impBtn">Gesichertes einsetzen</button>
+        <span id="sicherInfo" class="sicherinfo"></span>
+      </div>
+      <textarea id="sicherBox" class="sicherbox" spellcheck="false"
+        placeholder="Hier erscheint dein gesicherter Stand. Zum Einsetzen: Text hier hineinkopieren und auf „Gesichertes einsetzen“ tippen." hidden></textarea>
+    </div>
+
     <h3>Wenn du mehr Lieder willst</h3>
     <p>Dieses Buch hat einen Begleit-Skill: Sag im Chat einfach <strong>„neues Lied fürs Ukulele-Buch: …“</strong> und nenne den Titel.
     Das Lied wird recherchiert, in eine anfängertaugliche Tonart gebracht, an der richtigen Stufe einsortiert und ins Buch eingebaut —
@@ -1052,9 +1280,59 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
       ausschließlich lokal in deinem Browser.</p>
     </div>
   </section>
+
+  <!-- ===================== KURSÜBERSICHT ===================== -->
+  <section id="kurs" class="chapter view">
+    <div class="chapter-head">
+      <span class="kicker">Der Kurs</span>
+      <h2>Das Handwerk</h2>
+    </div>
+    <p>Acht Kapitel, der Reihe nach. Du musst nicht alles gelesen haben, bevor du spielst —
+    aber jedes Kapitel schaltet Lieder frei, die vorher nicht gingen.</p>
+    <div class="kurslist" id="kurslist"></div>
+    <h3>Nachschlagen</h3>
+    <div class="kurslist">
+      <a class="kcard" href="#/lexikon"><span class="knum">A</span>
+        <span class="kmain"><span class="kt">Akkord-Lexikon</span>
+        <span class="kd">28 Griffbilder mit Fingersatz, nach Schwierigkeit</span></span>
+        <span class="chev">›</span></a>
+      <a class="kcard" href="#/werkzeug"><span class="knum">W</span>
+        <span class="kmain"><span class="kt">Werkzeugkasten</span>
+        <span class="kd">Fehlersuche, Einkaufsliste, Texte sichern</span></span>
+        <span class="chev">›</span></a>
+    </div>
+  </section>
 </main>
 
+<nav class="tabbar" id="tabbar" aria-label="Hauptnavigation">
+  <a href="#/start"  data-tab="start"><span class="ico">◆</span>Start</a>
+  <a href="#/lieder" data-tab="lieder"><span class="ico">♫</span>Lieder</a>
+  <a href="#/kurs"   data-tab="kurs"><span class="ico">≡</span>Kurs</a>
+  <a href="#/plan"   data-tab="plan"><span class="ico">✓</span>Plan</a>
+</nav>
+
 <div id="pop" role="tooltip" aria-hidden="true"></div>
+
+<!-- Blatt zum Einfügen ganzer Liedtexte -->
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-head">
+      <h3 id="sheetTitle">Text einfügen</h3>
+      <button class="btn sq" id="sheetClose" aria-label="Schließen">✕</button>
+    </div>
+    <div class="sheet-body">
+      <p id="sheetHint"></p>
+      <textarea id="sheetText" spellcheck="false"
+        placeholder="Liedtext hier hineinkopieren — eine Zeile pro Zeile des Liedes.
+Leerzeilen zwischen Strophen darfst du drinlassen, die werden übersprungen."></textarea>
+      <div id="sheetCount" class="sheet-count"></div>
+    </div>
+    <div class="sheet-foot">
+      <button class="btn" id="sheetCancel">Abbrechen</button>
+      <button class="btn on" id="sheetApply">Auf die Zeilen verteilen</button>
+    </div>
+  </div>
+</div>
 <script>
 "use strict";
 
@@ -1303,22 +1581,32 @@ var PATTERNS = [
    desc:"Das x ist ein Abschlag, bei dem der Handballen gleichzeitig auf die Saiten fällt — es klackt statt zu klingen. Das ist deine Snaredrum. Klingt nach Band statt nach Anfänger."}
 ];
 
-function renderPatterns(){
-  var host = document.getElementById("patterns");
-  host.innerHTML = PATTERNS.map(function(p){
-    var beats = p.meter === "3/4" ? ["1","+","2","+","3","+"] : ["1","+","2","+","3","+","4","+"];
-    var cells = p.slots.map(function(s,i){
-      var glyph = s === "D" ? "↓" : s === "U" ? "↑" : s === "x" ? "✕" : "·";
-      return '<div class="stroke'+(s==="-"?" rest":"")+'" data-i="'+i+'"><span>'+glyph+'</span><span class="beat">'+beats[i]+'</span></div>';
-    }).join("");
-    return '<div class="patternbox" data-p="'+p.id+'">'
-      + '<div class="ptop"><span class="pname">'+esc(p.name)+'</span>'
-      + '<span class="pmeta">'+p.meter+' · '+p.bpm+' bpm</span></div>'
-      + '<div class="strum">'+cells+'</div>'
-      + '<div class="pctl"><button class="btn play">▶ Abspielen</button>'
-      + '<button class="btn slow">Halbes Tempo</button></div>'
-      + '<p class="desc">'+esc(p.desc)+'</p></div>';
+function patternByName(name){
+  for(var i=0;i<PATTERNS.length;i++){ if(PATTERNS[i].name === name) return PATTERNS[i]; }
+  return null;
+}
+
+/* compact = Fassung fuer die Liedseite: ohne Beschreibung, mit Tempo des Liedes */
+function patternBoxHTML(p, compact, bpmText){
+  var beats = p.meter === "3/4" ? ["1","+","2","+","3","+"] : ["1","+","2","+","3","+","4","+"];
+  var cells = p.slots.map(function(s,i){
+    var glyph = s === "D" ? "↓" : s === "U" ? "↑" : s === "x" ? "✕" : "·";
+    return '<div class="stroke'+(s==="-"?" rest":"")+'" data-i="'+i+'">'
+      + '<span>'+glyph+'</span><span class="beat">'+beats[i]+'</span></div>';
   }).join("");
+  return '<div class="patternbox'+(compact?" compact":"")+'" data-p="'+p.id+'">'
+    + '<div class="ptop"><span class="pname">'+esc(p.name)+'</span>'
+    + '<span class="pmeta">'+esc(bpmText || (p.meter+" · "+p.bpm+" bpm"))+'</span></div>'
+    + '<div class="strum">'+cells+'</div>'
+    + '<div class="pctl"><button class="btn play">▶ Abspielen</button>'
+    + '<button class="btn slow">Halbes Tempo</button></div>'
+    + (compact ? '' : '<p class="desc">'+esc(p.desc)+'</p>')
+    + '</div>';
+}
+
+function renderPatterns(){
+  document.getElementById("patterns").innerHTML =
+    PATTERNS.map(function(p){ return patternBoxHTML(p, false); }).join("");
 }
 
 var timer = null, activeBox = null;
@@ -1346,8 +1634,9 @@ function playPattern(box, p, mult){
     i = (i + 1) % p.slots.length;
   }, ms);
 }
-document.getElementById("patterns").addEventListener("click", function(e){
-  var box = e.target.closest(".patternbox"); if(!box) return;
+/* Delegiert auf das ganze Dokument, damit auch die Muster auf den Liedseiten spielen */
+document.addEventListener("click", function(e){
+  var box = e.target.closest ? e.target.closest(".patternbox") : null; if(!box) return;
   var p = PATTERNS.filter(function(x){ return x.id === box.dataset.p; })[0];
   if(e.target.classList.contains("play")){
     if(activeBox === box){ stopPattern(); } else { playPattern(box, p, 1); }
@@ -1499,7 +1788,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"lagerfeuerlied", t:"Das Lagerfeuerlied-Lied", sub:"The Campfire Song Song · SpongeBob Schwammkopf", lvl:2, key:"C",
+{id:"lagerfeuerlied", textsuche:"SpongeBob Das Lagerfeuerlied Lied deutsch", texthinweis:"Die deutsche Synchronfassung heisst „Das Lagerfeuerlied-Lied“ — such danach, nicht nach dem englischen Titel.", t:"Das Lagerfeuerlied-Lied", sub:"The Campfire Song Song · SpongeBob Schwammkopf", lvl:2, key:"C",
  chords:["C","F","D7","G7"], strum:"Der Wandertakt", tempo:"116 bpm, dann doppelt · 4/4", verified:true, star:true,
  note:"<b>Der Witz des Liedes ist das Tempo.</b> Teil A spielst du gemütlich, Teil B mit exakt denselben Akkorden doppelt so schnell — und Teil C, wenn du dich traust, nochmal schneller. Nimm dir deshalb ein Ausgangstempo, das sich zu langsam anfühlt: Was du beim ersten Durchgang zu schnell ansetzt, killt dich beim zweiten.<br><br>Der Grundwechsel ist <b>C → F → C</b>, dreimal hintereinander, dann einmal <b>D7 → G7</b> als Spannungsbogen zum Schluss der Strophe. D7 ist hier der einzige neue Griff — er kommt nur an einer einzigen Stelle vor, das schaffst du.",
  src:[{t:"Akkorde abgeglichen mit UkuleleChordsSongs (Tonart C) und Scorpex Uke (Tonart G, transponiert)", u:"https://ukulelechordssongs.blogspot.com/2017/05/ukulele-chords-campfire-song-song-by-spongebob.html"}],
@@ -1558,7 +1847,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"spongebobtheme", t:"SpongeBob-Titelmelodie", sub:"SpongeBob Schwammkopf · Titellied", lvl:3, key:"G",
+{id:"spongebobtheme", textsuche:"SpongeBob Schwammkopf Titelsong deutsch Ananas", texthinweis:"Deutsche Fassung: die Ruf-und-Antwort-Zeilen sind kuerzer als im Original.", t:"SpongeBob-Titelmelodie", sub:"SpongeBob Schwammkopf · Titellied", lvl:3, key:"G",
  chords:["G","C","D7","A7"], strum:"Der Wandertakt", tempo:"145 bpm · 4/4", verified:true, star:true,
  note:"<b>Ruf und Antwort.</b> Du spielst die Frage, alle anderen brüllen den Namen — deshalb funktioniert das Lied am Lagerfeuer so gut, ohne dass jemand den Text können muss. Die Ansage am Anfang („Sind alle bereit?“) wird gesprochen, ohne Akkord; dann geht es stur auf Abschlägen los, straff wie ein Seemannslied. Kein Aufschlag, keine Verzierung — jeder Schlag ein Ruderschlag.<br><br>Das <b>A7</b> in der letzten Ruf-Zeile ist der Griff mit einem einzigen Finger und zieht wunderbar zum D7. Die vier Namensrufe am Ende laufen über G – C – D7 – G, also einmal quer durch die ganze Tonart.",
  src:[{t:"Akkordvorrat (G, C, D7, A7) nach UkuTabs; Anordnung als vereinfachte Ruf-und-Antwort-Begleitung", u:"https://ukutabs.com/m/misc-cartoons/spongebob-squarepants-theme/"}],
@@ -1577,7 +1866,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"hosezerrissen", t:"Die Hose zerrissen", sub:"Ripped Pants · SpongeBob Schwammkopf", lvl:3, key:"C",
+{id:"hosezerrissen", textsuche:"SpongeBob Ich hab die Hose mir zerrissen deutsch", texthinweis:"Deutscher Titel der Synchronfassung; die Untertitel der Folge sind die genaueste Quelle.", t:"Die Hose zerrissen", sub:"Ripped Pants · SpongeBob Schwammkopf", lvl:3, key:"C",
  chords:["C","Am","Dm","G","Em"], strum:"Der Klassiker", tempo:"72 bpm · 4/4", verified:true, star:true,
  note:"<b>Das ist in Wahrheit ein Fünfzigerjahre-Lied</b> — und genau deshalb klingt es wie am Lagerfeuer erfunden. Die Folge <b>C – Am – Dm – G</b> ist der berühmte „Fünfziger-Kreis“, das Rückgrat von tausend Doo-Wop-Balladen. Wenn du diese vier Takte im Schlaf kannst, kannst du nebenbei hunderte andere Lieder mitbegleiten.<br><br>Der einzige Sonderfall ist die dritte Zeile, wo statt C ein <b>Em</b> steht — das macht die Stelle sehnsüchtig. Tempo bewusst langsam (etwa 72), das Lied ist eine Schunkelnummer, kein Rocksong.",
  src:[{t:"Akkorde abgeglichen mit ukulele-tabs.com (Tonart C: C–Am–Dm–G, Em-Variante)", u:"https://www.ukulele-tabs.com/uke-songs/spongebob-squarepants/ripped-pants-uke-tab-13552.html"}],
@@ -1598,7 +1887,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"pippi", t:"Hey Pippi Langstrumpf", sub:"Pippi Langstrumpf · Titellied", lvl:3, key:"C",
+{id:"pippi", textsuche:"Hey Pippi Langstrumpf Text", t:"Hey Pippi Langstrumpf", sub:"Pippi Langstrumpf · Titellied", lvl:3, key:"C",
  chords:["C","Dm","F","G"], strum:"Der Wandertakt", tempo:"132 bpm · 4/4",
  note:"Schnell, laut, ohne Rücksicht. Das <b>Dm</b> in der Strophe ist neu: Es ist ein F, bei dem zusätzlich der Ringfinger auf den 2. Bund der C-Saite geht. Der Refrain („falleri, fallera“) läuft über C – F – G – C und ist das, was alle mitsingen — den solltest du auswendig können.",
  secs:[
@@ -1614,7 +1903,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"bienemaja", t:"Die Biene Maja", sub:"Karel Svoboda / Karel Gott · Titellied", lvl:3, key:"C",
+{id:"bienemaja", textsuche:"Biene Maja Karel Gott Text", t:"Die Biene Maja", sub:"Karel Svoboda / Karel Gott · Titellied", lvl:3, key:"C",
  chords:["C","F","G","G7","Dm"], strum:"Der Klassiker", tempo:"120 bpm · 4/4",
  note:"Im Original steht das Lied in D-Dur; hier nach C geschoben, damit du ohne Barré auskommst. Mit dem <b>+2</b> auf dem Transponier-Knopf bist du zurück im Original — dann brauchst du D, A, G, Em, und das Lied liegt für viele Stimmen bequemer.",
  secs:[
@@ -1674,7 +1963,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"pokemon", t:"Pokémon-Titelmelodie", sub:"Gotta Catch 'Em All · Jason Paige, 1999", lvl:4, key:"Am",
+{id:"pokemon", textsuche:"Pokemon Titelsong deutsch Ich will der Allerbeste sein", texthinweis:"Deutsche Fassung der 1. Staffel; achte darauf, nicht die englische Version zu erwischen.", t:"Pokémon-Titelmelodie", sub:"Gotta Catch 'Em All · Jason Paige, 1999", lvl:4, key:"Am",
  chords:["Am","G","Dm","C","F","E7"], strum:"Balladenschlag", tempo:"118 bpm · 4/4", verified:true, star:true,
  note:"<b>Das ehrgeizigste Lied in diesem Buch — und es lohnt sich.</b> Im Original steht es in g-Moll, was auf der Ukulele drei Barré-Griffe bedeutet. Hier ist es nach <b>a-Moll</b> transponiert und braucht keinen einzigen. Mit <b>−2</b> auf dem Transponier-Knopf landest du wieder im Original, falls du zur Aufnahme mitspielen willst.<br><br>Die Strophe ist einfach: <b>Am – G</b>, zweimal, dann <b>Dm – C</b> und <b>F – E7</b>. Das E7 am Ende ist der Motor: Es zieht mit aller Kraft zurück nach Am, deshalb klingt die Strophe wie ein Anlauf. Der Refrain ist der lange Teil — 13 Zeilen, aber fast alles Am, G, Dm, F und C in wechselnder Folge. Lern ihn in zwei Hälften.",
  src:[{t:"Akkorde abgeglichen mit ukulele-tabs.com (Original g-Moll), hier +2 nach a-Moll transponiert", u:"https://www.ukulele-tabs.com/uke-songs/pokemon/pokemon-theme-song-uke-tab-16193.html"}],
@@ -1800,7 +2089,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"ducktales", t:"DuckTales", sub:"Mark Mueller, 1987 · Titellied", lvl:4, key:"C",
+{id:"ducktales", textsuche:"DuckTales Titellied deutsch Text", t:"DuckTales", sub:"Mark Mueller, 1987 · Titellied", lvl:4, key:"C",
  chords:["C","C7","F","G","Am"], strum:"Achtel durch", tempo:"150 bpm · 4/4",
  note:"Schnell, dicht, und mit dem <b>C7</b> gleich im zweiten Takt — genau der Akkord, der dem Lied seinen Achtziger-Cartoon-Schwung gibt. Er ist leicht: ein C, bei dem der Zeigefinger zusätzlich in den 1. Bund der A-Saite geht. Achtelmuster durchziehen und nicht langsamer werden.",
  secs:[
@@ -1833,18 +2122,75 @@ document.getElementById("demoChord").innerHTML =
 
 renderPatterns();
 
-/* ---------- Lieder ---------- */
-var host = document.getElementById("songlist");
-var XP = {};
+/* ==========================================================
+   LIEDER
+   ========================================================== */
+var XP = {};                                   // Transposition je Lied
+function chip(name){ return '<button class="chip" data-chord="'+esc(name)+'">'+esc(name)+'</button>'; }
+function songById(id){ for(var i=0;i<SONGS.length;i++){ if(SONGS[i].id===id) return SONGS[i]; } return null; }
+function lyricKey(id, si, ri){ return "uke.lyric."+id+"."+si+"."+ri; }
 
-function chip(name){
-  return '<button class="chip" data-chord="'+esc(name)+'">'+esc(name)+'</button>';
+/* Wie viele Textzeilen hat das Lied, und wie viele sind schon ausgefuellt? */
+function lyricStats(s){
+  var noetig = 0, da = 0;
+  s.secs.forEach(function(sec, si){
+    sec.rows.forEach(function(r, ri){
+      if(r.x) return;                          // gemeinfreier Text steht schon da
+      noetig++;
+      if((load(lyricKey(s.id, si, ri)) || "").trim()) da++;
+    });
+  });
+  return {noetig:noetig, da:da};
 }
 
-function songHTML(s){
+/* ---------- Kompakte Karte fuer die Liederliste ---------- */
+function songCardHTML(s){
+  var st = lyricStats(s);
+  var fort = st.noetig ? '<span class="pill">'+st.da+'/'+st.noetig+' Zeilen</span>' : '';
+  return '<a class="scard" href="#/lied/'+s.id+'" data-lvl="'+s.lvl+'" data-star="'+(s.star?1:0)+'"'
+    + ' data-such="'+esc((s.t+" "+s.sub+" "+s.chords.join(" ")+" "+s.key).toLowerCase())+'">'
+    + '<span class="scard-lvl">'+s.lvl+'</span>'
+    + '<span class="scard-main">'
+      + '<span class="scard-t">'+esc(s.t)+(s.star?' <b class="star">★</b>':'')+'</span>'
+      + '<span class="scard-s">'+esc(s.sub)+'</span>'
+      + '<span class="scard-c">'+s.chords.map(esc).join(' · ')+'</span>'
+    + '</span>'
+    + '<span class="scard-right">'+fort+'<span class="chev">›</span></span>'
+    + '</a>';
+}
+
+function renderSongList(){
+  document.getElementById("songlist").innerHTML = SONGS.map(songCardHTML).join("");
+  applyFilter();
+}
+
+/* ---------- Filter und Suche ---------- */
+var aktLvl = "0";
+function applyFilter(){
+  var q = (document.getElementById("songSearch").value || "").trim().toLowerCase();
+  var treffer = 0;
+  document.querySelectorAll("#songlist .scard").forEach(function(a){
+    var stufeOk = aktLvl === "0" || (aktLvl === "star" ? a.dataset.star === "1" : a.dataset.lvl === aktLvl);
+    var suchOk  = !q || a.dataset.such.indexOf(q) !== -1;
+    var zeig = stufeOk && suchOk;
+    a.style.display = zeig ? "" : "none";
+    if(zeig) treffer++;
+  });
+  document.getElementById("noHits").hidden = treffer > 0;
+}
+document.getElementById("filters").addEventListener("click", function(e){
+  var b = e.target.closest("button[data-lvl]"); if(!b) return;
+  this.querySelectorAll("button").forEach(function(x){ x.classList.remove("on"); });
+  b.classList.add("on"); aktLvl = b.dataset.lvl; applyFilter();
+});
+document.getElementById("songSearch").addEventListener("input", applyFilter);
+
+/* ---------- Die einzelne Liedseite ---------- */
+function songPageHTML(s){
   var n = XP[s.id] || 0;
   var tx = function(c){ return transposeChord(c, n); };
-  var lineNo = 0;
+  var zeile = 0;
+
   var badges = '<span class="badge lvl">Stufe '+s.lvl+'</span>'
     + (s.star ? '<span class="badge star">★ Wunschlied</span>' : '')
     + (s.verified ? '<span class="badge ok">geprüft</span>' : '')
@@ -1852,7 +2198,7 @@ function songHTML(s){
 
   var secs = s.secs.map(function(sec, si){
     var rows = sec.rows.map(function(r, ri){
-      lineNo++;
+      zeile++;
       var bars = r.b.map(function(c){
         return '<div class="bar">' + (c === "" ? '<span class="hold">·</span>' : chip(tx(c))) + '</div>';
       }).join("");
@@ -1860,28 +2206,58 @@ function songHTML(s){
       if(r.x){
         body = '<div class="line pd">'+esc(r.x)+'</div>';
       } else {
-        var key = "uke.lyric."+s.id+"."+si+"."+ri;
-        var val = load(key) || "";
-        body = '<div class="line"><span class="rowlabel">'+lineNo+'</span>'
-          + '<input type="text" data-k="'+key+'" value="'+esc(val)+'" '
-          + 'placeholder="Textzeile '+lineNo+' hier eintragen" aria-label="Textzeile '+lineNo+'"></div>';
+        var k = lyricKey(s.id, si, ri);
+        body = '<div class="line"><span class="rowlabel">'+zeile+'</span>'
+          + '<input type="text" data-k="'+k+'" value="'+esc(load(k) || "")+'" '
+          + 'placeholder="Textzeile '+zeile+'" aria-label="Textzeile '+zeile+'"></div>';
       }
       return '<div class="row"><div class="bars">'+bars+'</div>'+body+'</div>';
     }).join("");
     return '<div class="sec"><div class="sec-name">'+esc(sec.n)+'</div>'+rows+'</div>';
   }).join("");
 
+  /* Schlagmuster als Grafik */
+  var pat = patternByName(s.strum);
+  var patHTML = pat ? patternBoxHTML(pat, true, s.tempo)
+    : '<div class="song-note">Schlagmuster: '+esc(s.strum)+'</div>';
+
+  /* Textwerkzeug nur, wenn es ueberhaupt einzutragende Zeilen gibt */
+  var st = lyricStats(s);
+  var textTool = "";
+  if(st.noetig){
+    var q = encodeURIComponent(s.textsuche || s.t);
+    textTool = '<div class="lyrbar">'
+      + '<div class="lyrbar-txt"><b>Liedtext</b> — '
+        + (st.da ? st.da+' von '+st.noetig+' Zeilen eingetragen' : st.noetig+' Zeilen noch leer')
+        + '<span class="lyrbar-q">Text finden bei '
+        + '<a href="https://genius.com/search?q='+q+'" target="_blank" rel="noopener">Genius</a> · '
+        + '<a href="https://www.musixmatch.com/de/search/'+q+'" target="_blank" rel="noopener">Musixmatch</a>'
+        + (s.texthinweis ? ' — <em>'+esc(s.texthinweis)+'</em>' : '')
+        + '</span>'
+      + '</div>'
+      + '<div class="lyrbar-btns">'
+        + '<button class="btn on" data-paste="'+s.id+'">Text einfügen</button>'
+        + (st.da ? '<button class="btn" data-clear="'+s.id+'">Leeren</button>' : '')
+      + '</div></div>';
+  }
+
   var src = s.src ? '<div class="song-src">Quelle: '
     + s.src.map(function(q){ return esc(q.t)+' — <a href="'+esc(q.u)+'" target="_blank" rel="noopener">Chart</a>'; }).join(" · ")
     + '</div>' : '';
 
-  return '<article class="song" id="s-'+s.id+'" data-lvl="'+s.lvl+'" data-star="'+(s.star?1:0)+'">'
+  var idx = SONGS.indexOf(s);
+  var nav = '<div class="songnav">'
+    + (idx > 0 ? '<a href="#/lied/'+SONGS[idx-1].id+'">‹ '+esc(SONGS[idx-1].t)+'</a>' : '<span></span>')
+    + (idx < SONGS.length-1 ? '<a href="#/lied/'+SONGS[idx+1].id+'">'+esc(SONGS[idx+1].t)+' ›</a>' : '<span></span>')
+    + '</div>';
+
+  return '<article class="song" id="s-'+s.id+'">'
     + '<div class="song-head">'
-      + '<div class="song-title"><div><h3>'+esc(s.t)+'</h3><div class="song-sub">'+esc(s.sub)+'</div></div>'
-      + '<div class="badges">'+badges+'</div></div>'
+      + '<a class="crumb" href="#/lieder">‹ Alle Lieder</a>'
+      + '<div class="song-title"><div><h3>'+esc(s.t)+'</h3><div class="song-sub">'+esc(s.sub)+'</div></div></div>'
+      + '<div class="badges">'+badges+'</div>'
       + '<div class="song-meta">'
         + '<div><b>Tonart</b>'+esc(transposeChord(s.key.replace(/m$/,""), n)) + (/m$/.test(s.key)?"m":"") +'</div>'
-        + '<div><b>Schlagmuster</b>'+esc(s.strum)+'</div>'
         + '<div><b>Tempo</b>'+esc(s.tempo)+'</div>'
         + '<div class="xpose"><b style="margin:0 .4rem 0 0">Transponieren</b>'
           + '<button class="btn sq" data-x="-1" aria-label="einen Halbton tiefer">−</button>'
@@ -1895,55 +2271,148 @@ function songHTML(s){
         var name = tx(c);
         return '<div class="chordcard" style="width:88px"><div class="cname">'+esc(name)+'</div>'+chordSVG(name,1.1)+'</div>';
       }).join("") + '</div>'
-    + '<div class="song-body">'+secs
-      + (s.note ? '<div class="song-note">'+s.note+'</div>' : '') + src
+    + '<div class="song-strum">'+patHTML+'</div>'
+    + '<div class="song-body">'+textTool+secs
+      + (s.note ? '<div class="song-note">'+s.note+'</div>' : '') + src + nav
     + '</div></article>';
 }
 
-function renderSongs(){
-  host.innerHTML = SONGS.map(songHTML).join("");
+var songview = document.getElementById("songview");
+var aktSong = null;
+function renderSong(id){
+  var s = songById(id);
+  if(!s){ location.hash = "#/lieder"; return; }
+  aktSong = s;
+  songview.innerHTML = songPageHTML(s);
 }
-function renderOne(s){
-  var old = document.getElementById("s-"+s.id);
-  if(!old) return;
-  var tmp = document.createElement("div");
-  tmp.innerHTML = songHTML(s);
-  old.replaceWith(tmp.firstChild);
-}
-renderSongs();
 
-/* Transponieren + Textfelder */
-host.addEventListener("click", function(e){
-  var b = e.target.closest("button[data-x]"); if(!b) return;
-  var art = b.closest(".song");
-  var id = art.id.replace(/^s-/, "");
-  var s = SONGS.filter(function(z){ return z.id === id; })[0];
-  var d = parseInt(b.dataset.x, 10);
-  XP[id] = d === 0 ? 0 : Math.max(-6, Math.min(6, (XP[id] || 0) + d));
-  renderOne(s);
+/* Transponieren, Textfelder, Textwerkzeug */
+songview.addEventListener("click", function(e){
+  var b = e.target.closest("button"); if(!b) return;
+  if(b.dataset.x !== undefined){
+    var d = parseInt(b.dataset.x, 10);
+    XP[aktSong.id] = d === 0 ? 0 : Math.max(-6, Math.min(6, (XP[aktSong.id] || 0) + d));
+    renderSong(aktSong.id);
+  }
+  if(b.dataset.paste){ openSheet(aktSong); }
+  if(b.dataset.clear){
+    if(!confirm("Alle eingetragenen Textzeilen dieses Liedes löschen?")) return;
+    aktSong.secs.forEach(function(sec, si){
+      sec.rows.forEach(function(r, ri){
+        if(!r.x){ try{ localStorage.removeItem(lyricKey(aktSong.id, si, ri)); }catch(err){} }
+      });
+    });
+    renderSong(aktSong.id);
+  }
 });
-host.addEventListener("input", function(e){
+songview.addEventListener("input", function(e){
   if(e.target.matches("input[data-k]")) store(e.target.dataset.k, e.target.value);
 });
 
-/* Filter */
-document.getElementById("filters").addEventListener("click", function(e){
-  var b = e.target.closest("button[data-lvl]"); if(!b) return;
-  this.querySelectorAll("button").forEach(function(x){ x.classList.remove("on"); });
-  b.classList.add("on");
-  var v = b.dataset.lvl;
-  host.querySelectorAll(".song").forEach(function(a){
-    var show = v === "0" || (v === "star" ? a.dataset.star === "1" : a.dataset.lvl === v);
-    a.style.display = show ? "" : "none";
+/* ---------- Blatt: ganzen Liedtext auf einmal einfuegen ---------- */
+var sheet = document.getElementById("sheet");
+var sheetText = document.getElementById("sheetText");
+var sheetSong = null;
+
+function offeneZeilen(s){
+  var liste = [];
+  s.secs.forEach(function(sec, si){
+    sec.rows.forEach(function(r, ri){ if(!r.x) liste.push({si:si, ri:ri}); });
   });
+  return liste;
+}
+function openSheet(s){
+  sheetSong = s;
+  var n = offeneZeilen(s).length;
+  document.getElementById("sheetTitle").textContent = "Text einfügen — " + s.t;
+  document.getElementById("sheetHint").innerHTML =
+    'Dieses Lied hat <b>'+n+' Textzeilen</b>. Kopier den Text von einer Quelle deiner Wahl '
+    + '(Genius, Musixmatch oder die Untertitel der Originalfolge), füg ihn hier ein und tipp unten '
+    + 'auf Verteilen. Leerzeilen werden übersprungen. Passt die Zahl nicht, kannst du die Zeilen '
+    + 'danach einzeln nachbessern.';
+  sheetText.value = "";
+  zaehleSheet();
+  sheet.hidden = false;
+  document.body.style.overflow = "hidden";
+  setTimeout(function(){ sheetText.focus(); }, 50);
+}
+function closeSheet(){ sheet.hidden = true; sheetSong = null; document.body.style.overflow = ""; }
+
+function sheetZeilen(){
+  return sheetText.value.split(/\r?\n/).map(function(z){ return z.trim(); })
+    .filter(function(z){ return z.length > 0; });
+}
+function zaehleSheet(){
+  if(!sheetSong) return;
+  var soll = offeneZeilen(sheetSong).length, ist = sheetZeilen().length;
+  var el = document.getElementById("sheetCount");
+  el.textContent = ist + " von " + soll + " Zeilen erkannt";
+  el.className = "sheet-count" + (ist === soll ? " ok" : ist > soll ? " zuviel" : "");
+}
+sheetText.addEventListener("input", zaehleSheet);
+document.getElementById("sheetApply").addEventListener("click", function(){
+  if(!sheetSong) return;
+  var ziele = offeneZeilen(sheetSong), zeilen = sheetZeilen();
+  ziele.forEach(function(z, i){
+    if(i < zeilen.length) store(lyricKey(sheetSong.id, z.si, z.ri), zeilen[i]);
+  });
+  var id = sheetSong.id;
+  closeSheet();
+  renderSong(id);
+  renderSongList();
+});
+document.getElementById("sheetCancel").addEventListener("click", closeSheet);
+document.getElementById("sheetClose").addEventListener("click", closeSheet);
+sheet.addEventListener("click", function(e){ if(e.target === sheet) closeSheet(); });
+document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !sheet.hidden) closeSheet(); });
+
+/* ---------- Sichern und Uebertragen ---------- */
+function alleDaten(){
+  var o = {};
+  try{
+    for(var i=0;i<localStorage.length;i++){
+      var k = localStorage.key(i);
+      if(k && k.indexOf("uke.") === 0 && k !== "uke.theme" && k !== "uke.size") o[k] = localStorage.getItem(k);
+    }
+  }catch(e){}
+  return o;
+}
+var sicherBox = document.getElementById("sicherBox");
+var sicherInfo = document.getElementById("sicherInfo");
+document.getElementById("expBtn").addEventListener("click", function(){
+  var o = alleDaten();
+  sicherBox.hidden = false;
+  sicherBox.value = JSON.stringify(o);
+  sicherBox.select();
+  var texte = Object.keys(o).filter(function(k){ return k.indexOf("uke.lyric.") === 0; }).length;
+  sicherInfo.textContent = texte + " Textzeilen gesichert — jetzt kopieren";
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(sicherBox.value).then(function(){
+      sicherInfo.textContent = texte + " Textzeilen in die Zwischenablage kopiert";
+    }).catch(function(){});
+  }
+});
+document.getElementById("impBtn").addEventListener("click", function(){
+  if(sicherBox.hidden || !sicherBox.value.trim()){
+    sicherBox.hidden = false;
+    sicherInfo.textContent = "Gesicherten Text oben einfügen, dann noch einmal tippen";
+    sicherBox.focus();
+    return;
+  }
+  var o;
+  try{ o = JSON.parse(sicherBox.value); }
+  catch(e){ sicherInfo.textContent = "Das war kein gültiger Sicherungstext."; return; }
+  var n = 0;
+  Object.keys(o).forEach(function(k){ if(k.indexOf("uke.") === 0){ store(k, o[k]); n++; } });
+  sicherInfo.textContent = n + " Einträge übernommen.";
+  renderSongList();
+  if(aktSong) renderSong(aktSong.id);
+  zeichnePlan();
 });
 
-/* Lieder ins Inhaltsverzeichnis */
-document.getElementById("tocSongs").innerHTML = SONGS.map(function(s){
-  return '<a href="#s-'+s.id+'"><span class="num">'+s.lvl+'</span>'+esc(s.t)+(s.star?' ★':'')+'</a>';
-}).join("");
-
-/* ---------- 8-Wochen-Plan ---------- */
+/* ==========================================================
+   8-WOCHEN-PLAN
+   ========================================================== */
 var PLAN = [
  {w:1, h:"Anfassen, stimmen, zwei Griffe", t:[
    "Stimmen üben, bis es ohne Nachdenken geht — jeden Tag vor dem Spielen",
@@ -2013,22 +2482,143 @@ var PLAN = [
  ]}
 ];
 
-document.getElementById("planlist").innerHTML = PLAN.map(function(p){
-  var tasks = p.t.map(function(t, i){
-    var k = "uke.plan."+p.w+"."+i;
-    var on = load(k) === "1";
-    return '<label class="task'+(on?" done":"")+'"><input type="checkbox" data-k="'+k+'"'+(on?" checked":"")+'>'
-      + '<span>'+esc(t)+'</span></label>';
+function planFortschritt(){
+  var ges = 0, da = 0;
+  PLAN.forEach(function(p){ p.t.forEach(function(_, i){
+    ges++; if(load("uke.plan."+p.w+"."+i) === "1") da++;
+  });});
+  return {ges:ges, da:da};
+}
+function zeichnePlan(){
+  document.getElementById("planlist").innerHTML = PLAN.map(function(p){
+    var fertig = p.t.filter(function(_, i){ return load("uke.plan."+p.w+"."+i) === "1"; }).length;
+    var tasks = p.t.map(function(t, i){
+      var k = "uke.plan."+p.w+"."+i;
+      var on = load(k) === "1";
+      return '<label class="task'+(on?" done":"")+'"><input type="checkbox" data-k="'+k+'"'+(on?" checked":"")+'>'
+        + '<span>'+esc(t)+'</span></label>';
+    }).join("");
+    return '<div class="week"><div class="wno">'+p.w+'<small>Woche</small></div>'
+      + '<div><h4>'+esc(p.h)+' <span class="wcount">'+fertig+'/'+p.t.length+'</span></h4>'+tasks+'</div></div>';
   }).join("");
-  return '<div class="week"><div class="wno">'+p.w+'<small>Woche</small></div>'
-    + '<div><h4>'+esc(p.h)+'</h4>'+tasks+'</div></div>';
-}).join("");
-
+}
+zeichnePlan();
 document.getElementById("planlist").addEventListener("change", function(e){
   if(!e.target.matches("input[type=checkbox]")) return;
   store(e.target.dataset.k, e.target.checked ? "1" : "0");
   e.target.closest(".task").classList.toggle("done", e.target.checked);
+  var w = e.target.dataset.k.split(".")[2];
+  var box = e.target.closest(".week").querySelector(".wcount");
+  var p = PLAN.filter(function(x){ return String(x.w) === w; })[0];
+  box.textContent = p.t.filter(function(_, i){ return load("uke.plan."+w+"."+i) === "1"; }).length + "/" + p.t.length;
+  zeichneStart();
 });
+
+/* ==========================================================
+   KURSUEBERSICHT UND STARTSEITE
+   ========================================================== */
+var KAPITEL = [
+  {id:"instrument",       n:"01", t:"Dein Instrument",        d:"Größe, Stimmung g–C–E–A, Haltung, Anschlag"},
+  {id:"griffbilder",      n:"02", t:"Griffbilder lesen",      d:"Wie ein Akkorddiagramm funktioniert"},
+  {id:"ersteGriffe",      n:"03", t:"Die ersten drei Griffe", d:"C, Am, F — und die Wechseluhr"},
+  {id:"rhythmus",         n:"04", t:"Rhythmus",               d:"Sechs Schlagmuster zum Anhören"},
+  {id:"lagerfeuergriffe", n:"05", t:"Die Lagerfeuer-Griffe",  d:"G, G7, D7, Em, A7, Dm, E7"},
+  {id:"barre",            n:"06", t:"Barré & harte Griffe",   d:"B♭ und was du tust, wenn es noch nicht geht"},
+  {id:"transponieren",    n:"07", t:"Tonart & Transponieren", d:"Das Lied in deine Stimmlage schieben"},
+  {id:"lagerfeuer",       n:"08", t:"Am Lagerfeuer",          d:"Vorzählen, Repertoire, Instrument draußen"}
+];
+document.getElementById("kurslist").innerHTML = KAPITEL.map(function(k){
+  return '<a class="kcard" href="#/'+k.id+'"><span class="knum">'+k.n+'</span>'
+    + '<span class="kmain"><span class="kt">'+esc(k.t)+'</span><span class="kd">'+esc(k.d)+'</span></span>'
+    + '<span class="chev">›</span></a>';
+}).join("");
+
+function zeichneStart(){
+  var fp = planFortschritt();
+  var pct = Math.round(fp.da / fp.ges * 100);
+  var wunsch = SONGS.filter(function(s){ return s.star; });
+  document.getElementById("startgrid").innerHTML =
+      '<a class="tile wide" href="#/plan">'
+    +   '<span class="tile-k">Dein Fortschritt</span>'
+    +   '<span class="tile-t">'+fp.da+' von '+fp.ges+' Übungen</span>'
+    +   '<span class="bar-outer"><span class="bar-in" style="width:'+pct+'%"></span></span>'
+    +   '<span class="tile-d">'+(fp.da === 0 ? "Fang mit Woche 1 an — 15 Minuten reichen."
+          : pct < 100 ? "Weiter geht’s im 8-Wochen-Plan." : "Durch. Jetzt spielst du.")+'</span>'
+    + '</a>'
+    + '<a class="tile" href="#/lieder"><span class="tile-k">Liederbuch</span>'
+    +   '<span class="tile-t">'+SONGS.length+' Lieder</span>'
+    +   '<span class="tile-d">Nach Stufe sortiert, durchsuchbar</span></a>'
+    + '<a class="tile" href="#/kurs"><span class="tile-k">Der Kurs</span>'
+    +   '<span class="tile-t">8 Kapitel</span>'
+    +   '<span class="tile-d">Vom Stimmen bis zum Lagerfeuer</span></a>'
+    + '<div class="tile plain"><span class="tile-k">Deine Wunschlieder</span>'
+    +   '<span class="wunsch">' + wunsch.map(function(s){
+          return '<a href="#/lied/'+s.id+'">'+esc(s.t)+'</a>'; }).join("")
+    +   '</span></div>'
+    + '<a class="tile" href="#/lexikon"><span class="tile-k">Nachschlagen</span>'
+    +   '<span class="tile-t">Akkord-Lexikon</span>'
+    +   '<span class="tile-d">28 Griffbilder mit Fingersatz</span></a>'
+    + '<a class="tile" href="#/instrument"><span class="tile-k">Zuerst</span>'
+    +   '<span class="tile-t">Stimmen</span>'
+    +   '<span class="tile-d">Stimmton zum Mitstimmen eingebaut</span></a>';
+}
+
+/* Lieder ins Inhaltsverzeichnis der Schublade */
+document.getElementById("tocSongs").innerHTML = SONGS.map(function(s){
+  return '<a href="#/lied/'+s.id+'"><span class="num">'+s.lvl+'</span>'+esc(s.t)+(s.star?' ★':'')+'</a>';
+}).join("");
+
+/* ==========================================================
+   ROUTER
+   ========================================================== */
+var VIEWS = {};
+document.querySelectorAll(".view").forEach(function(v){ VIEWS[v.id] = v; });
+var TITEL = {
+  start:"", lieder:"Lieder", kurs:"Der Kurs", plan:"8-Wochen-Plan",
+  lexikon:"Akkord-Lexikon", werkzeug:"Werkzeugkasten", lied:""
+};
+KAPITEL.forEach(function(k){ TITEL[k.id] = k.t; });
+
+var backBtn = document.getElementById("backBtn");
+var tabbar  = document.getElementById("tabbar");
+
+function route(){
+  var h = location.hash.replace(/^#\/?/, "");
+  var teile = h.split("/").filter(Boolean);
+  var view = teile[0] || "start";
+  var arg  = teile[1];
+
+  if(view === "lied" && arg){ renderSong(arg); }
+  else if(!VIEWS[view]){ view = "start"; }
+
+  Object.keys(VIEWS).forEach(function(id){ VIEWS[id].hidden = (id !== view); });
+  stopPattern();
+  stopTone();
+  hidePop();
+
+  // Zurueck-Knopf nur, wo es ein „darueber“ gibt
+  var tief = (view === "lied") || KAPITEL.some(function(k){ return k.id === view; });
+  backBtn.hidden = !tief;
+  backBtn.dataset.to = view === "lied" ? "#/lieder" : "#/kurs";
+
+  // Aktiven Reiter markieren
+  var tab = view === "lied" ? "lieder"
+          : KAPITEL.some(function(k){ return k.id === view; }) ? "kurs"
+          : (view === "lexikon" || view === "werkzeug") ? "kurs" : view;
+  tabbar.querySelectorAll("a").forEach(function(a){
+    a.classList.toggle("on", a.dataset.tab === tab);
+  });
+
+  document.title = (view === "lied" && aktSong ? aktSong.t + " · " : "")
+    + (TITEL[view] && view !== "lied" ? TITEL[view] + " · " : "") + "Lagerfeuer-Ukulele";
+  window.scrollTo(0, 0);
+}
+backBtn.addEventListener("click", function(){ location.hash = this.dataset.to; });
+window.addEventListener("hashchange", route);
+
+renderSongList();
+zeichneStart();
+route();
 </script>
 
 </body>

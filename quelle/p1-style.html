@@ -59,6 +59,8 @@
 }
 
 *{box-sizing:border-box;}
+/* display-Regeln von .btn & Co. duerfen [hidden] nicht aushebeln */
+[hidden]{display:none !important;}
 body{
   margin:0;
   background:var(--paper);
@@ -372,6 +374,177 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .footer{border-top:3px solid var(--rule-strong);margin-top:4rem;padding-top:1.5rem;
   font-family:var(--f-ui);font-size:.8rem;color:var(--ink-faint);}
 
+/* ============ SEITEN / ROUTER ============ */
+.view[hidden]{display:none !important;}
+
+/* ============ STARTSEITE ============ */
+.startgrid{
+  display:grid;gap:.7rem;margin:2rem 0 2.5rem;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+}
+.tile{
+  display:flex;flex-direction:column;gap:.2rem;
+  background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+  padding:1rem 1.1rem;text-decoration:none;color:var(--ink);
+  transition:border-color .12s,transform .12s;
+}
+a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
+.tile.wide{grid-column:1/-1;}
+.tile-k{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.1em;
+  font-size:.68rem;font-weight:700;color:var(--ember);}
+.tile-t{font-family:var(--f-display);text-transform:uppercase;font-size:1.35rem;
+  font-weight:700;line-height:1.1;letter-spacing:.01em;}
+.tile-d{font-size:.88rem;color:var(--ink-soft);line-height:1.35;}
+.bar-outer{display:block;height:7px;border-radius:4px;background:var(--surface-2);
+  overflow:hidden;margin:.5rem 0 .45rem;}
+.bar-in{display:block;height:100%;background:var(--accent);border-radius:4px;transition:width .3s;}
+.tile.plain{cursor:default;}
+.wunsch{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.45rem;}
+.wunsch a{
+  font-family:var(--f-ui);font-size:.8rem;font-weight:600;text-decoration:none;
+  border:1px solid var(--rule);border-radius:999px;padding:.22rem .6rem;color:var(--accent);
+}
+.wunsch a:hover{border-color:var(--accent);background:var(--accent-soft);}
+
+/* ============ KURSLISTE ============ */
+.kurslist{display:flex;flex-direction:column;gap:.5rem;margin:1.5rem 0;}
+.kcard{
+  display:flex;align-items:center;gap:.9rem;text-decoration:none;color:var(--ink);
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:.85rem 1rem;
+}
+.kcard:hover{border-color:var(--accent);}
+.knum{font-family:var(--f-mono);font-size:1rem;font-weight:700;color:var(--accent);
+  min-width:1.6em;text-align:center;}
+.kmain{display:flex;flex-direction:column;flex:1;min-width:0;}
+.kt{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.03em;
+  font-weight:700;font-size:1.02rem;}
+.kd{font-family:var(--f-ui);font-size:.8rem;color:var(--ink-faint);}
+.chev{color:var(--ink-faint);font-size:1.3rem;line-height:1;flex:none;}
+
+/* ============ LIEDERLISTE ============ */
+.search{
+  width:100%;max-width:var(--read);margin:1.4rem 0 .9rem;
+  border:1px solid var(--rule);border-radius:10px;background:var(--surface);
+  padding:.65rem .9rem;font-family:var(--f-ui);font-size:max(16px,.95rem);color:var(--ink);
+}
+.search:focus{outline:none;border-color:var(--accent);}
+.songlist{display:flex;flex-direction:column;gap:.4rem;margin-top:1rem;}
+.scard{
+  display:flex;align-items:center;gap:.85rem;text-decoration:none;color:var(--ink);
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:.7rem .9rem;
+}
+.scard:hover{border-color:var(--accent);}
+.scard-lvl{
+  font-family:var(--f-mono);font-weight:700;font-size:.8rem;color:var(--ember);
+  background:var(--ember-soft);border-radius:6px;width:26px;height:26px;flex:none;
+  display:flex;align-items:center;justify-content:center;
+}
+.scard-main{display:flex;flex-direction:column;flex:1;min-width:0;}
+.scard-t{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.02em;
+  font-weight:700;font-size:1rem;line-height:1.2;}
+.scard-t .star{color:var(--accent);}
+.scard-s{font-family:var(--f-ui);font-size:.76rem;color:var(--ink-faint);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.scard-c{font-family:var(--f-mono);font-size:.74rem;color:var(--accent);margin-top:.15rem;}
+.scard-right{display:flex;align-items:center;gap:.5rem;flex:none;}
+.pill{font-family:var(--f-ui);font-size:.68rem;color:var(--ink-faint);
+  border:1px solid var(--rule);border-radius:999px;padding:.12rem .45rem;white-space:nowrap;}
+.nohits{color:var(--ink-faint);font-style:italic;margin-top:1.5rem;}
+.lead-kurz{font-size:.95rem;color:var(--ink-soft);}
+
+/* Zusammenklappbare Hinweise — stehen unter der Liste, nicht davor */
+.hinweise{
+  margin-top:1.2rem;border:1px solid var(--rule);border-radius:10px;
+  background:var(--surface);max-width:var(--read);overflow:hidden;
+}
+.hinweise summary{
+  cursor:pointer;padding:.7rem .95rem;list-style:none;
+  font-family:var(--f-display);text-transform:uppercase;letter-spacing:.07em;
+  font-size:.76rem;font-weight:700;color:var(--accent);
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+}
+.hinweise.warm summary{color:var(--ember);}
+.hinweise summary::-webkit-details-marker{display:none;}
+.hinweise summary::after{content:"+";font-family:var(--f-mono);font-size:1rem;}
+.hinweise[open] summary::after{content:"−";}
+.hinweise[open] summary{border-bottom:1px solid var(--rule);}
+.hinweise p{margin:.8rem .95rem;font-size:.92rem;color:var(--ink-soft);}
+
+/* ============ LIEDSEITE ============ */
+.crumb{font-family:var(--f-ui);font-size:.8rem;color:var(--ink-faint);
+  text-decoration:none;display:inline-block;margin-bottom:.5rem;}
+.crumb:hover{color:var(--accent);}
+.song-strum{padding:.9rem 1.25rem;border-bottom:1px solid var(--rule);}
+.patternbox.compact{margin:0;background:transparent;border:0;padding:0;}
+.patternbox.compact .ptop{margin-bottom:.5rem;}
+.songnav{display:flex;justify-content:space-between;gap:1rem;margin-top:1.6rem;
+  padding-top:1rem;border-top:1px solid var(--rule);}
+.songnav a{font-family:var(--f-ui);font-size:.85rem;text-decoration:none;
+  color:var(--ink-soft);max-width:45%;}
+.songnav a:hover{color:var(--accent);}
+
+/* Textwerkzeug */
+.lyrbar{
+  display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;
+  background:var(--surface-2);border-radius:10px;padding:.75rem .9rem;margin-bottom:1.3rem;
+}
+.lyrbar-txt{font-family:var(--f-ui);font-size:.85rem;color:var(--ink-soft);flex:1;min-width:180px;}
+.lyrbar-q{display:block;font-size:.76rem;color:var(--ink-faint);margin-top:.2rem;}
+.lyrbar-btns{display:flex;gap:.4rem;}
+
+/* ============ BLATT (Text einfügen) ============ */
+.sheet{position:fixed;inset:0;z-index:300;background:rgba(10,20,18,.5);
+  display:flex;align-items:flex-end;justify-content:center;}
+.sheet[hidden]{display:none;}
+.sheet-in{
+  background:var(--surface);width:min(640px,100%);max-height:88vh;
+  border-radius:14px 14px 0 0;display:flex;flex-direction:column;
+  border:1px solid var(--rule);border-bottom:0;
+}
+.sheet-head{display:flex;align-items:center;gap:1rem;padding:.9rem 1.1rem;
+  border-bottom:1px solid var(--rule);}
+.sheet-head h3{margin:0;font-size:1.05rem;flex:1;}
+.sheet-body{padding:1rem 1.1rem;overflow-y:auto;}
+.sheet-body p{font-size:.88rem;color:var(--ink-soft);}
+#sheetText{
+  width:100%;min-height:34vh;border:1px solid var(--rule);border-radius:8px;
+  background:var(--paper);color:var(--ink);padding:.7rem .8rem;
+  font-family:var(--f-body);font-size:max(16px,.95rem);line-height:1.5;resize:vertical;
+}
+#sheetText:focus{outline:none;border-color:var(--accent);}
+.sheet-count{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-faint);margin-top:.5rem;}
+.sheet-count.ok{color:var(--accent);font-weight:700;}
+.sheet-count.zuviel{color:var(--ember);}
+.sheet-foot{display:flex;gap:.5rem;justify-content:flex-end;padding:.85rem 1.1rem;
+  border-top:1px solid var(--rule);}
+
+/* ============ SICHERN ============ */
+.sicherctl{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;}
+.sicherinfo{font-family:var(--f-ui);font-size:.78rem;color:var(--accent);}
+.sicherbox{
+  width:100%;min-height:110px;margin-top:.8rem;border:1px solid var(--rule);border-radius:8px;
+  background:var(--paper);color:var(--ink-soft);padding:.6rem .7rem;
+  font-family:var(--f-mono);font-size:.72rem;resize:vertical;
+}
+.sicherbox:focus{outline:none;border-color:var(--accent);}
+.wcount{font-family:var(--f-mono);font-size:.74rem;color:var(--ink-faint);font-weight:400;}
+
+/* ============ REITERLEISTE UNTEN ============ */
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:90;
+  display:flex;background:var(--surface);border-top:1px solid var(--rule);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.tabbar a{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:.5rem .2rem .55rem;text-decoration:none;color:var(--ink-faint);
+  font-family:var(--f-ui);font-size:.68rem;font-weight:600;
+}
+.tabbar a .ico{font-size:1.15rem;line-height:1;}
+.tabbar a.on{color:var(--accent);}
+@media (min-width:1240px){ .tabbar{display:none;} }
+@media (max-width:1239px){ .main{padding-bottom:5.5rem;} }
+
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;animation:none !important;}
 }
@@ -421,6 +594,30 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   .chordcard{width:92px;}
   .tuner button{width:58px;height:58px;}
   .stroke{width:34px;height:46px;}
+
+  /* Vorspann kompakt halten — darunter beginnt sofort die Navigation */
+  .hero{padding:1.4rem 0 1.2rem;}
+  .hero h1{font-size:2.3rem;}
+  .hero .lede{font-size:.95rem;line-height:1.45;}
+  .hero-facts{gap:.35rem;margin-top:1rem;}
+  .fact{font-size:.7rem;padding:.22rem .55rem;}
+
+  /* Neue Bausteine am Handy */
+  .startgrid{grid-template-columns:1fr 1fr;gap:.5rem;margin:1.5rem 0 2rem;}
+  .tile{padding:.8rem .85rem;}
+  .tile-t{font-size:1.15rem;}
+  .tile-d{font-size:.8rem;}
+  .song-strum{padding:.9rem .8rem;}
+  .lyrbar{padding:.7rem .8rem;}
+  .lyrbar-btns{width:100%;}
+  .lyrbar-btns .btn{flex:1;justify-content:center;}
+  .sheet-in{border-radius:14px 14px 0 0;max-height:92vh;}
+  .songnav a{font-size:.8rem;}
+}
+
+@media (max-width:400px){
+  .scard{padding:.6rem .7rem;gap:.6rem;}
+  .scard-s{display:none;}
 }
 
 @media (max-width:400px){

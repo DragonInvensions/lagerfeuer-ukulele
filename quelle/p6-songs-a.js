@@ -65,7 +65,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"lagerfeuerlied", t:"Das Lagerfeuerlied-Lied", sub:"The Campfire Song Song · SpongeBob Schwammkopf", lvl:2, key:"C",
+{id:"lagerfeuerlied", textsuche:"SpongeBob Das Lagerfeuerlied Lied deutsch", texthinweis:"Die deutsche Synchronfassung heisst „Das Lagerfeuerlied-Lied“ — such danach, nicht nach dem englischen Titel.", t:"Das Lagerfeuerlied-Lied", sub:"The Campfire Song Song · SpongeBob Schwammkopf", lvl:2, key:"C",
  chords:["C","F","D7","G7"], strum:"Der Wandertakt", tempo:"116 bpm, dann doppelt · 4/4", verified:true, star:true,
  note:"<b>Der Witz des Liedes ist das Tempo.</b> Teil A spielst du gemütlich, Teil B mit exakt denselben Akkorden doppelt so schnell — und Teil C, wenn du dich traust, nochmal schneller. Nimm dir deshalb ein Ausgangstempo, das sich zu langsam anfühlt: Was du beim ersten Durchgang zu schnell ansetzt, killt dich beim zweiten.<br><br>Der Grundwechsel ist <b>C → F → C</b>, dreimal hintereinander, dann einmal <b>D7 → G7</b> als Spannungsbogen zum Schluss der Strophe. D7 ist hier der einzige neue Griff — er kommt nur an einer einzigen Stelle vor, das schaffst du.",
  src:[{t:"Akkorde abgeglichen mit UkuleleChordsSongs (Tonart C) und Scorpex Uke (Tonart G, transponiert)", u:"https://ukulelechordssongs.blogspot.com/2017/05/ukulele-chords-campfire-song-song-by-spongebob.html"}],
@@ -124,7 +124,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"spongebobtheme", t:"SpongeBob-Titelmelodie", sub:"SpongeBob Schwammkopf · Titellied", lvl:3, key:"G",
+{id:"spongebobtheme", textsuche:"SpongeBob Schwammkopf Titelsong deutsch Ananas", texthinweis:"Deutsche Fassung: die Ruf-und-Antwort-Zeilen sind kuerzer als im Original.", t:"SpongeBob-Titelmelodie", sub:"SpongeBob Schwammkopf · Titellied", lvl:3, key:"G",
  chords:["G","C","D7","A7"], strum:"Der Wandertakt", tempo:"145 bpm · 4/4", verified:true, star:true,
  note:"<b>Ruf und Antwort.</b> Du spielst die Frage, alle anderen brüllen den Namen — deshalb funktioniert das Lied am Lagerfeuer so gut, ohne dass jemand den Text können muss. Die Ansage am Anfang („Sind alle bereit?“) wird gesprochen, ohne Akkord; dann geht es stur auf Abschlägen los, straff wie ein Seemannslied. Kein Aufschlag, keine Verzierung — jeder Schlag ein Ruderschlag.<br><br>Das <b>A7</b> in der letzten Ruf-Zeile ist der Griff mit einem einzigen Finger und zieht wunderbar zum D7. Die vier Namensrufe am Ende laufen über G – C – D7 – G, also einmal quer durch die ganze Tonart.",
  src:[{t:"Akkordvorrat (G, C, D7, A7) nach UkuTabs; Anordnung als vereinfachte Ruf-und-Antwort-Begleitung", u:"https://ukutabs.com/m/misc-cartoons/spongebob-squarepants-theme/"}],
@@ -143,7 +143,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"hosezerrissen", t:"Die Hose zerrissen", sub:"Ripped Pants · SpongeBob Schwammkopf", lvl:3, key:"C",
+{id:"hosezerrissen", textsuche:"SpongeBob Ich hab die Hose mir zerrissen deutsch", texthinweis:"Deutscher Titel der Synchronfassung; die Untertitel der Folge sind die genaueste Quelle.", t:"Die Hose zerrissen", sub:"Ripped Pants · SpongeBob Schwammkopf", lvl:3, key:"C",
  chords:["C","Am","Dm","G","Em"], strum:"Der Klassiker", tempo:"72 bpm · 4/4", verified:true, star:true,
  note:"<b>Das ist in Wahrheit ein Fünfzigerjahre-Lied</b> — und genau deshalb klingt es wie am Lagerfeuer erfunden. Die Folge <b>C – Am – Dm – G</b> ist der berühmte „Fünfziger-Kreis“, das Rückgrat von tausend Doo-Wop-Balladen. Wenn du diese vier Takte im Schlaf kannst, kannst du nebenbei hunderte andere Lieder mitbegleiten.<br><br>Der einzige Sonderfall ist die dritte Zeile, wo statt C ein <b>Em</b> steht — das macht die Stelle sehnsüchtig. Tempo bewusst langsam (etwa 72), das Lied ist eine Schunkelnummer, kein Rocksong.",
  src:[{t:"Akkorde abgeglichen mit ukulele-tabs.com (Tonart C: C–Am–Dm–G, Em-Variante)", u:"https://www.ukulele-tabs.com/uke-songs/spongebob-squarepants/ripped-pants-uke-tab-13552.html"}],
@@ -164,7 +164,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"pippi", t:"Hey Pippi Langstrumpf", sub:"Pippi Langstrumpf · Titellied", lvl:3, key:"C",
+{id:"pippi", textsuche:"Hey Pippi Langstrumpf Text", t:"Hey Pippi Langstrumpf", sub:"Pippi Langstrumpf · Titellied", lvl:3, key:"C",
  chords:["C","Dm","F","G"], strum:"Der Wandertakt", tempo:"132 bpm · 4/4",
  note:"Schnell, laut, ohne Rücksicht. Das <b>Dm</b> in der Strophe ist neu: Es ist ein F, bei dem zusätzlich der Ringfinger auf den 2. Bund der C-Saite geht. Der Refrain („falleri, fallera“) läuft über C – F – G – C und ist das, was alle mitsingen — den solltest du auswendig können.",
  secs:[
@@ -180,7 +180,7 @@ var SONGS = [
   ]}
  ]},
 
-{id:"bienemaja", t:"Die Biene Maja", sub:"Karel Svoboda / Karel Gott · Titellied", lvl:3, key:"C",
+{id:"bienemaja", textsuche:"Biene Maja Karel Gott Text", t:"Die Biene Maja", sub:"Karel Svoboda / Karel Gott · Titellied", lvl:3, key:"C",
  chords:["C","F","G","G7","Dm"], strum:"Der Klassiker", tempo:"120 bpm · 4/4",
  note:"Im Original steht das Lied in D-Dur; hier nach C geschoben, damit du ohne Barré auskommst. Mit dem <b>+2</b> auf dem Transponier-Knopf bist du zurück im Original — dann brauchst du D, A, G, Em, und das Lied liegt für viele Stimmen bequemer.",
  secs:[

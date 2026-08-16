@@ -1,43 +1,53 @@
   <!-- ===================== LIEDER ===================== -->
-  <section id="lieder" class="chapter">
+  <section id="lieder" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Der Liederteil</span>
       <h2>26 Lieder, aufsteigend</h2>
     </div>
-    <p>Sortiert nach Schwierigkeit, nicht nach Beliebtheit. Stufe 1 kannst du heute, Stufe 4 in etwa acht Wochen.
-    Jedes Lied zeigt oben, welche Griffe es braucht — sind alle grün in deinem Kopf, kannst du das Lied.</p>
+    <p class="lead-kurz">Stufe 1 kannst du heute, Stufe 4 in etwa acht Wochen. Die Zahl links ist die Stufe,
+    darunter stehen die Griffe, die das Lied braucht.</p>
 
-    <div class="note">
-      <span class="lbl">Wie du eine Liedseite liest</span>
-      <p>Jede Zeile besteht aus <strong>Takten</strong> — den Kästchen nebeneinander. In jedem Kästchen steht der Akkord,
-      der dort gegriffen wird; ein <strong>·</strong> heißt „vorherigen Akkord weiterhalten“. Ein Takt sind vier Schläge
-      (im Walzertakt drei). Darunter steht die Textzeile beziehungsweise dein Eingabefeld.</p>
-    </div>
-
-    <div class="note warm">
-      <span class="lbl">Ehrlichkeitshinweis</span>
-      <p>Das hier sind <strong>Begleitfassungen für Anfänger</strong>: Griffe auf die einfachsten Varianten reduziert,
-      manchmal in eine leichtere Tonart geschoben, Zwischenakkorde weggelassen. Bei den mit
-      <span class="badge ok">geprüft</span> markierten Liedern habe ich die Akkorde gegen veröffentlichte Charts abgeglichen
-      (Quellen stehen unter dem Lied). Bei den übrigen ist die Fassung nach Gehör vereinfacht — wenn dir eine Stelle
-      schräg vorkommt, hat das Original dort wahrscheinlich einen Zwischenakkord. Trau deinem Ohr und ändere sie.</p>
-    </div>
+    <input type="search" id="songSearch" class="search" placeholder="Lied oder Akkord suchen …"
+           aria-label="Lieder durchsuchen" autocomplete="off">
 
     <div class="filters" id="filters">
-      <span class="lbl">Filter</span>
       <button class="btn on" data-lvl="0">Alle</button>
       <button class="btn" data-lvl="1">Stufe 1</button>
       <button class="btn" data-lvl="2">Stufe 2</button>
       <button class="btn" data-lvl="3">Stufe 3</button>
       <button class="btn" data-lvl="4">Stufe 4</button>
-      <button class="btn" data-lvl="star">★ Deine Wunschlieder</button>
+      <button class="btn" data-lvl="star">★ Wunschlieder</button>
     </div>
 
     <div class="songlist" id="songlist"></div>
+    <p id="noHits" class="nohits" hidden>Nichts gefunden. Andere Schreibweise probieren?</p>
+
+    <details class="hinweise">
+      <summary>Wie du eine Liedseite liest</summary>
+      <p>Jede Zeile besteht aus <strong>Takten</strong> — den Kästchen nebeneinander. In jedem Kästchen steht der Akkord,
+      der dort gegriffen wird; ein <strong>·</strong> heißt „vorherigen Akkord weiterhalten“. Ein Takt sind vier Schläge
+      (im Walzertakt drei). Darunter steht die Textzeile beziehungsweise dein Eingabefeld.</p>
+      <p>Oben auf jeder Liedseite siehst du die Griffbilder, das Schlagmuster zum Anhören und den
+      Transponier-Knopf, mit dem du das Lied in deine Stimmlage schiebst.</p>
+    </details>
+
+    <details class="hinweise warm">
+      <summary>Woher die Akkorde kommen</summary>
+      <p>Das hier sind <strong>Begleitfassungen für Anfänger</strong>: Griffe auf die einfachsten Varianten reduziert,
+      manchmal in eine leichtere Tonart geschoben, Zwischenakkorde weggelassen. Bei den mit
+      <span class="badge ok">geprüft</span> markierten Liedern habe ich die Akkorde gegen veröffentlichte Charts abgeglichen
+      (Quellen stehen unter dem Lied). Bei den übrigen ist die Fassung nach Gehör vereinfacht — wenn dir eine Stelle
+      schräg vorkommt, hat das Original dort wahrscheinlich einen Zwischenakkord. Trau deinem Ohr und ändere sie.</p>
+    </details>
+  </section>
+
+  <!-- ===================== EINE LIEDSEITE ===================== -->
+  <section id="lied" class="chapter view">
+    <div id="songview"></div>
   </section>
 
   <!-- ===================== PLAN ===================== -->
-  <section id="plan" class="chapter">
+  <section id="plan" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Nachschlagen</span>
       <h2>Acht Wochen bis zum Feuer</h2>
@@ -61,7 +71,7 @@
   </section>
 
   <!-- ===================== WERKZEUG ===================== -->
-  <section id="werkzeug" class="chapter">
+  <section id="werkzeug" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Nachschlagen</span>
       <h2>Werkzeugkasten</h2>
@@ -102,6 +112,21 @@
       </table>
     </div>
 
+    <h3>Deine Texte sichern und übertragen</h3>
+    <p>Alles, was du in die Textzeilen schreibst — und die Häkchen im Übungsplan — liegt nur im Browser
+    <em>dieses</em> Geräts. Was du am Rechner einträgst, steht nicht automatisch auf dem Handy. Damit du nicht
+    doppelt tippst: Hier holst du dir alles als Textblock, den du dir selbst schickst und auf dem anderen
+    Gerät wieder einsetzt.</p>
+    <div class="card" style="max-width:var(--read);">
+      <div class="sicherctl">
+        <button class="btn" id="expBtn">Alles herausholen</button>
+        <button class="btn" id="impBtn">Gesichertes einsetzen</button>
+        <span id="sicherInfo" class="sicherinfo"></span>
+      </div>
+      <textarea id="sicherBox" class="sicherbox" spellcheck="false"
+        placeholder="Hier erscheint dein gesicherter Stand. Zum Einsetzen: Text hier hineinkopieren und auf „Gesichertes einsetzen“ tippen." hidden></textarea>
+    </div>
+
     <h3>Wenn du mehr Lieder willst</h3>
     <p>Dieses Buch hat einen Begleit-Skill: Sag im Chat einfach <strong>„neues Lied fürs Ukulele-Buch: …“</strong> und nenne den Titel.
     Das Lied wird recherchiert, in eine anfängertaugliche Tonart gebracht, an der richtigen Stufe einsortiert und ins Buch eingebaut —
@@ -116,6 +141,56 @@
       ausschließlich lokal in deinem Browser.</p>
     </div>
   </section>
+
+  <!-- ===================== KURSÜBERSICHT ===================== -->
+  <section id="kurs" class="chapter view">
+    <div class="chapter-head">
+      <span class="kicker">Der Kurs</span>
+      <h2>Das Handwerk</h2>
+    </div>
+    <p>Acht Kapitel, der Reihe nach. Du musst nicht alles gelesen haben, bevor du spielst —
+    aber jedes Kapitel schaltet Lieder frei, die vorher nicht gingen.</p>
+    <div class="kurslist" id="kurslist"></div>
+    <h3>Nachschlagen</h3>
+    <div class="kurslist">
+      <a class="kcard" href="#/lexikon"><span class="knum">A</span>
+        <span class="kmain"><span class="kt">Akkord-Lexikon</span>
+        <span class="kd">28 Griffbilder mit Fingersatz, nach Schwierigkeit</span></span>
+        <span class="chev">›</span></a>
+      <a class="kcard" href="#/werkzeug"><span class="knum">W</span>
+        <span class="kmain"><span class="kt">Werkzeugkasten</span>
+        <span class="kd">Fehlersuche, Einkaufsliste, Texte sichern</span></span>
+        <span class="chev">›</span></a>
+    </div>
+  </section>
 </main>
 
+<nav class="tabbar" id="tabbar" aria-label="Hauptnavigation">
+  <a href="#/start"  data-tab="start"><span class="ico">◆</span>Start</a>
+  <a href="#/lieder" data-tab="lieder"><span class="ico">♫</span>Lieder</a>
+  <a href="#/kurs"   data-tab="kurs"><span class="ico">≡</span>Kurs</a>
+  <a href="#/plan"   data-tab="plan"><span class="ico">✓</span>Plan</a>
+</nav>
+
 <div id="pop" role="tooltip" aria-hidden="true"></div>
+
+<!-- Blatt zum Einfügen ganzer Liedtexte -->
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-head">
+      <h3 id="sheetTitle">Text einfügen</h3>
+      <button class="btn sq" id="sheetClose" aria-label="Schließen">✕</button>
+    </div>
+    <div class="sheet-body">
+      <p id="sheetHint"></p>
+      <textarea id="sheetText" spellcheck="false"
+        placeholder="Liedtext hier hineinkopieren — eine Zeile pro Zeile des Liedes.
+Leerzeilen zwischen Strophen darfst du drinlassen, die werden übersprungen."></textarea>
+      <div id="sheetCount" class="sheet-count"></div>
+    </div>
+    <div class="sheet-foot">
+      <button class="btn" id="sheetCancel">Abbrechen</button>
+      <button class="btn on" id="sheetApply">Auf die Zeilen verteilen</button>
+    </div>
+  </div>
+</div>

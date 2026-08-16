@@ -44,7 +44,7 @@
   ]}
  ]},
 
-{id:"pokemon", t:"Pokémon-Titelmelodie", sub:"Gotta Catch 'Em All · Jason Paige, 1999", lvl:4, key:"Am",
+{id:"pokemon", textsuche:"Pokemon Titelsong deutsch Ich will der Allerbeste sein", texthinweis:"Deutsche Fassung der 1. Staffel; achte darauf, nicht die englische Version zu erwischen.", t:"Pokémon-Titelmelodie", sub:"Gotta Catch 'Em All · Jason Paige, 1999", lvl:4, key:"Am",
  chords:["Am","G","Dm","C","F","E7"], strum:"Balladenschlag", tempo:"118 bpm · 4/4", verified:true, star:true,
  note:"<b>Das ehrgeizigste Lied in diesem Buch — und es lohnt sich.</b> Im Original steht es in g-Moll, was auf der Ukulele drei Barré-Griffe bedeutet. Hier ist es nach <b>a-Moll</b> transponiert und braucht keinen einzigen. Mit <b>−2</b> auf dem Transponier-Knopf landest du wieder im Original, falls du zur Aufnahme mitspielen willst.<br><br>Die Strophe ist einfach: <b>Am – G</b>, zweimal, dann <b>Dm – C</b> und <b>F – E7</b>. Das E7 am Ende ist der Motor: Es zieht mit aller Kraft zurück nach Am, deshalb klingt die Strophe wie ein Anlauf. Der Refrain ist der lange Teil — 13 Zeilen, aber fast alles Am, G, Dm, F und C in wechselnder Folge. Lern ihn in zwei Hälften.",
  src:[{t:"Akkorde abgeglichen mit ukulele-tabs.com (Original g-Moll), hier +2 nach a-Moll transponiert", u:"https://www.ukulele-tabs.com/uke-songs/pokemon/pokemon-theme-song-uke-tab-16193.html"}],
@@ -170,7 +170,7 @@
   ]}
  ]},
 
-{id:"ducktales", t:"DuckTales", sub:"Mark Mueller, 1987 · Titellied", lvl:4, key:"C",
+{id:"ducktales", textsuche:"DuckTales Titellied deutsch Text", t:"DuckTales", sub:"Mark Mueller, 1987 · Titellied", lvl:4, key:"C",
  chords:["C","C7","F","G","Am"], strum:"Achtel durch", tempo:"150 bpm · 4/4",
  note:"Schnell, dicht, und mit dem <b>C7</b> gleich im zweiten Takt — genau der Akkord, der dem Lied seinen Achtziger-Cartoon-Schwung gibt. Er ist leicht: ein C, bei dem der Zeigefinger zusätzlich in den 1. Bund der A-Saite geht. Achtelmuster durchziehen und nicht langsamer werden.",
  secs:[

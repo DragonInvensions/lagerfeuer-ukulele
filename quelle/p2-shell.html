@@ -2,20 +2,20 @@
 
 <nav class="toc" id="toc" aria-label="Inhaltsverzeichnis">
   <h2>Handwerk</h2>
-  <a href="#instrument"><span class="num">01</span>Dein Instrument</a>
-  <a href="#griffbilder"><span class="num">02</span>Griffbilder lesen</a>
-  <a href="#ersteGriffe"><span class="num">03</span>Die ersten drei Griffe</a>
-  <a href="#rhythmus"><span class="num">04</span>Rhythmus &amp; Schlagmuster</a>
-  <a href="#lagerfeuergriffe"><span class="num">05</span>Die Lagerfeuer-Griffe</a>
-  <a href="#barre"><span class="num">06</span>Barré &amp; harte Griffe</a>
-  <a href="#transponieren"><span class="num">07</span>Tonart &amp; Transponieren</a>
-  <a href="#lagerfeuer"><span class="num">08</span>Am Lagerfeuer</a>
+  <a href="#/instrument"><span class="num">01</span>Dein Instrument</a>
+  <a href="#/griffbilder"><span class="num">02</span>Griffbilder lesen</a>
+  <a href="#/ersteGriffe"><span class="num">03</span>Die ersten drei Griffe</a>
+  <a href="#/rhythmus"><span class="num">04</span>Rhythmus &amp; Schlagmuster</a>
+  <a href="#/lagerfeuergriffe"><span class="num">05</span>Die Lagerfeuer-Griffe</a>
+  <a href="#/barre"><span class="num">06</span>Barré &amp; harte Griffe</a>
+  <a href="#/transponieren"><span class="num">07</span>Tonart &amp; Transponieren</a>
+  <a href="#/lagerfeuer"><span class="num">08</span>Am Lagerfeuer</a>
   <h2>Nachschlagen</h2>
-  <a href="#lexikon">Akkord-Lexikon</a>
-  <a href="#plan">8-Wochen-Plan</a>
-  <a href="#werkzeug">Werkzeugkasten</a>
+  <a href="#/lexikon">Akkord-Lexikon</a>
+  <a href="#/plan">8-Wochen-Plan</a>
+  <a href="#/werkzeug">Werkzeugkasten</a>
   <h2>Lieder</h2>
-  <a href="#lieder">Alle Lieder &amp; Filter</a>
+  <a href="#/lieder">Alle Lieder &amp; Filter</a>
   <div id="tocSongs"></div>
 </nav>
 
@@ -25,6 +25,7 @@
       <span class="strings" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       <span class="bname">Lagerfeuer-Ukulele</span>
     </a>
+    <button class="btn sq" id="backBtn" aria-label="Zurück" hidden>‹</button>
     <button class="btn sq" id="tocBtn" aria-label="Inhaltsverzeichnis öffnen">☰</button>
     <button class="btn sq" id="sizeBtn" aria-label="Textgröße der Lieder ändern"
             title="Textgröße der Lieder">A</button>
@@ -36,6 +37,7 @@
 
 <main class="main" id="top">
 
+  <section id="start" class="chapter view">
   <div class="hero">
     <div class="eyebrow">Ukulele von null — bis das Lagerfeuer mitsingt</div>
     <h1>Vier Saiten,<br><em>ein Lagerfeuer</em></h1>
@@ -50,7 +52,8 @@
     </div>
   </div>
 
-  <section id="sostart" class="chapter">
+    <div class="startgrid" id="startgrid"></div>
+
     <p style="max-width:var(--read);font-size:1.05rem;">
       <strong>So benutzt du dieses Buch.</strong> Die Kapitel 1 bis 8 sind das Handwerk — lies sie der Reihe nach,
       aber nicht alle auf einmal. Der Liederteil ist nach Schwierigkeit sortiert: Stufe 1 braucht einen Finger,
@@ -71,15 +74,18 @@
 
     <div class="note warm">
       <span class="lbl">Zu den Liedtexten</span>
-      <p>Die Texte von Spongebob, Pokémon &amp; Co. sind urheberrechtlich geschützt — ich darf sie hier nicht abdrucken.
+      <p>Die Texte von SpongeBob, Pokémon &amp; Co. sind urheberrechtlich geschützt — ich darf sie hier nicht abdrucken.
       Was du bekommst, ist das, was beim Spielen wirklich zählt: das vollständige Akkord-Raster, Takt für Takt, Zeile für Zeile.
-      Unter jeder Zeile ist ein Feld. Schreib deinen Text selbst hinein (die Zeilennummern passen zu den Zeilen des Originals) —
-      das Buch merkt sich alles in deinem Browser. Bei gemeinfreien Liedern steht der Text komplett da.</p>
+      Bei gemeinfreien Liedern steht der Text komplett da.</p>
+      <p><strong>Damit das schnell geht</strong>, hat jedes geschützte Lied den Knopf <strong>Text einfügen</strong>:
+      Du kopierst den Text einmal von einer der verlinkten Quellen, fügst ihn in einem Rutsch ein, und das Buch
+      verteilt ihn Zeile für Zeile auf die Takte. Unter <a href="#/werkzeug">Werkzeugkasten</a> kannst du alle
+      eingetragenen Texte sichern und auf ein anderes Gerät übertragen.</p>
     </div>
   </section>
 
   <!-- ===================== 01 INSTRUMENT ===================== -->
-  <section id="instrument" class="chapter">
+  <section id="instrument" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 01</span>
       <h2>Dein Instrument</h2>
@@ -142,7 +148,7 @@
   </section>
 
   <!-- ===================== 02 GRIFFBILDER ===================== -->
-  <section id="griffbilder" class="chapter">
+  <section id="griffbilder" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 02</span>
       <h2>Griffbilder lesen</h2>
@@ -193,7 +199,7 @@
   </section>
 
   <!-- ===================== 03 ERSTE GRIFFE ===================== -->
-  <section id="ersteGriffe" class="chapter">
+  <section id="ersteGriffe" class="chapter view">
     <div class="chapter-head">
       <span class="kicker">Kapitel 03</span>
       <h2>Die ersten drei Griffe</h2>
@@ -231,6 +237,6 @@
       oder über dumpfe Saiten — aber halte den Takt. Ein falscher Akkord im Takt klingt am Lagerfeuer richtig.
       Ein richtiger Akkord außerhalb des Takts reißt das ganze Lied auseinander.</p>
     </div>
-    <p><strong>Jetzt spielbar:</strong> <a href="#s-bruderjakob">Bruder Jakob</a> (nur C), <a href="#s-entchen">Alle meine Entchen</a>,
-    <a href="#s-haenschen">Hänschen klein</a>.</p>
+    <p><strong>Jetzt spielbar:</strong> <a href="#/lied/bruderjakob">Bruder Jakob</a> (nur C), <a href="#/lied/entchen">Alle meine Entchen</a>,
+    <a href="#/lied/haenschen">Hänschen klein</a>.</p>
   </section>

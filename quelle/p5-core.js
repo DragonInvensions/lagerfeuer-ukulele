@@ -246,22 +246,32 @@ var PATTERNS = [
    desc:"Das x ist ein Abschlag, bei dem der Handballen gleichzeitig auf die Saiten fällt — es klackt statt zu klingen. Das ist deine Snaredrum. Klingt nach Band statt nach Anfänger."}
 ];
 
-function renderPatterns(){
-  var host = document.getElementById("patterns");
-  host.innerHTML = PATTERNS.map(function(p){
-    var beats = p.meter === "3/4" ? ["1","+","2","+","3","+"] : ["1","+","2","+","3","+","4","+"];
-    var cells = p.slots.map(function(s,i){
-      var glyph = s === "D" ? "↓" : s === "U" ? "↑" : s === "x" ? "✕" : "·";
-      return '<div class="stroke'+(s==="-"?" rest":"")+'" data-i="'+i+'"><span>'+glyph+'</span><span class="beat">'+beats[i]+'</span></div>';
-    }).join("");
-    return '<div class="patternbox" data-p="'+p.id+'">'
-      + '<div class="ptop"><span class="pname">'+esc(p.name)+'</span>'
-      + '<span class="pmeta">'+p.meter+' · '+p.bpm+' bpm</span></div>'
-      + '<div class="strum">'+cells+'</div>'
-      + '<div class="pctl"><button class="btn play">▶ Abspielen</button>'
-      + '<button class="btn slow">Halbes Tempo</button></div>'
-      + '<p class="desc">'+esc(p.desc)+'</p></div>';
+function patternByName(name){
+  for(var i=0;i<PATTERNS.length;i++){ if(PATTERNS[i].name === name) return PATTERNS[i]; }
+  return null;
+}
+
+/* compact = Fassung fuer die Liedseite: ohne Beschreibung, mit Tempo des Liedes */
+function patternBoxHTML(p, compact, bpmText){
+  var beats = p.meter === "3/4" ? ["1","+","2","+","3","+"] : ["1","+","2","+","3","+","4","+"];
+  var cells = p.slots.map(function(s,i){
+    var glyph = s === "D" ? "↓" : s === "U" ? "↑" : s === "x" ? "✕" : "·";
+    return '<div class="stroke'+(s==="-"?" rest":"")+'" data-i="'+i+'">'
+      + '<span>'+glyph+'</span><span class="beat">'+beats[i]+'</span></div>';
   }).join("");
+  return '<div class="patternbox'+(compact?" compact":"")+'" data-p="'+p.id+'">'
+    + '<div class="ptop"><span class="pname">'+esc(p.name)+'</span>'
+    + '<span class="pmeta">'+esc(bpmText || (p.meter+" · "+p.bpm+" bpm"))+'</span></div>'
+    + '<div class="strum">'+cells+'</div>'
+    + '<div class="pctl"><button class="btn play">▶ Abspielen</button>'
+    + '<button class="btn slow">Halbes Tempo</button></div>'
+    + (compact ? '' : '<p class="desc">'+esc(p.desc)+'</p>')
+    + '</div>';
+}
+
+function renderPatterns(){
+  document.getElementById("patterns").innerHTML =
+    PATTERNS.map(function(p){ return patternBoxHTML(p, false); }).join("");
 }
 
 var timer = null, activeBox = null;
@@ -289,8 +299,9 @@ function playPattern(box, p, mult){
     i = (i + 1) % p.slots.length;
   }, ms);
 }
-document.getElementById("patterns").addEventListener("click", function(e){
-  var box = e.target.closest(".patternbox"); if(!box) return;
+/* Delegiert auf das ganze Dokument, damit auch die Muster auf den Liedseiten spielen */
+document.addEventListener("click", function(e){
+  var box = e.target.closest ? e.target.closest(".patternbox") : null; if(!box) return;
   var p = PATTERNS.filter(function(x){ return x.id === box.dataset.p; })[0];
   if(e.target.classList.contains("play")){
     if(activeBox === box){ stopPattern(); } else { playPattern(box, p, 1); }
