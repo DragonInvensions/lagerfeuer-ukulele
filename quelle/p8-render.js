@@ -21,6 +21,16 @@ function chip(name){ return '<button class="chip" data-chord="'+esc(name)+'">'+e
 function songById(id){ for(var i=0;i<SONGS.length;i++){ if(SONGS[i].id===id) return SONGS[i]; } return null; }
 function lyricKey(id, si, ri){ return "uke.lyric."+id+"."+si+"."+ri; }
 
+/* Texte aus der Datei texte.json (falls vorhanden) als Unterlage.
+   Was im Browser getippt wurde, hat immer Vorrang. */
+var DATEI = {};
+function lyricGet(id, si, ri){
+  var v = load(lyricKey(id, si, ri));
+  if(v !== null && v !== "") return v;
+  var s = DATEI[id];
+  return (s && s[si+"."+ri]) || "";
+}
+
 /* Wie viele Textzeilen hat das Lied, und wie viele sind schon ausgefuellt? */
 function lyricStats(s){
   var noetig = 0, da = 0;
@@ -28,7 +38,7 @@ function lyricStats(s){
     sec.rows.forEach(function(r, ri){
       if(r.x) return;                          // gemeinfreier Text steht schon da
       noetig++;
-      if((load(lyricKey(s.id, si, ri)) || "").trim()) da++;
+      if(lyricGet(s.id, si, ri).trim()) da++;
     });
   });
   return {noetig:noetig, da:da};
@@ -99,7 +109,7 @@ function songPageHTML(s){
       } else {
         var k = lyricKey(s.id, si, ri);
         body = '<div class="line"><span class="rowlabel">'+zeile+'</span>'
-          + '<input type="text" data-k="'+k+'" value="'+esc(load(k) || "")+'" '
+          + '<input type="text" data-k="'+k+'" value="'+esc(lyricGet(s.id, si, ri))+'" '
           + 'placeholder="Textzeile '+zeile+'" aria-label="Textzeile '+zeile+'"></div>';
       }
       return '<div class="row"><div class="bars">'+bars+'</div>'+body+'</div>';
@@ -283,6 +293,36 @@ document.getElementById("expBtn").addEventListener("click", function(){
     }).catch(function(){});
   }
 });
+/* texte.json erzeugen: {liedId:{"abschnitt.zeile":"Text"}} */
+document.getElementById("jsonBtn").addEventListener("click", function(){
+  var out = {}, n = 0;
+  SONGS.forEach(function(s){
+    var eintrag = {};
+    s.secs.forEach(function(sec, si){
+      sec.rows.forEach(function(r, ri){
+        if(r.x) return;
+        var v = (load(lyricKey(s.id, si, ri)) || "").trim();
+        if(v){ eintrag[si+"."+ri] = v; n++; }
+      });
+    });
+    if(Object.keys(eintrag).length) out[s.id] = eintrag;
+  });
+  var box = document.getElementById("jsonBox"), info = document.getElementById("jsonInfo");
+  box.hidden = false;
+  box.value = JSON.stringify(out, null, 2);
+  box.select();
+  if(!n){
+    info.textContent = "Noch keine Textzeilen eingetragen.";
+    return;
+  }
+  info.textContent = n + " Zeilen aus " + Object.keys(out).length + " Liedern — als texte.json speichern";
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(box.value).then(function(){
+      info.textContent = n + " Zeilen kopiert — jetzt als texte.json speichern";
+    }).catch(function(){});
+  }
+});
+
 document.getElementById("impBtn").addEventListener("click", function(){
   if(sicherBox.hidden || !sicherBox.value.trim()){
     sicherBox.hidden = false;
@@ -510,4 +550,18 @@ window.addEventListener("hashchange", route);
 renderSongList();
 zeichneStart();
 route();
+
+/* texte.json laden, falls sie neben dem Buch liegt.
+   Bei file:// scheitert fetch — dann bleibt es einfach bei den lokalen Texten. */
+if(location.protocol !== "file:"){
+  fetch("texte.json", {cache:"no-store"})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){
+      if(!j || typeof j !== "object") return;
+      DATEI = j;
+      renderSongList();
+      if(aktSong) renderSong(aktSong.id);
+    })
+    .catch(function(){ /* keine Datei da — voellig in Ordnung */ });
+}
 </script>

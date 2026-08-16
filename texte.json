@@ -1,0 +1,3 @@
+{
+  "_hinweis": "Deine eigenen Liedtexte. Erzeugen: Werkzeugkasten -> 'texte.json erzeugen', Inhalt hier hineinkopieren. Aufbau: { \"liedId\": { \"abschnitt.zeile\": \"Textzeile\" } }. Nur ins PRIVATE Repository hochladen."
+}

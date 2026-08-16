@@ -1251,6 +1251,31 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
       </table>
     </div>
 
+    <h3>Texte fest ins Buch übernehmen</h3>
+    <p>Eingetippte Texte liegen normalerweise nur im Browser dieses Geräts. Willst du sie <em>dauerhaft</em>
+    im Buch haben — auf jedem Gerät, ohne Übertragen —, legst du sie als Datei <code>texte.json</code>
+    neben das Buch. Das Buch lädt sie beim Start automatisch und füllt damit alle Zeilen, die du lokal
+    noch nicht ausgefüllt hast. Was du im Browser tippst, hat immer Vorrang.</p>
+    <ol>
+      <li>Trag die Texte über <strong>Text einfügen</strong> auf den Liedseiten ein.</li>
+      <li>Tipp hier auf <strong>texte.json erzeugen</strong> — der Inhalt landet in der Zwischenablage.</li>
+      <li>Speichere ihn als <code>texte.json</code> in den Ordner <code>Nextcloud\Ukulele\</code>
+          und lade ihn ins Repository hoch (<code>git add texte.json</code>, committen, pushen).</li>
+    </ol>
+    <div class="card" style="max-width:var(--read);">
+      <div class="sicherctl">
+        <button class="btn on" id="jsonBtn">texte.json erzeugen</button>
+        <span id="jsonInfo" class="sicherinfo"></span>
+      </div>
+      <textarea id="jsonBox" class="sicherbox" spellcheck="false" hidden></textarea>
+    </div>
+    <div class="note warm">
+      <span class="lbl">Halt das Repository privat</span>
+      <p>Sobald Liedtexte in <code>texte.json</code> stehen, gehört das Repository auf <em>privat</em> —
+      geschützte Texte dürfen nicht öffentlich stehen. Prüfen kannst du das mit
+      <code>gh repo view DragonInvensions/lagerfeuer-ukulele --json visibility</code>.</p>
+    </div>
+
     <h3>Deine Texte sichern und übertragen</h3>
     <p>Alles, was du in die Textzeilen schreibst — und die Häkchen im Übungsplan — liegt nur im Browser
     <em>dieses</em> Geräts. Was du am Rechner einträgst, steht nicht automatisch auf dem Handy. Damit du nicht
@@ -2130,6 +2155,16 @@ function chip(name){ return '<button class="chip" data-chord="'+esc(name)+'">'+e
 function songById(id){ for(var i=0;i<SONGS.length;i++){ if(SONGS[i].id===id) return SONGS[i]; } return null; }
 function lyricKey(id, si, ri){ return "uke.lyric."+id+"."+si+"."+ri; }
 
+/* Texte aus der Datei texte.json (falls vorhanden) als Unterlage.
+   Was im Browser getippt wurde, hat immer Vorrang. */
+var DATEI = {};
+function lyricGet(id, si, ri){
+  var v = load(lyricKey(id, si, ri));
+  if(v !== null && v !== "") return v;
+  var s = DATEI[id];
+  return (s && s[si+"."+ri]) || "";
+}
+
 /* Wie viele Textzeilen hat das Lied, und wie viele sind schon ausgefuellt? */
 function lyricStats(s){
   var noetig = 0, da = 0;
@@ -2137,7 +2172,7 @@ function lyricStats(s){
     sec.rows.forEach(function(r, ri){
       if(r.x) return;                          // gemeinfreier Text steht schon da
       noetig++;
-      if((load(lyricKey(s.id, si, ri)) || "").trim()) da++;
+      if(lyricGet(s.id, si, ri).trim()) da++;
     });
   });
   return {noetig:noetig, da:da};
@@ -2208,7 +2243,7 @@ function songPageHTML(s){
       } else {
         var k = lyricKey(s.id, si, ri);
         body = '<div class="line"><span class="rowlabel">'+zeile+'</span>'
-          + '<input type="text" data-k="'+k+'" value="'+esc(load(k) || "")+'" '
+          + '<input type="text" data-k="'+k+'" value="'+esc(lyricGet(s.id, si, ri))+'" '
           + 'placeholder="Textzeile '+zeile+'" aria-label="Textzeile '+zeile+'"></div>';
       }
       return '<div class="row"><div class="bars">'+bars+'</div>'+body+'</div>';
@@ -2392,6 +2427,36 @@ document.getElementById("expBtn").addEventListener("click", function(){
     }).catch(function(){});
   }
 });
+/* texte.json erzeugen: {liedId:{"abschnitt.zeile":"Text"}} */
+document.getElementById("jsonBtn").addEventListener("click", function(){
+  var out = {}, n = 0;
+  SONGS.forEach(function(s){
+    var eintrag = {};
+    s.secs.forEach(function(sec, si){
+      sec.rows.forEach(function(r, ri){
+        if(r.x) return;
+        var v = (load(lyricKey(s.id, si, ri)) || "").trim();
+        if(v){ eintrag[si+"."+ri] = v; n++; }
+      });
+    });
+    if(Object.keys(eintrag).length) out[s.id] = eintrag;
+  });
+  var box = document.getElementById("jsonBox"), info = document.getElementById("jsonInfo");
+  box.hidden = false;
+  box.value = JSON.stringify(out, null, 2);
+  box.select();
+  if(!n){
+    info.textContent = "Noch keine Textzeilen eingetragen.";
+    return;
+  }
+  info.textContent = n + " Zeilen aus " + Object.keys(out).length + " Liedern — als texte.json speichern";
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(box.value).then(function(){
+      info.textContent = n + " Zeilen kopiert — jetzt als texte.json speichern";
+    }).catch(function(){});
+  }
+});
+
 document.getElementById("impBtn").addEventListener("click", function(){
   if(sicherBox.hidden || !sicherBox.value.trim()){
     sicherBox.hidden = false;
@@ -2619,6 +2684,20 @@ window.addEventListener("hashchange", route);
 renderSongList();
 zeichneStart();
 route();
+
+/* texte.json laden, falls sie neben dem Buch liegt.
+   Bei file:// scheitert fetch — dann bleibt es einfach bei den lokalen Texten. */
+if(location.protocol !== "file:"){
+  fetch("texte.json", {cache:"no-store"})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){
+      if(!j || typeof j !== "object") return;
+      DATEI = j;
+      renderSongList();
+      if(aktSong) renderSong(aktSong.id);
+    })
+    .catch(function(){ /* keine Datei da — voellig in Ordnung */ });
+}
 </script>
 
 </body>

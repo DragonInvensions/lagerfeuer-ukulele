@@ -112,6 +112,31 @@
       </table>
     </div>
 
+    <h3>Texte fest ins Buch übernehmen</h3>
+    <p>Eingetippte Texte liegen normalerweise nur im Browser dieses Geräts. Willst du sie <em>dauerhaft</em>
+    im Buch haben — auf jedem Gerät, ohne Übertragen —, legst du sie als Datei <code>texte.json</code>
+    neben das Buch. Das Buch lädt sie beim Start automatisch und füllt damit alle Zeilen, die du lokal
+    noch nicht ausgefüllt hast. Was du im Browser tippst, hat immer Vorrang.</p>
+    <ol>
+      <li>Trag die Texte über <strong>Text einfügen</strong> auf den Liedseiten ein.</li>
+      <li>Tipp hier auf <strong>texte.json erzeugen</strong> — der Inhalt landet in der Zwischenablage.</li>
+      <li>Speichere ihn als <code>texte.json</code> in den Ordner <code>Nextcloud\Ukulele\</code>
+          und lade ihn ins Repository hoch (<code>git add texte.json</code>, committen, pushen).</li>
+    </ol>
+    <div class="card" style="max-width:var(--read);">
+      <div class="sicherctl">
+        <button class="btn on" id="jsonBtn">texte.json erzeugen</button>
+        <span id="jsonInfo" class="sicherinfo"></span>
+      </div>
+      <textarea id="jsonBox" class="sicherbox" spellcheck="false" hidden></textarea>
+    </div>
+    <div class="note warm">
+      <span class="lbl">Halt das Repository privat</span>
+      <p>Sobald Liedtexte in <code>texte.json</code> stehen, gehört das Repository auf <em>privat</em> —
+      geschützte Texte dürfen nicht öffentlich stehen. Prüfen kannst du das mit
+      <code>gh repo view DragonInvensions/lagerfeuer-ukulele --json visibility</code>.</p>
+    </div>
+
     <h3>Deine Texte sichern und übertragen</h3>
     <p>Alles, was du in die Textzeilen schreibst — und die Häkchen im Übungsplan — liegt nur im Browser
     <em>dieses</em> Geräts. Was du am Rechner einträgst, steht nicht automatisch auf dem Handy. Damit du nicht
