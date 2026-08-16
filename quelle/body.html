@@ -1262,10 +1262,15 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
       <textarea id="jsonBox" class="sicherbox" spellcheck="false" hidden></textarea>
     </div>
     <div class="note warm">
-      <span class="lbl">Halt das Repository privat</span>
-      <p>Sobald Liedtexte in <code>texte.json</code> stehen, gehört das Repository auf <em>privat</em> —
-      geschützte Texte dürfen nicht öffentlich stehen. Prüfen kannst du das mit
-      <code>gh repo view DragonInvensions/lagerfeuer-ukulele --json visibility</code>.</p>
+      <span class="lbl">Achtung: das Repository ist öffentlich</span>
+      <p>GitHub Pages funktioniert im kostenlosen Plan nur aus einem <em>öffentlichen</em> Repository.
+      Deshalb gehören <strong>keine urheberrechtlich geschützten Liedtexte</strong> in
+      <code>texte.json</code> — die bleiben ausschließlich im Browser deines Geräts, über
+      „Text einfügen“ und die Sicherung weiter unten.</p>
+      <p>Für gemeinfreie Lieder ist <code>texte.json</code> unbedenklich. Willst du auch die geschützten
+      Texte dauerhaft im Buch haben, muss das Repository auf privat — dann brauchst du für Pages
+      GitHub Pro oder einen eigenen Server. Sichtbarkeit prüfen:
+      <code>gh repo view DragonInvensions/lagerfeuer-ukulele --json visibility</code></p>
     </div>
 
     <h3>Deine Texte sichern und übertragen</h3>

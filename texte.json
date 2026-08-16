@@ -1,3 +1,4 @@
 {
-  "_hinweis": "Deine eigenen Liedtexte. Erzeugen: Werkzeugkasten -> 'texte.json erzeugen', Inhalt hier hineinkopieren. Aufbau: { \"liedId\": { \"abschnitt.zeile\": \"Textzeile\" } }. Nur ins PRIVATE Repository hochladen."
+  "_hinweis": "Eigene Liedtexte fuer das Buch. Erzeugen: Werkzeugkasten -> 'texte.json erzeugen', Inhalt hier einsetzen. Aufbau: { \"liedId\": { \"abschnitt.zeile\": \"Textzeile\" } }.",
+  "_wichtig": "Dieses Repository ist OEFFENTLICH. Hier duerfen nur gemeinfreie Texte stehen - keine geschuetzten Liedtexte. Die bleiben im Browser des jeweiligen Geraets."
 }
