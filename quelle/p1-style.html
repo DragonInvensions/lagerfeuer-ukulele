@@ -374,6 +374,48 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .footer{border-top:3px solid var(--rule-strong);margin-top:4rem;padding-top:1.5rem;
   font-family:var(--f-ui);font-size:.8rem;color:var(--ink-faint);}
 
+/* ============ AKKORD UEBER DER TEXTSTELLE ============ */
+.lyr{
+  display:block;line-height:1.15;
+  font-size:calc(1rem * var(--songscale));
+  padding:.15rem 0 .1rem;
+}
+.lyr:empty{display:none;}
+.cw{display:inline-block;vertical-align:bottom;}
+.cw-c{
+  display:block;min-height:1.1em;line-height:1.1;
+  font-family:var(--f-mono);font-weight:700;
+  font-size:calc(.78rem * var(--songscale));color:var(--accent);
+  white-space:nowrap;
+}
+.cw-c .chip{font-size:inherit;line-height:1.25;padding:0;}
+.cw-t{display:block;white-space:pre;line-height:1.25;}
+
+/* Zeile im Anzeige- bzw. Bearbeitungsmodus */
+.line.editable{align-items:flex-start;}
+.lyrwrap{flex:1;min-width:0;}
+.line.editable .lyr{cursor:text;border-bottom:1px dashed transparent;}
+.line.editable .lyr:hover{border-bottom-color:var(--rule);}
+.line.editable input[data-k],
+.line.editable .inschips{display:none;}
+.line.editing .lyr{display:none;}
+.line.editing input[data-k]{display:block;width:100%;}
+.line.editing .inschips{display:flex;flex-wrap:wrap;gap:.3rem;align-items:center;margin-top:.4rem;}
+.insl{font-family:var(--f-ui);font-size:.7rem;color:var(--ink-faint);margin-right:.15rem;}
+.insch{
+  font-family:var(--f-mono);font-weight:700;font-size:.78rem;
+  border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);
+  border-radius:6px;padding:.25rem .5rem;cursor:pointer;line-height:1.2;
+  min-height:30px;
+}
+.insch:hover{background:var(--accent);color:var(--paper);}
+.editbtn{
+  border:0;background:none;color:var(--ink-faint);cursor:pointer;
+  font-size:.95rem;padding:.2rem .3rem;flex:none;line-height:1;
+}
+.editbtn:hover{color:var(--accent);}
+.line.editing .editbtn{visibility:hidden;}
+
 /* ============ SEITEN / ROUTER ============ */
 .view[hidden]{display:none !important;}
 
@@ -613,6 +655,10 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
   .lyrbar-btns .btn{flex:1;justify-content:center;}
   .sheet-in{border-radius:14px 14px 0 0;max-height:92vh;}
   .songnav a{font-size:.8rem;}
+  .insch{min-height:34px;padding:.3rem .6rem;font-size:.82rem;}
+  .editbtn{font-size:1.1rem;padding:.3rem .4rem;}
+  .lyr{padding-top:.2rem;}
+
 }
 
 @media (max-width:400px){

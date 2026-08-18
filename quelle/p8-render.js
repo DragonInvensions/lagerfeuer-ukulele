@@ -18,6 +18,27 @@ renderPatterns();
    ========================================================== */
 var XP = {};                                   // Transposition je Lied
 function chip(name){ return '<button class="chip" data-chord="'+esc(name)+'">'+esc(name)+'</button>'; }
+/* Akkord-ueber-Silbe: "Häns[C]chen klein" -> Akkord steht ueber "chen".
+   Zerlegt in Woerter, damit der Umbruch am Handy sauber bleibt. */
+function chordText(str, tx){
+  if(!str) return "";
+  var teile = String(str).split(/(\[[^\]]*\])/);
+  var html = "", offen = null;
+  teile.forEach(function(p){
+    if(!p) return;
+    if(p.charAt(0) === "[" && p.slice(-1) === "]"){ offen = p.slice(1, -1); return; }
+    p.split(/(\s+)/).forEach(function(w){
+      if(w === "") return;
+      if(/^\s+$/.test(w)){ html += '<span class="cw"><span class="cw-c"></span><span class="cw-t"> </span></span>'; return; }
+      html += '<span class="cw"><span class="cw-c">'
+            + (offen !== null ? chip(tx(offen)) : "")
+            + '</span><span class="cw-t">' + esc(w) + '</span></span>';
+      offen = null;
+    });
+  });
+  return html;
+}
+
 function songById(id){ for(var i=0;i<SONGS.length;i++){ if(SONGS[i].id===id) return SONGS[i]; } return null; }
 function lyricKey(id, si, ri){ return "uke.lyric."+id+"."+si+"."+ri; }
 
@@ -105,12 +126,25 @@ function songPageHTML(s){
       }).join("");
       var body;
       if(r.x){
-        body = '<div class="line pd">'+esc(r.x)+'</div>';
+        body = '<div class="line pd"><div class="lyr">'+chordText(r.x, tx)+'</div></div>';
       } else {
         var k = lyricKey(s.id, si, ri);
-        body = '<div class="line"><span class="rowlabel">'+zeile+'</span>'
-          + '<input type="text" data-k="'+k+'" value="'+esc(lyricGet(s.id, si, ri))+'" '
-          + 'placeholder="Textzeile '+zeile+'" aria-label="Textzeile '+zeile+'"></div>';
+        var wert = lyricGet(s.id, si, ri);
+        var hier = r.b.filter(function(c){ return c; })
+                      .filter(function(c, i, a){ return a.indexOf(c) === i; });
+        body = '<div class="line editable'+(wert ? '' : ' editing')+'">'
+          + '<span class="rowlabel">'+zeile+'</span>'
+          + '<div class="lyrwrap">'
+          +   '<div class="lyr">'+chordText(wert, tx)+'</div>'
+          +   '<input type="text" data-k="'+k+'" value="'+esc(wert)+'" '
+          +   'placeholder="Textzeile '+zeile+'" aria-label="Textzeile '+zeile+'">'
+          +   '<div class="inschips"><span class="insl">Akkord an den Cursor:</span>'
+          +   hier.map(function(c){
+                return '<button class="insch" data-ins="'+esc(c)+'">'+esc(tx(c))+'</button>'; }).join("")
+          +   '</div>'
+          + '</div>'
+          + '<button class="editbtn" aria-label="Zeile bearbeiten" title="Zeile bearbeiten">✎</button>'
+          + '</div>';
       }
       return '<div class="row"><div class="bars">'+bars+'</div>'+body+'</div>';
     }).join("");
@@ -208,6 +242,55 @@ songview.addEventListener("click", function(e){
 });
 songview.addEventListener("input", function(e){
   if(e.target.matches("input[data-k]")) store(e.target.dataset.k, e.target.value);
+});
+
+/* ---------- Textzeile bearbeiten und Akkorde einsetzen ---------- */
+function txAktuell(){
+  var n = aktSong ? (XP[aktSong.id] || 0) : 0;
+  return function(c){ return transposeChord(c, n); };
+}
+function zeileAnzeigen(line){
+  var inp = line.querySelector("input[data-k]");
+  line.querySelector(".lyr").innerHTML = chordText(inp.value, txAktuell());
+  line.classList.remove("editing");
+  if(!inp.value.trim()) line.classList.add("editing");   // leer bleibt im Eingabemodus
+}
+songview.addEventListener("click", function(e){
+  /* Akkordmarke an der Cursorstelle einsetzen */
+  var ins = e.target.closest(".insch");
+  if(ins){
+    e.preventDefault();
+    var line = ins.closest(".line"), inp = line.querySelector("input[data-k]");
+    var pos = inp.selectionStart === null ? inp.value.length : inp.selectionStart;
+    var marke = "[" + ins.dataset.ins + "]";
+    inp.value = inp.value.slice(0, pos) + marke + inp.value.slice(pos);
+    store(inp.dataset.k, inp.value);
+    inp.focus();
+    inp.setSelectionRange(pos + marke.length, pos + marke.length);
+    return;
+  }
+  /* In den Bearbeitungsmodus wechseln */
+  var line = e.target.closest(".line.editable");
+  if(line && !line.classList.contains("editing")
+     && (e.target.closest(".editbtn") || e.target.closest(".lyr")) && !e.target.closest(".chip")){
+    line.classList.add("editing");
+    var inp = line.querySelector("input[data-k]");
+    inp.focus();
+    inp.setSelectionRange(inp.value.length, inp.value.length);
+  }
+});
+songview.addEventListener("focusout", function(e){
+  if(!e.target.matches("input[data-k]")) return;
+  var line = e.target.closest(".line");
+  /* Nicht schliessen, wenn der Fokus auf die Akkordknoepfe derselben Zeile geht */
+  setTimeout(function(){
+    if(line.contains(document.activeElement)) return;
+    zeileAnzeigen(line);
+    renderSongList();
+  }, 120);
+});
+songview.addEventListener("keydown", function(e){
+  if(e.target.matches("input[data-k]") && e.key === "Enter"){ e.target.blur(); }
 });
 
 /* ---------- Blatt: ganzen Liedtext auf einmal einfuegen ---------- */
