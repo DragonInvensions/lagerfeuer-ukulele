@@ -18,25 +18,50 @@ renderPatterns();
    ========================================================== */
 var XP = {};                                   // Transposition je Lied
 function chip(name){ return '<button class="chip" data-chord="'+esc(name)+'">'+esc(name)+'</button>'; }
-/* Akkord-ueber-Silbe: "Häns[C]chen klein" -> Akkord steht ueber "chen".
-   Zerlegt in Woerter, damit der Umbruch am Handy sauber bleibt. */
+/* Akkord ueber der Silbe, gesetzt wie im Liederbuch.
+   Jede Silbe bekommt eine eigene Spalte; der Akkord steht buendig darueber.
+   Die Silben eines Wortes bleiben zusammen, umgebrochen wird nur zwischen Woertern. */
+function silbenTeilen(wort){
+  var out = [], akt = "";
+  for(var i = 0; i < wort.length; i++){
+    akt += wort.charAt(i);
+    if(wort.charAt(i) === "-" && i < wort.length - 1){ out.push(akt); akt = ""; }
+  }
+  if(akt) out.push(akt);
+  return out;
+}
+
 function chordText(str, tx){
   if(!str) return "";
   var teile = String(str).split(/(\[[^\]]*\])/);
-  var html = "", offen = null;
+  var offen = null, woerter = [], aktuell = null;
+
   teile.forEach(function(p){
     if(!p) return;
     if(p.charAt(0) === "[" && p.slice(-1) === "]"){ offen = p.slice(1, -1); return; }
-    p.split(/(\s+)/).forEach(function(w){
-      if(w === "") return;
-      if(/^\s+$/.test(w)){ html += '<span class="cw"><span class="cw-c"></span><span class="cw-t"> </span></span>'; return; }
-      html += '<span class="cw"><span class="cw-c">'
-            + (offen !== null ? chip(tx(offen)) : "")
-            + '</span><span class="cw-t">' + esc(w) + '</span></span>';
-      offen = null;
+    p.split(/(\s+)/).forEach(function(stueck){
+      if(stueck === "") return;
+      if(/^\s+$/.test(stueck)){ aktuell = null; return; }   // Wortgrenze
+      if(!aktuell){ aktuell = []; woerter.push(aktuell); }
+      silbenTeilen(stueck).forEach(function(silbe){
+        aktuell.push({ c: offen, t: silbe });
+        offen = null;
+      });
     });
   });
-  return html;
+  // Akkord ohne folgende Silbe (etwa am Zeilenende) trotzdem zeigen
+  if(offen !== null){
+    if(!aktuell){ aktuell = []; woerter.push(aktuell); }
+    aktuell.push({ c: offen, t: " " });
+  }
+
+  return woerter.map(function(w){
+    return '<span class="wd">' + w.map(function(u){
+      return '<span class="cw"><span class="cw-c">'
+        + (u.c !== null ? chip(tx(u.c)) : "")
+        + '</span><span class="cw-t">' + esc(u.t) + '</span></span>';
+    }).join("") + '</span>';
+  }).join(" ");
 }
 
 function songById(id){ for(var i=0;i<SONGS.length;i++){ if(SONGS[i].id===id) return SONGS[i]; } return null; }
