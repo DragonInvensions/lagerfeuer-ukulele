@@ -1,0 +1,26 @@
+{
+  "id": "lagerfeuer-ukulele",
+  "name": "Lagerfeuer-Ukulele",
+  "short_name": "Ukulele",
+  "description": "Ukulele-Lehrbuch von null bis Lagerfeuer: 26 Lieder, Griffbilder, Schlagmuster und 8-Wochen-Plan.",
+  "lang": "de",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0C2422",
+  "theme_color": "#0C2422",
+  "categories": ["education", "music"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Lieder", "url": "./#/lieder" },
+    { "name": "8-Wochen-Plan", "url": "./#/plan" },
+    { "name": "Stimmen", "url": "./#/instrument" }
+  ]
+}
