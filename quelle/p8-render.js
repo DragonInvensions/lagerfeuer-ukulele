@@ -31,17 +31,15 @@ function silbenTeilen(wort){
   return out;
 }
 
-function chordText(str, tx){
-  if(!str) return "";
+function silbenHTML(str, tx){
   var teile = String(str).split(/(\[[^\]]*\])/);
   var offen = null, woerter = [], aktuell = null;
-
   teile.forEach(function(p){
     if(!p) return;
     if(p.charAt(0) === "[" && p.slice(-1) === "]"){ offen = p.slice(1, -1); return; }
     p.split(/(\s+)/).forEach(function(stueck){
       if(stueck === "") return;
-      if(/^\s+$/.test(stueck)){ aktuell = null; return; }   // Wortgrenze
+      if(/^\s+$/.test(stueck)){ aktuell = null; return; }
       if(!aktuell){ aktuell = []; woerter.push(aktuell); }
       silbenTeilen(stueck).forEach(function(silbe){
         aktuell.push({ c: offen, t: silbe });
@@ -49,12 +47,10 @@ function chordText(str, tx){
       });
     });
   });
-  // Akkord ohne folgende Silbe (etwa am Zeilenende) trotzdem zeigen
   if(offen !== null){
     if(!aktuell){ aktuell = []; woerter.push(aktuell); }
     aktuell.push({ c: offen, t: " " });
   }
-
   return woerter.map(function(w){
     return '<span class="wd">' + w.map(function(u){
       return '<span class="cw"><span class="cw-c">'
@@ -62,6 +58,35 @@ function chordText(str, tx){
         + '</span><span class="cw-t">' + esc(u.t) + '</span></span>';
     }).join("") + '</span>';
   }).join(" ");
+}
+
+/* Enthaelt die Zeile Taktstriche |, wird sie taktweise gesetzt: jeder Takt
+   bekommt eine Spalte, die exakt unter dem Akkordkaestchen darueber steht.
+   Es entstehen IMMER genau so viele Spalten wie Takte - sonst verrutscht
+   die Ausrichtung zum Raster. Ueberzaehliges vorne ist der Auftakt und
+   wandert mit einem duennen Strich in die erste Spalte. */
+function chordText(str, tx, takte){
+  if(!str) return "";
+  if(String(str).indexOf("|") === -1) return silbenHTML(str, tx);
+
+  var segs = String(str).split("|").map(function(s){ return s.trim(); });
+  var auftakt = "";
+  if(takte){
+    if(segs.length > takte){
+      var vorne = segs.splice(0, segs.length - takte + 1);
+      auftakt = vorne.slice(0, -1).filter(Boolean).join(" ");
+      segs.unshift(vorne[vorne.length - 1]);
+    }
+    while(segs.length < takte) segs.push("");
+  }
+  return '<span class="taktzeile">' + segs.map(function(seg, i){
+      var inhalt = seg ? silbenHTML(seg, tx) : "&nbsp;";
+      if(i === 0 && auftakt){
+        inhalt = '<span class="auf" title="Auftakt — wird vor der Eins gesungen">'
+               + silbenHTML(auftakt, tx) + '</span>' + inhalt;
+      }
+      return '<span class="tb">' + inhalt + '</span>';
+    }).join("") + '</span>';
 }
 
 function songById(id){ for(var i=0;i<SONGS.length;i++){ if(SONGS[i].id===id) return SONGS[i]; } return null; }
@@ -150,25 +175,26 @@ function songPageHTML(s){
         return '<div class="bar">' + (c === "" ? '<span class="hold">·</span>' : chip(tx(c))) + '</div>';
       }).join("");
       var body;
+      var anzTakte = r.b.length;
       if(r.x){
-        body = '<div class="line pd"><div class="lyr">'+chordText(r.x, tx)+'</div></div>';
+        body = '<div class="line pd"><div class="lyr">'+chordText(r.x, tx, anzTakte)+'</div></div>';
       } else {
         var k = lyricKey(s.id, si, ri);
         var wert = lyricGet(s.id, si, ri);
         var hier = r.b.filter(function(c){ return c; })
                       .filter(function(c, i, a){ return a.indexOf(c) === i; });
         body = '<div class="line editable'+(wert ? '' : ' editing')+'">'
-          + '<span class="rowlabel">'+zeile+'</span>'
           + '<div class="lyrwrap">'
-          +   '<div class="lyr">'+chordText(wert, tx)+'</div>'
+          +   '<div class="lyr" role="button" tabindex="0" '
+          +   'title="Antippen zum Bearbeiten">'+chordText(wert, tx, anzTakte)+'</div>'
           +   '<input type="text" data-k="'+k+'" value="'+esc(wert)+'" '
-          +   'placeholder="Textzeile '+zeile+'" aria-label="Textzeile '+zeile+'">'
-          +   '<div class="inschips"><span class="insl">Akkord an den Cursor:</span>'
+          +   'placeholder="Textzeile '+zeile+' — Taktstrich mit |" aria-label="Textzeile '+zeile+'">'
+          +   '<div class="inschips"><span class="insl">An den Cursor:</span>'
           +   hier.map(function(c){
                 return '<button class="insch" data-ins="'+esc(c)+'">'+esc(tx(c))+'</button>'; }).join("")
+          +   '<button class="insch takt" data-instakt="1" title="Taktstrich">|</button>'
           +   '</div>'
           + '</div>'
-          + '<button class="editbtn" aria-label="Zeile bearbeiten" title="Zeile bearbeiten">✎</button>'
           + '</div>';
       }
       return '<div class="row"><div class="bars">'+bars+'</div>'+body+'</div>';
@@ -276,7 +302,8 @@ function txAktuell(){
 }
 function zeileAnzeigen(line){
   var inp = line.querySelector("input[data-k]");
-  line.querySelector(".lyr").innerHTML = chordText(inp.value, txAktuell());
+  var anz = line.closest(".row").querySelectorAll(".bars .bar").length;
+  line.querySelector(".lyr").innerHTML = chordText(inp.value, txAktuell(), anz);
   line.classList.remove("editing");
   if(!inp.value.trim()) line.classList.add("editing");   // leer bleibt im Eingabemodus
 }
@@ -287,7 +314,7 @@ songview.addEventListener("click", function(e){
     e.preventDefault();
     var line = ins.closest(".line"), inp = line.querySelector("input[data-k]");
     var pos = inp.selectionStart === null ? inp.value.length : inp.selectionStart;
-    var marke = "[" + ins.dataset.ins + "]";
+    var marke = ins.dataset.instakt ? " | " : ("[" + ins.dataset.ins + "]");
     inp.value = inp.value.slice(0, pos) + marke + inp.value.slice(pos);
     store(inp.dataset.k, inp.value);
     inp.focus();
@@ -297,7 +324,7 @@ songview.addEventListener("click", function(e){
   /* In den Bearbeitungsmodus wechseln */
   var line = e.target.closest(".line.editable");
   if(line && !line.classList.contains("editing")
-     && (e.target.closest(".editbtn") || e.target.closest(".lyr")) && !e.target.closest(".chip")){
+     && e.target.closest(".lyr") && !e.target.closest(".chip")){
     line.classList.add("editing");
     var inp = line.querySelector("input[data-k]");
     inp.focus();

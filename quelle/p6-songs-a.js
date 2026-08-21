@@ -11,40 +11,40 @@ var SONGS = [
  chords:["C"], strum:"Der Wandertakt", tempo:"96 bpm · 4/4", pd:true, verified:true,
  note:"<b>Ein einziger Griff, das ganze Lied.</b> Das ist kein Trostpreis — dein Ziel ist, vier Runden am Stück durchzuhalten, ohne auf die Hand zu schauen und ohne dass der Takt schwankt. Wer das kann, hat die halbe Schlaghand schon gelernt. Bonus: Zu viert als Kanon, jede Stimme setzt zwei Takte später ein — die Akkorde passen trotzdem, weil es immer C bleibt.",
  secs:[{n:"Kanon", rows:[
-   {b:["C","C"], x:"[C]Bru-der Ja-kob, Bru-der Ja-kob,"},
-   {b:["C","C"], x:"schläfst du noch? Schläfst du noch?"},
-   {b:["C","C"], x:"Hörst du nicht die Glo-cken, hörst du nicht die Glo-cken?"},
-   {b:["C","C"], x:"Ding dang dong, ding dang dong."}
+   {b:["C","C"], x:"[C]Bru-der Ja-kob, | Bru-der Ja-kob,"},
+   {b:["C","C"], x:"schläfst du noch? | Schläfst du noch?"},
+   {b:["C","C"], x:"Hörst du nicht die Glo-cken, | hörst du nicht die Glo-cken?"},
+   {b:["C","C"], x:"Ding dang dong, | ding dang dong."}
  ]}]},
 
 {id:"entchen", t:"Alle meine Entchen", sub:"Traditionell · gemeinfrei", lvl:1, key:"C",
  chords:["C","G7"], strum:"Der Wandertakt", tempo:"100 bpm · 4/4", pd:true, verified:true,
  note:"Dein erster echter Akkordwechsel. Übe zuerst nur die Stelle C → G7 und wieder zurück, zwanzigmal, bevor du das Lied spielst. Der Wechsel fällt immer auf die <b>Eins</b> des Taktes — die Finger müssen also schon während des letzten Schlags davor unterwegs sein.",
  secs:[{n:"Lied", rows:[
-   {b:["C","C"],  x:"[C]Al-le mei-ne Ent-chen"},
-   {b:["G7","C"], x:"[G7]schwim-men auf dem See, [C]schwim-men auf dem See,"},
-   {b:["C","C"],  x:"[C]Köpf-chen in das Was-ser,"},
-   {b:["G7","C"], x:"[G7]Schwänz-chen in die [C]Höh."}
+   {b:["C","C"],  x:"[C]Al-le mei-ne | Ent-chen"},
+   {b:["G7","C"], x:"[G7]schwim-men auf dem See, | [C]schwim-men auf dem See,"},
+   {b:["C","C"],  x:"[C]Köpf-chen in das | Was-ser,"},
+   {b:["G7","C"], x:"[G7]Schwänz-chen in die | [C]Höh."}
  ]}]},
 
 {id:"haenschen", t:"Hänschen klein", sub:"Traditionell · gemeinfrei", lvl:1, key:"C",
  chords:["C","G7"], strum:"Der Wandertakt", tempo:"100 bpm · 4/4", pd:true, verified:true,
  note:"Dieselben zwei Akkorde, aber der Wechsel kommt öfter und in Zeile 3 auf einer ungewohnten Stelle. Gutes Training fürs Mitzählen: Sprich beim Spielen laut „eins zwei drei vier“ mit.",
  secs:[{n:"Lied", rows:[
-   {b:["C","C","G7","C"],  x:"[C]Häns-chen klein ging al-lein [G7]in die wei-te [C]Welt hin-ein."},
-   {b:["C","C","G7","C"],  x:"[C]Stock und Hut steht ihm gut, [G7]ist gar [C]wohl-ge-mut."},
-   {b:["G7","C","G7","C"], x:"[G7]A-ber Mut-ter [C]wei-net sehr, [G7]hat ja nun kein [C]Häns-chen mehr!"},
-   {b:["C","C","G7","C"],  x:"[C]»Wünsch dir Glück!«, sagt ihr Blick, [G7]»kehr nur bald zu-[C]rück!«"}
+   {b:["C","C","G7","C"],  x:"[C]Häns-chen klein | ging al-lein | [G7]in die wei-te | [C]Welt hin-ein."},
+   {b:["C","C","G7","C"],  x:"[C]Stock und Hut | steht ihm gut, | [G7]ist gar | [C]wohl-ge-mut."},
+   {b:["G7","C","G7","C"], x:"[G7]A-ber Mut-ter | [C]wei-net sehr, | [G7]hat ja nun kein | [C]Häns-chen mehr!"},
+   {b:["C","C","G7","C"],  x:"[C]»Wünsch dir Glück!«, | sagt ihr Blick, | [G7]»kehr nur bald | zu-[C]rück!«"}
  ]}]},
 
 {id:"saints", t:"Oh When The Saints", sub:"Traditional Spiritual · gemeinfrei", lvl:1, key:"C",
  chords:["C","C7","F","G7"], strum:"Der Wandertakt", tempo:"120 bpm · 4/4", pd:true, verified:true,
  note:"Der Klassiker, um F einzuführen — und ein Lied, bei dem jeder mitsingt, ohne den Text zu kennen. Das <b>C7</b> in Zeile 3 ist optional: Es ist ein C, bei dem der Zeigefinger zusätzlich auf den 1. Bund der A-Saite geht, und es zieht das Ohr in Richtung F. Lass es weg, wenn es dich aufhält.",
  secs:[{n:"Lied", rows:[
-   {b:["C","C","C","C"],   x:"[C]Oh when the saints go mar-ching in,"},
-   {b:["C","C","G7","G7"], x:"[C]oh when the saints go [G7]mar-ching in,"},
-   {b:["C","C7","F","F"],  x:"[C]oh Lord I want to [C7]be in [F]that num-ber,"},
-   {b:["C","G7","C","C"],  x:"[C]when the saints go [G7]mar-ching [C]in."}
+   {b:["C","C","C","C"],   x:"[C]Oh when the | saints go mar-ching | in, |"},
+   {b:["C","C","G7","G7"], x:"[C]oh when the | saints go | [G7]mar-ching | in,"},
+   {b:["C","C7","F","F"],  x:"[C]oh Lord I want to | [C7]be in | [F]that num-ber, |"},
+   {b:["C","G7","C","C"],  x:"[C]when the saints go | [G7]mar-ching | [C]in. |"}
  ]}]},
 
 {id:"geburtstag", t:"Zum Geburtstag viel Glück", sub:"Happy Birthday to You · Hill/Hill 1893 · gemeinfrei", lvl:2, key:"C",
@@ -52,16 +52,16 @@ var SONGS = [
  note:"<b>Das nützlichste Lied der Welt.</b> Drei Dinge machen es knifflig: Erstens der <b>Walzertakt</b> — drei Schläge pro Takt, nicht vier. Zweitens der <b>Auftakt</b>: Das Wort „Zum“ kommt noch <em>vor</em> dem ersten Takt, du zählst also „eins zwei DREI“ und singst auf der Drei los. Drittens die dritte Zeile, die auf F geht — genau da singen alle falsch. Merk dir den Ablauf als Bogen: weg (G7) — zurück (C) — weg (F) — heim (C).<br><br>Für den Namen in Zeile 3 brauchst du manchmal eine Silbe mehr oder weniger. Das ist kein Problem: Bleib im Takt und quetsch die Silben rein, so macht es jeder.",
  secs:[
   {n:"Deutsch", rows:[
-   {b:["C","C","G7"],  x:"[C]Zum Ge-burts-tag viel [G7]Glück,"},
-   {b:["G7","G7","C"], x:"[G7]zum Ge-burts-tag viel [C]Glück,"},
-   {b:["C","C7","F"],  x:"[C]zum Ge-burts-[C7]tag, lie-[F]be(r) …"},
-   {b:["C","G7","C"],  x:"[C]zum Ge-burts-[G7]tag viel [C]Glück!"}
+   {b:["C","C","G7"],  x:"[C]Zum | Ge-burts- | tag viel | [G7]Glück,"},
+   {b:["G7","G7","C"], x:"[G7]zum | Ge-burts- | tag viel | [C]Glück,"},
+   {b:["C","C7","F"],  x:"[C]zum | Ge-burts- | [C7]tag, lie- | [F]be(r) …"},
+   {b:["C","G7","C"],  x:"[C]zum | Ge-burts- | [G7]tag viel | [C]Glück!"}
   ]},
   {n:"Englisch", rows:[
-   {b:["C","C","G7"],  x:"[C]Hap-py birth-day to [G7]you,"},
-   {b:["G7","G7","C"], x:"[G7]hap-py birth-day to [C]you,"},
-   {b:["C","C7","F"],  x:"[C]hap-py birth-[C7]day dear [F]…"},
-   {b:["C","G7","C"],  x:"[C]hap-py birth-[G7]day to [C]you!"}
+   {b:["C","C","G7"],  x:"[C]Hap-py | birth- | day to | [G7]you,"},
+   {b:["G7","G7","C"], x:"[G7]hap-py | birth- | day to | [C]you,"},
+   {b:["C","C7","F"],  x:"[C]hap-py | birth- | [C7]day dear | [F]…"},
+   {b:["C","G7","C"],  x:"[C]hap-py | birth- | [G7]day to | [C]you!"}
   ]}
  ]},
 
@@ -91,21 +91,21 @@ var SONGS = [
  chords:["C","F","G7"], strum:"Walzer", tempo:"96 bpm · 3/4", pd:true,
  note:"Das deutsche Lagerfeuerlied schlechthin — und ein Lied, bei dem die ältere Generation garantiert einsteigt. Im Walzertakt, ruhig. Wenn du mehrstimmig singen willst: Das ist genau das Lied dafür.",
  secs:[{n:"Strophe", rows:[
-   {b:["C","G7","C"], x:"[C]Kein schö-ner [G7]Land in die-ser [C]Zeit"},
-   {b:["C","G7","C"], x:"[C]als hier das [G7]uns-re weit und [C]breit,"},
-   {b:["F","C","G7"], x:"[F]wo wir uns [C]fin-[G7]den"},
-   {b:["F","C","G7"], x:"[F]wohl un-ter [C]Lin-[G7]den"},
-   {b:["C","G7","C"], x:"[C]zur A-[G7]bend-[C]zeit."}
+   {b:["C","G7","C"], x:"[C]Kein schö-ner | [G7]Land in die-ser | [C]Zeit"},
+   {b:["C","G7","C"], x:"[C]als hier das | [G7]uns-re weit und | [C]breit,"},
+   {b:["F","C","G7"], x:"[F]wo wir uns | [C]fin- | [G7]den"},
+   {b:["F","C","G7"], x:"[F]wohl un-ter | [C]Lin- | [G7]den"},
+   {b:["C","G7","C"], x:"[C]zur A- | [G7]bend- | [C]zeit."}
  ]}]},
 
 {id:"bolle", t:"Bolle reiste jüngst zu Pfingsten", sub:"Berliner Gassenhauer · gemeinfrei", lvl:2, key:"C",
  chords:["C","F","G7"], strum:"Der Wandertakt", tempo:"120 bpm · 4/4", pd:true,
  note:"Zehn Strophen, alle mit derselben Melodie und demselben Akkordschema — perfekt zum Einspielen, weil du dich nach der ersten Strophe nur noch auf die Schlaghand konzentrieren musst. Der Refrain am Ende jeder Strophe ist immer gleich.",
  secs:[{n:"Strophe (Schema für alle)", rows:[
-   {b:["C","C","G7","C"], x:"[C]Bol-le rei-ste jüngst zu Pfing-sten, [G7]nach Pan-kow war sein [C]Ziel,"},
-   {b:["C","C","G7","C"], x:"[C]da ver-lor er sei-nen Jüng-sten, [G7]ganz Pan-kow such-te [C]viel."},
-   {b:["F","C","G7","C"], x:"[F]Und Bol-le, der war [C]gar nicht lang-sam, [G7]er such-te ihn auch [C]nicht,"},
-   {b:["C","C","G7","C"], x:"[C]a-ber den-noch hat sich Bol-le [G7]ganz köst-lich a-mü-[C]siert."}
+   {b:["C","C","G7","C"], x:"[C]Bol-le rei-ste | jüngst zu Pfing-sten, | [G7]nach Pan-kow war sein | [C]Ziel,"},
+   {b:["C","C","G7","C"], x:"[C]da ver-lor er | sei-nen Jüng-sten, | [G7]ganz Pan-kow such-te | [C]viel."},
+   {b:["F","C","G7","C"], x:"[F]Und Bol-le, der war | [C]gar nicht lang-sam, | [G7]er such-te ihn auch | [C]nicht,"},
+   {b:["C","C","G7","C"], x:"[C]a-ber den-noch | hat sich Bol-le | [G7]ganz köst-lich | a-mü-[C]siert."}
  ]}]},
 
 {id:"alohaoe", t:"Aloha ʻOe", sub:"Königin Liliʻuokalani, 1878 · gemeinfrei", lvl:3, key:"F",
@@ -117,10 +117,10 @@ var SONGS = [
    {b:["C7","C7","F","F"], x:null}
   ]},
   {n:"Refrain", rows:[
-   {b:["F","F","Bb","Bb"], x:"[F]A-lo-ha ʻoe, [Bb]a-lo-ha ʻoe"},
-   {b:["F","C7","F","F"],  x:"[F]e ke o-nao-na [C7]no-ho i ka [F]li-po"},
-   {b:["F","F","Bb","Bb"], x:"[F]One fond em-brace, [Bb]a hoʻi aʻe au"},
-   {b:["F","C7","F","F"],  x:"[F]un-til we [C7]meet a-[F]gain."}
+   {b:["F","F","Bb","Bb"], x:"[F]A-lo-ha | ʻoe, | [Bb]a-lo-ha | ʻoe"},
+   {b:["F","C7","F","F"],  x:"[F]e ke o-nao-na | [C7]no-ho i ka | [F]li-po |"},
+   {b:["F","F","Bb","Bb"], x:"[F]One fond | em-brace, | [Bb]a hoʻi | aʻe au"},
+   {b:["F","C7","F","F"],  x:"[F]un-til we | [C7]meet a- | [F]gain. |"}
   ]}
  ]},
 

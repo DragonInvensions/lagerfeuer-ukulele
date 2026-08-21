@@ -338,8 +338,8 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .bar .chip:hover{text-decoration:none;background:var(--accent-soft);}
 .bar .hold{color:var(--ink-faint);font-family:var(--f-mono);}
 .line{
-  font-size:calc(1rem * var(--songscale));padding:.25rem .2rem 0;line-height:1.45;
-  display:flex;align-items:baseline;gap:.5rem;
+  font-size:calc(1rem * var(--songscale));padding:.25rem 0 0;line-height:1.45;
+  display:block;
 }
 .line.pd{color:var(--ink);}
 .line input{
@@ -418,6 +418,28 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .cw-c .chip{font-size:inherit;line-height:1.15;padding:0;vertical-align:top;}
 .cw-t{display:block;line-height:1.3;white-space:pre;}
 
+
+/* Taktweise gesetzte Zeile — die Spalten fluchten mit dem Akkordraster */
+/* Gleiches Kastenmodell wie .bars (1px Rahmen), sonst verrutschen die
+   Spalten gegenueber dem Akkordraster um wenige Pixel. */
+.taktzeile{display:flex;align-items:flex-start;width:100%;
+  border:1px solid transparent;}
+/* KEIN padding hier: bei flex-basis:0 kommen Innenabstand und Rahmen
+   zusaetzlich zum gleichen Anteil und verschieben die Spalte gegenueber
+   dem Akkordkaestchen. Der Abstand sitzt deshalb im ersten Wort. */
+.tb{
+  flex:1;min-width:0;
+  border-left:1px solid var(--rule);
+}
+.tb:first-child{border-left:0;}
+.tb:not(:first-child) > .wd:first-child{margin-left:.3rem;}
+/* Auftakt: steht vor der Eins, deshalb ein sichtbarer Taktstrich dahinter */
+.auf{
+  display:inline-block;padding-right:.3em;margin-right:.32em;
+  border-right:2px solid var(--ember);
+}
+.lyr .taktzeile .wd{margin-bottom:.25em;}
+
 /* Zeile im Anzeige- bzw. Bearbeitungsmodus */
 .line.editable{align-items:flex-start;}
 .lyrwrap{flex:1;min-width:0;}
@@ -436,6 +458,9 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
   min-height:30px;
 }
 .insch:hover{background:var(--accent);color:var(--paper);}
+.insch.takt{border-color:var(--ember);background:var(--ember-soft);color:var(--ember);
+  font-size:1rem;padding:.2rem .7rem;}
+.insch.takt:hover{background:var(--ember);color:var(--paper);}
 .editbtn{
   border:0;background:none;color:var(--ink-faint);cursor:pointer;
   font-size:.95rem;padding:.2rem .3rem;flex:none;line-height:1;
@@ -1235,12 +1260,20 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
       der dort gegriffen wird; ein <strong>·</strong> heißt „vorherigen Akkord weiterhalten“. Ein Takt sind vier Schläge
       (im Walzertakt drei). Darunter steht die Textzeile beziehungsweise dein Eingabefeld.</p>
       <p><strong>Wo genau der Akkord gewechselt wird</strong>, steht direkt über dem Wort: Im Text
-      sitzt der Akkordname über der Silbe, auf der du umgreifst. Das Taktraster darüber sagt dir,
-      <em>wie lange</em> jeder Akkord dauert — der Text sagt dir, <em>wann</em> du wechselst.</p>
-      <p>In deinen eigenen Textzeilen setzt du diese Marken selbst: Tipp die Zeile an, stell den Cursor
-      an die Silbe, und tipp unten auf den Akkord. Es erscheint eine Marke wie <code>[C]</code> im Text —
-      angezeigt wird sie später als Akkord über genau dieser Stelle. Mit dem Stift ✎ kommst du jederzeit
-      zurück ins Bearbeiten.</p>
+      sitzt der Akkordname über der Silbe, auf der du umgreifst.</p>
+      <p><strong>Und wann welche Silbe drankommt</strong>, zeigt die Aufteilung: Der Text ist in
+      dieselben Takte geteilt wie das Raster darüber und steht spaltengenau darunter. Alles, was in
+      einer Spalte steht, wird in diesem einen Takt gesungen — die erste Silbe einer Spalte fällt
+      auf die <strong>Eins</strong>. So wie im Gesangbuch, nur ohne Notenlinien.</p>
+      <p>Ein <span style="border-right:2px solid var(--ember);padding-right:.3em">senkrechter roter
+      Strich</span> markiert einen <strong>Auftakt</strong>: Diese Silben kommen noch <em>vor</em> der
+      Eins des ersten Takts. Bei „Zum Geburtstag“ ist das der Klassiker — zähl „eins zwei DREI“ und
+      sing auf der Drei los.</p>
+      <p>In deinen eigenen Textzeilen setzt du beides selbst: Tipp die Zeile an — sie wird zum
+      Eingabefeld. Unter dem Feld liegen die Akkorde dieses Takts und ein <strong>|</strong>-Knopf.
+      Der Akkord setzt eine Marke wie <code>[C]</code> an der Cursorstelle, das <strong>|</strong>
+      setzt einen Taktstrich. Setz so viele Taktstriche wie Takte im Raster darüber, dann steht dein
+      Text spaltengenau. Zum Beenden irgendwo danebentippen oder Eingabetaste.</p>
       <p>Oben auf jeder Liedseite siehst du die Griffbilder, das Schlagmuster zum Anhören und den
       Transponier-Knopf, mit dem du das Lied in deine Stimmlage schiebst.</p>
     </details>
@@ -1839,40 +1872,40 @@ var SONGS = [
  chords:["C"], strum:"Der Wandertakt", tempo:"96 bpm · 4/4", pd:true, verified:true,
  note:"<b>Ein einziger Griff, das ganze Lied.</b> Das ist kein Trostpreis — dein Ziel ist, vier Runden am Stück durchzuhalten, ohne auf die Hand zu schauen und ohne dass der Takt schwankt. Wer das kann, hat die halbe Schlaghand schon gelernt. Bonus: Zu viert als Kanon, jede Stimme setzt zwei Takte später ein — die Akkorde passen trotzdem, weil es immer C bleibt.",
  secs:[{n:"Kanon", rows:[
-   {b:["C","C"], x:"[C]Bru-der Ja-kob, Bru-der Ja-kob,"},
-   {b:["C","C"], x:"schläfst du noch? Schläfst du noch?"},
-   {b:["C","C"], x:"Hörst du nicht die Glo-cken, hörst du nicht die Glo-cken?"},
-   {b:["C","C"], x:"Ding dang dong, ding dang dong."}
+   {b:["C","C"], x:"[C]Bru-der Ja-kob, | Bru-der Ja-kob,"},
+   {b:["C","C"], x:"schläfst du noch? | Schläfst du noch?"},
+   {b:["C","C"], x:"Hörst du nicht die Glo-cken, | hörst du nicht die Glo-cken?"},
+   {b:["C","C"], x:"Ding dang dong, | ding dang dong."}
  ]}]},
 
 {id:"entchen", t:"Alle meine Entchen", sub:"Traditionell · gemeinfrei", lvl:1, key:"C",
  chords:["C","G7"], strum:"Der Wandertakt", tempo:"100 bpm · 4/4", pd:true, verified:true,
  note:"Dein erster echter Akkordwechsel. Übe zuerst nur die Stelle C → G7 und wieder zurück, zwanzigmal, bevor du das Lied spielst. Der Wechsel fällt immer auf die <b>Eins</b> des Taktes — die Finger müssen also schon während des letzten Schlags davor unterwegs sein.",
  secs:[{n:"Lied", rows:[
-   {b:["C","C"],  x:"[C]Al-le mei-ne Ent-chen"},
-   {b:["G7","C"], x:"[G7]schwim-men auf dem See, [C]schwim-men auf dem See,"},
-   {b:["C","C"],  x:"[C]Köpf-chen in das Was-ser,"},
-   {b:["G7","C"], x:"[G7]Schwänz-chen in die [C]Höh."}
+   {b:["C","C"],  x:"[C]Al-le mei-ne | Ent-chen"},
+   {b:["G7","C"], x:"[G7]schwim-men auf dem See, | [C]schwim-men auf dem See,"},
+   {b:["C","C"],  x:"[C]Köpf-chen in das | Was-ser,"},
+   {b:["G7","C"], x:"[G7]Schwänz-chen in die | [C]Höh."}
  ]}]},
 
 {id:"haenschen", t:"Hänschen klein", sub:"Traditionell · gemeinfrei", lvl:1, key:"C",
  chords:["C","G7"], strum:"Der Wandertakt", tempo:"100 bpm · 4/4", pd:true, verified:true,
  note:"Dieselben zwei Akkorde, aber der Wechsel kommt öfter und in Zeile 3 auf einer ungewohnten Stelle. Gutes Training fürs Mitzählen: Sprich beim Spielen laut „eins zwei drei vier“ mit.",
  secs:[{n:"Lied", rows:[
-   {b:["C","C","G7","C"],  x:"[C]Häns-chen klein ging al-lein [G7]in die wei-te [C]Welt hin-ein."},
-   {b:["C","C","G7","C"],  x:"[C]Stock und Hut steht ihm gut, [G7]ist gar [C]wohl-ge-mut."},
-   {b:["G7","C","G7","C"], x:"[G7]A-ber Mut-ter [C]wei-net sehr, [G7]hat ja nun kein [C]Häns-chen mehr!"},
-   {b:["C","C","G7","C"],  x:"[C]»Wünsch dir Glück!«, sagt ihr Blick, [G7]»kehr nur bald zu-[C]rück!«"}
+   {b:["C","C","G7","C"],  x:"[C]Häns-chen klein | ging al-lein | [G7]in die wei-te | [C]Welt hin-ein."},
+   {b:["C","C","G7","C"],  x:"[C]Stock und Hut | steht ihm gut, | [G7]ist gar | [C]wohl-ge-mut."},
+   {b:["G7","C","G7","C"], x:"[G7]A-ber Mut-ter | [C]wei-net sehr, | [G7]hat ja nun kein | [C]Häns-chen mehr!"},
+   {b:["C","C","G7","C"],  x:"[C]»Wünsch dir Glück!«, | sagt ihr Blick, | [G7]»kehr nur bald | zu-[C]rück!«"}
  ]}]},
 
 {id:"saints", t:"Oh When The Saints", sub:"Traditional Spiritual · gemeinfrei", lvl:1, key:"C",
  chords:["C","C7","F","G7"], strum:"Der Wandertakt", tempo:"120 bpm · 4/4", pd:true, verified:true,
  note:"Der Klassiker, um F einzuführen — und ein Lied, bei dem jeder mitsingt, ohne den Text zu kennen. Das <b>C7</b> in Zeile 3 ist optional: Es ist ein C, bei dem der Zeigefinger zusätzlich auf den 1. Bund der A-Saite geht, und es zieht das Ohr in Richtung F. Lass es weg, wenn es dich aufhält.",
  secs:[{n:"Lied", rows:[
-   {b:["C","C","C","C"],   x:"[C]Oh when the saints go mar-ching in,"},
-   {b:["C","C","G7","G7"], x:"[C]oh when the saints go [G7]mar-ching in,"},
-   {b:["C","C7","F","F"],  x:"[C]oh Lord I want to [C7]be in [F]that num-ber,"},
-   {b:["C","G7","C","C"],  x:"[C]when the saints go [G7]mar-ching [C]in."}
+   {b:["C","C","C","C"],   x:"[C]Oh when the | saints go mar-ching | in, |"},
+   {b:["C","C","G7","G7"], x:"[C]oh when the | saints go | [G7]mar-ching | in,"},
+   {b:["C","C7","F","F"],  x:"[C]oh Lord I want to | [C7]be in | [F]that num-ber, |"},
+   {b:["C","G7","C","C"],  x:"[C]when the saints go | [G7]mar-ching | [C]in. |"}
  ]}]},
 
 {id:"geburtstag", t:"Zum Geburtstag viel Glück", sub:"Happy Birthday to You · Hill/Hill 1893 · gemeinfrei", lvl:2, key:"C",
@@ -1880,16 +1913,16 @@ var SONGS = [
  note:"<b>Das nützlichste Lied der Welt.</b> Drei Dinge machen es knifflig: Erstens der <b>Walzertakt</b> — drei Schläge pro Takt, nicht vier. Zweitens der <b>Auftakt</b>: Das Wort „Zum“ kommt noch <em>vor</em> dem ersten Takt, du zählst also „eins zwei DREI“ und singst auf der Drei los. Drittens die dritte Zeile, die auf F geht — genau da singen alle falsch. Merk dir den Ablauf als Bogen: weg (G7) — zurück (C) — weg (F) — heim (C).<br><br>Für den Namen in Zeile 3 brauchst du manchmal eine Silbe mehr oder weniger. Das ist kein Problem: Bleib im Takt und quetsch die Silben rein, so macht es jeder.",
  secs:[
   {n:"Deutsch", rows:[
-   {b:["C","C","G7"],  x:"[C]Zum Ge-burts-tag viel [G7]Glück,"},
-   {b:["G7","G7","C"], x:"[G7]zum Ge-burts-tag viel [C]Glück,"},
-   {b:["C","C7","F"],  x:"[C]zum Ge-burts-[C7]tag, lie-[F]be(r) …"},
-   {b:["C","G7","C"],  x:"[C]zum Ge-burts-[G7]tag viel [C]Glück!"}
+   {b:["C","C","G7"],  x:"[C]Zum | Ge-burts- | tag viel | [G7]Glück,"},
+   {b:["G7","G7","C"], x:"[G7]zum | Ge-burts- | tag viel | [C]Glück,"},
+   {b:["C","C7","F"],  x:"[C]zum | Ge-burts- | [C7]tag, lie- | [F]be(r) …"},
+   {b:["C","G7","C"],  x:"[C]zum | Ge-burts- | [G7]tag viel | [C]Glück!"}
   ]},
   {n:"Englisch", rows:[
-   {b:["C","C","G7"],  x:"[C]Hap-py birth-day to [G7]you,"},
-   {b:["G7","G7","C"], x:"[G7]hap-py birth-day to [C]you,"},
-   {b:["C","C7","F"],  x:"[C]hap-py birth-[C7]day dear [F]…"},
-   {b:["C","G7","C"],  x:"[C]hap-py birth-[G7]day to [C]you!"}
+   {b:["C","C","G7"],  x:"[C]Hap-py | birth- | day to | [G7]you,"},
+   {b:["G7","G7","C"], x:"[G7]hap-py | birth- | day to | [C]you,"},
+   {b:["C","C7","F"],  x:"[C]hap-py | birth- | [C7]day dear | [F]…"},
+   {b:["C","G7","C"],  x:"[C]hap-py | birth- | [G7]day to | [C]you!"}
   ]}
  ]},
 
@@ -1919,21 +1952,21 @@ var SONGS = [
  chords:["C","F","G7"], strum:"Walzer", tempo:"96 bpm · 3/4", pd:true,
  note:"Das deutsche Lagerfeuerlied schlechthin — und ein Lied, bei dem die ältere Generation garantiert einsteigt. Im Walzertakt, ruhig. Wenn du mehrstimmig singen willst: Das ist genau das Lied dafür.",
  secs:[{n:"Strophe", rows:[
-   {b:["C","G7","C"], x:"[C]Kein schö-ner [G7]Land in die-ser [C]Zeit"},
-   {b:["C","G7","C"], x:"[C]als hier das [G7]uns-re weit und [C]breit,"},
-   {b:["F","C","G7"], x:"[F]wo wir uns [C]fin-[G7]den"},
-   {b:["F","C","G7"], x:"[F]wohl un-ter [C]Lin-[G7]den"},
-   {b:["C","G7","C"], x:"[C]zur A-[G7]bend-[C]zeit."}
+   {b:["C","G7","C"], x:"[C]Kein schö-ner | [G7]Land in die-ser | [C]Zeit"},
+   {b:["C","G7","C"], x:"[C]als hier das | [G7]uns-re weit und | [C]breit,"},
+   {b:["F","C","G7"], x:"[F]wo wir uns | [C]fin- | [G7]den"},
+   {b:["F","C","G7"], x:"[F]wohl un-ter | [C]Lin- | [G7]den"},
+   {b:["C","G7","C"], x:"[C]zur A- | [G7]bend- | [C]zeit."}
  ]}]},
 
 {id:"bolle", t:"Bolle reiste jüngst zu Pfingsten", sub:"Berliner Gassenhauer · gemeinfrei", lvl:2, key:"C",
  chords:["C","F","G7"], strum:"Der Wandertakt", tempo:"120 bpm · 4/4", pd:true,
  note:"Zehn Strophen, alle mit derselben Melodie und demselben Akkordschema — perfekt zum Einspielen, weil du dich nach der ersten Strophe nur noch auf die Schlaghand konzentrieren musst. Der Refrain am Ende jeder Strophe ist immer gleich.",
  secs:[{n:"Strophe (Schema für alle)", rows:[
-   {b:["C","C","G7","C"], x:"[C]Bol-le rei-ste jüngst zu Pfing-sten, [G7]nach Pan-kow war sein [C]Ziel,"},
-   {b:["C","C","G7","C"], x:"[C]da ver-lor er sei-nen Jüng-sten, [G7]ganz Pan-kow such-te [C]viel."},
-   {b:["F","C","G7","C"], x:"[F]Und Bol-le, der war [C]gar nicht lang-sam, [G7]er such-te ihn auch [C]nicht,"},
-   {b:["C","C","G7","C"], x:"[C]a-ber den-noch hat sich Bol-le [G7]ganz köst-lich a-mü-[C]siert."}
+   {b:["C","C","G7","C"], x:"[C]Bol-le rei-ste | jüngst zu Pfing-sten, | [G7]nach Pan-kow war sein | [C]Ziel,"},
+   {b:["C","C","G7","C"], x:"[C]da ver-lor er | sei-nen Jüng-sten, | [G7]ganz Pan-kow such-te | [C]viel."},
+   {b:["F","C","G7","C"], x:"[F]Und Bol-le, der war | [C]gar nicht lang-sam, | [G7]er such-te ihn auch | [C]nicht,"},
+   {b:["C","C","G7","C"], x:"[C]a-ber den-noch | hat sich Bol-le | [G7]ganz köst-lich | a-mü-[C]siert."}
  ]}]},
 
 {id:"alohaoe", t:"Aloha ʻOe", sub:"Königin Liliʻuokalani, 1878 · gemeinfrei", lvl:3, key:"F",
@@ -1945,10 +1978,10 @@ var SONGS = [
    {b:["C7","C7","F","F"], x:null}
   ]},
   {n:"Refrain", rows:[
-   {b:["F","F","Bb","Bb"], x:"[F]A-lo-ha ʻoe, [Bb]a-lo-ha ʻoe"},
-   {b:["F","C7","F","F"],  x:"[F]e ke o-nao-na [C7]no-ho i ka [F]li-po"},
-   {b:["F","F","Bb","Bb"], x:"[F]One fond em-brace, [Bb]a hoʻi aʻe au"},
-   {b:["F","C7","F","F"],  x:"[F]un-til we [C7]meet a-[F]gain."}
+   {b:["F","F","Bb","Bb"], x:"[F]A-lo-ha | ʻoe, | [Bb]a-lo-ha | ʻoe"},
+   {b:["F","C7","F","F"],  x:"[F]e ke o-nao-na | [C7]no-ho i ka | [F]li-po |"},
+   {b:["F","F","Bb","Bb"], x:"[F]One fond | em-brace, | [Bb]a hoʻi | aʻe au"},
+   {b:["F","C7","F","F"],  x:"[F]un-til we | [C7]meet a- | [F]gain. |"}
   ]}
  ]},
 
@@ -2026,10 +2059,10 @@ var SONGS = [
  chords:["C","F","G7"], strum:"Walzer", tempo:"76 bpm · 3/4", pd:true, verified:true,
  note:"Walzertakt, langsam, und ein Auftakt („A-“ kommt vor der Eins). Das Lied lebt davon, dass du <em>nicht</em> durchschlägst: Ein einziger voller Abschlag pro Takt, dazwischen Stille, klingt hier besser als jedes Muster. Probier beides.",
  secs:[{n:"Strophe", rows:[
-   {b:["C","C","F","C"],   x:"[C]A-ma-zing grace, how [F]sweet the [C]sound"},
-   {b:["C","C","G7","G7"], x:"[C]that saved a wretch like [G7]me!"},
-   {b:["C","C","F","C"],   x:"[C]I once was lost, but [F]now am [C]found,"},
-   {b:["C","G7","C","C"],  x:"[C]was blind, but [G7]now I [C]see."}
+   {b:["C","C","F","C"],   x:"A- | [C]ma-zing | grace, how | [F]sweet the | [C]sound"},
+   {b:["C","C","G7","G7"], x:"[C]that | saved a | wretch like | [G7]me!"},
+   {b:["C","C","F","C"],   x:"[C]I | once was | lost, but [F]now am | [C]found,"},
+   {b:["C","G7","C","C"],  x:"[C]was blind, but | [G7]now I | [C]see. |"}
  ]}]},
 
 {id:"standbyme", t:"Stand By Me", sub:"Ben E. King, 1961", lvl:3, key:"C",
@@ -2103,10 +2136,10 @@ var SONGS = [
  pd:true, verified:true,
  note:"Ein traditionelles Lied, älter als jede berühmte Aufnahme davon — und deshalb darf der Text hier stehen. Gezählt wird in Dreiergruppen (<em>eins-zwei-drei, vier-fünf-sechs</em>), also nimm den Walzerschlag und spiel ihn zweimal pro Takt. Der Reiz liegt im <b>D-Dur mitten in a-Moll</b>: Dieser eine helle Akkord in einer düsteren Umgebung ist der ganze Trick des Liedes.",
  secs:[{n:"Strophe", rows:[
-   {b:["Am","C","D","F"],   x:"[Am]There is a [C]house in [D]New Or-[F]leans,"},
-   {b:["Am","C","E7","E7"], x:"[Am]they call the [C]Ri-sing [E7]Sun."},
-   {b:["Am","C","D","F"],   x:"[Am]And it's been the [C]ru-in of [D]ma-ny a poor [F]boy,"},
-   {b:["Am","E7","Am","Am"],x:"[Am]and God, I [E7]know I'm [Am]one."}
+   {b:["Am","C","D","F"],   x:"[Am]There is a | [C]house in | [D]New Or- | [F]leans,"},
+   {b:["Am","C","E7","E7"], x:"[Am]they call the | [C]Ri-sing | [E7]Sun. |"},
+   {b:["Am","C","D","F"],   x:"[Am]And it's been the | [C]ru-in of | [D]ma-ny a poor | [F]boy,"},
+   {b:["Am","E7","Am","Am"],x:"[Am]and God, I | [E7]know I'm | [Am]one. |"}
  ]}]},
 
 {id:"riptide", t:"Riptide", sub:"Vance Joy, 2013", lvl:4, key:"Am",
@@ -2245,17 +2278,15 @@ function silbenTeilen(wort){
   return out;
 }
 
-function chordText(str, tx){
-  if(!str) return "";
+function silbenHTML(str, tx){
   var teile = String(str).split(/(\[[^\]]*\])/);
   var offen = null, woerter = [], aktuell = null;
-
   teile.forEach(function(p){
     if(!p) return;
     if(p.charAt(0) === "[" && p.slice(-1) === "]"){ offen = p.slice(1, -1); return; }
     p.split(/(\s+)/).forEach(function(stueck){
       if(stueck === "") return;
-      if(/^\s+$/.test(stueck)){ aktuell = null; return; }   // Wortgrenze
+      if(/^\s+$/.test(stueck)){ aktuell = null; return; }
       if(!aktuell){ aktuell = []; woerter.push(aktuell); }
       silbenTeilen(stueck).forEach(function(silbe){
         aktuell.push({ c: offen, t: silbe });
@@ -2263,12 +2294,10 @@ function chordText(str, tx){
       });
     });
   });
-  // Akkord ohne folgende Silbe (etwa am Zeilenende) trotzdem zeigen
   if(offen !== null){
     if(!aktuell){ aktuell = []; woerter.push(aktuell); }
     aktuell.push({ c: offen, t: " " });
   }
-
   return woerter.map(function(w){
     return '<span class="wd">' + w.map(function(u){
       return '<span class="cw"><span class="cw-c">'
@@ -2276,6 +2305,35 @@ function chordText(str, tx){
         + '</span><span class="cw-t">' + esc(u.t) + '</span></span>';
     }).join("") + '</span>';
   }).join(" ");
+}
+
+/* Enthaelt die Zeile Taktstriche |, wird sie taktweise gesetzt: jeder Takt
+   bekommt eine Spalte, die exakt unter dem Akkordkaestchen darueber steht.
+   Es entstehen IMMER genau so viele Spalten wie Takte - sonst verrutscht
+   die Ausrichtung zum Raster. Ueberzaehliges vorne ist der Auftakt und
+   wandert mit einem duennen Strich in die erste Spalte. */
+function chordText(str, tx, takte){
+  if(!str) return "";
+  if(String(str).indexOf("|") === -1) return silbenHTML(str, tx);
+
+  var segs = String(str).split("|").map(function(s){ return s.trim(); });
+  var auftakt = "";
+  if(takte){
+    if(segs.length > takte){
+      var vorne = segs.splice(0, segs.length - takte + 1);
+      auftakt = vorne.slice(0, -1).filter(Boolean).join(" ");
+      segs.unshift(vorne[vorne.length - 1]);
+    }
+    while(segs.length < takte) segs.push("");
+  }
+  return '<span class="taktzeile">' + segs.map(function(seg, i){
+      var inhalt = seg ? silbenHTML(seg, tx) : "&nbsp;";
+      if(i === 0 && auftakt){
+        inhalt = '<span class="auf" title="Auftakt — wird vor der Eins gesungen">'
+               + silbenHTML(auftakt, tx) + '</span>' + inhalt;
+      }
+      return '<span class="tb">' + inhalt + '</span>';
+    }).join("") + '</span>';
 }
 
 function songById(id){ for(var i=0;i<SONGS.length;i++){ if(SONGS[i].id===id) return SONGS[i]; } return null; }
@@ -2364,25 +2422,26 @@ function songPageHTML(s){
         return '<div class="bar">' + (c === "" ? '<span class="hold">·</span>' : chip(tx(c))) + '</div>';
       }).join("");
       var body;
+      var anzTakte = r.b.length;
       if(r.x){
-        body = '<div class="line pd"><div class="lyr">'+chordText(r.x, tx)+'</div></div>';
+        body = '<div class="line pd"><div class="lyr">'+chordText(r.x, tx, anzTakte)+'</div></div>';
       } else {
         var k = lyricKey(s.id, si, ri);
         var wert = lyricGet(s.id, si, ri);
         var hier = r.b.filter(function(c){ return c; })
                       .filter(function(c, i, a){ return a.indexOf(c) === i; });
         body = '<div class="line editable'+(wert ? '' : ' editing')+'">'
-          + '<span class="rowlabel">'+zeile+'</span>'
           + '<div class="lyrwrap">'
-          +   '<div class="lyr">'+chordText(wert, tx)+'</div>'
+          +   '<div class="lyr" role="button" tabindex="0" '
+          +   'title="Antippen zum Bearbeiten">'+chordText(wert, tx, anzTakte)+'</div>'
           +   '<input type="text" data-k="'+k+'" value="'+esc(wert)+'" '
-          +   'placeholder="Textzeile '+zeile+'" aria-label="Textzeile '+zeile+'">'
-          +   '<div class="inschips"><span class="insl">Akkord an den Cursor:</span>'
+          +   'placeholder="Textzeile '+zeile+' — Taktstrich mit |" aria-label="Textzeile '+zeile+'">'
+          +   '<div class="inschips"><span class="insl">An den Cursor:</span>'
           +   hier.map(function(c){
                 return '<button class="insch" data-ins="'+esc(c)+'">'+esc(tx(c))+'</button>'; }).join("")
+          +   '<button class="insch takt" data-instakt="1" title="Taktstrich">|</button>'
           +   '</div>'
           + '</div>'
-          + '<button class="editbtn" aria-label="Zeile bearbeiten" title="Zeile bearbeiten">✎</button>'
           + '</div>';
       }
       return '<div class="row"><div class="bars">'+bars+'</div>'+body+'</div>';
@@ -2490,7 +2549,8 @@ function txAktuell(){
 }
 function zeileAnzeigen(line){
   var inp = line.querySelector("input[data-k]");
-  line.querySelector(".lyr").innerHTML = chordText(inp.value, txAktuell());
+  var anz = line.closest(".row").querySelectorAll(".bars .bar").length;
+  line.querySelector(".lyr").innerHTML = chordText(inp.value, txAktuell(), anz);
   line.classList.remove("editing");
   if(!inp.value.trim()) line.classList.add("editing");   // leer bleibt im Eingabemodus
 }
@@ -2501,7 +2561,7 @@ songview.addEventListener("click", function(e){
     e.preventDefault();
     var line = ins.closest(".line"), inp = line.querySelector("input[data-k]");
     var pos = inp.selectionStart === null ? inp.value.length : inp.selectionStart;
-    var marke = "[" + ins.dataset.ins + "]";
+    var marke = ins.dataset.instakt ? " | " : ("[" + ins.dataset.ins + "]");
     inp.value = inp.value.slice(0, pos) + marke + inp.value.slice(pos);
     store(inp.dataset.k, inp.value);
     inp.focus();
@@ -2511,7 +2571,7 @@ songview.addEventListener("click", function(e){
   /* In den Bearbeitungsmodus wechseln */
   var line = e.target.closest(".line.editable");
   if(line && !line.classList.contains("editing")
-     && (e.target.closest(".editbtn") || e.target.closest(".lyr")) && !e.target.closest(".chip")){
+     && e.target.closest(".lyr") && !e.target.closest(".chip")){
     line.classList.add("editing");
     var inp = line.querySelector("input[data-k]");
     inp.focus();

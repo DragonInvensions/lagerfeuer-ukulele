@@ -2,10 +2,10 @@
  chords:["C","F","G7"], strum:"Walzer", tempo:"76 bpm · 3/4", pd:true, verified:true,
  note:"Walzertakt, langsam, und ein Auftakt („A-“ kommt vor der Eins). Das Lied lebt davon, dass du <em>nicht</em> durchschlägst: Ein einziger voller Abschlag pro Takt, dazwischen Stille, klingt hier besser als jedes Muster. Probier beides.",
  secs:[{n:"Strophe", rows:[
-   {b:["C","C","F","C"],   x:"[C]A-ma-zing grace, how [F]sweet the [C]sound"},
-   {b:["C","C","G7","G7"], x:"[C]that saved a wretch like [G7]me!"},
-   {b:["C","C","F","C"],   x:"[C]I once was lost, but [F]now am [C]found,"},
-   {b:["C","G7","C","C"],  x:"[C]was blind, but [G7]now I [C]see."}
+   {b:["C","C","F","C"],   x:"A- | [C]ma-zing | grace, how | [F]sweet the | [C]sound"},
+   {b:["C","C","G7","G7"], x:"[C]that | saved a | wretch like | [G7]me!"},
+   {b:["C","C","F","C"],   x:"[C]I | once was | lost, but [F]now am | [C]found,"},
+   {b:["C","G7","C","C"],  x:"[C]was blind, but | [G7]now I | [C]see. |"}
  ]}]},
 
 {id:"standbyme", t:"Stand By Me", sub:"Ben E. King, 1961", lvl:3, key:"C",
@@ -79,10 +79,10 @@
  pd:true, verified:true,
  note:"Ein traditionelles Lied, älter als jede berühmte Aufnahme davon — und deshalb darf der Text hier stehen. Gezählt wird in Dreiergruppen (<em>eins-zwei-drei, vier-fünf-sechs</em>), also nimm den Walzerschlag und spiel ihn zweimal pro Takt. Der Reiz liegt im <b>D-Dur mitten in a-Moll</b>: Dieser eine helle Akkord in einer düsteren Umgebung ist der ganze Trick des Liedes.",
  secs:[{n:"Strophe", rows:[
-   {b:["Am","C","D","F"],   x:"[Am]There is a [C]house in [D]New Or-[F]leans,"},
-   {b:["Am","C","E7","E7"], x:"[Am]they call the [C]Ri-sing [E7]Sun."},
-   {b:["Am","C","D","F"],   x:"[Am]And it's been the [C]ru-in of [D]ma-ny a poor [F]boy,"},
-   {b:["Am","E7","Am","Am"],x:"[Am]and God, I [E7]know I'm [Am]one."}
+   {b:["Am","C","D","F"],   x:"[Am]There is a | [C]house in | [D]New Or- | [F]leans,"},
+   {b:["Am","C","E7","E7"], x:"[Am]they call the | [C]Ri-sing | [E7]Sun. |"},
+   {b:["Am","C","D","F"],   x:"[Am]And it's been the | [C]ru-in of | [D]ma-ny a poor | [F]boy,"},
+   {b:["Am","E7","Am","Am"],x:"[Am]and God, I | [E7]know I'm | [Am]one. |"}
  ]}]},
 
 {id:"riptide", t:"Riptide", sub:"Vance Joy, 2013", lvl:4, key:"Am",
