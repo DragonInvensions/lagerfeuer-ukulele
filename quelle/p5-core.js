@@ -242,6 +242,8 @@ var PATTERNS = [
    desc:"Drei Zählzeiten statt vier. Der erste Schlag ist der schwere. Brauchst du für Zum Geburtstag viel Glück und Amazing Grace."},
   {id:"p5", name:"Balladenschlag", meter:"4/4", slots:["D","-","D","U","D","-","D","U"], bpm:76,
    desc:"Ruhig und tragend, mit einem leichten Ziehen auf der Zwei und der Vier. Für alles Langsame: Let It Be, Knockin' on Heaven's Door, Country Roads."},
+  {id:"p7", name:"Wiegetakt",     meter:"6/8", slots:["D","-","U","D","-","U"], bpm:114,
+   desc:"Der 6/8-Takt: sechs Achtel, aber nur zwei schwere Punkte — auf der Eins und auf der Vier. Zähl „eins zwei drei, vier fünf sechs“ und schlag auf eins und vier nach unten, auf drei und sechs leicht nach oben. Das ergibt das Wiegen, an dem man Laternen- und Schifferlieder sofort erkennt."},
   {id:"p6", name:"Chunk",         meter:"4/4", slots:["D","-","x","-","D","-","x","-"], bpm:96,
    desc:"Das x ist ein Abschlag, bei dem der Handballen gleichzeitig auf die Saiten fällt — es klackt statt zu klingen. Das ist deine Snaredrum. Klingt nach Band statt nach Anfänger."}
 ];
@@ -253,7 +255,9 @@ function patternByName(name){
 
 /* compact = Fassung fuer die Liedseite: ohne Beschreibung, mit Tempo des Liedes */
 function patternBoxHTML(p, compact, bpmText){
-  var beats = p.meter === "3/4" ? ["1","+","2","+","3","+"] : ["1","+","2","+","3","+","4","+"];
+  var beats = p.meter === "6/8" ? ["1","2","3","4","5","6"]
+            : p.meter === "3/4" ? ["1","+","2","+","3","+"]
+            : ["1","+","2","+","3","+","4","+"];
   var cells = p.slots.map(function(s,i){
     var glyph = s === "D" ? "↓" : s === "U" ? "↑" : s === "x" ? "✕" : "·";
     return '<div class="stroke'+(s==="-"?" rest":"")+'" data-i="'+i+'">'

@@ -28,7 +28,7 @@ KOPF = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lagerfeuer-Ukulele</title>
-<meta name="description" content="Ukulele-Lehrbuch von null bis Lagerfeuer: 37 Lieder, Griffbilder, Schlagmuster und 8-Wochen-Plan.">
+<meta name="description" content="Ukulele-Lehrbuch von null bis Lagerfeuer: 42 Lieder, Griffbilder, Schlagmuster und 8-Wochen-Plan.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">

@@ -124,9 +124,19 @@ function lyricStats(s){
 }
 
 /* ---------- Kompakte Karte fuer die Liederliste ---------- */
+function strophenZahl(s){
+  var max = 0;
+  s.secs.forEach(function(x){
+    var m = /^(\d+)\.\s*Strophe/.exec(x.n || "");
+    if(m) max = Math.max(max, parseInt(m[1], 10));
+  });
+  return max;
+}
 function songCardHTML(s){
   var st = lyricStats(s);
   var fort = st.noetig ? '<span class="pill">'+st.da+'/'+st.noetig+' Zeilen</span>' : '';
+  var nStr = strophenZahl(s);
+  if(!fort && nStr > 1) fort = '<span class="pill">'+nStr+' Strophen</span>';
   return '<a class="scard" href="#/lied/'+s.id+'" data-lvl="'+s.lvl+'" data-star="'+(s.star?1:0)+'"'
     + ' data-such="'+esc((s.t+" "+s.sub+" "+s.chords.join(" ")+" "+s.key).toLowerCase())+'">'
     + '<span class="scard-lvl">'+s.lvl+'</span>'

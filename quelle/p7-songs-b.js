@@ -6,7 +6,26 @@
    {b:["C","C","G7","G7"], x:"[C]that | saved a | wretch like | [G7]me!"},
    {b:["C","C","F","C"],   x:"[C]I | once was | lost, but [F]now am | [C]found,"},
    {b:["C","G7","C","C"],  x:"[C]was blind, but | [G7]now I | [C]see. |"}
- ]}]},
+ ]},
+{n:"2. Strophe", rows:[
+   {b:["C","","F","C"],   x:"'Twas | [C]grace that | taught my | [F]heart to | [C]fear,"},
+   {b:["C","","G7",""],   x:"[C]and | grace my | fears re- | [G7]lieved!"},
+   {b:["C","","F","C"],   x:"[C]How | pre-cious | did that [F]grace ap- | [C]pear"},
+   {b:["C","G7","C",""],  x:"[C]the hour I | [G7]first be- | [C]lieved. |"}
+  ]},
+  {n:"3. Strophe", rows:[
+   {b:["C","","F","C"],   x:"Through | [C]ma-ny | dan-gers, | [F]toils and | [C]snares"},
+   {b:["C","","G7",""],   x:"[C]I | have al- | rea-dy | [G7]come!"},
+   {b:["C","","F","C"],   x:"[C]'Tis | grace hath | brought me [F]safe thus | [C]far,"},
+   {b:["C","G7","C",""],  x:"[C]and grace will | [G7]lead me | [C]home. |"}
+  ]},
+  {n:"4. Strophe", rows:[
+   {b:["C","","F","C"],   x:"When | [C]we've been | there ten | [F]thou-sand | [C]years,"},
+   {b:["C","","G7",""],   x:"[C]bright | shi-ning | as the | [G7]sun,"},
+   {b:["C","","F","C"],   x:"[C]we've | no less | days to [F]sing God's | [C]praise"},
+   {b:["C","G7","C",""],  x:"[C]than when we'd | [G7]first be- | [C]gun. |"}
+  ]}
+ ]},
 
 {id:"standbyme", t:"Stand By Me", sub:"Ben E. King, 1961", lvl:3, key:"C",
  chords:["C","Am","F","G"], strum:"Balladenschlag", tempo:"118 bpm · 4/4",
@@ -183,6 +202,53 @@
   {n:"Refrain", rows:[
    {b:["F","G","C","Am"], x:null},
    {b:["F","G","C","C"],  x:null}
+  ]}
+ ]},
+
+{id:"griechischerwein", textsuche:"Griechischer Wein Udo Jürgens Text", t:"Griechischer Wein", sub:"Udo Jürgens / Michael Kunze, 1974", lvl:4, key:"Am",
+ chords:["Am","F","G","C","E7"], strum:"Der Klassiker", tempo:"120 bpm · 4/4", verified:true,
+ texthinweis:"Sechs Strophenzeilen, dann fünf Refrainzeilen. Wenn dein Text anders umbricht, verschieben sich die Felder — dann einfach die Zeilen zusammenfassen, die zu einer Rasterzeile gehören.",
+ note:"Dein erstes richtiges <b>Moll-Lied</b> — und der Grund, warum es im Buch das Kapitel über E7 gibt. Am ist die Heimat, E7 ist die Spannung, die immer wieder dorthin zurückzieht. Hör auf Zeile 3 und 6 der Strophe: <b>Am → E7 → Am</b>, das ist der ganze Schmerz des Liedes in drei Akkorden.<br><br>Dazwischen kippt es überraschend nach <b>C-Dur</b> (Zeile 1, 2, 4, 5) — deshalb klingt die Strophe nicht traurig, sondern sehnsüchtig. Genau dieser Wechsel zwischen a-Moll und C-Dur ist der Trick des Songs, und er ist leichter zu spielen, als er klingt: beide Akkorde teilen sich zwei Töne.<br><br>Das Original steht in c-Moll. Hier nach <b>a-Moll</b> transponiert — dort brauchst du kein einziges Barré. Zurück ins Original: +3.",
+ src:[{t:"Akkorde (e-Moll-Fassung) — guitaretab.com", u:"https://www.guitaretab.com/u/udo-jurgens/275135.html"},{t:"Akkorde (h-Moll-Fassung, bestätigt F#7 als Dominante) — chords-and-tabs.net", u:"https://www.chords-and-tabs.net/song/name/udo-jurgens-griechischer-wein"}],
+ secs:[
+  {n:"Strophe", rows:[
+   {b:["Am","F","G","C"],   x:null},
+   {b:["C","","F","G"],     x:null},
+   {b:["Am","E7","Am",""],  x:null},
+   {b:["Am","F","G","C"],   x:null},
+   {b:["C","","F","G"],     x:null},
+   {b:["Am","E7","Am"],     x:null}
+  ]},
+  {n:"Refrain", rows:[
+   {b:["F","","C",""],       x:null},
+   {b:["C","G","C",""],      x:null},
+   {b:["C","","F",""],       x:null},
+   {b:["C","","C",""],       x:null},
+   {b:["G","Am","E7","Am"],  x:null}
+  ]}
+ ]},
+
+{id:"siebenbruecken", textsuche:"Über sieben Brücken musst du gehn Karat Text", t:"Über sieben Brücken musst du gehn", sub:"Ulrich Swillms / Helmut Richter · Karat, 1978", lvl:4, key:"C",
+ chords:["C","F","G","Am","Dm","Em","Bb"], strum:"Balladenschlag", tempo:"132 bpm · 4/4", verified:true,
+ texthinweis:"Acht Strophenzeilen, dann vier Refrainzeilen („Über sieben Brücken …“).",
+ note:"Das schwerste Lied im Buch — und das einzige mit einem <b>Barré</b>. Der Grund ist ein einziger Akkord: <b>B♭</b>. Er steht am Ende von Strophenzeile 2 und 6 und ist genau der Ton, der das Lied so weit und so ostdeutsch klingen lässt: eine Stufe, die in C-Dur eigentlich nicht vorkommt.<br><br>Wenn dir das Barré noch nicht gelingt, gibt es zwei ehrliche Auswege (Kapitel 6): B♭ nur auf den beiden hohen Saiten greifen, oder ihn ersatzweise durch <b>F</b> ersetzen. Es klingt dann weniger besonders, aber es klingt.<br><br>Sonst ist das Lied freundlicher, als die sieben Akkorde vermuten lassen: Der Refrain besteht fast nur aus C, F und G. Original in G-Dur; hier nach C transponiert, weil dort statt des schweren Barré-Bm nur das leichtere B♭ übrig bleibt (zurück ins Original: +7).",
+ src:[{t:"Akkorde (G-Dur-Fassung, vollständige Struktur) — guitarsongs.club", u:"https://guitarsongs.club/song/7555"},{t:"Akkordübersicht (D-Dur- und Es-Dur-Fassung) — Chordify", u:"https://chordify.net/chords/karat-songs/uber-sieben-brucken-musst-du-gehn-3-chords"}],
+ secs:[
+  {n:"Strophe", rows:[
+   {b:["C","F","G","C"],   x:null},
+   {b:["F","C","Bb",""],   x:null},
+   {b:["Am",""],           x:null},
+   {b:["G","Dm","Em","G"], x:null},
+   {b:["C","F","G","C"],   x:null},
+   {b:["F","C","Bb","G"],  x:null},
+   {b:["G","Dm","C","Am"], x:null},
+   {b:["F","Em","G","C"],  x:null}
+  ]},
+  {n:"Refrain", rows:[
+   {b:["G","C","G"],       x:null},
+   {b:["C","F","C","G"],   x:null},
+   {b:["Em","Am"],         x:null},
+   {b:["F","Em","G","C"],  x:null}
   ]}
  ]}
 
