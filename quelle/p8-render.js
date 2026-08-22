@@ -17,6 +17,10 @@ renderPatterns();
    LIEDER
    ========================================================== */
 var XP = {};                                   // Transposition je Lied
+
+/* Satzart der Liedzeilen: "takt" = Spalten wie im Gesangbuch,
+   "fluss" = durchlaufender Text (bricht am Handy schoener um). */
+var SATZ = load("uke.satz") === "fluss" ? "fluss" : "takt";
 function chip(name){ return '<button class="chip" data-chord="'+esc(name)+'">'+esc(name)+'</button>'; }
 /* Akkord ueber der Silbe, gesetzt wie im Liederbuch.
    Jede Silbe bekommt eine eigene Spalte; der Akkord steht buendig darueber.
@@ -67,6 +71,10 @@ function silbenHTML(str, tx){
    wandert mit einem duennen Strich in die erste Spalte. */
 function chordText(str, tx, takte){
   if(!str) return "";
+  /* Fliesstext: Taktstriche entfernen, Zeile laeuft durch */
+  if(SATZ === "fluss"){
+    return silbenHTML(String(str).replace(/\s*\|\s*/g, " ").trim(), tx);
+  }
   if(String(str).indexOf("|") === -1) return silbenHTML(str, tx);
 
   var segs = String(str).split("|").map(function(s){ return s.trim(); });
@@ -245,6 +253,12 @@ function songPageHTML(s){
       + '<div class="song-meta">'
         + '<div><b>Tonart</b>'+esc(transposeChord(s.key.replace(/m$/,""), n)) + (/m$/.test(s.key)?"m":"") +'</div>'
         + '<div><b>Tempo</b>'+esc(s.tempo)+'</div>'
+        + '<div class="satzwahl"><b>Ansicht</b>'
+          + '<button class="segbtn'+(SATZ==="fluss"?" on":"")+'" data-satz="fluss" '
+          + 'title="Text laeuft durch — bricht am Handy schoener um">Fließtext</button>'
+          + '<button class="segbtn'+(SATZ==="takt"?" on":"")+'" data-satz="takt" '
+          + 'title="Jeder Takt eine Spalte — zeigt, wann welche Silbe kommt">Takte</button>'
+        + '</div>'
         + '<div class="xpose"><b style="margin:0 .4rem 0 0">Transponieren</b>'
           + '<button class="btn sq" data-x="-1" aria-label="einen Halbton tiefer">−</button>'
           + '<span class="val">'+(n>0?"+"+n:n)+'</span>'
@@ -279,6 +293,12 @@ songview.addEventListener("click", function(e){
     var d = parseInt(b.dataset.x, 10);
     XP[aktSong.id] = d === 0 ? 0 : Math.max(-6, Math.min(6, (XP[aktSong.id] || 0) + d));
     renderSong(aktSong.id);
+  }
+  if(b.dataset.satz){
+    SATZ = b.dataset.satz;
+    store("uke.satz", SATZ);
+    renderSong(aktSong.id);
+    return;
   }
   if(b.dataset.paste){ openSheet(aktSong); }
   if(b.dataset.clear){

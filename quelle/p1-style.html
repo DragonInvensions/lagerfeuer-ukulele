@@ -295,6 +295,16 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .song-chords{display:flex;flex-wrap:wrap;gap:.5rem;padding:.9rem 1.25rem;background:var(--surface-2);border-bottom:1px solid var(--rule);}
 
 .xpose{display:flex;align-items:center;gap:.3rem;margin-left:auto;}
+
+/* Umschalter Fliesstext / Takte */
+.satzwahl{display:flex;align-items:center;gap:.35rem;}
+.segbtn{
+  font-family:var(--f-ui);font-size:.75rem;font-weight:600;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink-soft);
+  border-radius:999px;padding:.3rem .7rem;cursor:pointer;line-height:1.2;min-height:32px;
+}
+.segbtn:hover{border-color:var(--accent);color:var(--accent);}
+.segbtn.on{background:var(--accent);border-color:var(--accent);color:var(--paper);}
 .xpose .val{font-family:var(--f-mono);font-size:.78rem;min-width:2.6em;text-align:center;color:var(--ink-soft);}
 
 .sec{margin:0 0 1.35rem;}

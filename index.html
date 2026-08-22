@@ -313,6 +313,16 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .song-chords{display:flex;flex-wrap:wrap;gap:.5rem;padding:.9rem 1.25rem;background:var(--surface-2);border-bottom:1px solid var(--rule);}
 
 .xpose{display:flex;align-items:center;gap:.3rem;margin-left:auto;}
+
+/* Umschalter Fliesstext / Takte */
+.satzwahl{display:flex;align-items:center;gap:.35rem;}
+.segbtn{
+  font-family:var(--f-ui);font-size:.75rem;font-weight:600;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink-soft);
+  border-radius:999px;padding:.3rem .7rem;cursor:pointer;line-height:1.2;min-height:32px;
+}
+.segbtn:hover{border-color:var(--accent);color:var(--accent);}
+.segbtn.on{background:var(--accent);border-color:var(--accent);color:var(--paper);}
 .xpose .val{font-family:var(--f-mono);font-size:.78rem;min-width:2.6em;text-align:center;color:var(--ink-soft);}
 
 .sec{margin:0 0 1.35rem;}
@@ -1274,7 +1284,13 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
       Der Akkord setzt eine Marke wie <code>[C]</code> an der Cursorstelle, das <strong>|</strong>
       setzt einen Taktstrich. Setz so viele Taktstriche wie Takte im Raster darüber, dann steht dein
       Text spaltengenau. Zum Beenden irgendwo danebentippen oder Eingabetaste.</p>
-      <p>Oben auf jeder Liedseite siehst du die Griffbilder, das Schlagmuster zum Anhören und den
+      <p><strong>Zwei Ansichten, ein Knopf.</strong> Oben auf jeder Liedseite steht
+      <strong>Ansicht: Fließtext | Takte</strong>. <em>Takte</em> ist die genaue Fassung mit Spalten —
+      am besten zum Einstudieren, weil du siehst, wann welche Silbe kommt. <em>Fließtext</em> lässt
+      die Zeile durchlaufen: keine schmalen Spalten, keine zerrissenen Wörter, deutlich kompakter —
+      am besten, wenn du das Lied schon kannst und nur die Akkorde brauchst. Die Akkorde stehen in
+      beiden Ansichten über der richtigen Silbe. Deine Wahl wird gespeichert und gilt für alle Lieder.</p>
+      <p>Oben auf jeder Liedseite siehst du außerdem die Griffbilder, das Schlagmuster zum Anhören und den
       Transponier-Knopf, mit dem du das Lied in deine Stimmlage schiebst.</p>
     </details>
 
@@ -2264,6 +2280,10 @@ renderPatterns();
    LIEDER
    ========================================================== */
 var XP = {};                                   // Transposition je Lied
+
+/* Satzart der Liedzeilen: "takt" = Spalten wie im Gesangbuch,
+   "fluss" = durchlaufender Text (bricht am Handy schoener um). */
+var SATZ = load("uke.satz") === "fluss" ? "fluss" : "takt";
 function chip(name){ return '<button class="chip" data-chord="'+esc(name)+'">'+esc(name)+'</button>'; }
 /* Akkord ueber der Silbe, gesetzt wie im Liederbuch.
    Jede Silbe bekommt eine eigene Spalte; der Akkord steht buendig darueber.
@@ -2314,6 +2334,10 @@ function silbenHTML(str, tx){
    wandert mit einem duennen Strich in die erste Spalte. */
 function chordText(str, tx, takte){
   if(!str) return "";
+  /* Fliesstext: Taktstriche entfernen, Zeile laeuft durch */
+  if(SATZ === "fluss"){
+    return silbenHTML(String(str).replace(/\s*\|\s*/g, " ").trim(), tx);
+  }
   if(String(str).indexOf("|") === -1) return silbenHTML(str, tx);
 
   var segs = String(str).split("|").map(function(s){ return s.trim(); });
@@ -2492,6 +2516,12 @@ function songPageHTML(s){
       + '<div class="song-meta">'
         + '<div><b>Tonart</b>'+esc(transposeChord(s.key.replace(/m$/,""), n)) + (/m$/.test(s.key)?"m":"") +'</div>'
         + '<div><b>Tempo</b>'+esc(s.tempo)+'</div>'
+        + '<div class="satzwahl"><b>Ansicht</b>'
+          + '<button class="segbtn'+(SATZ==="fluss"?" on":"")+'" data-satz="fluss" '
+          + 'title="Text laeuft durch — bricht am Handy schoener um">Fließtext</button>'
+          + '<button class="segbtn'+(SATZ==="takt"?" on":"")+'" data-satz="takt" '
+          + 'title="Jeder Takt eine Spalte — zeigt, wann welche Silbe kommt">Takte</button>'
+        + '</div>'
         + '<div class="xpose"><b style="margin:0 .4rem 0 0">Transponieren</b>'
           + '<button class="btn sq" data-x="-1" aria-label="einen Halbton tiefer">−</button>'
           + '<span class="val">'+(n>0?"+"+n:n)+'</span>'
@@ -2526,6 +2556,12 @@ songview.addEventListener("click", function(e){
     var d = parseInt(b.dataset.x, 10);
     XP[aktSong.id] = d === 0 ? 0 : Math.max(-6, Math.min(6, (XP[aktSong.id] || 0) + d));
     renderSong(aktSong.id);
+  }
+  if(b.dataset.satz){
+    SATZ = b.dataset.satz;
+    store("uke.satz", SATZ);
+    renderSong(aktSong.id);
+    return;
   }
   if(b.dataset.paste){ openSheet(aktSong); }
   if(b.dataset.clear){
