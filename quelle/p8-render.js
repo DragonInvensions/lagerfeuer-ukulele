@@ -217,6 +217,16 @@ function songPageHTML(s){
       }
       return '<div class="row"><div class="bars">'+bars+'</div>'+body+'</div>';
     }).join("");
+    /* Nummerierte Strophen laufen durch: nur eine kleine Ziffer statt einer
+       eigenen Ueberschrift mit Trennlinie. Das Taktraster bleibt bei jeder Strophe. */
+    var mStr = /^(\d+)\.\s*Strophe(.*)$/.exec(sec.n || "");
+    if(mStr){
+      var zus = mStr[2].replace(/^[\s(,–-]+/, "").replace(/[)\s]+$/, "");
+      return '<div class="sec sec-str">'
+        + '<div class="sec-nr"><span class="nr">'+mStr[1]+'</span>'
+        + (zus ? '<span class="nr-zus">'+esc(zus)+'</span>' : '')
+        + '</div>' + rows + '</div>';
+    }
     return '<div class="sec"><div class="sec-name">'+esc(sec.n)+'</div>'+rows+'</div>';
   }).join("");
 

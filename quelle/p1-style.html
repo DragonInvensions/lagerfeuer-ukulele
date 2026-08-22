@@ -308,6 +308,16 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .xpose .val{font-family:var(--f-mono);font-size:.78rem;min-width:2.6em;text-align:center;color:var(--ink-soft);}
 
 .sec{margin:0 0 1.35rem;}
+/* Fortlaufende Strophen: enger gesetzt, nur eine Ziffer am Rand */
+.sec-str{margin:0 0 .85rem;}
+.sec-nr{display:flex;align-items:center;gap:.5rem;margin:0 0 .3rem;}
+.sec-nr .nr{
+  font-family:var(--f-display);font-weight:700;font-size:.76rem;line-height:1;
+  color:var(--paper);background:var(--ember);
+  min-width:1.4rem;height:1.4rem;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.sec-nr .nr-zus{font-size:.72rem;color:var(--ink-faint);letter-spacing:.04em;}
 .sec-name{
   font-family:var(--f-display);text-transform:uppercase;letter-spacing:.1em;
   font-size:.74rem;font-weight:700;color:var(--ember);margin-bottom:.5rem;

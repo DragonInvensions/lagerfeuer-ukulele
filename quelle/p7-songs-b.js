@@ -1,7 +1,7 @@
 {id:"amazinggrace", t:"Amazing Grace", sub:"Newton 1779 / New Britain 1835 · gemeinfrei", lvl:3, key:"C",
  chords:["C","F","G7"], strum:"Walzer", tempo:"76 bpm · 3/4", pd:true, verified:true,
  note:"Walzertakt, langsam, und ein Auftakt („A-“ kommt vor der Eins). Das Lied lebt davon, dass du <em>nicht</em> durchschlägst: Ein einziger voller Abschlag pro Takt, dazwischen Stille, klingt hier besser als jedes Muster. Probier beides.",
- secs:[{n:"Strophe", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["C","C","F","C"],   x:"A- | [C]ma-zing | grace, how | [F]sweet the | [C]sound"},
    {b:["C","C","G7","G7"], x:"[C]that | saved a | wretch like | [G7]me!"},
    {b:["C","C","F","C"],   x:"[C]I | once was | lost, but [F]now am | [C]found,"},

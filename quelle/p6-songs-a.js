@@ -20,7 +20,7 @@ var SONGS = [
 {id:"entchen", t:"Alle meine Entchen", sub:"Traditionell · gemeinfrei", lvl:1, key:"C",
  chords:["C","G7"], strum:"Der Wandertakt", tempo:"100 bpm · 4/4", pd:true, verified:true,
  note:"Dein erster echter Akkordwechsel. Übe zuerst nur die Stelle C → G7 und wieder zurück, zwanzigmal, bevor du das Lied spielst. Der Wechsel fällt immer auf die <b>Eins</b> des Taktes — die Finger müssen also schon während des letzten Schlags davor unterwegs sein.",
- secs:[{n:"Lied", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["C","C"],  x:"[C]Al-le mei-ne | Ent-chen"},
    {b:["G7","C"], x:"[G7]schwim-men auf dem See, | [C]schwim-men auf dem See,"},
    {b:["C","C"],  x:"[C]Köpf-chen in das | Was-ser,"},
@@ -49,7 +49,7 @@ var SONGS = [
 {id:"haenschen", t:"Hänschen klein", sub:"Traditionell · gemeinfrei", lvl:1, key:"C",
  chords:["C","G7"], strum:"Der Wandertakt", tempo:"100 bpm · 4/4", pd:true, verified:true,
  note:"Dieselben zwei Akkorde, aber der Wechsel kommt öfter und in Zeile 3 auf einer ungewohnten Stelle. Gutes Training fürs Mitzählen: Sprich beim Spielen laut „eins zwei drei vier“ mit.",
- secs:[{n:"Lied", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["C","C","G7","C"],  x:"[C]Häns-chen klein | ging al-lein | [G7]in die wei-te | [C]Welt hin-ein."},
    {b:["C","C","G7","C"],  x:"[C]Stock und Hut | steht ihm gut, | [G7]ist gar | [C]wohl-ge-mut."},
    {b:["G7","C","G7","C"], x:"[G7]A-ber Mut-ter | [C]wei-net sehr, | [G7]hat ja nun kein | [C]Häns-chen mehr!"},
@@ -162,7 +162,7 @@ var SONGS = [
 {id:"keinschoenerland", t:"Kein schöner Land", sub:"Zuccalmaglio 1840 · gemeinfrei", lvl:2, key:"C",
  chords:["C","F","G7"], strum:"Walzer", tempo:"96 bpm · 3/4", pd:true,
  note:"Das deutsche Lagerfeuerlied schlechthin — und ein Lied, bei dem die ältere Generation garantiert einsteigt. Im Walzertakt, ruhig. Wenn du mehrstimmig singen willst: Das ist genau das Lied dafür.",
- secs:[{n:"Strophe", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["C","G7","C"], x:"[C]Kein schö-ner | [G7]Land in die-ser | [C]Zeit"},
    {b:["C","G7","C"], x:"[C]als hier das | [G7]uns-re weit und | [C]breit,"},
    {b:["F","C","G7"], x:"[F]wo wir uns | [C]fin- | [G7]den"},
@@ -231,7 +231,7 @@ var SONGS = [
  chords:["C","F","G7"], strum:"Walzer", tempo:"120 bpm · 3/4", pd:true, verified:true,
  note:"Das politische Lagerfeuerlied schlechthin — und musikalisch ein Geschenk: <b>drei Akkorde, und G7 macht fast die ganze Arbeit.</b> Es steht im 3/4-Takt mit Auftakt, das heißt, „Die Ge-“ kommt noch <i>vor</i> der Eins. Zähl innerlich „drei“ und setz auf „eins“ den ersten Schlag. Die zweite Hälfte (ab „Kein Mensch kann sie wissen“) hat viermal dasselbe Muster G7 → C — ein perfekter Wechselschlag-Drill, der sich wie Musik anfühlt.",
  src:[{t:"Notenbeispiel (C-Dur, 3/4, Auftakt) — Wikipedia", u:"https://de.wikipedia.org/wiki/Die_Gedanken_sind_frei"},{t:"Akkorde silbengenau (A-Dur) — songsguitar.com", u:"https://www.songsguitar.com/die-gedanken-sind-frei-ukulele-g-c-e-a/"}],
- secs:[{n:"Strophe", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["C",""],   x:"[C]Die Ge- | dan-ken sind frei, |"},
    {b:["G7","C"], x:"wer | [G7]kann sie er- | [C]ra-ten?"},
    {b:["C",""],   x:"Sie | [C]flie-hen vor-bei |"},
@@ -287,7 +287,7 @@ var SONGS = [
  chords:["C","F","G7"], strum:"Der Wandertakt", tempo:"108 bpm · 4/4", pd:true, verified:true,
  note:"Im Original steht das Lied im 2/4-Takt — zwei Schläge pro Takt. Hier sind je zwei davon zu einem 4/4-Takt zusammengefasst, damit du ein normales Schlagmuster durchziehen kannst; gesungen klingt es identisch. Inhaltlich ist es dein <b>Ausdauertest</b>: siebenmal fast dasselbe Schema, einmal mit F statt G7 (Zeile 2). Wenn du das Lied ohne Stocken durchbekommst, sitzt der Wechsel C→G7 endgültig.",
  src:[{t:"Notenbeispiel (2/4, Auftakt Achtel) — Wikipedia", u:"https://de.wikipedia.org/wiki/Das_Wandern_ist_des_M%C3%BCllers_Lust"},{t:"Akkorde silbengenau (G-Dur) — songsguitar.com", u:"https://www.songsguitar.com/das-wandern-ist-des-muellers-lust-ukulele-g-c-e-a-tuning/"}],
- secs:[{n:"Strophe", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["C",""],   x:"Das | [C]Wan-dern ist des | Mül-lers Lust,"},
    {b:["F","C"],  x:"das | [F]Wan-dern ist des | [C]Mül-lers Lust,"},
    {b:["G7","C"], x:"das | [G7]Wan- | [C]dern!"},
@@ -344,20 +344,13 @@ var SONGS = [
  note:"Das Lied, das am Lagerfeuer garantiert lauter wird, je später der Abend. Kein Auftakt — du fängst direkt auf der Eins an, was es zum <b>einfachsten Einstieg unter den schnellen Liedern</b> macht. Der Refrain („Trulla, trulla…“) hat genau dieselben Akkorde wie die Strophe: du lernst also nur ein einziges Schema und spielst damit das ganze Lied. Original in G-Dur und 2/4; hier in C und mit je zwei Takten zusammengefasst.",
  src:[{t:"Notenbeispiel (G-Dur, 2/4, ohne Auftakt) — Wikipedia", u:"https://de.wikipedia.org/wiki/Auf_de_schw%C3%A4bsche_Eisebahne"},{t:"Akkorde silbengenau (G-Dur) — songsguitar.com", u:"https://www.songsguitar.com/auf-der-schwaebsche-eisebahne-ukulele-g-c-e-a-tuning/"}],
  secs:[
-  {n:"Strophe", rows:[
+  {n:"1. Strophe", rows:[
    {b:["C",""],   x:"[C]Auf de schwäb-sche | Ei-se-bah-ne"},
    {b:["F","C"],  x:"[F]gibt's gar | [C]vie-le Halt-sta-tio-ne:"},
    {b:["G7","C"], x:"[G7]Schtue-gert, Ulm und | [C]Bi-ber-ach,"},
    {b:["G7","C"], x:"[G7]Me-cke-beu-re, | [C]Dur-les-bach."}
   ]},
-  {n:"Refrain", rows:[
-   {b:["C",""],   x:"[C]Trul-la, trul-la, | trul-la-la,"},
-   {b:["F","C"],  x:"[F]trul-la, trul-la, | [C]trul-la-la,"},
-   {b:["G7","C"], x:"[G7]Schtue-gert, Ulm und | [C]Bi-ber-ach,"},
-   {b:["G7","C"], x:"[G7]Me-cke-beu-re, | [C]Dur-les-bach."}
-  ]}
- ,
-{n:"2. Strophe", rows:[
+  {n:"2. Strophe", rows:[
    {b:["C",""],   x:"[C]Auf de schwäb-sche | Ei-se-bah-ne"},
    {b:["F","C"],  x:"[F]gibt's au | [C]vie-le Rest-ra-tio-ne,"},
    {b:["G7","C"], x:"[G7]wo ma es-se, | [C]trin-ke ka,"},
@@ -392,14 +385,21 @@ var SONGS = [
    {b:["F","C"],  x:"[F]und sei | [C]Böck-le ho-le will,"},
    {b:["G7","C"], x:"[G7]find't er bloß no | [C]Kopf und Seil"},
    {b:["G7","C"], x:"[G7]an dem hin-tre | [C]Wa-ge-teil."}
+  ]},
+{n:"Refrain (nach jeder Strophe)", rows:[
+   {b:["C",""],   x:"[C]Trul-la, trul-la, | trul-la-la,"},
+   {b:["F","C"],  x:"[F]trul-la, trul-la, | [C]trul-la-la,"},
+   {b:["G7","C"], x:"[G7]Schtue-gert, Ulm und | [C]Bi-ber-ach,"},
+   {b:["G7","C"], x:"[G7]Me-cke-beu-re, | [C]Dur-les-bach."}
   ]}
+ 
  ]},
 
 {id:"horchwas", t:"Horch, was kommt von draußen rein", sub:"Volkslied aus Schwaben, um 1870 · gemeinfrei", lvl:2, key:"C",
  chords:["C","F","G7"], strum:"Der Klassiker", tempo:"120 bpm · 4/4", pd:true, verified:true,
  note:"Ein Wechselgesang: Eine Person singt die Zeile, alle anderen antworten mit „Hollahi, hollaho“. Genau deshalb ist es am Lagerfeuer so dankbar — <b>die Hälfte des Textes muss niemand können.</b> Die Antwortzeilen liegen immer auf G7 → C, also auf dem Wechsel, den du sowieso übst. Nach vier Zeilen kommt einmal F statt C: das ist die einzige Stelle, an der du aufpassen musst.",
  src:[{t:"Akkorde silbengenau (D-Dur) — songsguitar.com", u:"https://www.songsguitar.com/horch-was-kommt-von-draussen-rein-ukulele-g-c-e-a-tuning/"},{t:"Gemeinfreiheit von Text und Melodie — Jurtenland-Wiki", u:"https://jurtenland.eu/wiki/Horch,_was_kommt_von_drau%C3%9Fen_rein"}],
- secs:[{n:"Strophe", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["C",""],   x:"[C]Horch, was kommt von | drau-ßen rein?"},
    {b:["G7","C"], x:"[G7]Hol-la-hi! | [C]Hol-la-ho!"},
    {b:["C",""],   x:"[C]Wird wohl mein Feins- | lieb-chen sein,"},
@@ -583,7 +583,7 @@ var SONGS = [
  chords:["C","Am","F","G","G7"], strum:"Balladenschlag", tempo:"72 bpm · 4/4", pd:true, verified:true,
  note:"Das Lied, mit dem der Abend zu Ende geht. Musikalisch ist es kein Volkslied, sondern ein <b>Choral</b> — die Harmonie wechselt fast auf jedem Schlag. Deshalb steht hier ausnahmsweise <b>ein Kästchen für einen halben Takt</b> (zwei Schläge): anders ließe sich nicht zeigen, wo wirklich umgegriffen wird. Spiel sehr langsam, zwei Schläge pro Kästchen, und lass die Saiten klingen. Die Folge C → G → F → G7 → Am ist der Grund, warum das Lied so tief geht: es endet nicht strahlend in Dur, sondern weich auf Am. Weil vier Spalten pro Zeile am Handy eng werden: Der Umschalter <b>Ansicht → Fließtext</b> oben zeigt dieselben Akkorde über denselben Silben, nur ohne Taktspalten.",
  src:[{t:"Melodie und Satz (F-Dur, 4/4, Auftakt) — Wikipedia", u:"https://de.wikipedia.org/wiki/Abendlied_(Matthias_Claudius)"},{t:"Akkorde silbengenau (D-Dur) — songsguitar.com", u:"https://www.songsguitar.com/der-mond-ist-aufgegangen-ukulele-g-c-e-a-tuning/"}],
- secs:[{n:"Strophe", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["G","F","G7","Am"], x:"[C]Der | [G]Mond ist | [F]auf-ge- | [G7]gan- | [Am]gen,"},
    {b:["C","F","G7","C"],  x:"die | [C]gold-nen | [F]Stern-lein | [G7]pran- | [C]gen"},
    {b:["Am","F","G7","C"], x:"am | [Am]Him- | [F]mel hell | [G7]und | [C]klar;"},
@@ -645,7 +645,7 @@ var SONGS = [
  chords:["C","F","G","G7"], strum:"Der Klassiker", tempo:"116 bpm · 4/4", pd:true, verified:true,
  note:"Hier lernst du den Unterschied zwischen <b>G und G7</b> im Ohr: G steht mitten in der Zeile und treibt weiter, G7 steht am Schluss und zieht nach C zurück. Die Kästchen sind halbe Takte (zwei Schläge), weil die Harmonie zweimal pro Takt wechselt. Original in G-Dur mit Viertel-Auftakt — „Wenn“ kommt also noch vor der Eins.",
  src:[{t:"Notenbeispiel (G-Dur, 4/4, Auftakt Viertel) — Wikipedia", u:"https://de.wikipedia.org/wiki/Wenn_alle_Br%C3%BCnnlein_flie%C3%9Fen"},{t:"Akkorde silbengenau (G-Dur) — songsguitar.com", u:"https://www.songsguitar.com/w-songs-lieder/wenn-alle-bruennlein-fliessen/"}],
- secs:[{n:"Strophe", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["C","G","C"],       x:"Wenn | [C]al-le | [G]Brünn-lein | [C]flie-ßen,"},
    {b:["F","G"],           x:"so | [F]muß man | [G]trin-ken."},
    {b:["C","G","C"],       x:"Wenn | [C]ich mein'n | [G]Schatz nicht | [C]ru-fen darf,"},
@@ -691,7 +691,7 @@ var SONGS = [
  chords:["C","F","G","G7","Am"], strum:"Der Wandertakt", tempo:"104 bpm · 4/4", pd:true, verified:true,
  note:"Eichendorffs „Der frohe Wandersmann“ — das Wanderlied, aus dem später halb Deutschland zitiert hat. Für dich ist es vor allem eine <b>Am-Übung im Ernstfall</b>: Am steht zweimal an exponierter Stelle und muss sauber klingen, sonst kippt die Zeile. Achte auf den Schluss von Zeile 2: sie endet auf G, nicht auf C. Das ist Absicht — die Spannung löst sich erst am Liedende.",
  src:[{t:"Akkorde silbengenau (C-Dur) — songsguitar.com", u:"https://www.songsguitar.com/w-songs-lieder/wem-gott-will-rechte-gunst-erweisen/"}],
- secs:[{n:"Strophe", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["C","F","C"],        x:"Wem | [C]Gott will | [F]rech-te Gunst er- | [C]wei-sen,"},
    {b:["G7","Am","G"],      x:"den | [G7]schickt er in die | [Am]wei-te | [G]Welt,"},
    {b:["G7","C","F","C"],   x:"dem | [G7]will er | [C]sei-ne Wun-der | [F]wei- | [C]sen"},
@@ -722,13 +722,13 @@ var SONGS = [
  note:"Das deutsche Abschiedslied — und der Grund, warum du <b>Dm</b> können solltest. Dm taucht genau an den Stellen auf, wo es wehmütig wird („und du, mein Schatz, bleibst hier“), und kippt die Zeile aus Dur ins Nachdenkliche. Greif Dm mit Zeige-, Mittel- und Ringfinger und übe erst nur F → Dm, das sind fast dieselben Finger. Original in Es-Dur mit Viertel-Auftakt; hier nach C transponiert (zurück ins Original: +3).",
  src:[{t:"Notenbeispiel (Es-Dur, 4/4, Auftakt Viertel) — Wikipedia", u:"https://de.wikipedia.org/wiki/Mu%C3%9F_i_denn,_mu%C3%9F_i_denn_zum_St%C3%A4dtele_hinaus"},{t:"Akkorde silbengenau (D-Dur) — songsguitar.com", u:"https://www.songsguitar.com/m-songs-lieder/muss-i-denn-muss-i-denn-zum-staedtele-naus/"}],
  secs:[
-  {n:"Strophe", rows:[
+  {n:"1. Strophe", rows:[
    {b:["C","G7","C"],        x:"Muss i | [C]denn, muss i | [G7]denn zum | [C]Städ-te-le 'naus,"},
    {b:["C","Dm","G7","C"],   x:"[C]Städ-te-le 'naus, und | [Dm]du, mein | [G7]Schatz, bleibst | [C]hier?"},
    {b:["C","G7","C"],        x:"Wenn i | [C]komm, wenn i | [G7]komm, wenn i | [C]wie-drum komm,"},
    {b:["C","Dm","G7","C"],   x:"[C]wie-drum komm, kehr i | [Dm]ein, mein | [G7]Schatz, bei | [C]dir."}
   ]},
-  {n:"Zweiter Teil", rows:[
+  {n:"1. Strophe, zweiter Teil", rows:[
    {b:["G7","C"],            x:"Kann i | [G7]gleich nit all-weil | [C]bei dir sein,"},
    {b:["F","C"],             x:"han i | [F]doch mein Freud an | [C]dir;"},
    {b:["C","",""],           x:"wenn i | [C]komm, wenn i | komm, wenn i | wie-drum komm,"},
@@ -766,18 +766,11 @@ var SONGS = [
  note:"Das traurigste Lied in diesem Buch — und eines der schönsten, wenn spät am Feuer alle leiser werden. Es hat <b>keinen Auftakt</b>: du beginnst direkt auf der Eins. Die Kästchen sind halbe Takte, denn die Melodie geht in langen Noten, zwei Silben pro Takt. Spiel es fast zu langsam. Der Wechsel C → F gleich in Takt 1 ist die ganze Stimmung des Liedes.",
  src:[{t:"Notenbeispiel (A-Dur, 4/4, ohne Auftakt) — Wikipedia", u:"https://de.wikipedia.org/wiki/Zogen_einst_f%C3%BCnf_wilde_Schw%C3%A4ne"},{t:"Akkorde silbengenau (F-Dur) — songsguitar.com", u:"https://www.songsguitar.com/z-songs-lieder/zogen-einst-fuenf-wilde-schwaene/"}],
  secs:[
-  {n:"Strophe", rows:[
+  {n:"1. Strophe", rows:[
    {b:["C","F","C",""],      x:"[C]Zo-gen | [F]einst fünf | [C]wil-de | Schwä-ne,"},
    {b:["F","","G7","C"],     x:"[F]Schwä-ne | leuch-tend | [G7]weiß und | [C]schön."}
   ]},
-  {n:"Refrain", rows:[
-   {b:["G","","C",""],       x:"[G]Sing, | sing, | [C]was ge- | schah?"},
-   {b:["G7","","C",""],      x:"[G7]Kei-ner ward | mehr ge- | [C]se-hen, | ja."},
-   {b:["G","","C",""],       x:"[G]Sing, | sing, | [C]was ge- | schah?"},
-   {b:["G7","","C",""],      x:"[G7]Kei-ner ward | mehr ge- | [C]sehn. | "}
-  ]}
- ,
-{n:"2. Strophe", rows:[
+  {n:"2. Strophe", rows:[
    {b:["C","F","C",""],  x:"[C]Wuch-sen | [F]einst fünf | [C]jun-ge | Bir-ken,"},
    {b:["F","","G7","C"], x:"[F]grün und | frisch an | [G7]Ba-ches- | [C]rand."},
    {b:["G","","C",""],   x:"[G]Sing, | sing, | [C]was ge- | schah?"},
@@ -800,14 +793,21 @@ var SONGS = [
    {b:["G7","","C",""],  x:"[G7]Keins den | Braut-kranz | [C]wand, | ja."},
    {b:["G","","C",""],   x:"[G]Sing, | sing, | [C]was ge- | schah?"},
    {b:["G7","","C",""],  x:"[G7]Keins den | Braut-kranz | [C]wand. | "}
+  ]},
+{n:"Refrain (nach jeder Strophe)", rows:[
+   {b:["G","","C",""],       x:"[G]Sing, | sing, | [C]was ge- | schah?"},
+   {b:["G7","","C",""],      x:"[G7]Kei-ner ward | mehr ge- | [C]se-hen, | ja."},
+   {b:["G","","C",""],       x:"[G]Sing, | sing, | [C]was ge- | schah?"},
+   {b:["G7","","C",""],      x:"[G7]Kei-ner ward | mehr ge- | [C]sehn. | "}
   ]}
+ 
  ]},
 
 {id:"maiistgekommen", t:"Der Mai ist gekommen", sub:"Emanuel Geibel / Justus Wilhelm Lyra, 1842 · gemeinfrei", lvl:3, key:"C",
  chords:["C","F","G7","G","D","D7"], strum:"Walzer", tempo:"116 bpm · 3/4", pd:true, verified:true,
  note:"Das anspruchsvollste Lied dieser Gruppe — und das lehrreichste. In der Mitte („Wie die Wolken dort wandern“) <b>wechselt das Lied die Tonart</b>: es rutscht nach G-Dur hinüber und braucht dafür D und D7, die es sonst nirgends gibt. Genau das erzeugt das Gefühl von Weite, um das es im Text geht. Übe den Sprung C → G → D getrennt, bevor du das Lied am Stück spielst. Original in D-Dur, 3/4 mit Viertel-Auftakt (zurück ins Original: +2).",
  src:[{t:"Notenbeispiel (D-Dur, 3/4, Auftakt Viertel) — Wikipedia", u:"https://de.wikipedia.org/wiki/Der_Mai_ist_gekommen"},{t:"Akkorde silbengenau (D-Dur) — songsguitar.com", u:"https://www.songsguitar.com/der-mai-ist-gekommen-ukulele/"}],
- secs:[{n:"Strophe", rows:[
+ secs:[{n:"1. Strophe", rows:[
    {b:["C","F","C"],   x:"[C]Der | Mai ist ge- | [F]kom- | [C]men,"},
    {b:["G7","C"],      x:"die | [G7]Bäu-me schla-gen | [C]aus."},
    {b:["C","F","C"],   x:"Da | [C]blei-be, wer | [F]Lust | [C]hat,"},
