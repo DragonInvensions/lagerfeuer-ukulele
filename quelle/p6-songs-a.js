@@ -81,13 +81,13 @@ var SONGS = [
 
 {id:"vogelhochzeit", t:"Die Vogelhochzeit", sub:"Volkslied, Text um 1470 / Melodie Schlesien, 19. Jh. · gemeinfrei", lvl:1, key:"C",
  chords:["C","G7"], strum:"Der Wandertakt", tempo:"116 bpm · 4/4", pd:true, verified:true,
- note:"<b>Zwei Akkorde, unendlich viele Strophen</b> — das perfekte Lagerfeuerlied für eine Runde, in der nicht alle textsicher sind: Den Refrain „Fiderallala“ kann nach einer Strophe jeder mitsingen. Original im 2/4-Takt, deshalb steht hier ein Kästchen für einen halben Takt; zwei Kästchen sind ein Durchgang deines Schlagmusters. Der Wechsel C → G7 fällt immer auf dieselbe Stelle, Strophe für Strophe — genau deshalb ist es so gutes Trainingsmaterial.<br><br><b>Weitere Strophen</b> (gleiches Schema): Die Drossel war der Bräutigam, die Amsel war die Braute. · Der Sperber, der Sperber, der war der Hochzeitswerber. · Die Lerche, die Lerche, die führt die Braut zur Kerche. · Der Auerhahn, der Auerhahn, der war der stolze Herr Kaplan. · Die Meise, die Meise, die bringt der Braut die Speise. · Der Kuckuck schreit, der Kuckuck schreit, er bringt der Braut das Hochzeitskleid. · Der Uhu, der Uhu, der bringt der Braut die Hochzeitsschuh. · Nun ist die Vogelhochzeit aus, und alle ziehn vergnügt nach Haus.",
+ note:"<b>Zwei Akkorde, unendlich viele Strophen</b> — das perfekte Lagerfeuerlied für eine Runde, in der nicht alle textsicher sind: Den Refrain „Fiderallala“ kann nach einer Strophe jeder mitsingen. Original im 2/4-Takt. Je zwei davon sind hier zu einem 4/4-Takt zusammengefasst, damit ein normales Schlagmuster durchläuft: <b>eine Zeile = ein Takt</b>, jedes Kästchen eine halbe Zeile. Nur die Schlusszeile des Refrains hält durchgehend C — deshalb ein einziges Kästchen über die volle Breite. Der Wechsel C → G7 fällt immer auf dieselbe Stelle, Strophe für Strophe — genau deshalb ist es so gutes Trainingsmaterial.<br><br><b>Weitere Strophen</b> (gleiches Schema): Die Drossel war der Bräutigam, die Amsel war die Braute. · Der Sperber, der Sperber, der war der Hochzeitswerber. · Die Lerche, die Lerche, die führt die Braut zur Kerche. · Der Auerhahn, der Auerhahn, der war der stolze Herr Kaplan. · Die Meise, die Meise, die bringt der Braut die Speise. · Der Kuckuck schreit, der Kuckuck schreit, er bringt der Braut das Hochzeitskleid. · Der Uhu, der Uhu, der bringt der Braut die Hochzeitsschuh. · Nun ist die Vogelhochzeit aus, und alle ziehn vergnügt nach Haus.",
  src:[{t:"Notenbeispiel (G-Dur, 2/4, Auftakt Achtel) und Herkunft — Wikipedia", u:"https://de.wikipedia.org/wiki/Die_Vogelhochzeit"},{t:"Akkorde silbengenau (D-Dur) — songsguitar.com", u:"https://www.songsguitar.com/e-songs-lieder/ein-vogel-wollte-hochzeit-machen/"}],
  secs:[{n:"1. Strophe", rows:[
    {b:["C","G7"],      x:"Ein | [C]Vo-gel woll-te | [G7]Hoch-zeit ma-chen"},
    {b:["G7","C"],      x:"[G7]in dem grü-nen | [C]Wal-de."},
    {b:["C","G7"],      x:"[C]Fi-de-ral-la-la, | [G7]fi-de-ral-la-la,"},
-   {b:["C","G7","C"],  x:"[C]fi-de-ral-la- | [G7]la-la- | [C]la."}
+   {b:["C",""],        x:"[C]fi-de-ral-la-la- | la-la."}
  ]},
 {n:"2. Strophe", rows:[
    {b:["C","G7"], x:"Die | [C]Dros-sel war der | [G7]Bräu-ti-gam,"},
