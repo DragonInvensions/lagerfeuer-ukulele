@@ -326,11 +326,22 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .sec-name::after{content:"";flex:1;height:1px;background:var(--rule);}
 .row{margin-bottom:.7rem;}
 .bars{display:flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--paper);}
+/* Trennlinien als inset-Schatten statt als Rand: ein Rand wuerde bei
+   flex-basis:0 ZUSAETZLICH zum gleichen Anteil Platz kosten. Sobald die
+   Akkordkaestchen zusammengefasst werden, haben Akkordreihe und Textreihe
+   unterschiedlich viele Trenner — mit Raendern wuerden die Spalten dann
+   auseinanderlaufen. Ein Schatten kostet keinen Platz. */
 .bar{
-  flex:1;min-width:0;display:flex;align-items:stretch;
-  border-left:1px solid var(--rule);
+  flex:1;min-width:0;display:flex;align-items:stretch;position:relative;
+  box-shadow:inset 1px 0 0 var(--rule);
 }
-.bar:first-child{border-left:0;}
+.bar:first-child{box-shadow:none;}
+/* Takthinweis im breiten Kaestchen */
+.barn{
+  position:absolute;right:.4rem;top:50%;transform:translateY(-50%);
+  font-family:var(--f-ui);font-size:.6rem;letter-spacing:.04em;
+  color:var(--ink-faint);pointer-events:none;
+}
 /* Der ganze Takt ist antippbar, nicht nur der Text — wichtig am Handy */
 .bar .chip,.bar .hold{
   flex:1;min-width:0;display:flex;align-items:center;justify-content:center;
@@ -431,9 +442,9 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
    dem Akkordkaestchen. Der Abstand sitzt deshalb im ersten Wort. */
 .tb{
   flex:1;min-width:0;
-  border-left:1px solid var(--rule);
+  box-shadow:inset 1px 0 0 var(--rule);
 }
-.tb:first-child{border-left:0;}
+.tb:first-child{box-shadow:none;}
 .tb:not(:first-child) > .wd:first-child{margin-left:.3rem;}
 /* Auftakt: steht vor der Eins, deshalb ein sichtbarer Taktstrich dahinter */
 .auf{

@@ -189,9 +189,29 @@ function songPageHTML(s){
   var secs = s.secs.map(function(sec, si){
     var rows = sec.rows.map(function(r, ri){
       zeile++;
-      var bars = r.b.map(function(c){
-        return '<div class="bar">' + (c === "" ? '<span class="hold">·</span>' : chip(tx(c))) + '</div>';
-      }).join("");
+      /* Die Breite eines Kaestchens zeigt, wie lange der Akkord steht.
+         Bleibt derselbe Akkord ueber mehrere Takte, wird daraus EIN breites
+         Kaestchen — zwei Takte sind doppelt so breit wie einer. "" heisst
+         "vorherigen halten" und wird dabei mit eingerechnet. */
+      var bars = (function(){
+        var eff = [], letzter = null;
+        r.b.forEach(function(c){
+          eff.push(c === "" ? letzter : c);
+          if(c !== "") letzter = c;
+        });
+        var gruppen = [];
+        eff.forEach(function(e, i){
+          if(i > 0 && e === eff[i-1]) gruppen[gruppen.length-1].n++;
+          else gruppen.push({c:e, n:1});
+        });
+        return gruppen.map(function(g){
+          var titel = g.n > 1 ? ' title="'+g.n+' Takte lang"' : '';
+          return '<div class="bar" style="flex-grow:'+g.n+'"'+titel+'>'
+            + (g.c ? chip(tx(g.c)) : '<span class="hold">·</span>')
+            + (g.n > 1 ? '<span class="barn">'+g.n+' Takte</span>' : '')
+            + '</div>';
+        }).join("");
+      })();
       var body;
       var anzTakte = r.b.length;
       if(r.x){
