@@ -17,6 +17,7 @@ Reihenfolge ist wichtig:
   p7  Lieder Teil B   (schliesst SONGS-Array und </script>)
   p8  Renderskript: Lieder, Plan, Filter
 """
+import datetime
 import pathlib
 
 TEILE = ["p1-style.html", "p2-shell.html", "p3-chapters.html", "p4-tail.html",
@@ -45,6 +46,11 @@ FUSS = "\n</body>\n</html>\n"
 
 hier = pathlib.Path(__file__).resolve().parent
 rumpf = "".join((hier / t).read_text(encoding="utf-8") for t in TEILE)
+
+# Standstempel: damit man am Geraet sieht, ob man die aktuelle Fassung hat
+# oder eine aeltere aus dem Browser-Cache.
+STAND = datetime.datetime.now().strftime("%d.%m.%Y, %H:%M")
+rumpf = rumpf.replace("@@STAND@@", STAND)
 
 (hier / "body.html").write_text(rumpf, encoding="utf-8")
 
