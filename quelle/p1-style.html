@@ -141,12 +141,30 @@ hr{border:0;border-top:1px solid var(--rule);margin:2.5rem 0;}
 .scrim{position:fixed;inset:0;background:rgba(10,20,18,.44);z-index:70;opacity:0;pointer-events:none;transition:opacity .22s;}
 .scrim.on{opacity:1;pointer-events:auto;}
 @media (min-width:1240px){
-  .toc{transform:none;box-shadow:none;background:transparent;border-right:1px solid var(--rule);
-    top:0;padding-top:5rem;}
+  /* Kopfleiste laeuft durch, die Seitenleiste haengt darunter.
+     Wichtig: ein DECKENDER Hintergrund. Mit transparenter Leiste scheint
+     jeder Inhalt durch, der aus irgendeinem Grund darunter geraet — dann
+     stehen Verzeichnis und Text uebereinander. */
+  .toc{
+    transform:none;box-shadow:none;
+    background:var(--surface);border-right:1px solid var(--rule);
+    top:var(--topbar);z-index:50;padding-top:1.4rem;
+  }
   .scrim{display:none;}
-  .main{margin-left:320px;max-width:calc(var(--shell) - 60px);}
-  .topbar-in{padding-left:calc(320px + 1.5rem);max-width:none;}
   #tocBtn{display:none;}
+
+  .main{
+    margin-left:320px;margin-right:0;max-width:none;
+    padding-left:clamp(1.5rem,3vw,3rem);
+    padding-right:clamp(1.5rem,3vw,3rem);
+  }
+  /* Auf breiten Schirmen soll der Text nicht am linken Rand kleben,
+     sondern in der verbleibenden Flaeche mittig stehen. */
+  .main > .view{max-width:var(--shell);margin-inline:auto;}
+
+  /* Der Schriftzug steht ueber der Seitenleiste, die Knoepfe bleiben rechts. */
+  .topbar-in{max-width:none;padding-left:clamp(1rem,2vw,1.6rem);}
+  .brand{width:calc(320px - clamp(1rem,2vw,1.6rem));flex:none;}
 }
 
 /* ============ HERO ============ */
@@ -314,7 +332,9 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .stimm{
   --stimm-farbe:var(--ink-faint);
   border:1px solid var(--rule);border-radius:18px;background:var(--surface);
-  box-shadow:var(--shadow);padding:1.4rem 1.2rem 1.2rem;margin:1.4rem 0;
+  box-shadow:var(--shadow);padding:1.4rem 1.2rem 1.2rem;
+  /* Auf breiten Schirmen soll sich das Geraet nicht auseinanderziehen */
+  max-width:34rem;margin:1.4rem 0;
   transition:border-color .25s;
 }
 .stimm.weit{--stimm-farbe:var(--ember);}
@@ -361,31 +381,73 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .reihe-sage{font-size:.9rem;color:var(--ink);flex:1;min-width:10rem;}
 .reihe .btn{margin-left:auto;}
 
-/* Bogenskala */
-.skala{margin:.2rem 0 .4rem;}
-.skala-svg{display:block;width:100%;height:auto;max-width:420px;margin:0 auto;overflow:visible;}
-.sk-ticks line{stroke:var(--rule);stroke-width:1.6;stroke-linecap:round;}
-.sk-ticks line.gross{stroke:var(--ink-faint);stroke-width:2.4;}
+/* Mikrofonpegel */
+.pegel{display:flex;align-items:center;gap:.6rem;margin:.8rem 0 .2rem;}
+.pegel-l{
+  font-family:var(--f-ui);font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-faint);white-space:nowrap;
+}
+.pegel-bahn{
+  flex:1;height:9px;border-radius:999px;background:var(--surface-2);
+  border:1px solid var(--rule);overflow:hidden;
+}
+.pegel-bahn i{
+  display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg,var(--accent),var(--warn));
+  transition:width .1s linear;
+}
+
+/* Erkannte Note mit ihren Nachbarn */
+.notenzeile{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.5rem;
+  margin:1.1rem 0 .3rem;
+}
+.nachbar{
+  display:flex;flex-direction:column;align-items:center;gap:.1rem;
+  padding:.45rem .3rem;border:1px solid var(--rule);border-radius:10px;
+  background:var(--paper);color:var(--ink-faint);
+}
+.nachbar b{font-family:var(--f-display);font-weight:700;font-size:1.3rem;line-height:1;}
+.nz-vor{font-family:var(--f-ui);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;}
+.jetzt{
+  display:flex;flex-direction:column;align-items:center;gap:.1rem;
+  min-width:5.4rem;padding:.4rem .9rem .3rem;border-radius:12px;
+  background:var(--surface-2);border:1px solid var(--stimm-farbe);
+}
+.jetzt .nz-vor{color:var(--ink-faint);}
+.sk-saite-h{
+  font-family:var(--f-display);font-weight:700;font-size:3.1rem;line-height:1;
+  color:var(--stimm-farbe);transition:color .25s;
+}
+.stimm.gut .jetzt{background:var(--accent-soft);}
+
+/* Bogenskala mit Farbbaendern */
+.skala{margin:.3rem 0 .2rem;}
+.skala-svg{display:block;width:100%;height:auto;max-width:430px;margin:0 auto;overflow:visible;}
+.sk-baender path{fill:none;stroke-width:15;stroke-linecap:butt;}
+.sk-baender .b0{stroke:var(--accent);}
+.sk-baender .b1{stroke:color-mix(in srgb, var(--accent) 45%, var(--warn));}
+.sk-baender .b2{stroke:var(--warn);}
+.sk-baender .b3{stroke:var(--ember);}
+.sk-ticks line{stroke:var(--paper);stroke-width:1.6;stroke-linecap:butt;opacity:.75;}
+.sk-ticks line.gross{stroke-width:2.6;opacity:1;}
 .sk-ticks text{
   font-family:var(--f-ui);font-size:11px;fill:var(--ink-faint);
   text-anchor:middle;dominant-baseline:middle;
 }
-.sk-bogen{fill:none;stroke:var(--rule);stroke-width:3;stroke-linecap:round;}
-.sk-ziel {fill:none;stroke:var(--accent);stroke-width:9;stroke-linecap:butt;opacity:.28;}
-.stimm.gut .sk-ziel{opacity:.9;}
 .sk-nadel-g{transition:transform .13s cubic-bezier(.3,.9,.4,1);}
-.sk-nadel{stroke:var(--stimm-farbe);stroke-width:3.4;stroke-linecap:round;transition:stroke .25s;}
-.sk-spitze{fill:var(--stimm-farbe);transition:fill .25s;}
-.sk-saite{
-  font-family:var(--f-display);font-weight:700;font-size:56px;
-  fill:var(--stimm-farbe);transition:fill .25s;
-}
-.stimm.gut .sk-saite{filter:drop-shadow(0 0 14px var(--accent-soft));}
-.sk-cent{font-family:var(--f-mono);font-size:15px;fill:var(--stimm-farbe);transition:fill .25s;}
+.sk-spitze{fill:var(--ink);transition:fill .25s;}
+.sk-nabe{fill:var(--ink);}
+.sk-nabe-in{fill:var(--surface);}
 
-.stimm-sagt{text-align:center;margin-top:.2rem;}
-.stimm-ton{font-family:var(--f-ui);font-size:1.02rem;color:var(--ink);}
-.stimm-hz{font-family:var(--f-mono);font-size:.74rem;color:var(--ink-faint);margin-top:.35rem;min-height:1.2em;}
+.stimm-sagt{text-align:center;margin-top:.1rem;}
+.stimm-cent-gross{
+  font-family:var(--f-mono);font-size:1.45rem;color:var(--stimm-farbe);
+  transition:color .25s;min-height:1.4em;
+}
+.stimm-ton{font-family:var(--f-ui);font-size:1rem;color:var(--ink);margin-top:.1rem;}
+.stimm-hz{font-family:var(--f-mono);font-size:.74rem;color:var(--ink-faint);
+  text-align:center;min-height:1.2em;}
 
 /* Saitenreihe: vier Wirbel */
 .saiten{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin:1.3rem 0 .2rem;}

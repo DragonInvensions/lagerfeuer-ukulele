@@ -121,8 +121,15 @@ function tonName(f){
 }
 
 /* ---------- Bogenskala aufbauen ----------
-   Mittelpunkt (160,162), Radius 118, +-50 Cent entsprechen +-60 Grad. */
-var SK_CX = 160, SK_CY = 162, SK_R = 118, SK_PROCENT = 1.2;
+   Mittelpunkt (160,150), Radius 118, +-50 Cent entsprechen +-60 Grad.
+   Farbbaender statt einer grauen Linie: die Mitte petrol, nach aussen erst
+   ocker, dann rot. Man sieht die Abweichung, ohne die Zahl zu lesen. */
+var SK_CX = 160, SK_CY = 150, SK_R = 118, SK_PROCENT = 1.2;
+var SK_BAENDER = [
+  [-50, -30, "b3"], [-30, -15, "b2"], [-15, -5, "b1"],
+  [ -5,   5, "b0"],
+  [  5,  15, "b1"], [ 15,  30, "b2"], [ 30,  50, "b3"]
+];
 
 function skPunkt(cent, r){
   var w = cent * SK_PROCENT * Math.PI / 180;
@@ -136,24 +143,42 @@ function skBogenPfad(vonCent, bisCent, r){
 var skGebaut = false;
 function skalaBauen(){
   if(skGebaut) return;
+  var baender = document.getElementById("skBaender");
   var ticks = document.getElementById("skTicks");
-  if(!ticks) return;
+  if(!baender || !ticks) return;
+
+  baender.innerHTML = SK_BAENDER.map(function(x){
+    return '<path class="'+x[2]+'" d="'+skBogenPfad(x[0], x[1], SK_R)+'"/>';
+  }).join("");
+
   var teile = [];
   for(var c = -50; c <= 50; c += 5){
-    var gross = (c % 25 === 0);
-    var a = skPunkt(c, SK_R), b = skPunkt(c, gross ? 100 : 108);
+    var gross = (c % 10 === 0);
+    var a = skPunkt(c, SK_R - 7.5), b = skPunkt(c, SK_R + 7.5);
     teile.push('<line class="'+(gross?"gross":"")+'" x1="'+a[0].toFixed(1)+'" y1="'+a[1].toFixed(1)
              + '" x2="'+b[0].toFixed(1)+'" y2="'+b[1].toFixed(1)+'"/>');
   }
-  [[-50,"−50"],[0,"0"],[50,"+50"]].forEach(function(x){
-    var p = skPunkt(x[0], 134);
-    teile.push('<text x="'+p[0].toFixed(1)+'" y="'+p[1].toFixed(1)+'">'+x[1]+'</text>');
-  });
+  for(var c2 = -50; c2 <= 50; c2 += 10){
+    var p = skPunkt(c2, SK_R + 20);
+    var txt = c2 === 0 ? "0" : (c2 > 0 ? "+"+c2 : "−"+Math.abs(c2));
+    teile.push('<text x="'+p[0].toFixed(1)+'" y="'+p[1].toFixed(1)+'">'+txt+'</text>');
+  }
   ticks.innerHTML = teile.join("");
-  document.getElementById("skBogen").setAttribute("d", skBogenPfad(-50, 50, SK_R));
-  document.getElementById("skZiel").setAttribute("d", skBogenPfad(-5, 5, SK_R));
   skGebaut = true;
 }
+
+/* ---------- Mikrofonpegel ----------
+   Logarithmisch: linear waere der Balken bei normalem Zupfen kaum sichtbar. */
+function stPegel(rms){
+  var el = document.getElementById("pegelBalken");
+  if(!el) return;
+  var db = 20 * Math.log(rms + 1e-6) / Math.LN10;
+  el.style.width = Math.max(0, Math.min(100, (db + 60) / 60 * 100)).toFixed(0) + "%";
+}
+
+/* ---------- Nachbartoene ---------- */
+function stMidi(f){ return Math.round(12 * Math.log(f / 440) / Math.LN2) + 69; }
+function stHalbton(midi){ return TONNAMEN[((midi % 12) + 12) % 12]; }
 
 function stReiheText(){
   var kopf = document.getElementById("reihe");
@@ -199,6 +224,9 @@ function stZeichnen(erg){
     stStabil = 0;
     if(stStilleSeit > 6){                       /* rund eine Sekunde Ruhe */
       elSaite.textContent = "\u2013";
+      var rVor = document.getElementById("tonVor"), rNach = document.getElementById("tonNach");
+      if(rVor)  rVor.textContent  = "–";
+      if(rNach) rNach.textContent = "–";
       elTon.textContent = (stModus === "reihe" && stNaechsteOffene() >= 0)
         ? "Warte auf die " + saiten[stZiel].n + "-Saite" : "Spiel eine Saite";
       elHz.textContent = "";
@@ -227,6 +255,10 @@ function stZeichnen(erg){
   var betrag = Math.abs(c);
 
   elSaite.textContent = ziel.n;
+  var midi = stMidi(f);
+  var elVor = document.getElementById("tonVor"), elNach = document.getElementById("tonNach");
+  if(elVor)  elVor.textContent  = stHalbton(midi - 1);
+  if(elNach) elNach.textContent = stHalbton(midi + 1);
 
   /* Weit daneben? Dann kann es an der falschen Stimmung liegen: eine Low-G-Ukulele
      bei High-G-Einstellung landet sonst kommentarlos bei "C, weit daneben". */
@@ -270,8 +302,7 @@ function stZeichnen(erg){
   var pos = Math.max(-50, Math.min(50, c));
   nadel.setAttribute("transform",
     "rotate(" + (pos * SK_PROCENT).toFixed(2) + " " + SK_CX + " " + SK_CY + ")");
-  cent.textContent = (c > 0 ? "+" : "") + c + " Cent"
-                   + (betrag > 50 ? " \u00b7 weit daneben" : "");
+  cent.textContent = (c > 0 ? "+" : "") + c + " Cent";
 
   box.className = "stimm " + (betrag <= 5 ? "gut" : betrag <= 20 ? "nah" : "weit");
 
@@ -348,6 +379,9 @@ function startStimmer(){
     /* rund achtmal pro Sekunde: genau genug fuers Auge, sparsam fuer den Akku */
     stTimer = setInterval(function(){
       stAn.getFloatTimeDomainData(stBuf);
+      var q = 0;
+      for(var i = 0; i < stBuf.length; i++) q += stBuf[i] * stBuf[i];
+      stPegel(Math.sqrt(q / stBuf.length));
       stZeichnen(tonhoehe(stBuf, stCtx.sampleRate));
     }, 120);
   }).catch(function(e){
@@ -370,6 +404,8 @@ function stopStimmer(){
   if(start) start.hidden = false;
   var box = document.getElementById("stimm");
   if(box) box.className = "stimm";
+  var pb = document.getElementById("pegelBalken");
+  if(pb) pb.style.width = "0";
 }
 
 function stModusSetzen(m){

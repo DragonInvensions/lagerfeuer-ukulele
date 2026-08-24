@@ -220,8 +220,6 @@
         <span class="chev">›</span></a>
     </div>
   </section>
-</main>
-
   <!-- ===================== STIMMGERAET ===================== -->
   <section id="stimmer" class="chapter view">
     <div class="chapter-head">
@@ -262,23 +260,35 @@
           <button class="btn ghost" id="reiheNeu" hidden>Noch einmal von vorn</button>
         </div>
 
+        <div class="pegel">
+          <span class="pegel-l">Mikrofon</span>
+          <span class="pegel-bahn"><i id="pegelBalken"></i></span>
+        </div>
+
+        <div class="saiten" id="saiten"></div>
+
+        <div class="notenzeile">
+          <div class="nachbar"><span class="nz-vor">tiefer</span><b id="tonVor">–</b></div>
+          <div class="jetzt"><span class="nz-vor">Saite</span><b class="sk-saite-h" id="stimmSaite">–</b></div>
+          <div class="nachbar"><span class="nz-vor">höher</span><b id="tonNach">–</b></div>
+        </div>
+        <div class="stimm-hz" id="stimmHz"></div>
+
         <div class="skala">
-          <svg viewBox="0 0 320 180" class="skala-svg" role="img" aria-label="Stimmanzeige">
-            <path class="sk-bogen" id="skBogen"/>
-            <path class="sk-ziel"  id="skZiel"/>
+          <svg viewBox="0 0 320 176" class="skala-svg" role="img" aria-label="Stimmanzeige">
+            <g class="sk-baender" id="skBaender"></g>
             <g class="sk-ticks" id="skTicks"></g>
             <g id="meterNadel" class="sk-nadel-g">
-              <line class="sk-nadel" x1="160" y1="98" x2="160" y2="60"/>
-              <path class="sk-spitze" d="M160 51 L165.5 64 L154.5 64 Z"/>
+              <path class="sk-spitze" d="M160 52 L165 150 L155 150 Z"/>
             </g>
-            <text class="sk-saite" id="stimmSaite" x="160" y="150" text-anchor="middle">–</text>
-            <text class="sk-cent"  id="meterCent"  x="160" y="174" text-anchor="middle"></text>
+            <circle class="sk-nabe" cx="160" cy="150" r="9"/>
+            <circle class="sk-nabe-in" cx="160" cy="150" r="4"/>
           </svg>
         </div>
 
         <div class="stimm-sagt">
+          <div class="stimm-cent-gross" id="meterCent"></div>
           <div class="stimm-ton" id="stimmTon">Spiel eine Saite</div>
-          <div class="stimm-hz"  id="stimmHz"></div>
         </div>
 
         <div class="saiten" id="saiten"></div>
@@ -320,6 +330,8 @@
       Seiteneinstellungen (Schloss-Symbol neben der Adresse).</p>
     </div>
   </section>
+
+</main>
 
 <nav class="tabbar" id="tabbar" aria-label="Hauptnavigation">
   <a href="#/start"  data-tab="start"><span class="ico">◆</span>Start</a>
