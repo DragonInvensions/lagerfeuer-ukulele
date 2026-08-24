@@ -103,6 +103,41 @@ function tonName(f){
   return name + okt;
 }
 
+/* ---------- Bogenskala aufbauen ----------
+   Mittelpunkt (160,162), Radius 118, +-50 Cent entsprechen +-60 Grad. */
+var SK_CX = 160, SK_CY = 162, SK_R = 118, SK_PROCENT = 1.2;
+
+function skPunkt(cent, r){
+  var w = cent * SK_PROCENT * Math.PI / 180;
+  return [SK_CX + r * Math.sin(w), SK_CY - r * Math.cos(w)];
+}
+function skBogenPfad(vonCent, bisCent, r){
+  var a = skPunkt(vonCent, r), b = skPunkt(bisCent, r);
+  return "M " + a[0].toFixed(1) + " " + a[1].toFixed(1)
+       + " A " + r + " " + r + " 0 0 1 " + b[0].toFixed(1) + " " + b[1].toFixed(1);
+}
+var skGebaut = false;
+function skalaBauen(){
+  if(skGebaut) return;
+  var ticks = document.getElementById("skTicks");
+  if(!ticks) return;
+  var teile = [];
+  for(var c = -50; c <= 50; c += 5){
+    var gross = (c % 25 === 0);
+    var a = skPunkt(c, SK_R), b = skPunkt(c, gross ? 100 : 108);
+    teile.push('<line class="'+(gross?"gross":"")+'" x1="'+a[0].toFixed(1)+'" y1="'+a[1].toFixed(1)
+             + '" x2="'+b[0].toFixed(1)+'" y2="'+b[1].toFixed(1)+'"/>');
+  }
+  [[-50,"−50"],[0,"0"],[50,"+50"]].forEach(function(x){
+    var p = skPunkt(x[0], 134);
+    teile.push('<text x="'+p[0].toFixed(1)+'" y="'+p[1].toFixed(1)+'">'+x[1]+'</text>');
+  });
+  ticks.innerHTML = teile.join("");
+  document.getElementById("skBogen").setAttribute("d", skBogenPfad(-50, 50, SK_R));
+  document.getElementById("skZiel").setAttribute("d", skBogenPfad(-5, 5, SK_R));
+  skGebaut = true;
+}
+
 function stZeichnen(erg){
   var elSaite = document.getElementById("stimmSaite");
   var elTon   = document.getElementById("stimmTon");
@@ -118,7 +153,7 @@ function stZeichnen(erg){
       elTon.textContent = "Spiel eine Saite";
       elHz.textContent = "";
       cent.textContent = "";
-      nadel.style.left = "50%";
+      nadel.setAttribute("transform", "rotate(0 " + SK_CX + " " + SK_CY + ")");
       box.className = "stimm";
     }
     return;
@@ -137,17 +172,34 @@ function stZeichnen(erg){
   var betrag = Math.abs(c);
 
   elSaite.textContent = nah.saite.n;
-  elSaite.title = nah.saite.lage;
+
+  /* Weit daneben? Dann kann es an der falschen Stimmung liegen: eine Low-G-Ukulele
+     bei High-G-Einstellung landet sonst kommentarlos bei "C, weit daneben". */
+  var andere = null;
+  if(betrag > 60){                       /* nur pruefen, wenn es ohnehin nicht sitzt */
+    var ander = (document.getElementById("lowG") || {}).checked ? SAITEN_HIGH : SAITEN_LOW;
+    var beste = betrag;
+    ander.forEach(function(x){
+      var d = Math.abs(centAbstand(f, x.f));
+      /* Die andere Stimmung muss deutlich besser passen UND nahe dran sein.
+         Keine feste Cent-Schwelle: eine einfach nur verstimmte Saite soll
+         nicht faelschlich als falsche Stimmung gemeldet werden. */
+      if(d <= 50 && d < beste - 20){ beste = d; andere = x; }
+    });
+  }
+
   elTon.textContent = betrag <= 5 ? "sitzt"
+                    : andere ? "Das klingt nach " + andere.n + " — schalt unten die Stimmung um"
                     : c < 0 ? "zu tief — höher drehen"
                             : "zu hoch — tiefer drehen";
   elHz.textContent = f.toFixed(1) + " Hz · Ziel " + nah.saite.f.toFixed(1)
                    + " Hz · klingt wie " + tonName(f);
 
   var pos = Math.max(-50, Math.min(50, c));
-  nadel.style.left = (50 + pos) + "%";
+  nadel.setAttribute("transform",
+    "rotate(" + (pos * SK_PROCENT).toFixed(2) + " " + SK_CX + " " + SK_CY + ")");
   cent.textContent = (c > 0 ? "+" : "") + c + " Cent"
-                   + (betrag > 50 ? " (weit daneben)" : "");
+                   + (betrag > 50 ? " · weit daneben" : "");
 
   box.className = "stimm " + (betrag <= 5 ? "gut" : betrag <= 20 ? "nah" : "weit");
 
@@ -198,6 +250,7 @@ function startStimmer(){
 
     document.getElementById("stimmStart").hidden = true;
     document.getElementById("stimmLive").hidden = false;
+    skalaBauen();
     saitenListe();
     stLetzte = []; stStilleSeit = 0;
 

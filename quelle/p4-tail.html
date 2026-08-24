@@ -233,35 +233,47 @@
 
     <div class="stimm" id="stimm">
       <div class="stimm-start" id="stimmStart">
+        <div class="mic-kreis" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="2" width="6" height="11" rx="3"/>
+            <path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/><path d="M8 21h8"/>
+          </svg>
+        </div>
         <button class="btn primary big" id="micOn">Mikrofon einschalten</button>
-        <p class="stimm-hinweis">Das Buch fragt gleich um Erlaubnis fürs Mikrofon. Der Ton wird
-        <strong>nur auf deinem Gerät</strong> ausgewertet und nirgendwohin geschickt.</p>
+        <p class="stimm-hinweis">Der Ton wird <strong>nur auf deinem Gerät</strong> ausgewertet
+        und nirgendwohin geschickt. Das Mikrofon schaltet sich ab, sobald du die Seite verlässt.</p>
       </div>
 
       <div class="stimm-live" id="stimmLive" hidden>
-        <div class="stimm-note">
-          <div class="stimm-saite" id="stimmSaite">–</div>
-          <div class="stimm-ton" id="stimmTon">Spiel eine Saite</div>
-          <div class="stimm-hz" id="stimmHz"></div>
+        <div class="stimm-kopf">
+          <span class="hoert"><i></i>hört zu</span>
+          <button class="btn ghost" id="micOff">Mikrofon aus</button>
         </div>
 
-        <div class="meter" id="meter">
-          <div class="meter-skala">
-            <span>tiefer</span><span class="mitte">richtig</span><span>höher</span>
-          </div>
-          <div class="meter-bahn">
-            <div class="meter-ziel"></div>
-            <div class="meter-nadel" id="meterNadel"></div>
-          </div>
-          <div class="meter-cent" id="meterCent"></div>
+        <div class="skala">
+          <svg viewBox="0 0 320 180" class="skala-svg" role="img" aria-label="Stimmanzeige">
+            <path class="sk-bogen" id="skBogen"/>
+            <path class="sk-ziel"  id="skZiel"/>
+            <g class="sk-ticks" id="skTicks"></g>
+            <g id="meterNadel" class="sk-nadel-g">
+              <line class="sk-nadel" x1="160" y1="98" x2="160" y2="60"/>
+              <path class="sk-spitze" d="M160 51 L165.5 64 L154.5 64 Z"/>
+            </g>
+            <text class="sk-saite" id="stimmSaite" x="160" y="150" text-anchor="middle">–</text>
+            <text class="sk-cent"  id="meterCent"  x="160" y="174" text-anchor="middle"></text>
+          </svg>
+        </div>
+
+        <div class="stimm-sagt">
+          <div class="stimm-ton" id="stimmTon">Spiel eine Saite</div>
+          <div class="stimm-hz"  id="stimmHz"></div>
         </div>
 
         <div class="saiten" id="saiten"></div>
 
-        <div class="stimm-fuss">
-          <label class="switch"><input type="checkbox" id="lowG"> <span>Low-G-Stimmung (tiefe vierte Saite)</span></label>
-          <button class="btn" id="micOff">Mikrofon aus</button>
-        </div>
+        <label class="switch"><input type="checkbox" id="lowG">
+          <span>Low-G-Stimmung <small>vierte Saite eine Oktave tiefer</small></span></label>
       </div>
 
       <p class="stimm-fehler" id="stimmFehler" hidden></p>
