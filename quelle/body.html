@@ -307,6 +307,79 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 .segbtn.on{background:var(--accent);border-color:var(--accent);color:var(--paper);}
 .xpose .val{font-family:var(--f-mono);font-size:.78rem;min-width:2.6em;text-align:center;color:var(--ink-soft);}
 
+/* ---------- Stimmgeraet ---------- */
+.stimm{
+  border:1px solid var(--rule);border-radius:14px;background:var(--surface);
+  padding:1.1rem;margin:1.2rem 0;
+  --stimm-farbe:var(--ink-faint);
+}
+.stimm.weit{--stimm-farbe:var(--ember);}
+.stimm.nah {--stimm-farbe:#B8860B;}
+.stimm.gut {--stimm-farbe:var(--accent);}
+.stimm-start{text-align:center;padding:1.2rem .5rem;}
+.btn.big{font-size:1.05rem;padding:.85rem 1.5rem;}
+.stimm-hinweis{max-width:34rem;margin:.9rem auto 0;font-size:.88rem;color:var(--ink-soft);}
+.stimm-fehler{
+  margin-top:1rem;padding:.8rem .9rem;border-radius:10px;
+  background:var(--ember-soft);border:1px solid var(--ember);font-size:.9rem;
+}
+.stimm-note{text-align:center;margin-bottom:1.1rem;}
+.stimm-saite{
+  font-family:var(--f-display);font-weight:700;line-height:1;
+  font-size:4.2rem;color:var(--stimm-farbe);
+}
+.stimm-ton{font-family:var(--f-ui);font-size:1rem;margin-top:.25rem;color:var(--ink);}
+.stimm-hz{font-family:var(--f-mono);font-size:.78rem;color:var(--ink-faint);margin-top:.3rem;}
+
+.meter-skala{
+  display:flex;justify-content:space-between;font-family:var(--f-ui);
+  font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);
+  margin-bottom:.3rem;
+}
+.meter-skala .mitte{color:var(--accent);}
+.meter-bahn{
+  position:relative;height:2.6rem;border-radius:8px;
+  background:var(--surface-2);border:1px solid var(--rule);overflow:hidden;
+}
+.meter-ziel{
+  position:absolute;left:50%;top:0;bottom:0;width:8px;margin-left:-4px;
+  background:var(--accent-soft);border-left:1px solid var(--accent);border-right:1px solid var(--accent);
+}
+.meter-nadel{
+  position:absolute;top:.3rem;bottom:.3rem;width:4px;margin-left:-2px;left:50%;
+  border-radius:2px;background:var(--stimm-farbe);
+  transition:left .12s linear, background .2s;
+}
+.meter-cent{
+  text-align:center;font-family:var(--f-mono);font-size:.85rem;
+  margin-top:.4rem;color:var(--stimm-farbe);min-height:1.2em;
+}
+
+.saiten{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:1.1rem;}
+.saite{
+  display:flex;flex-direction:column;align-items:center;gap:.15rem;
+  padding:.6rem .3rem;border:1px solid var(--rule);border-radius:10px;
+  background:var(--paper);cursor:default;font:inherit;color:var(--ink);
+}
+.saite.aktiv{border-color:var(--stimm-farbe);box-shadow:0 0 0 2px var(--stimm-farbe) inset;}
+.saite.fertig{background:var(--accent-soft);}
+.saite-n{font-family:var(--f-display);font-weight:700;font-size:1.3rem;}
+.saite-l{font-size:.62rem;color:var(--ink-faint);text-align:center;line-height:1.2;}
+.saite-f{font-family:var(--f-mono);font-size:.66rem;color:var(--ink-faint);}
+
+.stimm-fuss{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:.8rem;margin-top:1.2rem;padding-top:.9rem;border-top:1px solid var(--rule);
+}
+.switch{display:flex;align-items:center;gap:.5rem;font-size:.88rem;color:var(--ink-soft);}
+
+@media (max-width:520px){
+  .stimm-saite{font-size:3.4rem;}
+  .saiten{gap:.35rem;}
+  .saite{padding:.5rem .2rem;}
+  .stimm-fuss{flex-direction:column;align-items:stretch;}
+}
+
 .stand{margin-top:.6rem;font-size:.82rem;}
 .stand-fact{font-variant-numeric:tabular-nums;}
 .sec{margin:0 0 1.35rem;}
@@ -770,6 +843,7 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
   <a href="#/transponieren"><span class="num">07</span>Tonart &amp; Transponieren</a>
   <a href="#/lagerfeuer"><span class="num">08</span>Am Lagerfeuer</a>
   <h2>Nachschlagen</h2>
+  <a href="#/stimmer">Stimmgerät (Mikrofon)</a>
   <a href="#/lexikon">Akkord-Lexikon</a>
   <a href="#/plan">8-Wochen-Plan</a>
   <a href="#/werkzeug">Werkzeugkasten</a>
@@ -805,10 +879,10 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
       <span class="fact">42 Lieder</span>
       <span class="fact">28 Griffbilder</span>
       <span class="fact">7 Schlagmuster mit Klick</span>
-      <span class="fact">Stimmton eingebaut</span>
+      <span class="fact">Stimmgerät übers Mikrofon</span>
       <span class="fact">Transponierbar</span>
       <span class="fact">Druckbar</span>
-      <span class="fact stand-fact">Stand 24.08.2026, 00:10</span>
+      <span class="fact stand-fact">Stand 24.08.2026, 18:02</span>
     </div>
   </div>
 
@@ -880,7 +954,9 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
     <em>„Gib – Cola – Einem – Affen“</em>. Beides funktioniert; nimm, was hängen bleibt.</p>
 
     <h4>Stimmton zum Mitstimmen</h4>
-    <p>Tippe eine Saite an und stimme, bis dein Ton mit dem hier zusammenfällt. Ein Clip-Stimmgerät ist trotzdem genauer — nutz das Ohr als Kontrolle.</p>
+    <p>Tippe eine Saite an und stimme, bis dein Ton mit dem hier zusammenfällt. Wenn du dir beim Hören noch
+    unsicher bist, nimm stattdessen das <a href="#/stimmer"><strong>Stimmgerät übers Mikrofon</strong></a> —
+    das zeigt dir schwarz auf weiß, ob du zu tief oder zu hoch liegst.</p>
     <div class="tuner" id="tuner">
       <button data-f="392.00" data-n="g"><span>g</span><small>392 Hz</small></button>
       <button data-f="261.63" data-n="C"><span>C</span><small>262 Hz</small></button>
@@ -1442,7 +1518,7 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
       <p>Lagerfeuer-Ukulele · Ukulele in C-Stimmung (g–C–E–A) · Alle Fassungen sind vereinfachte Begleitversionen für
       Anfänger. Liedtexte urheberrechtlich geschützter Werke sind nicht abgedruckt; die Eingabefelder speichern
       ausschließlich lokal in deinem Browser.</p>
-      <p class="stand">Stand dieser Fassung: <b>24.08.2026, 00:10</b> · <span id="standhint">Siehst du eine ältere
+      <p class="stand">Stand dieser Fassung: <b>24.08.2026, 18:02</b> · <span id="standhint">Siehst du eine ältere
       Fassung, liegt eine Kopie im Browser-Cache — Seite neu laden (am Handy: Seite herunterziehen).</span></p>
     </div>
   </section>
@@ -1469,6 +1545,75 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
     </div>
   </section>
 </main>
+
+  <!-- ===================== STIMMGERAET ===================== -->
+  <section id="stimmer" class="chapter view">
+    <div class="chapter-head">
+      <span class="kicker">Werkzeug</span>
+      <h2>Stimmen mit dem Mikrofon</h2>
+    </div>
+    <p class="lede">Spiel eine Saite an. Das Buch hört zu, sagt dir, welche Saite es ist und
+    ob sie zu tief oder zu hoch liegt — und wie weit.</p>
+
+    <div class="stimm" id="stimm">
+      <div class="stimm-start" id="stimmStart">
+        <button class="btn primary big" id="micOn">Mikrofon einschalten</button>
+        <p class="stimm-hinweis">Das Buch fragt gleich um Erlaubnis fürs Mikrofon. Der Ton wird
+        <strong>nur auf deinem Gerät</strong> ausgewertet und nirgendwohin geschickt.</p>
+      </div>
+
+      <div class="stimm-live" id="stimmLive" hidden>
+        <div class="stimm-note">
+          <div class="stimm-saite" id="stimmSaite">–</div>
+          <div class="stimm-ton" id="stimmTon">Spiel eine Saite</div>
+          <div class="stimm-hz" id="stimmHz"></div>
+        </div>
+
+        <div class="meter" id="meter">
+          <div class="meter-skala">
+            <span>tiefer</span><span class="mitte">richtig</span><span>höher</span>
+          </div>
+          <div class="meter-bahn">
+            <div class="meter-ziel"></div>
+            <div class="meter-nadel" id="meterNadel"></div>
+          </div>
+          <div class="meter-cent" id="meterCent"></div>
+        </div>
+
+        <div class="saiten" id="saiten"></div>
+
+        <div class="stimm-fuss">
+          <label class="switch"><input type="checkbox" id="lowG"> <span>Low-G-Stimmung (tiefe vierte Saite)</span></label>
+          <button class="btn" id="micOff">Mikrofon aus</button>
+        </div>
+      </div>
+
+      <p class="stimm-fehler" id="stimmFehler" hidden></p>
+    </div>
+
+    <details class="hinweise">
+      <summary>So wird es sauber</summary>
+      <p><strong>Ruhe hilft mehr als Technik.</strong> Das Mikrofon hört alles — Lüfter, Straße, Musik im
+      Hintergrund. Je stiller es ist, desto ruhiger steht die Nadel.</p>
+      <p><strong>Zupf einzeln und nicht zu fest.</strong> Ein harter Anschlag ist im ersten Moment leicht zu hoch;
+      warte einen Wimpernschlag, bis der Ton steht, und lies dann ab.</p>
+      <p><strong>Stimme immer von unten hoch.</strong> Liegt die Saite zu hoch, dreh unter den Zielton und geh von
+      dort langsam hoch. Dann greift die Mechanik sauber und die Stimmung hält länger.</p>
+      <p><strong>Zweimal durch.</strong> Wenn du eine Saite spannst, ändert sich die Zugkraft auf den Hals und die
+      anderen verstimmen sich leicht mit. Nach der vierten Saite fang noch einmal von vorn an.</p>
+      <p><strong>Neue Saiten dehnen sich</strong> — die ersten ein bis zwei Wochen ist deine Ukulele nach zehn
+      Minuten Spielen wieder verstimmt. Das ist normal und kein Defekt.</p>
+    </details>
+
+    <div class="note">
+      <span class="lbl">Wenn das Mikrofon nicht anspringt</span>
+      <p>Die Mikrofonaufnahme funktioniert nur über eine verschlüsselte Verbindung. Auf
+      <a href="https://dragoninvensions.github.io/lagerfeuer-ukulele/">der Webseite</a> läuft sie; öffnest du die
+      Buchdatei dagegen direkt von der Festplatte, blockt der Browser den Zugriff. Am Handy musst du die Erlaubnis
+      einmal erteilen — hast du sie versehentlich abgelehnt, findest du sie im Browser unter den
+      Seiteneinstellungen (Schloss-Symbol neben der Adresse).</p>
+    </div>
+  </section>
 
 <nav class="tabbar" id="tabbar" aria-label="Hauptnavigation">
   <a href="#/start"  data-tab="start"><span class="ico">◆</span>Start</a>
@@ -3716,6 +3861,9 @@ function zeichneStart(){
     + '<a class="tile" href="#/kurs"><span class="tile-k">Der Kurs</span>'
     +   '<span class="tile-t">8 Kapitel</span>'
     +   '<span class="tile-d">Vom Stimmen bis zum Lagerfeuer</span></a>'
+    + '<a class="tile" href="#/stimmer"><span class="tile-k">Stimmgerät</span>'
+    +   '<span class="tile-t">Übers Mikrofon</span>'
+    +   '<span class="tile-d">Saite anspielen, ablesen, fertig</span></a>'
     + '<div class="tile plain"><span class="tile-k">Deine Wunschlieder</span>'
     +   '<span class="wunsch">' + wunsch.map(function(s){
           return '<a href="#/lied/'+s.id+'">'+esc(s.t)+'</a>'; }).join("")
@@ -3740,7 +3888,7 @@ var VIEWS = {};
 document.querySelectorAll(".view").forEach(function(v){ VIEWS[v.id] = v; });
 var TITEL = {
   start:"", lieder:"Lieder", kurs:"Der Kurs", plan:"8-Wochen-Plan",
-  lexikon:"Akkord-Lexikon", werkzeug:"Werkzeugkasten", lied:""
+  lexikon:"Akkord-Lexikon", werkzeug:"Werkzeugkasten", stimmer:"Stimmgerät", lied:""
 };
 KAPITEL.forEach(function(k){ TITEL[k.id] = k.t; });
 
@@ -3759,6 +3907,8 @@ function route(){
   Object.keys(VIEWS).forEach(function(id){ VIEWS[id].hidden = (id !== view); });
   stopPattern();
   stopTone();
+  /* Mikrofon abschalten, sobald man die Stimmseite verlaesst */
+  if(view !== "stimmer" && typeof stopStimmer === "function") stopStimmer();
   hidePop();
 
   // Zurueck-Knopf nur, wo es ein „darueber“ gibt
@@ -3769,7 +3919,7 @@ function route(){
   // Aktiven Reiter markieren
   var tab = view === "lied" ? "lieder"
           : KAPITEL.some(function(k){ return k.id === view; }) ? "kurs"
-          : (view === "lexikon" || view === "werkzeug") ? "kurs" : view;
+          : (view === "lexikon" || view === "werkzeug" || view === "stimmer") ? "kurs" : view;
   tabbar.querySelectorAll("a").forEach(function(a){
     a.classList.toggle("on", a.dataset.tab === tab);
   });
@@ -3798,4 +3948,246 @@ if(location.protocol !== "file:"){
     })
     .catch(function(){ /* keine Datei da — voellig in Ordnung */ });
 }
+</script>
+<script>
+"use strict";
+/* ==========================================================
+   STIMMGERAET ueber das Mikrofon
+
+   Tonhoehe wird per normalisierter Autokorrelation bestimmt.
+   Absichtlich NICHT die FFT des AnalyserNode: bei 2048 Punkten
+   und 48 kHz sind die Bins rund 23 Hz breit — zwischen C (262 Hz)
+   und Cis (277 Hz) liegen aber nur 15 Hz. Zum Stimmen braucht es
+   Genauigkeit im Bereich von Cent, nicht von Halbtoenen.
+   ========================================================== */
+
+var SAITEN_HIGH = [
+  {n:"g", f:392.00, lage:"4. Saite (oben)"},
+  {n:"C", f:261.63, lage:"3. Saite"},
+  {n:"E", f:329.63, lage:"2. Saite"},
+  {n:"A", f:440.00, lage:"1. Saite (unten)"}
+];
+var SAITEN_LOW = [
+  {n:"G", f:196.00, lage:"4. Saite (oben), Low G"},
+  {n:"C", f:261.63, lage:"3. Saite"},
+  {n:"E", f:329.63, lage:"2. Saite"},
+  {n:"A", f:440.00, lage:"1. Saite (unten)"}
+];
+var TONNAMEN = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+
+var stStream = null, stCtx = null, stAn = null, stBuf = null, stTimer = null;
+var stLetzte = [];          /* kleiner Puffer, damit die Anzeige nicht zappelt */
+var stStilleSeit = 0;
+
+function stSaiten(){
+  var el = document.getElementById("lowG");
+  return (el && el.checked) ? SAITEN_LOW : SAITEN_HIGH;
+}
+
+/* ---------- Tonhoehe aus dem Zeitsignal ----------
+   Normalisierte Autokorrelation im plausiblen Bereich. Der Lag-Bereich
+   ist begrenzt (rund 70–1200 Hz), sonst waere die Rechnung zu langsam
+   und der Griff nach Oktavfehlern zu gross. */
+function tonhoehe(buf, rate){
+  var n = buf.length, i, j;
+
+  var summe = 0;
+  for(i = 0; i < n; i++) summe += buf[i] * buf[i];
+  var rms = Math.sqrt(summe / n);
+  if(rms < 0.008) return null;                 /* zu leise: nichts gespielt */
+
+  var minLag = Math.floor(rate / 1200);
+  var maxLag = Math.floor(rate / 70);
+  if(maxLag > n / 2) maxLag = Math.floor(n / 2);
+
+  var beste = -1, besterLag = -1, werte = new Float32Array(maxLag + 1);
+  for(var lag = minLag; lag <= maxLag; lag++){
+    var s = 0, e1 = 0, e2 = 0, ende = n - lag;
+    for(j = 0; j < ende; j++){
+      var a = buf[j], b = buf[j + lag];
+      s += a * b; e1 += a * a; e2 += b * b;
+    }
+    var nenner = Math.sqrt(e1 * e2);
+    var w = nenner > 0 ? s / nenner : 0;
+    werte[lag] = w;
+    if(w > beste){ beste = w; besterLag = lag; }
+  }
+  if(beste < 0.5 || besterLag < 0) return null;  /* kein klarer Ton */
+
+  /* Oktavfehler vermeiden: den FRUEHESTEN Gipfel nehmen, der fast so hoch
+     ist wie der beste. Sonst rastet die Anzeige gern eine Oktave zu tief ein. */
+  var schwelle = beste * 0.9, lagWahl = besterLag;
+  for(var k = minLag + 1; k < besterLag; k++){
+    if(werte[k] > schwelle && werte[k] >= werte[k-1] && werte[k] >= werte[k+1]){
+      lagWahl = k; break;
+    }
+  }
+
+  /* Parabel durch die drei Punkte um den Gipfel: bringt Bruchteile
+     eines Samples und damit die noetige Cent-Genauigkeit. */
+  var y1 = werte[lagWahl - 1] || 0, y2 = werte[lagWahl], y3 = werte[lagWahl + 1] || 0;
+  var nen = 2 * (2 * y2 - y1 - y3);
+  var fein = nen !== 0 ? lagWahl + (y3 - y1) / nen : lagWahl;
+
+  var f = rate / fein;
+  if(!isFinite(f) || f < 60 || f > 1400) return null;
+  return {f:f, klar:beste};
+}
+
+/* ---------- Anzeige ---------- */
+function centAbstand(f, ziel){ return 1200 * Math.log(f / ziel) / Math.LN2; }
+
+function naechsteSaite(f){
+  var s = stSaiten(), beste = null, kleinster = 1e9;
+  s.forEach(function(x){
+    var d = Math.abs(centAbstand(f, x.f));
+    if(d < kleinster){ kleinster = d; beste = x; }
+  });
+  return {saite:beste, cent:centAbstand(f, beste.f)};
+}
+
+function tonName(f){
+  var halb = 12 * Math.log(f / 440) / Math.LN2;
+  var midi = Math.round(halb) + 69;
+  var name = TONNAMEN[((midi % 12) + 12) % 12];
+  var okt = Math.floor(midi / 12) - 1;
+  return name + okt;
+}
+
+function stZeichnen(erg){
+  var elSaite = document.getElementById("stimmSaite");
+  var elTon   = document.getElementById("stimmTon");
+  var elHz    = document.getElementById("stimmHz");
+  var nadel   = document.getElementById("meterNadel");
+  var cent    = document.getElementById("meterCent");
+  var box     = document.getElementById("stimm");
+
+  if(!erg){
+    stStilleSeit++;
+    if(stStilleSeit > 6){                       /* rund eine Sekunde Ruhe */
+      elSaite.textContent = "–";
+      elTon.textContent = "Spiel eine Saite";
+      elHz.textContent = "";
+      cent.textContent = "";
+      nadel.style.left = "50%";
+      box.className = "stimm";
+    }
+    return;
+  }
+  stStilleSeit = 0;
+
+  /* Median der letzten Messungen: einzelne Ausreisser sollen die
+     Nadel nicht springen lassen. */
+  stLetzte.push(erg.f);
+  if(stLetzte.length > 5) stLetzte.shift();
+  var sortiert = stLetzte.slice().sort(function(a,b){ return a-b; });
+  var f = sortiert[Math.floor(sortiert.length / 2)];
+
+  var nah = naechsteSaite(f);
+  var c = Math.round(nah.cent);
+  var betrag = Math.abs(c);
+
+  elSaite.textContent = nah.saite.n;
+  elSaite.title = nah.saite.lage;
+  elTon.textContent = betrag <= 5 ? "sitzt"
+                    : c < 0 ? "zu tief — höher drehen"
+                            : "zu hoch — tiefer drehen";
+  elHz.textContent = f.toFixed(1) + " Hz · Ziel " + nah.saite.f.toFixed(1)
+                   + " Hz · klingt wie " + tonName(f);
+
+  var pos = Math.max(-50, Math.min(50, c));
+  nadel.style.left = (50 + pos) + "%";
+  cent.textContent = (c > 0 ? "+" : "") + c + " Cent"
+                   + (betrag > 50 ? " (weit daneben)" : "");
+
+  box.className = "stimm " + (betrag <= 5 ? "gut" : betrag <= 20 ? "nah" : "weit");
+
+  document.querySelectorAll("#saiten .saite").forEach(function(el){
+    el.classList.toggle("aktiv", el.dataset.n === nah.saite.n);
+    el.classList.toggle("fertig", el.dataset.n === nah.saite.n && betrag <= 5);
+  });
+}
+
+function saitenListe(){
+  var w = document.getElementById("saiten");
+  if(!w) return;
+  w.innerHTML = stSaiten().map(function(s){
+    return '<button class="saite" data-n="'+s.n+'" data-f="'+s.f+'">'
+      + '<span class="saite-n">'+s.n+'</span>'
+      + '<span class="saite-l">'+s.lage+'</span>'
+      + '<span class="saite-f">'+s.f.toFixed(0)+' Hz</span>'
+      + '</button>';
+  }).join("");
+}
+
+/* ---------- Mikrofon an und aus ---------- */
+function startStimmer(){
+  var fehler = document.getElementById("stimmFehler");
+  fehler.hidden = true;
+
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    fehler.hidden = false;
+    fehler.innerHTML = "Dieser Browser gibt kein Mikrofon frei. Das passiert vor allem, wenn die "
+      + "Buchdatei direkt von der Festplatte geöffnet wurde — über die Webseite funktioniert es.";
+    return;
+  }
+
+  navigator.mediaDevices.getUserMedia({audio:{
+      echoCancellation:false, noiseSuppression:false, autoGainControl:false
+    }}).then(function(stream){
+    stStream = stream;
+    stCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if(stCtx.state === "suspended") stCtx.resume();
+    var quelle = stCtx.createMediaStreamSource(stream);
+    /* Tiefen abschneiden: Brummen und Trittschall verwirren die Autokorrelation */
+    var hp = stCtx.createBiquadFilter();
+    hp.type = "highpass"; hp.frequency.value = 60;
+    stAn = stCtx.createAnalyser();
+    stAn.fftSize = 4096;
+    quelle.connect(hp); hp.connect(stAn);
+    stBuf = new Float32Array(stAn.fftSize);
+
+    document.getElementById("stimmStart").hidden = true;
+    document.getElementById("stimmLive").hidden = false;
+    saitenListe();
+    stLetzte = []; stStilleSeit = 0;
+
+    /* rund achtmal pro Sekunde: genau genug fuers Auge, sparsam fuer den Akku */
+    stTimer = setInterval(function(){
+      stAn.getFloatTimeDomainData(stBuf);
+      stZeichnen(tonhoehe(stBuf, stCtx.sampleRate));
+    }, 120);
+  }).catch(function(e){
+    fehler.hidden = false;
+    fehler.textContent = (e && e.name === "NotAllowedError")
+      ? "Der Zugriff aufs Mikrofon wurde abgelehnt. Du kannst ihn in den Seiteneinstellungen "
+        + "deines Browsers wieder erlauben (Schloss-Symbol neben der Adresse)."
+      : "Das Mikrofon lässt sich nicht öffnen" + (e && e.name ? " (" + e.name + ")" : "") + ".";
+  });
+}
+
+function stopStimmer(){
+  if(stTimer){ clearInterval(stTimer); stTimer = null; }
+  if(stStream){ stStream.getTracks().forEach(function(t){ t.stop(); }); stStream = null; }
+  if(stCtx){ stCtx.close(); stCtx = null; }
+  stAn = null; stBuf = null; stLetzte = [];
+  var live = document.getElementById("stimmLive");
+  var start = document.getElementById("stimmStart");
+  if(live) live.hidden = true;
+  if(start) start.hidden = false;
+  var box = document.getElementById("stimm");
+  if(box) box.className = "stimm";
+}
+
+document.addEventListener("click", function(e){
+  if(e.target.id === "micOn"){ startStimmer(); }
+  if(e.target.id === "micOff"){ stopStimmer(); }
+});
+document.addEventListener("change", function(e){
+  if(e.target.id === "lowG"){ saitenListe(); stLetzte = []; }
+});
+/* Mikrofon nicht im Hintergrund weiterlaufen lassen */
+document.addEventListener("visibilitychange", function(){
+  if(document.hidden && stStream) stopStimmer();
+});
 </script>

@@ -677,6 +677,9 @@ function zeichneStart(){
     + '<a class="tile" href="#/kurs"><span class="tile-k">Der Kurs</span>'
     +   '<span class="tile-t">8 Kapitel</span>'
     +   '<span class="tile-d">Vom Stimmen bis zum Lagerfeuer</span></a>'
+    + '<a class="tile" href="#/stimmer"><span class="tile-k">Stimmgerät</span>'
+    +   '<span class="tile-t">Übers Mikrofon</span>'
+    +   '<span class="tile-d">Saite anspielen, ablesen, fertig</span></a>'
     + '<div class="tile plain"><span class="tile-k">Deine Wunschlieder</span>'
     +   '<span class="wunsch">' + wunsch.map(function(s){
           return '<a href="#/lied/'+s.id+'">'+esc(s.t)+'</a>'; }).join("")
@@ -701,7 +704,7 @@ var VIEWS = {};
 document.querySelectorAll(".view").forEach(function(v){ VIEWS[v.id] = v; });
 var TITEL = {
   start:"", lieder:"Lieder", kurs:"Der Kurs", plan:"8-Wochen-Plan",
-  lexikon:"Akkord-Lexikon", werkzeug:"Werkzeugkasten", lied:""
+  lexikon:"Akkord-Lexikon", werkzeug:"Werkzeugkasten", stimmer:"Stimmgerät", lied:""
 };
 KAPITEL.forEach(function(k){ TITEL[k.id] = k.t; });
 
@@ -720,6 +723,8 @@ function route(){
   Object.keys(VIEWS).forEach(function(id){ VIEWS[id].hidden = (id !== view); });
   stopPattern();
   stopTone();
+  /* Mikrofon abschalten, sobald man die Stimmseite verlaesst */
+  if(view !== "stimmer" && typeof stopStimmer === "function") stopStimmer();
   hidePop();
 
   // Zurueck-Knopf nur, wo es ein „darueber“ gibt
@@ -730,7 +735,7 @@ function route(){
   // Aktiven Reiter markieren
   var tab = view === "lied" ? "lieder"
           : KAPITEL.some(function(k){ return k.id === view; }) ? "kurs"
-          : (view === "lexikon" || view === "werkzeug") ? "kurs" : view;
+          : (view === "lexikon" || view === "werkzeug" || view === "stimmer") ? "kurs" : view;
   tabbar.querySelectorAll("a").forEach(function(a){
     a.classList.toggle("on", a.dataset.tab === tab);
   });

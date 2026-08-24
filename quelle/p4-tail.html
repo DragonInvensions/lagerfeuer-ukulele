@@ -222,6 +222,75 @@
   </section>
 </main>
 
+  <!-- ===================== STIMMGERAET ===================== -->
+  <section id="stimmer" class="chapter view">
+    <div class="chapter-head">
+      <span class="kicker">Werkzeug</span>
+      <h2>Stimmen mit dem Mikrofon</h2>
+    </div>
+    <p class="lede">Spiel eine Saite an. Das Buch hört zu, sagt dir, welche Saite es ist und
+    ob sie zu tief oder zu hoch liegt — und wie weit.</p>
+
+    <div class="stimm" id="stimm">
+      <div class="stimm-start" id="stimmStart">
+        <button class="btn primary big" id="micOn">Mikrofon einschalten</button>
+        <p class="stimm-hinweis">Das Buch fragt gleich um Erlaubnis fürs Mikrofon. Der Ton wird
+        <strong>nur auf deinem Gerät</strong> ausgewertet und nirgendwohin geschickt.</p>
+      </div>
+
+      <div class="stimm-live" id="stimmLive" hidden>
+        <div class="stimm-note">
+          <div class="stimm-saite" id="stimmSaite">–</div>
+          <div class="stimm-ton" id="stimmTon">Spiel eine Saite</div>
+          <div class="stimm-hz" id="stimmHz"></div>
+        </div>
+
+        <div class="meter" id="meter">
+          <div class="meter-skala">
+            <span>tiefer</span><span class="mitte">richtig</span><span>höher</span>
+          </div>
+          <div class="meter-bahn">
+            <div class="meter-ziel"></div>
+            <div class="meter-nadel" id="meterNadel"></div>
+          </div>
+          <div class="meter-cent" id="meterCent"></div>
+        </div>
+
+        <div class="saiten" id="saiten"></div>
+
+        <div class="stimm-fuss">
+          <label class="switch"><input type="checkbox" id="lowG"> <span>Low-G-Stimmung (tiefe vierte Saite)</span></label>
+          <button class="btn" id="micOff">Mikrofon aus</button>
+        </div>
+      </div>
+
+      <p class="stimm-fehler" id="stimmFehler" hidden></p>
+    </div>
+
+    <details class="hinweise">
+      <summary>So wird es sauber</summary>
+      <p><strong>Ruhe hilft mehr als Technik.</strong> Das Mikrofon hört alles — Lüfter, Straße, Musik im
+      Hintergrund. Je stiller es ist, desto ruhiger steht die Nadel.</p>
+      <p><strong>Zupf einzeln und nicht zu fest.</strong> Ein harter Anschlag ist im ersten Moment leicht zu hoch;
+      warte einen Wimpernschlag, bis der Ton steht, und lies dann ab.</p>
+      <p><strong>Stimme immer von unten hoch.</strong> Liegt die Saite zu hoch, dreh unter den Zielton und geh von
+      dort langsam hoch. Dann greift die Mechanik sauber und die Stimmung hält länger.</p>
+      <p><strong>Zweimal durch.</strong> Wenn du eine Saite spannst, ändert sich die Zugkraft auf den Hals und die
+      anderen verstimmen sich leicht mit. Nach der vierten Saite fang noch einmal von vorn an.</p>
+      <p><strong>Neue Saiten dehnen sich</strong> — die ersten ein bis zwei Wochen ist deine Ukulele nach zehn
+      Minuten Spielen wieder verstimmt. Das ist normal und kein Defekt.</p>
+    </details>
+
+    <div class="note">
+      <span class="lbl">Wenn das Mikrofon nicht anspringt</span>
+      <p>Die Mikrofonaufnahme funktioniert nur über eine verschlüsselte Verbindung. Auf
+      <a href="https://dragoninvensions.github.io/lagerfeuer-ukulele/">der Webseite</a> läuft sie; öffnest du die
+      Buchdatei dagegen direkt von der Festplatte, blockt der Browser den Zugriff. Am Handy musst du die Erlaubnis
+      einmal erteilen — hast du sie versehentlich abgelehnt, findest du sie im Browser unter den
+      Seiteneinstellungen (Schloss-Symbol neben der Adresse).</p>
+    </div>
+  </section>
+
 <nav class="tabbar" id="tabbar" aria-label="Hauptnavigation">
   <a href="#/start"  data-tab="start"><span class="ico">◆</span>Start</a>
   <a href="#/lieder" data-tab="lieder"><span class="ico">♫</span>Lieder</a>

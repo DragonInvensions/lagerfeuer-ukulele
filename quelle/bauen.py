@@ -16,12 +16,14 @@ Reihenfolge ist wichtig:
   p6  Lieder Teil A   (oeffnet <script> und das SONGS-Array)
   p7  Lieder Teil B   (schliesst SONGS-Array und </script>)
   p8  Renderskript: Lieder, Plan, Filter
+  p9  Stimmgeraet ueber das Mikrofon
 """
 import datetime
 import pathlib
 
 TEILE = ["p1-style.html", "p2-shell.html", "p3-chapters.html", "p4-tail.html",
-         "p5-core.js", "p6-songs-a.js", "p7-songs-b.js", "p8-render.js"]
+         "p5-core.js", "p6-songs-a.js", "p7-songs-b.js", "p8-render.js",
+         "p9-stimmer.js"]
 
 KOPF = """<!doctype html>
 <html lang="de">
