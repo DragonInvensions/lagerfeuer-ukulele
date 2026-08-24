@@ -333,6 +333,39 @@
 
 </main>
 
+<!-- ===================== MITSPIELEN ===================== -->
+<div class="mitspiel" id="mitspiel" hidden role="dialog" aria-modal="true" aria-label="Mitspielen">
+  <div class="ms-kopf">
+    <div class="ms-titel" id="msTitel"></div>
+    <button class="btn sq" id="msZu" aria-label="Mitspielen beenden">✕</button>
+  </div>
+
+  <div class="ms-buehne">
+    <div class="ms-abschnitt" id="msAbschnitt"></div>
+
+    <div class="ms-akkorde">
+      <div class="ms-jetzt" id="msJetzt"></div>
+      <div class="ms-naechst" id="msNaechst"></div>
+    </div>
+
+    <div class="ms-takt" id="msTakt" aria-hidden="true"></div>
+    <div class="ms-text" id="msText"></div>
+  </div>
+
+  <div class="ms-fuss">
+    <div class="ms-knoepfe">
+      <button class="btn primary big" id="msPlay">▶ Start</button>
+      <button class="btn" id="msNeu" title="von vorn">↺</button>
+      <label class="switch ms-klick"><input type="checkbox" id="msKlick" checked> <span>Klick</span></label>
+    </div>
+    <label class="ms-tempo">
+      <span>Tempo <b id="msTempoWert">70 %</b></span>
+      <input type="range" id="msTempo" min="40" max="120" step="5" value="70"
+             aria-label="Tempo in Prozent des Originaltempos">
+    </label>
+  </div>
+</div>
+
 <nav class="tabbar" id="tabbar" aria-label="Hauptnavigation">
   <a href="#/start"  data-tab="start"><span class="ico">◆</span>Start</a>
   <a href="#/lieder" data-tab="lieder"><span class="ico">♫</span>Lieder</a>

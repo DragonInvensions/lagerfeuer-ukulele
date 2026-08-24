@@ -254,6 +254,10 @@ function songPageHTML(s){
   var pat = patternByName(s.strum);
   var patHTML = pat ? patternBoxHTML(pat, true, s.tempo)
     : '<div class="song-note">Schlagmuster: '+esc(s.strum)+'</div>';
+  patHTML += '<button class="btn primary big mitspiel-btn" data-mitspiel="'+esc(s.id)+'">'
+    + '▶ Mitspielen</button>'
+    + '<p class="mitspiel-hint">Zaehlt mit, zeigt Takt fuer Takt den Akkord, die Schlagrichtung '
+    + 'und die Textzeile. Tempo einstellbar.</p>';
 
   /* Textwerkzeug nur, wenn es ueberhaupt einzutragende Zeilen gibt */
   var st = lyricStats(s);

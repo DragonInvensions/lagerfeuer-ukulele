@@ -929,6 +929,102 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-1px);}
   .btn:hover{border-color:var(--rule);color:var(--ink);}
 }
 
+/* ============ MITSPIELEN ============ */
+.mitspiel-btn{width:100%;justify-content:center;margin-top:.9rem;}
+.mitspiel-hint{font-size:.82rem;color:var(--ink-soft);margin:.5rem 0 0;text-align:center;}
+
+body.ms-offen{overflow:hidden;}
+.mitspiel{
+  position:fixed;inset:0;z-index:120;background:var(--paper);
+  display:flex;flex-direction:column;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right)
+          env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+.ms-kopf{
+  display:flex;align-items:center;justify-content:space-between;gap:.8rem;
+  padding:.7rem clamp(.8rem,3vw,1.4rem);border-bottom:1px solid var(--rule);
+}
+.ms-titel{font-family:var(--f-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.04em;font-size:1.05rem;}
+
+.ms-buehne{
+  flex:1;min-height:0;overflow-y:auto;
+  display:flex;flex-direction:column;align-items:center;gap:.9rem;
+  padding:1rem clamp(.8rem,3vw,1.4rem);
+}
+.ms-abschnitt{
+  font-family:var(--f-ui);font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-faint);text-align:center;
+}
+
+/* Akkord jetzt und gleich */
+.ms-akkorde{display:flex;align-items:flex-end;justify-content:center;gap:1.6rem;min-height:150px;}
+.ms-jetzt,.ms-naechst{display:flex;flex-direction:column;align-items:center;gap:.25rem;}
+.ms-naechst{opacity:.55;}
+.ms-vorschau{font-family:var(--f-ui);font-size:.62rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-faint);}
+.ms-name{font-family:var(--f-display);font-weight:700;font-size:2.2rem;line-height:1;color:var(--accent);}
+.ms-name.klein{font-size:1.15rem;}
+
+/* Mitzaehler: ein Feld je Achtel, genau wie im Schlagmuster */
+.ms-takt{display:flex;gap:.35rem;justify-content:center;flex-wrap:nowrap;}
+.ms-schlag{
+  min-width:2.5rem;padding:.5rem .25rem;border-radius:10px;
+  border:1px solid var(--rule);background:var(--surface);
+  display:flex;flex-direction:column;align-items:center;gap:.15rem;
+  transition:background .06s,border-color .06s,transform .06s;
+}
+.ms-schlag.leer{opacity:.42;}
+.ms-schlag.an{background:var(--accent);border-color:var(--accent);transform:translateY(-3px);}
+.ms-schlag.an .ms-pfeil,.ms-schlag.an .ms-zahl{color:var(--paper);}
+.ms-pfeil{font-size:1.35rem;line-height:1;color:var(--ink);}
+.ms-zahl{font-family:var(--f-mono);font-size:.7rem;color:var(--ink-faint);}
+
+/* Text: vorherige, aktuelle und naechste Zeile */
+.ms-text{width:100%;max-width:44rem;display:flex;flex-direction:column;gap:.45rem;}
+.ms-zeile{
+  display:flex;flex-wrap:wrap;gap:.1rem .45rem;justify-content:center;
+  font-family:var(--f-body);font-size:1rem;color:var(--ink-faint);
+  padding:.35rem .5rem;border-radius:8px;
+}
+/* Eigener Name statt "jetzt": diese Klasse gehoert schon dem Stimmgeraet
+   und wuerde hier flex-direction:column erzwingen — dann stuende jeder
+   Takt untereinander statt nebeneinander. */
+.ms-zeile.ms-akt{
+  font-size:1.35rem;color:var(--ink);background:var(--surface);
+  border:1px solid var(--rule);
+}
+.ms-zeile.leer{color:var(--ink-faint);opacity:.45;}
+.ms-sp{padding:.05rem .3rem;border-radius:5px;}
+.ms-zeile.ms-akt .ms-sp.an{background:var(--accent-soft);color:var(--accent);font-weight:600;}
+.ms-auf{padding-right:.4em;margin-right:.2em;border-right:2px solid var(--ember);}
+
+.ms-fuss{
+  border-top:1px solid var(--rule);background:var(--surface);
+  padding:.8rem clamp(.8rem,3vw,1.4rem) 1rem;
+  display:flex;flex-direction:column;gap:.7rem;
+}
+.ms-knoepfe{display:flex;align-items:center;gap:.6rem;}
+.ms-knoepfe .primary{flex:1;justify-content:center;}
+.ms-klick{margin:0;padding:0;border:0;font-size:.82rem;white-space:nowrap;}
+.ms-tempo{display:flex;flex-direction:column;gap:.25rem;font-size:.82rem;color:var(--ink-soft);}
+.ms-tempo b{font-family:var(--f-mono);color:var(--ink);}
+.ms-tempo input[type=range]{width:100%;accent-color:var(--accent);}
+
+@media (max-width:420px){
+  .ms-schlag{min-width:1.9rem;padding:.4rem .15rem;}
+  .ms-pfeil{font-size:1.1rem;}
+  .ms-akkorde{gap:1rem;}
+  .ms-name{font-size:1.8rem;}
+}
+@media (min-width:900px){
+  .ms-buehne{gap:1.3rem;padding-top:2rem;}
+  .ms-zeile.ms-akt{font-size:1.6rem;}
+  .ms-fuss{flex-direction:row;align-items:center;gap:1.5rem;}
+  .ms-knoepfe{flex:0 0 auto;}
+  .ms-tempo{flex:1;max-width:26rem;}
+}
+
 /* ============ PRINT ============ */
 @media print{
   :root{--paper:#fff;--surface:#fff;--surface-2:#fff;--ink:#000;--ink-soft:#333;--ink-faint:#666;
