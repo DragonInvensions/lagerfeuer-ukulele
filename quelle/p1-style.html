@@ -345,6 +345,22 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 @keyframes puls{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.72);}}
 .btn.ghost{background:transparent;border-color:var(--rule);color:var(--ink-soft);font-size:.82rem;padding:.4rem .8rem;}
 
+/* Umschalter der Betriebsart */
+.modus{display:flex;gap:.4rem;margin:.6rem 0 .2rem;}
+.modus .segbtn{flex:1;justify-content:center;text-align:center;}
+.reihe{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.55rem;
+  margin:.7rem 0 .1rem;padding:.6rem .75rem;border-radius:10px;
+  background:var(--surface-2);
+}
+.reihe-schritt{
+  font-family:var(--f-ui);font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--paper);background:var(--accent);border-radius:999px;padding:.2rem .55rem;
+  white-space:nowrap;
+}
+.reihe-sage{font-size:.9rem;color:var(--ink);flex:1;min-width:10rem;}
+.reihe .btn{margin-left:auto;}
+
 /* Bogenskala */
 .skala{margin:.2rem 0 .4rem;}
 .skala-svg{display:block;width:100%;height:auto;max-width:420px;margin:0 auto;overflow:visible;}

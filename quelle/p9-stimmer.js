@@ -28,6 +28,23 @@ var stStream = null, stCtx = null, stAn = null, stBuf = null, stTimer = null;
 var stLetzte = [];          /* kleiner Puffer, damit die Anzeige nicht zappelt */
 var stStilleSeit = 0;
 
+/* Betriebsart: "reihe" geht Saite fuer Saite durch, "frei" zeigt einfach an,
+   was gerade klingt. Die Wahl bleibt gespeichert. */
+var stModus  = (typeof load === "function" && load("uke.stimmmodus") === "frei") ? "frei" : "reihe";
+var stZiel   = 0;                       /* Index der Saite, die gerade dran ist */
+var stFertig = [false, false, false, false];
+var stStabil = 0;                       /* wie lange sitzt sie schon */
+var stPause  = 0;                       /* kurze Ruhe nach dem Einrasten */
+
+function stReiheZuruecksetzen(){
+  stFertig = [false, false, false, false];
+  stZiel = 0; stStabil = 0; stPause = 0; stLetzte = [];
+}
+function stNaechsteOffene(){
+  for(var i = 0; i < stFertig.length; i++) if(!stFertig[i]) return i;
+  return -1;
+}
+
 function stSaiten(){
   var el = document.getElementById("lowG");
   return (el && el.checked) ? SAITEN_LOW : SAITEN_HIGH;
@@ -138,6 +155,28 @@ function skalaBauen(){
   skGebaut = true;
 }
 
+function stReiheText(){
+  var kopf = document.getElementById("reihe");
+  var schritt = document.getElementById("reiheSchritt");
+  var sage = document.getElementById("reiheSage");
+  var neu = document.getElementById("reiheNeu");
+  if(!kopf) return;
+  kopf.hidden = (stModus !== "reihe");
+  if(stModus !== "reihe") return;
+
+  var fertigZahl = stFertig.filter(Boolean).length;
+  if(fertigZahl === 4){
+    schritt.textContent = "Fertig";
+    sage.textContent = "Alle vier sitzen. Spiel sie noch einmal durch \u2014 beim Spannen ziehen sich die anderen leicht mit.";
+    neu.hidden = false;
+  } else {
+    var s = stSaiten()[stZiel];
+    schritt.textContent = "Saite " + (fertigZahl + 1) + " von 4";
+    sage.textContent = "Spiel die " + s.n + "-Saite an";
+    neu.hidden = true;
+  }
+}
+
 function stZeichnen(erg){
   var elSaite = document.getElementById("stimmSaite");
   var elTon   = document.getElementById("stimmTon");
@@ -145,12 +184,23 @@ function stZeichnen(erg){
   var nadel   = document.getElementById("meterNadel");
   var cent    = document.getElementById("meterCent");
   var box     = document.getElementById("stimm");
+  var saiten  = stSaiten();
+
+  /* Nach dem Einrasten kurz stehenbleiben, sonst misst die noch klingende
+     Saite bereits gegen die naechste und die Anzeige springt. */
+  if(stPause > 0){
+    stPause--;
+    if(stPause === 0){ stLetzte = []; stReiheText(); }
+    return;
+  }
 
   if(!erg){
     stStilleSeit++;
+    stStabil = 0;
     if(stStilleSeit > 6){                       /* rund eine Sekunde Ruhe */
-      elSaite.textContent = "–";
-      elTon.textContent = "Spiel eine Saite";
+      elSaite.textContent = "\u2013";
+      elTon.textContent = (stModus === "reihe" && stNaechsteOffene() >= 0)
+        ? "Warte auf die " + saiten[stZiel].n + "-Saite" : "Spiel eine Saite";
       elHz.textContent = "";
       cent.textContent = "";
       nadel.setAttribute("transform", "rotate(0 " + SK_CX + " " + SK_CY + ")");
@@ -164,49 +214,90 @@ function stZeichnen(erg){
      Nadel nicht springen lassen. */
   stLetzte.push(erg.f);
   if(stLetzte.length > 5) stLetzte.shift();
-  var sortiert = stLetzte.slice().sort(function(a,b){ return a-b; });
+  var sortiert = stLetzte.slice().sort(function(a, b){ return a - b; });
   var f = sortiert[Math.floor(sortiert.length / 2)];
 
-  var nah = naechsteSaite(f);
-  var c = Math.round(nah.cent);
+  /* In der Reihe wird gegen die FESTE Zielsaite gemessen. Sonst springt die
+     Anzeige bei einer stark verstimmten Saite zur Nachbarsaite und man
+     dreht in die falsche Richtung. */
+  var reiheAktiv = (stModus === "reihe" && stNaechsteOffene() >= 0);
+  var nah  = naechsteSaite(f);
+  var ziel = reiheAktiv ? saiten[stZiel] : nah.saite;
+  var c = Math.round(centAbstand(f, ziel.f));
   var betrag = Math.abs(c);
 
-  elSaite.textContent = nah.saite.n;
+  elSaite.textContent = ziel.n;
 
   /* Weit daneben? Dann kann es an der falschen Stimmung liegen: eine Low-G-Ukulele
      bei High-G-Einstellung landet sonst kommentarlos bei "C, weit daneben". */
+  /* In der Reihe: klingt es klar nach einer ANDEREN Saite dieser Stimmung,
+     hat man wohl die falsche angespielt.
+     Keine feste Cent-Schwelle: g und A liegen nur 200 Cent auseinander, das ist
+     der kleinste Abstand zweier Saiten. Stattdessen der Vergleich — die andere
+     Saite muss praktisch sitzen und deutlich besser passen als das Ziel. */
+  var falsche = (reiheAktiv && nah.saite.n !== ziel.n
+                 && Math.abs(nah.cent) < 45
+                 && betrag > Math.abs(nah.cent) + 120) ? nah.saite : null;
+
+  /* Weit daneben? Dann kann es an der falschen Stimmung liegen: eine Low-G-Ukulele
+     bei High-G-Einstellung landet sonst kommentarlos bei "C, weit daneben".
+     Geprueft werden nur Saiten, die es in der AKTUELLEN Stimmung gar nicht gibt
+     \u2014 C, E und A sind in beiden Stimmungen gleich und wuerden sonst jede
+     falsch angespielte Saite als falsche Stimmung melden. */
   var andere = null;
-  if(betrag > 60){                       /* nur pruefen, wenn es ohnehin nicht sitzt */
+  if(betrag > 60 && !falsche){
     var ander = (document.getElementById("lowG") || {}).checked ? SAITEN_HIGH : SAITEN_LOW;
     var beste = betrag;
     ander.forEach(function(x){
+      var kenntSchon = saiten.some(function(y){ return Math.abs(y.f - x.f) < 1; });
+      if(kenntSchon) return;
       var d = Math.abs(centAbstand(f, x.f));
       /* Die andere Stimmung muss deutlich besser passen UND nahe dran sein.
-         Keine feste Cent-Schwelle: eine einfach nur verstimmte Saite soll
-         nicht faelschlich als falsche Stimmung gemeldet werden. */
+         Keine feste Cent-Schwelle: eine blosse Verstimmung soll nicht
+         faelschlich als falsche Stimmung gemeldet werden. */
       if(d <= 50 && d < beste - 20){ beste = d; andere = x; }
     });
   }
 
   elTon.textContent = betrag <= 5 ? "sitzt"
-                    : andere ? "Das klingt nach " + andere.n + " — schalt unten die Stimmung um"
-                    : c < 0 ? "zu tief — höher drehen"
-                            : "zu hoch — tiefer drehen";
-  elHz.textContent = f.toFixed(1) + " Hz · Ziel " + nah.saite.f.toFixed(1)
-                   + " Hz · klingt wie " + tonName(f);
+                    : falsche ? "Das war die " + falsche.n + "-Saite \u2014 spiel die " + ziel.n + "-Saite"
+                    : andere  ? "Das klingt nach " + andere.n + " \u2014 schalt unten die Stimmung um"
+                    : c < 0   ? "zu tief \u2014 h\u00f6her drehen"
+                              : "zu hoch \u2014 tiefer drehen";
+  elHz.textContent = f.toFixed(1) + " Hz \u00b7 Ziel " + ziel.f.toFixed(1)
+                   + " Hz \u00b7 klingt wie " + tonName(f);
 
   var pos = Math.max(-50, Math.min(50, c));
   nadel.setAttribute("transform",
     "rotate(" + (pos * SK_PROCENT).toFixed(2) + " " + SK_CX + " " + SK_CY + ")");
   cent.textContent = (c > 0 ? "+" : "") + c + " Cent"
-                   + (betrag > 50 ? " · weit daneben" : "");
+                   + (betrag > 50 ? " \u00b7 weit daneben" : "");
 
   box.className = "stimm " + (betrag <= 5 ? "gut" : betrag <= 20 ? "nah" : "weit");
 
-  document.querySelectorAll("#saiten .saite").forEach(function(el){
-    el.classList.toggle("aktiv", el.dataset.n === nah.saite.n);
-    el.classList.toggle("fertig", el.dataset.n === nah.saite.n && betrag <= 5);
+  document.querySelectorAll("#saiten .saite").forEach(function(el, i){
+    el.classList.toggle("aktiv", reiheAktiv ? (i === stZiel) : (el.dataset.n === ziel.n));
+    el.classList.toggle("fertig", reiheAktiv ? !!stFertig[i]
+                                             : (el.dataset.n === ziel.n && betrag <= 5));
   });
+
+  /* Weiterschalten, sobald die Saite ein paar Messungen lang sitzt */
+  if(reiheAktiv){
+    if(betrag <= 5 && !falsche){ stStabil++; } else { stStabil = 0; }
+    if(stStabil >= 3){
+      stFertig[stZiel] = true;
+      stStabil = 0;
+      var naechste = stNaechsteOffene();
+      elTon.textContent = naechste < 0 ? "Sitzt \u2014 alle vier sind durch!"
+                                       : "Sitzt! Weiter zur " + saiten[naechste].n + "-Saite";
+      if(naechste >= 0) stZiel = naechste;
+      stPause = 10;                     /* rund 1,2 Sekunden Ruhe */
+      document.querySelectorAll("#saiten .saite").forEach(function(el, i){
+        el.classList.toggle("fertig", !!stFertig[i]);
+      });
+      stReiheText();
+    }
+  }
 }
 
 function saitenListe(){
@@ -251,7 +342,7 @@ function startStimmer(){
     document.getElementById("stimmStart").hidden = true;
     document.getElementById("stimmLive").hidden = false;
     skalaBauen();
-    saitenListe();
+    stModusSetzen(stModus);
     stLetzte = []; stStilleSeit = 0;
 
     /* rund achtmal pro Sekunde: genau genug fuers Auge, sparsam fuer den Akku */
@@ -281,12 +372,36 @@ function stopStimmer(){
   if(box) box.className = "stimm";
 }
 
+function stModusSetzen(m){
+  stModus = (m === "frei") ? "frei" : "reihe";
+  if(typeof store === "function") store("uke.stimmmodus", stModus);
+  document.querySelectorAll("#modus .segbtn").forEach(function(b){
+    b.classList.toggle("on", b.dataset.modus === stModus);
+  });
+  stReiheZuruecksetzen();
+  saitenListe();
+  stReiheText();
+}
+
 document.addEventListener("click", function(e){
-  if(e.target.id === "micOn"){ startStimmer(); }
-  if(e.target.id === "micOff"){ stopStimmer(); }
+  if(e.target.id === "micOn"){ startStimmer(); return; }
+  if(e.target.id === "micOff"){ stopStimmer(); return; }
+  if(e.target.id === "reiheNeu"){ stReiheZuruecksetzen(); saitenListe(); stReiheText(); return; }
+  var mb = e.target.closest ? e.target.closest("#modus .segbtn") : null;
+  if(mb){ stModusSetzen(mb.dataset.modus); return; }
+  /* Saite antippen: in der Reihe direkt dorthin springen */
+  var sb = e.target.closest ? e.target.closest("#saiten .saite") : null;
+  if(sb && stModus === "reihe"){
+    var i = [].indexOf.call(sb.parentNode.children, sb);
+    stZiel = i; stFertig[i] = false; stStabil = 0; stPause = 0; stLetzte = [];
+    document.querySelectorAll("#saiten .saite").forEach(function(el, k){
+      el.classList.toggle("fertig", !!stFertig[k]);
+    });
+    stReiheText();
+  }
 });
 document.addEventListener("change", function(e){
-  if(e.target.id === "lowG"){ saitenListe(); stLetzte = []; }
+  if(e.target.id === "lowG"){ stReiheZuruecksetzen(); saitenListe(); stReiheText(); }
 });
 /* Mikrofon nicht im Hintergrund weiterlaufen lassen */
 document.addEventListener("visibilitychange", function(){

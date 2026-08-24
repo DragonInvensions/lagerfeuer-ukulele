@@ -251,6 +251,17 @@
           <button class="btn ghost" id="micOff">Mikrofon aus</button>
         </div>
 
+        <div class="modus" id="modus" role="group" aria-label="Betriebsart">
+          <button class="segbtn on" data-modus="reihe">Neu stimmen</button>
+          <button class="segbtn"    data-modus="frei">Frei</button>
+        </div>
+
+        <div class="reihe" id="reihe">
+          <span class="reihe-schritt" id="reiheSchritt"></span>
+          <span class="reihe-sage" id="reiheSage"></span>
+          <button class="btn ghost" id="reiheNeu" hidden>Noch einmal von vorn</button>
+        </div>
+
         <div class="skala">
           <svg viewBox="0 0 320 180" class="skala-svg" role="img" aria-label="Stimmanzeige">
             <path class="sk-bogen" id="skBogen"/>
@@ -281,6 +292,13 @@
 
     <details class="hinweise">
       <summary>So wird es sauber</summary>
+      <p><strong>Zwei Betriebsarten.</strong> <em>Neu stimmen</em> geht mit dir Saite für Saite durch:
+      Es bleibt so lange bei einer Saite, bis sie sitzt, und schaltet dann von selbst zur nächsten.
+      Dabei wird immer gegen <em>diese eine</em> Saite gemessen — auch wenn sie einen ganzen Ton
+      danebenliegt. Genau das ist der Unterschied: Im Modus <em>Frei</em> würde die Anzeige zur
+      Nachbarsaite springen und du würdest in die falsche Richtung drehen. <em>Frei</em> ist zum
+      Nachschauen da — spiel irgendetwas, und es sagt dir, welcher Ton das ist.
+      Du kannst in der Reihe auch eine Saite antippen, um direkt dorthin zu springen.</p>
       <p><strong>Ruhe hilft mehr als Technik.</strong> Das Mikrofon hört alles — Lüfter, Straße, Musik im
       Hintergrund. Je stiller es ist, desto ruhiger steht die Nadel.</p>
       <p><strong>Zupf einzeln und nicht zu fest.</strong> Ein harter Anschlag ist im ersten Moment leicht zu hoch;
