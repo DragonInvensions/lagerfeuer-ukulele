@@ -999,6 +999,30 @@ body.ms-offen{overflow:hidden;}
 .ms-zeile.ms-akt .ms-sp.an{background:var(--accent-soft);color:var(--accent);font-weight:600;}
 .ms-auf{padding-right:.4em;margin-right:.2em;border-right:2px solid var(--ember);}
 
+/* Silbenweise: Woerter bleiben zusammen, die Silbe darin leuchtet */
+.ms-zeile.silben{gap:.1rem .55rem;}
+.ms-wort{white-space:nowrap;}
+/* Eigene Zustandsnamen: ".jetzt" und ".auf" gehoeren schon dem Stimmgeraet
+   bzw. dem Taktraster. ".jetzt" setzt dort display:flex — damit wurde hier
+   jede hervorgehobene Silbe zum eigenen Block und riss ihr Wort auseinander. */
+.ms-wort.ms-auftakt{padding-right:.35em;margin-right:.15em;border-right:2px solid var(--ember);}
+.ms-silbe{
+  border-radius:5px;padding:.02em .06em;
+  transition:background .08s, color .08s;
+}
+.ms-silbe.ms-durch{color:var(--ink-faint);}
+.ms-silbe.ms-nun{
+  background:var(--accent);color:var(--paper);font-weight:600;
+  box-shadow:0 0 0 2px var(--accent);
+}
+.ms-silbenwahl{display:flex;gap:.3rem;margin-left:auto;}
+.ms-silbenwahl .segbtn{font-size:.74rem;padding:.3rem .6rem;}
+@media (max-width:520px){
+  .ms-knoepfe{flex-wrap:wrap;}
+  .ms-silbenwahl{margin-left:0;width:100%;}
+  .ms-silbenwahl .segbtn{flex:1;justify-content:center;}
+}
+
 .ms-fuss{
   border-top:1px solid var(--rule);background:var(--surface);
   padding:.8rem clamp(.8rem,3vw,1.4rem) 1rem;
