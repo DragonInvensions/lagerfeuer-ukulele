@@ -1,0 +1,49 @@
+name: Neue Funktion
+description: Etwas soll dazukommen. Wird notiert — umgesetzt wird es erst auf ausdrücklichen Auftrag.
+title: "[Funktion] "
+labels: ["funktion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Je klarer das Ziel, desto weniger muss geraten werden. Es genügt, wenn du
+        beschreibst, **was du am Ende erleben willst** — der Weg dahin ergibt sich beim Umsetzen.
+  - type: textarea
+    id: ziel
+    attributes:
+      label: Was soll möglich sein?
+      description: In einem Satz aus Sicht der Nutzerin oder des Nutzers.
+      placeholder: "Ich möchte in der App sehen, welche Freunde gerade online sind."
+    validations:
+      required: true
+  - type: textarea
+    id: warum
+    attributes:
+      label: Warum ist das wichtig?
+      description: Der Grund hilft dabei, im Zweifel richtig zu entscheiden.
+    validations:
+      required: false
+  - type: textarea
+    id: fertig
+    attributes:
+      label: Woran erkenne ich, dass es fertig ist?
+      description: Ein paar Stichpunkte reichen. Das ist die Abnahmeliste.
+      placeholder: |
+        - In der Freundesliste steht bei jedem ein Punkt: grün = online
+        - Der Punkt aktualisiert sich ohne Neuladen
+    validations:
+      required: false
+  - type: input
+    id: bereich
+    attributes:
+      label: Wo ungefähr?
+      description: Ordner, Seite oder Bildschirm — falls du es weißt.
+      placeholder: "app/ — Bildschirm Freunde"
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        Damit ist der Wunsch notiert — mehr nicht. **Von allein entsteht daraus nichts:**
+        kein Branch, kein Pull Request. Gearbeitet wird daran, wenn Jakob es beauftragt.

@@ -48,16 +48,34 @@ quelle/
   p7-songs-b.js            Lieder, Teil B
   p8-render.js             Rendern von Liedern, Plan und Filtern
   bauen.py                 setzt alles zusammen
+  veroeffentlichen.ps1     PowerShell-Skript, nur für Windows
 ```
 
 Die gebauten Dateien werden **nicht von Hand bearbeitet**. Änderungen gehen in die
 Teildateien unter `quelle/`, danach:
 
 ```bash
-python quelle/bauen.py
+python3 quelle/bauen.py      # unter Windows: python quelle\bauen.py
 ```
 
-Das erzeugt `index.html`, `Ukulele-Lehrbuch.html` und `quelle/body.html`.
+Das erzeugt `index.html`, `Ukulele-Lehrbuch.html` und `quelle/body.html`. Alle drei
+gehören in denselben Commit — `index.html` ist die Seite, die GitHub Pages ausliefert.
+
+Zum Ansehen genügt ein Doppelklick auf `Ukulele-Lehrbuch.html`. Wer lieber über HTTP
+prüft:
+
+```bash
+python3 -m http.server 8080 --bind 127.0.0.1
+```
+
+## Mitarbeiten
+
+Ein Thema pro Branch, ein Branch pro Pull Request, gemergt wird von Hand. Der Ablauf,
+die Projektkarte für neue Mitleser und die bekannten Fallstricke stehen in
+[`CLAUDE.md`](CLAUDE.md).
+
+Ein Issue ist zunächst nur eine Meldung: Von allein wird daraus nie Code — umgesetzt
+wird es erst auf ausdrücklichen Auftrag.
 
 ## Lizenz
 
