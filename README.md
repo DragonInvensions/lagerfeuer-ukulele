@@ -74,8 +74,8 @@ Ein Thema pro Branch, ein Branch pro Pull Request, gemergt wird von Hand. Der Ab
 die Projektkarte für neue Mitleser und die bekannten Fallstricke stehen in
 [`CLAUDE.md`](CLAUDE.md).
 
-Offene Issues werden von einem Autopiloten selbsttätig umgesetzt, der daraus Pull
-Requests öffnet. Issues mit dem Label `kein-autopilot` bleiben unangetastet.
+Ein Issue ist zunächst nur eine Meldung: Von allein wird daraus nie Code — umgesetzt
+wird es erst auf ausdrücklichen Auftrag.
 
 ## Lizenz
 

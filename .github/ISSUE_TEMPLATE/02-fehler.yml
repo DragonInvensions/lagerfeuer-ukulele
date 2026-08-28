@@ -39,5 +39,5 @@ body:
     attributes:
       value: |
         ---
-        Der Autopilot sucht die Ursache, behebt sie und reicht einen Pull Request ein.
-        Soll er die Finger davon lassen: Label **`kein-autopilot`** setzen.
+        Damit ist der Fehler notiert — mehr nicht. **Von allein wird nichts geändert:**
+        kein Branch, kein Pull Request. Die Behebung beauftragt Jakob.

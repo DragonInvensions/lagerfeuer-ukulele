@@ -1,5 +1,5 @@
 name: Neue Funktion
-description: Etwas soll dazukommen. Der Autopilot setzt es um und öffnet einen Pull Request.
+description: Etwas soll dazukommen. Wird notiert — umgesetzt wird es erst auf ausdrücklichen Auftrag.
 title: "[Funktion] "
 labels: ["funktion"]
 body:
@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         Je klarer das Ziel, desto weniger muss geraten werden. Es genügt, wenn du
-        beschreibst, **was du am Ende erleben willst** — den Weg dahin sucht der Autopilot selbst.
+        beschreibst, **was du am Ende erleben willst** — der Weg dahin ergibt sich beim Umsetzen.
   - type: textarea
     id: ziel
     attributes:
@@ -45,6 +45,5 @@ body:
     attributes:
       value: |
         ---
-        Der Autopilot auf dem Sekretär-Server nimmt sich dieses Issue automatisch vor und
-        reicht das Ergebnis als Pull Request ein. Gemergt wird nur von Jakob.
-        Soll er die Finger davon lassen: Label **`kein-autopilot`** setzen.
+        Damit ist der Wunsch notiert — mehr nicht. **Von allein entsteht daraus nichts:**
+        kein Branch, kein Pull Request. Gearbeitet wird daran, wenn Jakob es beauftragt.

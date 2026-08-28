@@ -154,15 +154,19 @@ Aufträge kommen oft per Sprache, und Jakob kann selten sofort nachliefern. Desh
    strittigen Teil als Frage im PR-Text oder als neues Issue stehen lassen.
 4. Nur wirklich blockierende Entscheidungen als Rueckfrage stellen — knapp, mit Vorschlag.
 
-## 7. Issue-Autopilot
+## 7. Auftraege aus Issues
 
-Laeufe werden hier automatisch aus GitHub-Issues gestartet: ein Issue wird zugewiesen, ein Agent
-arbeitet es ab, ein PR entsteht. Daraus folgt:
+**Aus einem Issue entsteht nie von allein Code.** Issues sind die Sammelstelle: gemeldet werden
+Wuensche und Fehler, mehr passiert dort nicht. Kein Dienst, kein Timer und kein Agent nimmt sich
+ein Issue von selbst vor — weder auf dem Standardbranch noch auf irgendeinem anderen. Gearbeitet
+wird erst, wenn Jakob ein Issue ausdruecklich beauftragt ("setz Issue #12 um").
 
+Ist ein Issue beauftragt, gilt der Ablauf aus Abschnitt 1 — und zusaetzlich:
+
+- Ein Issue = ein Branch = ein PR. `Closes #<nr>` nicht vergessen.
 - **Branch- und PR-Name muessen fuer sich sprechen.** Niemand liest daneben einen Chatverlauf.
 - **Der PR muss allein verstaendlich sein.** Jakob liest ihn meist auf dem Handy: kurze Absaetze,
   Aufzaehlungen, das Wichtigste oben, keine Verweise auf "wie besprochen".
-- Ein Issue = ein Branch = ein PR. `Closes #<nr>` nicht vergessen.
 - Was im Issue nicht stand, gehoert auch nicht in den PR — Zusatzideen als neues Issue anlegen:
 
 ```bash

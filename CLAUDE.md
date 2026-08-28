@@ -20,7 +20,7 @@ des Geräts.
 |---|---|
 | `quelle/` | **Der einzige Ort, an dem gearbeitet wird.** Acht Teildateien plus Bauskript. |
 | `.claude/skills/` | Gemeinsame Skills (siehe unten). Nicht verändern. |
-| `.github/ISSUE_TEMPLATE/` | Issue-Vorlagen für den Autopiloten (Funktion, Fehler, Aussehen). |
+| `.github/ISSUE_TEMPLATE/` | Issue-Vorlagen (Funktion, Fehler, Aussehen). |
 | *(Wurzel)* | `index.html` und `Ukulele-Lehrbuch.html` — **gebaut, nie von Hand ändern**; dazu `README.md`, `LICENSE`, `.gitignore`, diese Datei. |
 
 Die Teildateien in `quelle/` werden vom Bauskript in genau dieser Reihenfolge
@@ -105,12 +105,11 @@ git push -u origin feature/<thema>
 gh pr create --base main
 ```
 
-Auf dem Sekretär-Server läuft ein **Autopilot**, der offene GitHub-Issues dieses Repos
-selbsttätig umsetzt und daraus Pull Requests öffnet — ohne Rückfrage, weil niemand
-erreichbar sein muss. Wie so ein Lauf abläuft, steht im Skill **`issue-umsetzen`**.
-Issues mit dem Label **`kein-autopilot`** bleiben unangetastet; alles andere kann jederzeit
-automatisch bearbeitet werden. Wer ein Issue schreibt, sollte deshalb hineinschreiben,
-woran man erkennt, dass es fertig ist — das ist die Abnahmeliste des Autopiloten.
+Aus einem Issue wird hier **nie von allein Code**: Issues sind die Sammelstelle für
+Wünsche und Fehler. Kein Dienst, kein Timer und keine GitHub Action nimmt sich ein Issue
+selbsttätig vor — gearbeitet wird erst, wenn Jakob die Umsetzung ausdrücklich beauftragt.
+Wie das dann abläuft, steht im Skill `issue-umsetzen`. Wer ein Issue schreibt, sollte trotzdem
+hineinschreiben, woran man erkennt, dass es fertig ist — das ist die Abnahmeliste.
 
 ## Fallstricke
 

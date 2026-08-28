@@ -1,30 +1,26 @@
 ---
 name: issue-umsetzen
 description: >-
-  Setzt ein GitHub-Issue eigenständig in einen fertigen Pull Request um — auch dann,
-  wenn niemand für Rückfragen erreichbar ist. Verwende diesen Skill, wenn ein Auftrag
-  aus einem Issue kommt ("setz Issue #12 um", "arbeite das Issue ab", "Aufgabe vom
-  Autopiloten"), wenn du autonom auf einem feature-Branch arbeitest, oder wenn du
-  wissen willst, wie in diesem Repo aus einem Issue automatisch Code wird.
+  Setzt ein beauftragtes GitHub-Issue eigenständig in einen fertigen Pull Request um — auch
+  dann, wenn niemand für Rückfragen erreichbar ist. Verwende diesen Skill, wenn Jakob dich
+  mit einem Issue beauftragt ("setz Issue #12 um", "arbeite das Issue ab"), oder wenn du
+  wissen willst, wie in diesem Repo aus einem Issue Code wird.
 ---
 
-# Aus einem Issue wird ein Pull Request
+# Aus einem beauftragten Issue wird ein Pull Request
 
-Dieses Repo gehört zum GitHub-Konto **DragonInvensions**. Offene Issues werden vom
-**Issue-Autopiloten** auf Jakobs Sekretär-Server automatisch umgesetzt: Der Server sieht
-das Issue, lässt Claude Code (Opus) daran arbeiten und reicht das Ergebnis als Pull
-Request ein. Gemergt wird **nie** automatisch — das macht Jakob.
-
-Wenn du gerade in so einem Lauf steckst, gilt dieser Skill. Er ergänzt den Skill
-`arbeitsablauf`, der die allgemeinen Spielregeln beschreibt.
+Dieses Repo gehört zum GitHub-Konto **DragonInvensions**. Ein Issue ist zunächst nur eine
+Meldung: **von allein wird daraus nie Code** — kein Dienst und kein Agent nimmt sich offene
+Issues von selbst vor. Erst wenn Jakob ein Issue ausdrücklich beauftragt, wird daran
+gearbeitet. Dann gilt dieser Skill; er ergänzt den Skill `arbeitsablauf`, der die
+allgemeinen Spielregeln beschreibt. Gemergt wird **nie** von dir — das macht Jakob.
 
 ## Die Lage, in der du arbeitest
 
-- Du bist bereits auf dem richtigen Branch (`feature/issue-<nr>-<kurztitel>`). **Nicht wechseln.**
-- **Nicht pushen, keinen PR öffnen, nicht mergen.** Das macht der Autopilot nach dir.
-  Deine Aufgabe endet mit dem Commit.
+- Du legst dir selbst einen Branch `feature/issue-<nr>-<kurztitel>` vom Standardbranch an
+  (siehe `arbeitsablauf`, Abschnitt 1c). Auf dem Standardbranch wird nicht gearbeitet.
 - Niemand kann dir zwischendurch etwas beantworten. Rückfragen kosten hier nur Zeit.
-- Der Lauf kann am Kontingent abbrechen. Deshalb: **früh und oft committen**, damit
+- Ein langer Lauf kann abbrechen. Deshalb: **früh und oft committen**, damit
   Zwischenstände nicht verloren gehen.
 
 ## Der Ablauf
@@ -88,16 +84,24 @@ einen Punkt, der sich ueber die bestehende MQTT-Verbindung aktualisiert.
 
 Nicht: `fix`, `update stuff`, `WIP`.
 
-### 6. Die PR-Beschreibung schreiben
+### 6. Den Pull Request öffnen
 
-Der Autopilot erwartet sie in der Datei, die dir im Auftrag genannt wurde (außerhalb des
-Repos, wird also nicht mitcommittet). Aufbau:
+Branch pushen und den PR gegen den Standardbranch öffnen — **nicht mergen**:
+
+```bash
+git push -u origin feature/issue-12-freundesliste-online
+gh pr create --base "$BASIS" --title "…" --body-file /tmp/pr.md
+```
+
+Aufbau der Beschreibung:
 
 ```markdown
 ## Was sich ändert
 ## Warum
 ## Wie geprüft
 ## Annahmen und offene Punkte
+
+Closes #12
 ```
 
 Schreib sie für jemanden, der **auf dem Handy** liest und den Code nicht vor sich hat.
@@ -107,19 +111,13 @@ verschwiegene Lücken sind schlimmer als offene.
 ## Wenn hier gar keine Code-Änderung hingehört
 
 Manche Issues sind Fragen, Duplikate oder zu unklar, um sie ehrlich umzusetzen. Dann
-**committest du nichts** und schreibst stattdessen nur die PR-Textdatei, beginnend mit
-der Zeile `KEINE-AENDERUNG`, gefolgt von deiner Antwort: was du verstanden hast, warum
-du nichts geändert hast, und die eine Frage, deren Antwort genügen würde. Der Autopilot
-hängt das als Kommentar ans Issue.
+**committest du nichts** und öffnest auch keinen PR, sondern antwortest am Issue:
+
+```bash
+gh issue comment 12 --body-file /tmp/antwort.md
+```
+
+Hinein gehört: was du verstanden hast, warum du nichts geändert hast, und die eine Frage,
+deren Antwort genügen würde.
 
 Das ist ein vollwertiges Ergebnis, kein Scheitern. Raten ist teurer.
-
-## Labels, die etwas bedeuten
-
-| Label | Wirkung |
-|---|---|
-| `kein-autopilot` | Der Autopilot lässt das Issue in Ruhe |
-| `autopilot:laeuft` | Wird gerade bearbeitet |
-| `autopilot:erledigt` | Pull Request steht bereit |
-| `autopilot:fehler` | Kam nicht durch — braucht einen Blick von Jakob |
-| `autopilot:wiederholen` | Setzt den Zähler zurück, der nächste Lauf versucht es erneut |

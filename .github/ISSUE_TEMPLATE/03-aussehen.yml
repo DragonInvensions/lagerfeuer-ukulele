@@ -48,5 +48,6 @@ body:
     attributes:
       value: |
         ---
-        Bei sichtbaren Änderungen macht der Autopilot vor dem Pull Request einen Screenshot
-        zur Kontrolle. Soll er die Finger davon lassen: Label **`kein-autopilot`** setzen.
+        Damit ist der Wunsch notiert — mehr nicht. **Von allein entsteht daraus nichts:**
+        kein Branch, kein Pull Request. Wird er beauftragt, gehört bei sichtbaren Änderungen
+        ein Screenshot zur Kontrolle dazu.
