@@ -1,0 +1,40 @@
+{
+  "format": "liedspur/1",
+  "id": "zombie",
+  "titel": "Zombie",
+  "untertitel": "The Cranberries, 1994",
+  "gemeinfrei": false,
+  "stufe": 4,
+  "tonart": "Em",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":84}
+  ],
+  "schlagmuster": "Balladenschlag",
+  "abschnitte": [
+    {"ab":0,"name":"Durchgehend"}
+  ],
+  "zeilen": [0,16,32,48],
+  "akkorde": [
+    {"ab":0,"akk":"Em"},
+    {"ab":4,"akk":"C"},
+    {"ab":8,"akk":"G"},
+    {"ab":12,"akk":"D"},
+    {"ab":16,"akk":"Em"},
+    {"ab":20,"akk":"C"},
+    {"ab":24,"akk":"G"},
+    {"ab":28,"akk":"D"},
+    {"ab":32,"akk":"Em"},
+    {"ab":36,"akk":"C"},
+    {"ab":40,"akk":"G"},
+    {"ab":44,"akk":"D"},
+    {"ab":48,"akk":"Em"},
+    {"ab":52,"akk":"C"},
+    {"ab":56,"akk":"G"},
+    {"ab":60,"akk":"D"}
+  ],
+  "silben": [],
+  "laenge": 64,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Vier Akkorde, die sich vom ersten bis zum letzten Takt wiederholen — <b>Em – C – G – D</b> — und trotzdem baut das Lied enorm auf. Der Grund ist die Dynamik: Fang leise an (nur Abschläge, kaum Druck) und werde Strophe für Strophe lauter, bis du beim „Zombie“-Teil richtig reinhaust. Gutes Em-Training, weil du den Griff hier hundertmal setzt."
+}

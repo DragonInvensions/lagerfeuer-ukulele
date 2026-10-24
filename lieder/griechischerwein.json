@@ -1,0 +1,59 @@
+{
+  "format": "liedspur/1",
+  "id": "griechischerwein",
+  "titel": "Griechischer Wein",
+  "untertitel": "Udo Jürgens / Michael Kunze, 1974",
+  "gemeinfrei": false,
+  "stufe": 4,
+  "tonart": "Am",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":120}
+  ],
+  "schlagmuster": "Der Klassiker",
+  "abschnitte": [
+    {"ab":0,"name":"Strophe"},
+    {"ab":92,"name":"Refrain"}
+  ],
+  "zeilen": [0,16,32,48,64,80,92,108,124,140,156],
+  "akkorde": [
+    {"ab":0,"akk":"Am"},
+    {"ab":4,"akk":"F"},
+    {"ab":8,"akk":"G"},
+    {"ab":12,"akk":"C"},
+    {"ab":24,"akk":"F"},
+    {"ab":28,"akk":"G"},
+    {"ab":32,"akk":"Am"},
+    {"ab":36,"akk":"E7"},
+    {"ab":40,"akk":"Am"},
+    {"ab":52,"akk":"F"},
+    {"ab":56,"akk":"G"},
+    {"ab":60,"akk":"C"},
+    {"ab":72,"akk":"F"},
+    {"ab":76,"akk":"G"},
+    {"ab":80,"akk":"Am"},
+    {"ab":84,"akk":"E7"},
+    {"ab":88,"akk":"Am"},
+    {"ab":92,"akk":"F"},
+    {"ab":100,"akk":"C"},
+    {"ab":112,"akk":"G"},
+    {"ab":116,"akk":"C"},
+    {"ab":132,"akk":"F"},
+    {"ab":140,"akk":"C"},
+    {"ab":156,"akk":"G"},
+    {"ab":160,"akk":"Am"},
+    {"ab":164,"akk":"E7"},
+    {"ab":168,"akk":"Am"}
+  ],
+  "silben": [],
+  "laenge": 172,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Dein erstes richtiges <b>Moll-Lied</b> — und der Grund, warum es im Buch das Kapitel über E7 gibt. Am ist die Heimat, E7 ist die Spannung, die immer wieder dorthin zurückzieht. Hör auf Zeile 3 und 6 der Strophe: <b>Am → E7 → Am</b>, das ist der ganze Schmerz des Liedes in drei Akkorden.<br><br>Dazwischen kippt es überraschend nach <b>C-Dur</b> (Zeile 1, 2, 4, 5) — deshalb klingt die Strophe nicht traurig, sondern sehnsüchtig. Genau dieser Wechsel zwischen a-Moll und C-Dur ist der Trick des Songs, und er ist leichter zu spielen, als er klingt: beide Akkorde teilen sich zwei Töne.<br><br>Das Original steht in c-Moll. Hier nach <b>a-Moll</b> transponiert — dort brauchst du kein einziges Barré. Zurück ins Original: +3.",
+  "quellen": [
+    {"t":"Akkorde (e-Moll-Fassung) — guitaretab.com","u":"https://www.guitaretab.com/u/udo-jurgens/275135.html"},
+    {"t":"Akkorde (h-Moll-Fassung, bestätigt F#7 als Dominante) — chords-and-tabs.net","u":"https://www.chords-and-tabs.net/song/name/udo-jurgens-griechischer-wein"}
+  ],
+  "akkordeGeprueft": true,
+  "textsuche": "Griechischer Wein Udo Jürgens Text",
+  "texthinweis": "Sechs Strophenzeilen, dann fünf Refrainzeilen. Wenn dein Text anders umbricht, verschieben sich die Felder — dann einfach die Zeilen zusammenfassen, die zu einer Rasterzeile gehören."
+}

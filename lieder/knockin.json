@@ -1,0 +1,37 @@
+{
+  "format": "liedspur/1",
+  "id": "knockin",
+  "titel": "Knockin' on Heaven's Door",
+  "untertitel": "Bob Dylan, 1973",
+  "gemeinfrei": false,
+  "stufe": 4,
+  "tonart": "G",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":68}
+  ],
+  "schlagmuster": "Balladenschlag",
+  "abschnitte": [
+    {"ab":0,"name":"Durchgehend"}
+  ],
+  "zeilen": [0,16,32,48],
+  "akkorde": [
+    {"ab":0,"akk":"G"},
+    {"ab":4,"akk":"D"},
+    {"ab":8,"akk":"Am"},
+    {"ab":16,"akk":"G"},
+    {"ab":20,"akk":"D"},
+    {"ab":24,"akk":"C"},
+    {"ab":32,"akk":"G"},
+    {"ab":36,"akk":"D"},
+    {"ab":40,"akk":"Am"},
+    {"ab":48,"akk":"G"},
+    {"ab":52,"akk":"D"},
+    {"ab":56,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 64,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Zwei Zeilen, mehr ist es nicht: <b>G – D – Am</b>, dann <b>G – D – C</b>. Das ganze Lied besteht aus diesen beiden im Wechsel, Strophe wie Refrain. Sehr langsam spielen — die Pausen zwischen den Schlägen tragen das Lied. Wer es zu schnell nimmt, macht daraus einen Marsch.",
+  "akkordeGeprueft": true
+}

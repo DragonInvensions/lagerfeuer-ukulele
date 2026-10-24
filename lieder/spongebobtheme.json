@@ -1,0 +1,48 @@
+{
+  "format": "liedspur/1",
+  "id": "spongebobtheme",
+  "titel": "SpongeBob-Titelmelodie",
+  "untertitel": "SpongeBob Schwammkopf · Titellied",
+  "gemeinfrei": false,
+  "stufe": 3,
+  "tonart": "G",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":145}
+  ],
+  "schlagmuster": "Der Wandertakt",
+  "abschnitte": [
+    {"ab":0,"name":"Ruf & Antwort"},
+    {"ab":64,"name":"Name × 4"},
+    {"ab":80,"name":"Schluss (Nasenflöte)"}
+  ],
+  "zeilen": [0,16,32,48,64,80],
+  "akkorde": [
+    {"ab":0,"akk":"G"},
+    {"ab":8,"akk":"C"},
+    {"ab":12,"akk":"G"},
+    {"ab":24,"akk":"D7"},
+    {"ab":28,"akk":"G"},
+    {"ab":40,"akk":"C"},
+    {"ab":44,"akk":"G"},
+    {"ab":52,"akk":"A7"},
+    {"ab":56,"akk":"D7"},
+    {"ab":60,"akk":"G"},
+    {"ab":68,"akk":"C"},
+    {"ab":72,"akk":"D7"},
+    {"ab":76,"akk":"G"},
+    {"ab":84,"akk":"D7"},
+    {"ab":88,"akk":"G"}
+  ],
+  "silben": [],
+  "laenge": 96,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "<b>Ruf und Antwort.</b> Du spielst die Frage, alle anderen brüllen den Namen — deshalb funktioniert das Lied am Lagerfeuer so gut, ohne dass jemand den Text können muss. Die Ansage am Anfang („Sind alle bereit?“) wird gesprochen, ohne Akkord; dann geht es stur auf Abschlägen los, straff wie ein Seemannslied. Kein Aufschlag, keine Verzierung — jeder Schlag ein Ruderschlag.<br><br>Das <b>A7</b> in der letzten Ruf-Zeile ist der Griff mit einem einzigen Finger und zieht wunderbar zum D7. Die vier Namensrufe am Ende laufen über G – C – D7 – G, also einmal quer durch die ganze Tonart.",
+  "quellen": [
+    {"t":"Akkordvorrat (G, C, D7, A7) nach UkuTabs; Anordnung als vereinfachte Ruf-und-Antwort-Begleitung","u":"https://ukutabs.com/m/misc-cartoons/spongebob-squarepants-theme/"}
+  ],
+  "akkordeGeprueft": true,
+  "stern": true,
+  "textsuche": "SpongeBob Schwammkopf Titelsong deutsch Ananas",
+  "texthinweis": "Deutsche Fassung: die Ruf-und-Antwort-Zeilen sind kuerzer als im Original."
+}

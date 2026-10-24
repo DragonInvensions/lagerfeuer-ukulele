@@ -1,0 +1,33 @@
+{
+  "format": "liedspur/1",
+  "id": "standbyme",
+  "titel": "Stand By Me",
+  "untertitel": "Ben E. King, 1961",
+  "gemeinfrei": false,
+  "stufe": 3,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":118}
+  ],
+  "schlagmuster": "Balladenschlag",
+  "abschnitte": [
+    {"ab":0,"name":"Durchgehend (Strophe wie Refrain)"}
+  ],
+  "zeilen": [0,16,32,48],
+  "akkorde": [
+    {"ab":0,"akk":"C"},
+    {"ab":8,"akk":"Am"},
+    {"ab":16,"akk":"F"},
+    {"ab":20,"akk":"G"},
+    {"ab":24,"akk":"C"},
+    {"ab":40,"akk":"Am"},
+    {"ab":48,"akk":"F"},
+    {"ab":52,"akk":"G"},
+    {"ab":56,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 64,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Vier Takte, die sich das ganze Lied lang wiederholen — <b>C – Am – F – G</b>, jeder Akkord zwei Takte. Mehr passiert nicht. Deshalb ist es das perfekte Lied, um endlich sauber zu wechseln, ohne nachdenken zu müssen, was als Nächstes kommt."
+}

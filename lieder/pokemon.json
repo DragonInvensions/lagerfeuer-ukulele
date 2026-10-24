@@ -1,0 +1,59 @@
+{
+  "format": "liedspur/1",
+  "id": "pokemon",
+  "titel": "Pokémon-Titelmelodie",
+  "untertitel": "Gotta Catch 'Em All · Jason Paige, 1999",
+  "gemeinfrei": false,
+  "stufe": 4,
+  "tonart": "Am",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":118}
+  ],
+  "schlagmuster": "Balladenschlag",
+  "abschnitte": [
+    {"ab":0,"name":"Strophe (beide Strophen gleich)"},
+    {"ab":32,"name":"Refrain — erste Hälfte"},
+    {"ab":80,"name":"Refrain — zweite Hälfte"}
+  ],
+  "zeilen": [0,8,16,24,32,40,48,56,64,72,80,88,96,104,112,120,128],
+  "akkorde": [
+    {"ab":0,"akk":"Am"},
+    {"ab":4,"akk":"G"},
+    {"ab":8,"akk":"Am"},
+    {"ab":12,"akk":"G"},
+    {"ab":16,"akk":"Dm"},
+    {"ab":20,"akk":"C"},
+    {"ab":24,"akk":"F"},
+    {"ab":28,"akk":"E7"},
+    {"ab":32,"akk":"F"},
+    {"ab":40,"akk":"C"},
+    {"ab":48,"akk":"F"},
+    {"ab":52,"akk":"G"},
+    {"ab":56,"akk":"Am"},
+    {"ab":64,"akk":"G"},
+    {"ab":72,"akk":"Dm"},
+    {"ab":76,"akk":"E7"},
+    {"ab":80,"akk":"Am"},
+    {"ab":88,"akk":"G"},
+    {"ab":96,"akk":"Dm"},
+    {"ab":100,"akk":"G"},
+    {"ab":104,"akk":"F"},
+    {"ab":108,"akk":"C"},
+    {"ab":112,"akk":"Am"},
+    {"ab":116,"akk":"G"},
+    {"ab":120,"akk":"F"},
+    {"ab":128,"akk":"Am"}
+  ],
+  "silben": [],
+  "laenge": 136,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "<b>Das ehrgeizigste Lied in diesem Buch — und es lohnt sich.</b> Im Original steht es in g-Moll, was auf der Ukulele drei Barré-Griffe bedeutet. Hier ist es nach <b>a-Moll</b> transponiert und braucht keinen einzigen. Mit <b>−2</b> auf dem Transponier-Knopf landest du wieder im Original, falls du zur Aufnahme mitspielen willst.<br><br>Die Strophe ist einfach: <b>Am – G</b>, zweimal, dann <b>Dm – C</b> und <b>F – E7</b>. Das E7 am Ende ist der Motor: Es zieht mit aller Kraft zurück nach Am, deshalb klingt die Strophe wie ein Anlauf. Der Refrain ist der lange Teil — 13 Zeilen, aber fast alles Am, G, Dm, F und C in wechselnder Folge. Lern ihn in zwei Hälften.",
+  "quellen": [
+    {"t":"Akkorde abgeglichen mit ukulele-tabs.com (Original g-Moll), hier +2 nach a-Moll transponiert","u":"https://www.ukulele-tabs.com/uke-songs/pokemon/pokemon-theme-song-uke-tab-16193.html"}
+  ],
+  "akkordeGeprueft": true,
+  "stern": true,
+  "textsuche": "Pokemon Titelsong deutsch Ich will der Allerbeste sein",
+  "texthinweis": "Deutsche Fassung der 1. Staffel; achte darauf, nicht die englische Version zu erwischen."
+}

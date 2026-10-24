@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mitspielen – Vorbild</title>
+<style>
+/* Vorbild der Mitspiel-Ansicht fuer den Neuaufbau (siehe konzept-mitspielen.md).
+   Absichtlich eine Datei ohne Abhaengigkeiten: Sie zeigt, wie die drei Spuren
+   zusammenspielen, und dass das Liedspur-Format dafuer genuegt. */
+:root{
+  --bg:#fbf7f0; --flaeche:#ffffff; --text:#1f1a14; --leise:#857a6f; --linie:#e4dccf;
+  --akzent:#c9551f; --akzent-hell:#f6dccd; --block:#efe6da; --block-jetzt:#c9551f; --block-jetzt-text:#fff;
+  --offen:#b4a99c;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#16120e; --flaeche:#211b15; --text:#f3ece2; --leise:#a3988c; --linie:#3a3128;
+    --akzent:#f08a4b; --akzent-hell:#4a2e1e; --block:#2e261f; --block-jetzt:#f08a4b; --block-jetzt-text:#16120e;
+    --offen:#6c6157;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16120e; --flaeche:#211b15; --text:#f3ece2; --leise:#a3988c; --linie:#3a3128;
+  --akzent:#f08a4b; --akzent-hell:#4a2e1e; --block:#2e261f; --block-jetzt:#f08a4b; --block-jetzt-text:#16120e;
+  --offen:#6c6157;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px}
+h1{font-size:1.15rem;margin:0}
+h1 small{display:block;font-weight:400;color:var(--leise);font-size:.8rem}
+.steuerung{display:flex;gap:10px;align-items:center}
+button{font:inherit;border:0;border-radius:999px;padding:10px 18px;background:var(--akzent);color:var(--block-jetzt-text);cursor:pointer;min-width:110px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--akzent);outline-offset:2px}
+label{color:var(--leise);font-size:.85rem;display:flex;gap:6px;align-items:center}
+input[type=range]{accent-color:var(--akzent)}
+
+/* Spur 1: Akkord-Bahn – Bloecke laufen auf die feste Spiellinie zu */
+.bahn{position:relative;height:58px;background:var(--flaeche);border:1px solid var(--linie);border-radius:12px;overflow:hidden}
+.streifen{position:absolute;top:0;left:0;height:100%;will-change:transform}
+.akkblock{position:absolute;top:9px;height:40px;border-radius:8px;background:var(--block);display:flex;align-items:center;padding-left:10px;font-weight:700}
+.akkblock.jetzt{background:var(--block-jetzt);color:var(--block-jetzt-text)}
+.taktstrich{position:absolute;top:0;bottom:0;width:1px;background:var(--linie)}
+.spiellinie{position:absolute;top:0;bottom:0;left:20%;width:3px;background:var(--akzent);border-radius:2px}
+
+/* Griffbild jetzt + naechster Akkord */
+.griffe{display:flex;gap:18px;align-items:flex-end;margin:16px 0 6px}
+.griff{text-align:center}
+.griff b{display:block;font-size:1.6rem}
+.griff.naechster{opacity:.55}
+.griff.naechster b{font-size:1.1rem}
+.countdown{color:var(--akzent);font-weight:700;font-size:.9rem;min-height:1.2em}
+.zaehler{margin-left:auto;color:var(--leise);font-variant-numeric:tabular-nums;font-size:.9rem;text-align:right}
+.einzaehlen{font-size:1.6rem;font-weight:800;color:var(--akzent);min-height:1.2em}
+
+/* Spur 2: Text – Silbe fuer Silbe, Akkord ueber der Wechselsilbe */
+.text{background:var(--flaeche);border:1px solid var(--linie);border-radius:12px;padding:10px 16px 14px;margin-top:10px}
+.zeile{font-size:clamp(1.5rem,6vw,2.2rem);font-weight:700;padding-top:1.15em;min-height:2.6em;line-height:1.2}
+.zeile.naechste{font-size:1.05rem;font-weight:500;padding-top:.9em;min-height:2em;color:var(--leise)}
+.s{position:relative;display:inline-block}
+.s .akk{position:absolute;left:0;top:-1.05em;font-size:.55em;color:var(--akzent);font-weight:800}
+.zeile.naechste .s .akk{top:-1.1em;font-size:.75em}
+.s .t{background:linear-gradient(90deg,var(--akzent) var(--p,0%),var(--offen) var(--p,0%));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.zeile.naechste .s .t{background:none;color:var(--leise)}
+
+/* Spur 3: Schlagmuster */
+.schlag{display:flex;gap:6px;margin-top:14px}
+.schlag span{flex:1;text-align:center;padding:8px 0;border-radius:8px;background:var(--flaeche);border:1px solid var(--linie);font-size:1.3rem;color:var(--leise)}
+.schlag span.an{background:var(--akzent-hell);border-color:var(--akzent);color:var(--text)}
+footer{margin-top:18px;color:var(--leise);font-size:.8rem}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Alle meine Entchen <small>Vorbild der Mitspiel-Ansicht · Beispieldaten</small></h1>
+    <div class="steuerung">
+      <label>Tempo <input id="tempo" type="range" min="50" max="100" step="5" value="80" aria-label="Tempo in Prozent"> <span id="tempoWert">80 %</span></label>
+      <button id="start" type="button">▶ Start</button>
+    </div>
+  </header>
+
+  <div class="bahn" aria-label="Akkord-Bahn"><div class="streifen" id="streifen"></div><div class="spiellinie"></div></div>
+
+  <div class="griffe">
+    <div class="griff" id="griffJetzt"></div>
+    <div class="griff naechster" id="griffNaechster"></div>
+    <div class="countdown" id="countdown"></div>
+    <div class="zaehler"><div class="einzaehlen" id="einzaehlen"></div><span id="zaehler">Takt – · Schlag –</span></div>
+  </div>
+
+  <div class="text">
+    <div class="zeile" id="zeileJetzt"></div>
+    <div class="zeile naechste" id="zeileNaechste"></div>
+  </div>
+
+  <div class="schlag" id="schlag" aria-label="Schlagmuster"></div>
+
+  <footer>Daten im Liedspur-Format (Positionen in Vierteln ab Takt 1). Akkorde in der verbreiteten C-F-G7-Fassung; Rhythmus aus der bekannten Melodie gesetzt, nicht gegen ein Notenbild geprüft.</footer>
+</main>
+<script>
+"use strict";
+/* ---------- Daten: genau so, wie das Konzept die Liedspur beschreibt ---------- */
+var LIED = {
+  format: "liedspur/1", id: "entchen", titel: "Alle meine Entchen", gemeinfrei: true,
+  takt: [4, 4], tempo: [{ab: 0, bpm: 100}], schlagmuster: ["D","-","D","-","D","-","D","-"],
+  zeilen: [0, 8, 16, 24, 32], laenge: 40,
+  akkorde: [{ab:0,akk:"C"},{ab:8,akk:"F"},{ab:12,akk:"C"},{ab:16,akk:"F"},{ab:20,akk:"C"},
+            {ab:24,akk:"F"},{ab:28,akk:"C"},{ab:32,akk:"G7"},{ab:36,akk:"C"}],
+  silben: [
+    {ab:0,lang:1,text:"Al-"},{ab:1,lang:1,text:"le"},{ab:2,lang:1,text:"mei-"},{ab:3,lang:1,text:"ne"},
+    {ab:4,lang:2,text:"Ent-"},{ab:6,lang:2,text:"chen"},
+    {ab:8,lang:1,text:"schwim-"},{ab:9,lang:1,text:"men"},{ab:10,lang:1,text:"auf"},{ab:11,lang:1,text:"dem"},{ab:12,lang:4,text:"See,"},
+    {ab:16,lang:1,text:"schwim-"},{ab:17,lang:1,text:"men"},{ab:18,lang:1,text:"auf"},{ab:19,lang:1,text:"dem"},{ab:20,lang:4,text:"See,"},
+    {ab:24,lang:1,text:"Köpf-"},{ab:25,lang:1,text:"chen"},{ab:26,lang:1,text:"in"},{ab:27,lang:1,text:"das"},
+    {ab:28,lang:2,text:"Was-"},{ab:30,lang:2,text:"ser,"},
+    {ab:32,lang:1,text:"Schwänz-"},{ab:33,lang:1,text:"chen"},{ab:34,lang:1,text:"in"},{ab:35,lang:1,text:"die"},{ab:36,lang:4,text:"Höh."}
+  ]
+};
+/* Griffe G-C-E-A, Zahl = Bund */
+var GRIFFE = {C:[0,0,0,3], F:[2,0,1,0], G7:[0,2,1,2]};
+
+/* ---------- Ableitungen (werden nie gespeichert) ---------- */
+var VIERTEL_PRO_TAKT = LIED.takt[0] * 4 / LIED.takt[1];
+var EINZAEHLEN = VIERTEL_PRO_TAKT;
+function akkordBei(pos){
+  var aktuell = LIED.akkorde[0];
+  LIED.akkorde.forEach(function(a){ if(a.ab <= pos) aktuell = a; });
+  return aktuell;
+}
+function naechsterAkkord(pos){
+  return LIED.akkorde.find(function(a){ return a.ab > pos; }) || null;
+}
+function zeileBei(pos){
+  var index = 0;
+  LIED.zeilen.forEach(function(start, i){ if(start <= pos) index = i; });
+  return index;
+}
+function silbenDerZeile(index){
+  var von = LIED.zeilen[index], bis = LIED.zeilen[index + 1] === undefined ? Infinity : LIED.zeilen[index + 1];
+  return LIED.silben.filter(function(s){ return s.ab >= von && s.ab < bis; });
+}
+
+/* ---------- Zeichnen ---------- */
+var PIXEL_PRO_VIERTEL = 34;
+function griffSVG(name){
+  var b = GRIFFE[name], w = 70, h = 84, x0 = 12, dx = 15, y0 = 10, dy = 17, teile = [];
+  teile.push('<rect x="'+x0+'" y="'+(y0-3)+'" width="'+(dx*3)+'" height="3" fill="currentColor"/>');
+  for(var i = 0; i < 4; i++) teile.push('<line x1="'+(x0+i*dx)+'" y1="'+y0+'" x2="'+(x0+i*dx)+'" y2="'+(y0+dy*4)+'" stroke="currentColor" stroke-width="1"/>');
+  for(var f = 1; f <= 4; f++) teile.push('<line x1="'+x0+'" y1="'+(y0+f*dy)+'" x2="'+(x0+dx*3)+'" y2="'+(y0+f*dy)+'" stroke="currentColor" stroke-width="1" opacity=".5"/>');
+  b.forEach(function(bund, saite){
+    if(bund > 0) teile.push('<circle cx="'+(x0+saite*dx)+'" cy="'+(y0+(bund-.5)*dy)+'" r="5.5" fill="var(--akzent)"/>');
+  });
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Griffbild '+name+'">'+teile.join("")+'</svg>';
+}
+function zeichneBahn(){
+  var html = [];
+  for(var t = 0; t <= LIED.laenge; t += VIERTEL_PRO_TAKT) html.push('<div class="taktstrich" style="left:'+(t*PIXEL_PRO_VIERTEL)+'px"></div>');
+  LIED.akkorde.forEach(function(a, i){
+    var ende = i + 1 < LIED.akkorde.length ? LIED.akkorde[i + 1].ab : LIED.laenge;
+    html.push('<div class="akkblock" data-ab="'+a.ab+'" style="left:'+(a.ab*PIXEL_PRO_VIERTEL+2)+'px;width:'+((ende-a.ab)*PIXEL_PRO_VIERTEL-4)+'px">'+a.akk+'</div>');
+  });
+  document.getElementById("streifen").innerHTML = html.join("");
+}
+function zeileHTML(index){
+  if(index >= LIED.zeilen.length) return "";
+  var silben = silbenDerZeile(index), html = [];
+  var zeilenEnde = LIED.zeilen[index + 1] === undefined ? LIED.laenge : LIED.zeilen[index + 1];
+  silben.forEach(function(s, i){
+    /* Der Wechsel gehoert zur Silbe, die gerade klingt – aber nie ueber das Zeilenende hinaus */
+    var bisNaechsteSilbe = silben[i + 1] ? silben[i + 1].ab : zeilenEnde;
+    var wechsel = LIED.akkorde.find(function(a){ return a.ab >= s.ab && a.ab < bisNaechsteSilbe; });
+    var anzeige = s.text.replace(/-$/, "");
+    var luecke = /-$/.test(s.text) ? "" : " ";
+    html.push('<span class="s" data-ab="'+s.ab+'" data-lang="'+s.lang+'">'+(wechsel ? '<b class="akk">'+wechsel.akk+'</b>' : '')+'<span class="t">'+anzeige+'</span></span>'+luecke);
+  });
+  return html.join("");
+}
+function zeichneSchlag(){
+  document.getElementById("schlag").innerHTML = LIED.schlagmuster.map(function(z){
+    return '<span>'+(z === "D" ? "↓" : z === "U" ? "↑" : "·")+'</span>';
+  }).join("");
+}
+
+/* ---------- Uhr: Metronom-Uhr in Vierteln, auf der AudioContext-Zeit ---------- */
+var ac = null, laeuft = false, startZeit = 0, position = -EINZAEHLEN, naechsterKlick = -EINZAEHLEN, letzteZeile = -1;
+function sekundenProViertel(){
+  return 60 / (LIED.tempo[0].bpm * (+document.getElementById("tempo").value / 100));
+}
+function klick(zeit, betont){
+  var osc = ac.createOscillator(), gain = ac.createGain();
+  osc.frequency.value = betont ? 1500 : 1000;
+  gain.gain.setValueAtTime(0.25, zeit);
+  gain.gain.exponentialRampToValueAtTime(0.001, zeit + 0.05);
+  osc.connect(gain).connect(ac.destination);
+  osc.start(zeit); osc.stop(zeit + 0.06);
+}
+function bild(){
+  if(!laeuft) return;
+  position = (ac.currentTime - startZeit) / sekundenProViertel() - EINZAEHLEN;
+  while(naechsterKlick <= position + 0.2 && naechsterKlick < LIED.laenge){
+    klick(startZeit + (naechsterKlick + EINZAEHLEN) * sekundenProViertel(), ((naechsterKlick % VIERTEL_PRO_TAKT) + VIERTEL_PRO_TAKT) % VIERTEL_PRO_TAKT === 0);
+    naechsterKlick++;
+  }
+  if(position >= LIED.laenge){ anhalten(true); return; }
+  zeigen(position);
+  requestAnimationFrame(bild);
+}
+function zeigen(pos){
+  var bahnBreite = document.querySelector(".bahn").clientWidth;
+  document.getElementById("streifen").style.transform = "translateX("+(bahnBreite*0.2 - pos*PIXEL_PRO_VIERTEL)+"px)";
+  var jetzt = akkordBei(Math.max(pos, 0)), naechster = naechsterAkkord(Math.max(pos, 0));
+  document.querySelectorAll(".akkblock").forEach(function(el){ el.classList.toggle("jetzt", +el.dataset.ab === jetzt.ab && pos >= 0); });
+  document.getElementById("griffJetzt").innerHTML = '<b>'+jetzt.akk+'</b>'+griffSVG(jetzt.akk);
+  document.getElementById("griffNaechster").innerHTML = naechster ? '<b>'+naechster.akk+'</b>'+griffSVG(naechster.akk) : "";
+  var bis = naechster ? Math.ceil(naechster.ab - pos) : 0;
+  document.getElementById("countdown").textContent = naechster && bis <= VIERTEL_PRO_TAKT && pos >= 0 ? "gleich " + naechster.akk + " in " + bis : "";
+  document.getElementById("einzaehlen").textContent = pos < 0 ? String(Math.floor(pos + EINZAEHLEN) + 1) : "";
+  document.getElementById("zaehler").textContent = pos < 0 ? "Einzählen" : "Takt "+(Math.floor(pos / VIERTEL_PRO_TAKT) + 1)+" · Schlag "+(Math.floor(pos % VIERTEL_PRO_TAKT) + 1);
+
+  var zeile = zeileBei(Math.max(pos, 0));
+  if(zeile !== letzteZeile){
+    document.getElementById("zeileJetzt").innerHTML = zeileHTML(zeile);
+    document.getElementById("zeileNaechste").innerHTML = zeileHTML(zeile + 1);
+    letzteZeile = zeile;
+  }
+  document.querySelectorAll("#zeileJetzt .s").forEach(function(el){
+    var anteil = Math.min(Math.max((pos - +el.dataset.ab) / +el.dataset.lang, 0), 1);
+    el.querySelector(".t").style.setProperty("--p", (anteil * 100).toFixed(1) + "%");
+  });
+  var achtel = pos < 0 ? -1 : Math.floor(pos * 2) % LIED.schlagmuster.length;
+  document.querySelectorAll("#schlag span").forEach(function(el, i){ el.classList.toggle("an", i === achtel); });
+}
+function starten(){
+  ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+  ac.resume();
+  startZeit = ac.currentTime - (position + EINZAEHLEN) * sekundenProViertel();
+  naechsterKlick = Math.ceil(position);
+  laeuft = true;
+  document.getElementById("start").textContent = "⏸ Pause";
+  requestAnimationFrame(bild);
+}
+function anhalten(amEnde){
+  laeuft = false;
+  document.getElementById("start").textContent = "▶ Start";
+  if(amEnde){ position = -EINZAEHLEN; letzteZeile = -1; zeigen(position); }
+}
+document.getElementById("start").addEventListener("click", function(){ laeuft ? anhalten(false) : starten(); });
+document.getElementById("tempo").addEventListener("input", function(e){
+  document.getElementById("tempoWert").textContent = e.target.value + " %";
+  /* Tempo aendern, ohne zu springen: die Position bleibt, nur die Uhr wird neu verankert */
+  if(laeuft) startZeit = ac.currentTime - (position + EINZAEHLEN) * sekundenProViertel();
+});
+zeichneBahn(); zeichneSchlag(); zeigen(position);
+</script>
+</body>
+</html>

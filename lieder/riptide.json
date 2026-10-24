@@ -1,0 +1,47 @@
+{
+  "format": "liedspur/1",
+  "id": "riptide",
+  "titel": "Riptide",
+  "untertitel": "Vance Joy, 2013",
+  "gemeinfrei": false,
+  "stufe": 4,
+  "tonart": "Am",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":102}
+  ],
+  "schlagmuster": "Der Klassiker",
+  "abschnitte": [
+    {"ab":0,"name":"Strophe"},
+    {"ab":64,"name":"Refrain"}
+  ],
+  "zeilen": [0,16,32,48,64,80,96,112],
+  "akkorde": [
+    {"ab":0,"akk":"Am"},
+    {"ab":4,"akk":"G"},
+    {"ab":8,"akk":"C"},
+    {"ab":16,"akk":"Am"},
+    {"ab":20,"akk":"G"},
+    {"ab":24,"akk":"C"},
+    {"ab":32,"akk":"Am"},
+    {"ab":36,"akk":"G"},
+    {"ab":40,"akk":"C"},
+    {"ab":48,"akk":"Am"},
+    {"ab":52,"akk":"G"},
+    {"ab":56,"akk":"C"},
+    {"ab":64,"akk":"Am"},
+    {"ab":68,"akk":"G"},
+    {"ab":72,"akk":"C"},
+    {"ab":80,"akk":"Am"},
+    {"ab":84,"akk":"G"},
+    {"ab":88,"akk":"C"},
+    {"ab":96,"akk":"Am"},
+    {"ab":100,"akk":"G"},
+    {"ab":104,"akk":"C"},
+    {"ab":112,"akk":"F"}
+  ],
+  "silben": [],
+  "laenge": 128,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "<b>Das Ukulelenlied des letzten Jahrzehnts</b> — geschrieben auf einer Ukulele, gespielt auf einer Ukulele, und es klingt auf nichts anderem so richtig. Die Folge <b>Am – G – C</b> läuft praktisch das ganze Lied durch; der Refrain bricht am Ende auf ein langes <b>F</b> aus, und genau dieser eine Akkord ist die Stelle, auf die alle warten. Schnelles Muster, leichte Hand."
+}

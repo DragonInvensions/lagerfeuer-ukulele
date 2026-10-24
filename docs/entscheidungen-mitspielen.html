@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ukulele: Mitspielen wie SingStar und Guitar Hero</title>
+<style>
+:root{
+  --akzent:#e10600;
+  --bg:#f4f3f1; --karte:#ffffff; --rand:#dcd9d4; --randstark:#c3bfb8;
+  --text:#17161a; --leise:#66636d; --leiser:#8b8892;
+  --hoch:#c62828; --mittel:#c47f16; --niedrig:#5a7d5a;
+  --ja:#1b6b3a; --spaeter:#a06a12; --idee:#4a4fb5; --nein:#6b6b73;
+  --erledigt:#5a7d5a; --hilfe:#c2410c;
+  --schatten:0 1px 2px rgba(0,0,0,.06),0 6px 20px rgba(0,0,0,.05);
+  --r:12px;
+}
+html[data-thema="dunkel"]{
+  --bg:#0e0e11; --karte:#17171c; --rand:#2b2b33; --randstark:#3d3d47;
+  --text:#f2efe9; --leise:#a3a0aa; --leiser:#7c7986;
+  --hoch:#ff6b6b; --mittel:#e0a244; --niedrig:#7fb07f;
+  --ja:#4cc27e; --spaeter:#e0a244; --idee:#8e95f0; --nein:#93939c;
+  --erledigt:#7fb07f; --hilfe:#f08a5d;
+  --schatten:0 1px 2px rgba(0,0,0,.4),0 6px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text);
+  font:16px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,h3,.zahl{font-family:Bahnschrift,"DIN Alternate","Segoe UI Semibold","Segoe UI",system-ui,sans-serif;font-weight:600}
+code,kbd,.mono{font-family:Consolas,"Cascadia Mono",ui-monospace,Menlo,monospace}
+a{color:var(--akzent)}
+
+/* ---------- Kopf ---------- */
+.kopf{position:sticky;top:0;z-index:40;background:var(--bg);border-bottom:1px solid var(--rand)}
+.kopf-innen{max-width:1000px;margin:0 auto;padding:14px 16px 10px}
+.titelzeile{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+h1{margin:0;font-size:clamp(20px,3.4vw,28px);letter-spacing:-.01em;line-height:1.15;flex:1 1 260px}
+.untertitel{margin:4px 0 0;color:var(--leise);font-size:14px;flex-basis:100%}
+.meta{margin:6px 0 0;color:var(--leiser);font-size:12.5px;flex-basis:100%}
+.kopf-knoepfe{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+.btn{
+  font:inherit;font-size:13px;line-height:1;padding:8px 11px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--rand);background:var(--karte);color:var(--text);
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+}
+.btn:hover{border-color:var(--randstark)}
+.btn:focus-visible{outline:2px solid var(--akzent);outline-offset:2px}
+.btn.stark{background:var(--akzent);border-color:var(--akzent);color:#fff}
+.btn.stark:hover{filter:brightness(1.08)}
+
+/* ---------- Fortschritt ---------- */
+.fortschritt{max-width:1000px;margin:0 auto;padding:0 16px 12px}
+.balken{height:8px;border-radius:99px;background:var(--rand);overflow:hidden;display:flex}
+.balken i{display:block;height:100%;transition:width .25s ease}
+.balken .b-ja{background:var(--ja)} .balken .b-sp{background:var(--spaeter)}
+.balken .b-id{background:var(--idee)} .balken .b-ne{background:var(--nein)}
+.balken .b-er{background:var(--erledigt)} .balken .b-hi{background:var(--hilfe)}
+.stand{display:flex;gap:14px;flex-wrap:wrap;margin-top:7px;font-size:12.5px;color:var(--leise)}
+.stand b{color:var(--text);font-weight:600}
+.punktchen{display:inline-block;width:8px;height:8px;border-radius:99px;margin-right:5px;vertical-align:baseline}
+
+/* ---------- Filter ---------- */
+.filter{max-width:1000px;margin:0 auto;padding:0 16px 12px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chip{
+  font:inherit;font-size:12.5px;line-height:1;padding:7px 10px;border-radius:99px;cursor:pointer;
+  border:1px solid var(--rand);background:transparent;color:var(--leise);
+}
+.chip[aria-pressed="true"]{background:var(--text);border-color:var(--text);color:var(--bg);font-weight:600}
+.suche{
+  flex:1 1 180px;min-width:150px;font:inherit;font-size:13px;padding:8px 11px;border-radius:9px;
+  border:1px solid var(--rand);background:var(--karte);color:var(--text);
+}
+.suche:focus{outline:2px solid var(--akzent);outline-offset:-1px}
+
+/* ---------- Inhalt ---------- */
+main{max-width:1000px;margin:0 auto;padding:6px 16px 90px}
+.hinweis{
+  background:var(--karte);border:1px solid var(--rand);border-left:3px solid var(--akzent);
+  border-radius:var(--r);padding:12px 14px;margin:8px 0 20px;font-size:14px;color:var(--leise);
+}
+.hinweis b{color:var(--text)}
+
+.gruppe{margin:26px 0 0}
+.gruppe-kopf{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.gruppe h2{margin:0;font-size:17px;letter-spacing:.01em}
+.gruppe-zahl{font-size:12.5px;color:var(--leiser)}
+.gruppe-info{margin:0 0 12px;color:var(--leise);font-size:13.5px}
+
+/* ---------- Punkt ---------- */
+.punkt{
+  background:var(--karte);border:1px solid var(--rand);border-radius:var(--r);
+  padding:13px 14px;margin-bottom:10px;box-shadow:var(--schatten);
+  border-left:3px solid var(--rand);
+}
+.punkt[data-risiko="hoch"]{border-left-color:var(--hoch)}
+.punkt[data-risiko="mittel"]{border-left-color:var(--mittel)}
+.punkt[data-risiko="niedrig"]{border-left-color:var(--niedrig)}
+.punkt[data-wahl="ja"]{box-shadow:var(--schatten),inset 3px 0 0 -1px transparent}
+.punkt[data-wahl="nein"],.punkt[data-wahl="erledigt"]{opacity:.62}
+.punkt.aus{display:none}
+
+.p-kopf{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.p-id{
+  font-family:Consolas,ui-monospace,monospace;font-size:12px;font-weight:700;letter-spacing:.03em;
+  background:var(--bg);border:1px solid var(--rand);border-radius:6px;padding:3px 6px;color:var(--leise);
+  flex:0 0 auto;margin-top:1px;
+}
+.p-titel{flex:1 1 240px;margin:0;font-size:15.5px;line-height:1.35;font-weight:600}
+.marke{
+  font-size:11px;line-height:1;padding:4px 7px;border-radius:99px;border:1px solid currentColor;
+  font-weight:600;letter-spacing:.03em;text-transform:uppercase;flex:0 0 auto;margin-top:2px;
+}
+.marke.hoch{color:var(--hoch)} .marke.mittel{color:var(--mittel)} .marke.niedrig{color:var(--niedrig)}
+.marke.tipp{color:var(--akzent)}
+.marke.eines{color:var(--akzent);border-style:dashed}
+.marke.du{color:var(--leise)}
+
+.p-text{margin:9px 0 0;font-size:14px;color:var(--text)}
+.p-tun{
+  margin:9px 0 0;font-size:14px;color:var(--text);
+  background:var(--bg);border-radius:8px;padding:8px 10px;border:1px solid var(--rand);
+}
+.p-tun b{font-weight:600}
+.p-quelle{margin:8px 0 0;font-family:Consolas,ui-monospace,monospace;font-size:12px;color:var(--leiser);word-break:break-all}
+
+/* ---------- Auswahl ---------- */
+.p-fuss{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;padding-top:11px;border-top:1px solid var(--rand)}
+.wahl{display:flex;gap:0;border:1px solid var(--rand);border-radius:9px;overflow:hidden;flex:0 1 auto;min-width:0}
+.wahl button{
+  font:inherit;font-size:12.5px;line-height:1;padding:8px 11px;cursor:pointer;
+  border:0;border-right:1px solid var(--rand);background:var(--karte);color:var(--leise);
+  flex:0 1 auto;min-width:0;white-space:nowrap;
+}
+.wahl button:last-child{border-right:0}
+.wahl button:hover{background:var(--bg)}
+.wahl button:focus-visible{outline:2px solid var(--akzent);outline-offset:-2px}
+.wahl button[aria-pressed="true"]{color:#fff;font-weight:600}
+.wahl button[data-w="ja"][aria-pressed="true"]{background:var(--ja)}
+.wahl button[data-w="spaeter"][aria-pressed="true"]{background:var(--spaeter)}
+.wahl button[data-w="idee"][aria-pressed="true"]{background:var(--idee)}
+.wahl button[data-w="nein"][aria-pressed="true"]{background:var(--nein)}
+.wahl button[data-w="erledigt"][aria-pressed="true"]{background:var(--erledigt)}
+.wahl button[data-w="hilfe"][aria-pressed="true"]{background:var(--hilfe)}
+
+.kommentar-auf{
+  font:inherit;font-size:12.5px;padding:8px 11px;border-radius:9px;cursor:pointer;
+  border:1px dashed var(--randstark);background:transparent;color:var(--leise);
+}
+.kommentar-auf.hat{border-style:solid;color:var(--text);border-color:var(--randstark)}
+textarea.kommentar{
+  display:none;width:100%;margin-top:10px;min-height:70px;resize:vertical;
+  font:inherit;font-size:13.5px;padding:10px 11px;border-radius:9px;
+  border:1px solid var(--rand);background:var(--bg);color:var(--text);
+}
+textarea.kommentar:focus{outline:2px solid var(--akzent);outline-offset:-1px}
+.punkt.offen textarea.kommentar{display:block}
+
+/* ---------- Entweder-oder: nur eine Moeglichkeit ---------- */
+.gruppe.nur-eines{border:1px dashed var(--randstark);border-radius:var(--r);padding:14px 14px 6px;margin-top:26px}
+.gruppe.nur-eines .gruppe-kopf{margin-bottom:2px}
+.gruppe-frage{margin:0 0 12px;font-size:14px;font-weight:600;color:var(--text)}
+.punkt.alternative[data-wahl="ja"]{border-left-color:var(--ja);border-color:var(--ja)}
+.eines-btn{
+  font:inherit;font-size:12.5px;line-height:1;padding:9px 14px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--randstark);background:var(--karte);color:var(--text);white-space:nowrap;
+}
+.eines-btn:hover{border-color:var(--text)}
+.eines-btn:focus-visible{outline:2px solid var(--akzent);outline-offset:2px}
+.eines-btn[aria-pressed="true"]{background:var(--ja);border-color:var(--ja);color:#fff;font-weight:600}
+.g-kommentar{margin:2px 0 12px}
+.g-kommentar textarea{
+  display:none;width:100%;margin-top:8px;min-height:66px;resize:vertical;
+  font:inherit;font-size:13.5px;padding:10px 11px;border-radius:9px;
+  border:1px solid var(--rand);background:var(--bg);color:var(--text);
+}
+.g-kommentar textarea:focus{outline:2px solid var(--akzent);outline-offset:-1px}
+.g-kommentar.offen textarea{display:block}
+
+/* ---------- Dialog Export ---------- */
+dialog{
+  border:1px solid var(--rand);border-radius:14px;background:var(--karte);color:var(--text);
+  padding:0;max-width:760px;width:calc(100% - 28px);box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.d-kopf{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--rand)}
+.d-kopf h3{margin:0;font-size:16px}
+.d-koerper{padding:14px 16px}
+.d-koerper p{margin:0 0 10px;font-size:13.5px;color:var(--leise)}
+.d-koerper textarea{
+  width:100%;min-height:300px;resize:vertical;font-family:Consolas,ui-monospace,monospace;font-size:12.5px;
+  line-height:1.5;padding:11px;border-radius:9px;border:1px solid var(--rand);background:var(--bg);color:var(--text);
+}
+.d-fuss{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 16px}
+.tabs{display:flex;gap:6px;padding:0 16px;margin-top:12px}
+
+.leer{padding:30px 4px;text-align:center;color:var(--leiser);font-size:14px}
+.fuss{max-width:1000px;margin:0 auto;padding:24px 16px 40px;color:var(--leiser);font-size:12.5px;border-top:1px solid var(--rand)}
+.gespeichert{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(14px);
+  background:var(--text);color:var(--bg);font-size:12.5px;padding:8px 14px;border-radius:99px;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60}
+.gespeichert.an{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:560px){
+  .kopf-innen{padding:12px 13px 8px}
+  main,.filter,.fortschritt{padding-left:13px;padding-right:13px}
+  .p-fuss{gap:8px}
+  .wahl{flex:1 1 100%}
+  .wahl button{flex:1 1 0;padding:9px 4px;font-size:12px;text-align:center}
+}
+@media print{
+  .kopf-knoepfe,.filter,.wahl,.eines-btn,.kommentar-auf,.gespeichert{display:none!important}
+  .punkt{break-inside:avoid;box-shadow:none}
+  .punkt[data-wahltext]:not([data-wahltext=""])::after{
+    content:"Auswahl: " attr(data-wahltext);display:block;margin-top:8px;font-size:12px;font-weight:700;
+  }
+  .g-kommentar textarea{display:block!important;border:0;padding:0;background:transparent}
+  textarea.kommentar{display:block!important;border:0;padding:0;background:transparent}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<header class="kopf">
+  <div class="kopf-innen">
+    <div class="titelzeile">
+      <h1 id="t-titel">Ukulele: Mitspielen wie SingStar und Guitar Hero</h1>
+      <div class="kopf-knoepfe">
+        <button class="btn" id="b-thema" title="Hell / Dunkel">◐ Ansicht</button>
+        <button class="btn" id="b-drucken" title="Als PDF drucken">⎙ PDF</button>
+        <button class="btn stark" id="b-export">↗ Auswahl ausgeben</button>
+      </div>
+      <p class="untertitel" id="t-untertitel"></p>
+      <p class="meta" id="t-meta"></p>
+    </div>
+  </div>
+  <div class="fortschritt">
+    <div class="balken" aria-hidden="true">
+      <i class="b-ja" id="bal-ja" style="width:0"></i><i class="b-sp" id="bal-sp" style="width:0"></i><i class="b-id" id="bal-id" style="width:0"></i><i class="b-ne" id="bal-ne" style="width:0"></i><i class="b-er" id="bal-er" style="width:0"></i><i class="b-hi" id="bal-hi" style="width:0"></i>
+    </div>
+    <div class="stand" id="stand"></div>
+  </div>
+  <div class="filter">
+    <button class="chip" data-f="alle" aria-pressed="true">Alle</button>
+    <button class="chip" data-f="offen" aria-pressed="false">Noch offen</button>
+    <button class="chip" data-f="ja" aria-pressed="false">Wichtig</button>
+    <button class="chip" data-f="spaeter" aria-pressed="false">Später</button>
+    <button class="chip" data-f="idee" aria-pressed="false">Idee</button>
+    <button class="chip" data-f="nein" aria-pressed="false">Nein</button>
+    <button class="chip nur-hinweise" data-f="hilfe" aria-pressed="false">Brauche Hilfe</button>
+    <button class="chip nur-hinweise" data-f="erledigt" aria-pressed="false">Erledigt</button>
+    <button class="chip" data-f="kommentar" aria-pressed="false">Mit Kommentar</button>
+    <input class="suche" id="suche" type="search" placeholder="Suchen …" autocomplete="off">
+  </div>
+</header>
+
+<main>
+  <div class="hinweis" id="anleitung"></div>
+  <div id="liste"></div>
+  <div class="leer" id="leer" style="display:none">Nichts gefunden — Filter oder Suche ändern.</div>
+</main>
+
+<footer class="fuss">
+  <span id="t-fuss"></span>
+  <button class="btn" id="b-import" style="margin-left:8px">⇩ Auswahl einlesen</button>
+  <button class="btn" id="b-reset" style="margin-left:6px">⟲ Alles zurücksetzen</button>
+</footer>
+
+<div class="gespeichert" id="toast">gespeichert</div>
+
+<dialog id="dlg">
+  <div class="d-kopf">
+    <h3 id="d-titel">Auswahl ausgeben</h3>
+    <button class="btn" id="d-zu">Schließen</button>
+  </div>
+  <div class="tabs" id="d-tabs">
+    <button class="chip" data-tab="md" aria-pressed="true">Text (Markdown)</button>
+    <button class="chip" data-tab="json" aria-pressed="false">JSON (Sicherung)</button>
+  </div>
+  <div class="d-koerper">
+    <p id="d-info"></p>
+    <textarea id="d-text" spellcheck="false"></textarea>
+  </div>
+  <div class="d-fuss">
+    <button class="btn stark" id="d-kopieren">⧉ In Zwischenablage</button>
+    <button class="btn" id="d-datei">⤓ Als Datei speichern</button>
+    <button class="btn" id="d-uebernehmen" style="display:none">✓ Einlesen und übernehmen</button>
+  </div>
+</dialog>
+
+<script>
+/* ================================================================
+   LISTE-START — nur dieser Block wird pro Liste ersetzt.
+   ================================================================ */
+/* LISTE-START */
+const LISTE = {
+  titel: "Ukulele: Mitspielen wie SingStar und Guitar Hero",
+  untertitel: "Was wird gebaut, in welcher Reihenfolge, und welche Wege nehmen wir?",
+  meta: "Stand: 24.10.2026 · Grundlage: Konzept im Ordner Ukulele, docs, konzept-mitspielen.md",
+  anleitung: "Hake an, was dir **wichtig** ist, und wähle bei den Entscheidungen je **einen Weg**. Am Ende **Auswahl in den Chat**.",
+  akzent: "#c9551f",
+  gruppen: [
+    { name: "Das Wesentliche (80/20)",
+      info: "Mit diesen vier Schritten singst und spielst du jedes Volkslied silbengenau mit; alles andere baut darauf auf.",
+      punkte: [
+        { id: "K0", hinweis: true,
+          titel: "Chord ai eine Viertelstunde gratis testen",
+          warum: "Entscheidet, ob du für die Popsongs überhaupt etwas bauen musst. Kann die App die deutschen Titelsongs gut genug, bleibt nur der Lagerfeuermodus für Volkslieder.",
+          tun: "Chord ai aufs Handy, dann „Pokémon Titelsong deutsch“ und das „Lagerfeuerlied-Lied“ von YouTube analysieren lassen und auf Text und Akkorde achten." },
+        { id: "K1", tipp: true,
+          titel: "Neues Liedformat in Takt-Zeit und Übernahme aller 42 Lieder",
+          warum: "Ohne das gemeinsame Taktraster für Silben und Akkorde geht nichts von dem Rest. Die Probe hat gezeigt: alle 1 859 Takte lassen sich verlustfrei übernehmen.",
+          tun: "Kern ohne Oberfläche mit Tests, Übernahme-Skript nach dem Vorbild der Probe, Tempokarte fürs Lagerfeuerlied, Wächter in bauen.py gegen geschützte Texte im öffentlichen Ordner.",
+          quelle: "Ukulele/docs/konzept-mitspielen.md, Abschnitte 4, 5, 9" },
+        { id: "K2", tipp: true,
+          titel: "Mitspiel-Ansicht mit drei Spuren im eigenen Tempo",
+          warum: "Ab hier ist es am Lagerfeuer nutzbar: Akkord-Bahn, Silben-Karaoke und Schlagmuster laufen zusammen, ganz ohne Aufnahme.",
+          tun: "Das Vorbild auf echte Daten setzen, dazu Tempo-Regler, Einzählen, Abschnitt in Schleife und Lagerfeuermodus.",
+          quelle: "Ukulele/docs/vorbild-mitspielen.html" },
+        { id: "K3", tipp: true,
+          titel: "Tipp-Editor: Silben im Takt antippen",
+          warum: "Erst damit stimmen die Silben. Heute sind alle 3 516 Silben nur gleichmäßig verteilt geraten.",
+          tun: "Drücken heißt, die Silbe beginnt, Loslassen heißt, sie endet. Einrasten auf Achtel, Zeile in Schleife, Probehören mit Klick." }
+      ]},
+
+    { name: "Wann bauen", nurEines: true,
+      frage: "Baust du das jetzt, oder parkst du es bis nach dem Prüfpunkt am 31. Dezember?",
+      info: "Dein Kurs-Wächter fragt einmal nach: Ukulele ist Hobby und bringt keinen Kunden näher.",
+      punkte: [
+        { id: "Z1", titel: "Jetzt bauen, bewusst als Hobby",
+          warum: "Du lernst gerade und hast sofort etwas davon. Der Haken: Bauzeit fehlt bei der Geldmaschine." },
+        { id: "Z2", titel: "Auf den Ideen-Parkplatz bis nach dem 31. Dezember",
+          warum: "Hält den 90-Tage-Fokus. Das Konzept und das Vorbild liegen bereit und veralten nicht." }
+      ]},
+
+    { name: "Umfang des Neuaufbaus", nurEines: true,
+      frage: "Wie viel wird neu gebaut?",
+      info: "Die Schwäche steckt im Liedmodell und im Mitspielen, nicht im Lehrbuch.",
+      punkte: [
+        { id: "U1", titel: "Nur den Liederteil neu, Lehrbuch und Stimmer bleiben",
+          warum: "Kleinster Eingriff: Kapitel, Griffbilder, Transponieren, Stimmer und Übungsplan funktionieren und werden übernommen." },
+        { id: "U2", titel: "Die ganze App neu aufsetzen",
+          warum: "Sauberer Schnitt, aber du baust Teile nach, die heute schon gut laufen." }
+      ]},
+
+    { name: "Wo deine privaten Lieder liegen", nurEines: true,
+      frage: "Wo liegen die Lieder mit geschütztem Text?",
+      info: "Die müssen privat bleiben. Öffentlich sind nur App und gemeinfreie Lieder.",
+      punkte: [
+        { id: "P1", titel: "Als Datei in der Nextcloud, in die App importiert",
+          warum: "Kein Server nötig, läuft auch offline am Feuer. Der Haken: Auf jedem Gerät einmal importieren." },
+        { id: "P2", titel: "Auf Jarvis hinter einer Anmeldung",
+          warum: "Alle Geräte sehen sofort dieselben Lieder. Der Haken: Server, Anmeldung und ohne Netz nichts." }
+      ]},
+
+    { name: "Woher der Ton kommt", nurEines: true,
+      frage: "Womit soll die App beim Mitspielen synchron laufen?",
+      info: "Ohne Aufnahme geht es immer, mit eigenem Tempo und Klick.",
+      punkte: [
+        { id: "A1", titel: "Eigene gekaufte Musikdatei",
+          warum: "Läuft offline, rechtlich sauber als Privatkopie, und die Auswertung am PC braucht die Datei sowieso." },
+        { id: "A2", titel: "Offizielles YouTube-Video eingebettet",
+          warum: "Nichts zu kaufen oder herunterzuladen. Der Haken: nur mit Netz, und Videos verschwinden manchmal." },
+        { id: "A3", titel: "Beides",
+          warum: "Am bequemsten, aber zwei Uhren zu bauen und zu pflegen." }
+      ]},
+
+    { name: "Danach: Lieder mit Aufnahme", info: "Kommt nach den vier Kernschritten.", punkte: [
+        { id: "B1", titel: "Fertige UltraStar-Dateien einlesen",
+          warum: "Für viele bekannte Lieder gibt es Silben mit Zeit schon fertig. Dazu kommen nur noch die Akkorde aus dem Chart." },
+        { id: "B2", titel: "Eigene Musikdatei mitlaufen lassen", wenn: ["A1", "A3"],
+          warum: "Die Spuren folgen der Originalaufnahme, auch wenn deren Tempo schwankt." },
+        { id: "B3", titel: "YouTube-Video mitlaufen lassen", wenn: ["A2", "A3"],
+          warum: "Die Spuren folgen dem eingebetteten Video." },
+        { id: "B4", titel: "Auswertung am PC für Lieder ohne fertige Datei",
+          warum: "Für deutsche Titelsongs wie die Hose zerrissen oder den SpongeBob-Titelsong. Erzeugt Silben, Schläge und einen Akkordvorschlag aus deiner Aufnahme.",
+          tun: "UltraSinger, Beat This und madmom in einer kleinen Python-Pipeline. Ohne NVIDIA-Grafik langsam, aber einmal je Lied." },
+        { id: "B5", titel: "Ukulele-Skill auf das neue Liedformat umstellen",
+          warum: "Sonst schreibt der Skill neue Lieder weiter ins alte Format." }
+      ]},
+
+    { name: "Erweiterungen", info: "Bewusst nicht im Plan. Idee heißt: aufheben, nicht bauen.", punkte: [
+        { id: "E1", titel: "Tonhöhenbalken und Singbewertung wie bei SingStar",
+          warum: "UltraStar-Dateien liefern die Töne gratis mit." },
+        { id: "E2", titel: "„Warte auf mich“: Die App hört, ob du den Akkord greifst",
+          warum: "Übt den Wechsel ohne Zeitdruck. Der Stimmer-Code wäre die Grundlage, Akkorderkennung ist aber deutlich schwerer als ein einzelner Ton." },
+        { id: "E3", titel: "Liedtext auf den Handys der Mitsänger",
+          warum: "Am Feuer singen alle mit, nicht nur du." },
+        { id: "E4", titel: "Fußtaster zum Steuern",
+          warum: "Hände bleiben an der Ukulele." }
+      ]},
+
+    { name: "Nebenbefunde", info: "Gemeldet, nicht behoben.", punkte: [
+        { id: "N1", titel: "„Alle meine Entchen“: zweite Zeile vermutlich auf halbe Länge gestaucht",
+          warum: "„schwimmen auf dem See“ hat zweimal nur je einen Takt, nach der Melodie wären es je zwei. Ist ein Verdacht aus Fachwissen, nicht am Notenbild geprüft.",
+          quelle: "Ukulele/quelle/p6-songs-a.js:25" },
+        { id: "N2", titel: "Im README stehen 26 Lieder, es sind 42",
+          quelle: "Ukulele/README.md" }
+      ]}
+  ]
+};
+/* LISTE-ENDE */
+/* ================================================================
+   Ab hier: Technik. Nicht pro Liste ändern.
+   ================================================================ */
+
+const WAHLEN = ["ja","spaeter","idee","nein"];
+// Hinweise (hinweis:true) sind Dinge, die nur der Nutzer selbst tun kann – dort gibt es nichts zu bewerten.
+const HINWEIS_WAHLEN = ["erledigt","hilfe"];
+const WAHL_TEXT = { ja:"Wichtig", spaeter:"Später", idee:"Idee", nein:"Nein", erledigt:"✓ Erledigt / verstanden", hilfe:"Brauche Hilfe" };
+const WAHL_HILFE = {
+  ja:"Wichtig — bitte angehen",
+  spaeter:"Später — vormerken, aber nicht jetzt",
+  idee:"Idee — gute Idee, aufheben und weiterdenken",
+  nein:"Nein — nicht nötig",
+  erledigt:"Habe ich erledigt oder verstanden — abgehakt",
+  hilfe:"Brauche Hilfe — Claude unterstützt mich dabei"
+};
+const STORE_KEY = "todoliste:" + location.pathname + ":v1";
+
+let zustand = {};      // id -> {w:"ja"|"spaeter"|"idee"|"nein"|"erledigt"|"hilfe"|"", k:"Kommentar"}
+                       // Entweder-oder-Gruppen liegen unter "@"+Gruppenname (nur Kommentar)
+let verdrahtet = false;
+let filter = "alle";
+let suchtext = "";
+let dlgModus = "md";
+
+/* ---------- Hilfen ---------- */
+const $ = s => document.querySelector(s);
+const alleP = () => LISTE.gruppen.flatMap(g => g.punkte.map(p => ({...p, gruppe:g.name, eines:!!g.nurEines})));
+const gKey = g => "@" + g.name;   // Kommentar zur ganzen Entscheidung
+const zahlwort = (g,n) => g.nurEines ? (n===1?"Möglichkeit":"Möglichkeiten") : (n===1?"Punkt":"Punkte");
+const hatHinweise = () => alleP().some(p => p.hinweis);
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function md(s){
+  return esc(s)
+    .replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>")
+    .replace(/`([^`]+)`/g,'<code>$1</code>');
+}
+function z(id){ return zustand[id] || (zustand[id] = {w:"", k:""}); }
+
+/* ---------- Folgefragen (wenn) ---------- */
+// Wie sichtbareListe() im Mod entscheidungen: eine Folgefrage nur, wenn eine ihrer Voraussetzungen zu sehen und
+// gewählt ist (Wichtig, gewählter Weg, erledigter Hinweis). Voraussetzungen stehen weiter oben, ein Durchgang reicht.
+const wennListe = w => w == null ? [] : [].concat(w);
+function sichtbar(){
+  const ids = new Set(), gruppen = new Set();
+  const erfuellt = w => !wennListe(w).length || wennListe(w).some(id => ids.has(id) && ["ja","erledigt"].includes(z(id).w));
+  LISTE.gruppen.forEach(g => {
+    if (!erfuellt(g.wenn)) return;
+    g.punkte.forEach(p => { if (erfuellt(p.wenn)) { ids.add(p.id); gruppen.add(g.name); } });
+  });
+  return { ids, gruppen };
+}
+const sichtbareP = () => { const s = sichtbar(); return alleP().filter(p => s.ids.has(p.id)); };
+const folgtAus = w => wennListe(w).length ? `<span class="marke du">↳ folgt aus ${esc(wennListe(w).join(", "))}</span>` : "";
+
+/* ---------- Speichern ---------- */
+let toastTimer = null;
+function toast(text){
+  const el = $("#toast"); el.textContent = text || "gespeichert"; el.classList.add("an");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("an"), 1200);
+}
+let saveTimer = null;
+function speichern(still){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(zustand)); if(!still) toast(); }
+    catch(e){ toast("Speichern nicht möglich"); }
+  }, 220);
+}
+function laden(){
+  try { zustand = JSON.parse(localStorage.getItem(STORE_KEY) || "{}") || {}; }
+  catch(e){ zustand = {}; }
+}
+
+/* ---------- Aufbau ---------- */
+function aufbauen(){
+  document.documentElement.style.setProperty("--akzent", LISTE.akzent || "#e10600");
+  document.title = LISTE.titel;
+  $("#t-titel").textContent = LISTE.titel;
+  $("#t-untertitel").textContent = LISTE.untertitel || "";
+  $("#t-meta").textContent = LISTE.meta || "";
+  $("#anleitung").innerHTML = md(LISTE.anleitung || "Hake an, was dir wichtig ist.");
+  $("#t-fuss").textContent = "Alles bleibt in diesem Browser gespeichert — nichts wird verschickt.";
+  document.querySelectorAll(".nur-hinweise").forEach(c => { c.hidden = !hatHinweise(); });
+
+  const wurzel = $("#liste");
+  wurzel.innerHTML = LISTE.gruppen.map(g => `
+    <section class="gruppe${g.nurEines ? " nur-eines" : ""}" data-gruppe="${esc(g.name)}">
+      <div class="gruppe-kopf">
+        <h2>${esc(g.name)}</h2>
+        ${g.nurEines ? `<span class="marke eines">nur eine Möglichkeit</span>` : ""}
+        <span class="gruppe-zahl">${g.punkte.length} ${zahlwort(g, g.punkte.length)}</span>
+        ${folgtAus(g.wenn)}
+      </div>
+      ${g.info ? `<p class="gruppe-info">${md(g.info)}</p>` : ""}
+      ${g.nurEines ? `<p class="gruppe-frage">${md(g.frage || "Nur eines davon geht — welchen Weg nehmen wir?")}</p>` : ""}
+      ${g.punkte.map(p => punktHtml(p, g)).join("")}
+      ${g.nurEines ? gruppenKommentarHtml(g) : ""}
+    </section>`).join("");
+
+  if (verdrahtet) return;   // aufbauen() läuft auch nach Einlesen / Zurücksetzen
+  verdrahtet = true;
+
+  wurzel.addEventListener("click", ev => {
+    // Entweder-oder: genau eine Möglichkeit, die anderen fallen automatisch weg
+    const eb = ev.target.closest(".eines-btn");
+    if (eb){
+      const karte = eb.closest(".punkt"), sec = karte.closest(".gruppe"), id = karte.dataset.id;
+      const anwaehlen = z(id).w !== "ja";          // nochmal klicken hebt die Wahl wieder auf
+      sec.querySelectorAll(".punkt").forEach(k => {
+        const kid = k.dataset.id;
+        z(kid).w = !anwaehlen ? "" : (kid === id ? "ja" : "nein");
+        karteAktualisieren(k);
+      });
+      speichern(); zeichnen();
+      return;
+    }
+    const wb = ev.target.closest(".wahl button");
+    if (wb){
+      const karte = wb.closest(".punkt"), id = karte.dataset.id, neu = wb.dataset.w;
+      z(id).w = (z(id).w === neu) ? "" : neu;
+      karteAktualisieren(karte); speichern(); zeichnen();
+      return;
+    }
+    const gb = ev.target.closest(".g-auf");       // vor .kommentar-auf prüfen
+    if (gb){
+      const box = gb.closest(".g-kommentar");
+      box.classList.toggle("offen");
+      if (box.classList.contains("offen")) box.querySelector("textarea").focus();
+      return;
+    }
+    const kb = ev.target.closest(".kommentar-auf");
+    if (kb){
+      const karte = kb.closest(".punkt");
+      karte.classList.toggle("offen");
+      if (karte.classList.contains("offen")) karte.querySelector("textarea").focus();
+    }
+  });
+  wurzel.addEventListener("input", ev => {
+    const ta = ev.target.closest("textarea.kommentar");
+    if (!ta) return;
+    if (ta.dataset.gkey){                        // Kommentar zur ganzen Entscheidung
+      const box = ta.closest(".g-kommentar");
+      z(ta.dataset.gkey).k = ta.value;
+      box.querySelector(".g-auf").classList.toggle("hat", !!ta.value.trim());
+      speichern(true);
+      return;
+    }
+    const karte = ta.closest(".punkt");
+    z(karte.dataset.id).k = ta.value;
+    karte.querySelector(".kommentar-auf").classList.toggle("hat", !!ta.value.trim());
+    speichern(true); standAktualisieren();
+  });
+}
+
+function gruppenKommentarHtml(g){
+  const key = gKey(g), s = z(key);
+  return `
+  <div class="g-kommentar${s.k ? " offen" : ""}">
+    <button type="button" class="kommentar-auf g-auf${s.k?" hat":""}">✎ Kommentar zur Entscheidung</button>
+    <textarea class="kommentar" data-gkey="${esc(key)}" placeholder="Warum dieser Weg — oder was dir hier noch fehlt …">${esc(s.k)}</textarea>
+  </div>`;
+}
+
+function punktHtml(p, g){
+  const s = z(p.id);
+  const eines = !!(g && g.nurEines);
+  return `
+  <article class="punkt${eines ? " alternative" : ""}${s.k ? " offen" : ""}" data-id="${esc(p.id)}" data-risiko="${esc(p.risiko||"")}" data-wahl="${esc(s.w)}" data-wahltext="${esc(s.w ? WAHL_TEXT[s.w] : "")}">
+    <div class="p-kopf">
+      <span class="p-id">${esc(p.id)}</span>
+      <h3 class="p-titel">${md(p.titel)}</h3>
+      ${p.risiko ? `<span class="marke ${esc(p.risiko)}">${esc(p.risiko)}</span>` : ""}
+      ${p.tipp ? `<span class="marke tipp">Empfehlung</span>` : ""}
+      ${p.hinweis ? `<span class="marke du">nur du</span>` : ""}
+      ${folgtAus(p.wenn)}
+    </div>
+    ${p.warum ? `<p class="p-text">${md(p.warum)}</p>` : ""}
+    ${p.tun ? `<p class="p-tun"><b>${p.hinweis ? "Zu tun:" : "Möglich:"}</b> ${md(p.tun)}</p>` : ""}
+    ${p.quelle ? `<p class="p-quelle">${esc(p.quelle)}</p>` : ""}
+    <div class="p-fuss">
+      ${eines
+        ? `<button type="button" class="eines-btn" aria-pressed="${s.w==="ja"}">${s.w==="ja" ? "✓ Ausgewählt" : "Diesen Weg wählen"}</button>`
+        : `<div class="wahl" role="group" aria-label="Auswahl für ${esc(p.id)}">
+        ${(p.hinweis ? HINWEIS_WAHLEN : WAHLEN).map(w => `<button type="button" data-w="${w}" title="${esc(WAHL_HILFE[w])}" aria-pressed="${s.w===w}">${WAHL_TEXT[w]}</button>`).join("")}
+      </div>`}
+      <button type="button" class="kommentar-auf${s.k?" hat":""}">✎ Kommentar</button>
+    </div>
+    <textarea class="kommentar" placeholder="Dein Kommentar zu ${esc(p.id)} …">${esc(s.k)}</textarea>
+  </article>`;
+}
+
+function karteAktualisieren(karte){
+  const s = z(karte.dataset.id);
+  karte.dataset.wahl = s.w;
+  karte.dataset.wahltext = s.w ? WAHL_TEXT[s.w] : "";
+  karte.querySelectorAll(".wahl button").forEach(b => b.setAttribute("aria-pressed", String(s.w === b.dataset.w)));
+  const eb = karte.querySelector(".eines-btn");
+  if (eb){
+    const an = s.w === "ja";
+    eb.setAttribute("aria-pressed", String(an));
+    eb.textContent = an ? "✓ Ausgewählt" : "Diesen Weg wählen";
+  }
+}
+
+/* ---------- Filter, Suche, Stand ---------- */
+function passt(p){
+  const s = z(p.id);
+  if (filter === "offen" && s.w) return false;
+  if (filter === "kommentar" && !s.k.trim()) return false;
+  if ([...WAHLEN, ...HINWEIS_WAHLEN].includes(filter) && s.w !== filter) return false;
+  if (suchtext){
+    const heu = [p.id,p.titel,p.warum,p.tun,p.quelle,p.risiko,s.k].join(" ").toLowerCase();
+    if (!heu.includes(suchtext)) return false;
+  }
+  return true;
+}
+function zeichnen(){
+  const folge = sichtbar();
+  let gezeigt = 0;
+  alleP().forEach(p => {
+    const karte = document.querySelector(`.punkt[data-id="${CSS.escape(p.id)}"]`);
+    if (!karte) return;
+    const ok = folge.ids.has(p.id) && passt(p);
+    karte.classList.toggle("aus", !ok);
+    if (ok) gezeigt++;
+  });
+  document.querySelectorAll(".gruppe").forEach(g => {
+    const rest = g.querySelectorAll(".punkt:not(.aus)").length;
+    g.style.display = rest ? "" : "none";
+    const zahl = g.querySelector(".gruppe-zahl");
+    // Ausgeblendete Folgefragen zählen nicht mit, sonst sähe es nach einem Filter aus.
+    const ges = [...g.querySelectorAll(".punkt")].filter(k => folge.ids.has(k.dataset.id)).length;
+    const wort = zahlwort({nurEines: g.classList.contains("nur-eines")}, ges);
+    zahl.textContent = rest === ges ? `${ges} ${wort}` : `${rest} von ${ges}`;
+  });
+  $("#leer").style.display = gezeigt ? "none" : "";
+  standAktualisieren();
+}
+function standAktualisieren(){
+  const alle = sichtbareP(), n = alle.length;
+  const zaehl = {ja:0,spaeter:0,idee:0,nein:0,erledigt:0,hilfe:0,offen:0,kommentar:0};
+  alle.forEach(p => {
+    const s = z(p.id);
+    if (s.w) zaehl[s.w]++; else zaehl.offen++;
+    if (s.k.trim()) zaehl.kommentar++;
+  });
+  const pz = x => n ? (x / n * 100).toFixed(2) + "%" : "0%";
+  $("#bal-ja").style.width = pz(zaehl.ja);
+  $("#bal-sp").style.width = pz(zaehl.spaeter);
+  $("#bal-id").style.width = pz(zaehl.idee);
+  $("#bal-ne").style.width = pz(zaehl.nein);
+  $("#bal-er").style.width = pz(zaehl.erledigt);
+  $("#bal-hi").style.width = pz(zaehl.hilfe);
+  const zuSehen = sichtbar().gruppen;
+  const offenEntsch = LISTE.gruppen.filter(g => g.nurEines && zuSehen.has(g.name) && !g.punkte.some(p => z(p.id).w === "ja")).length;
+  $("#stand").innerHTML =
+    `<span><span class="punktchen" style="background:var(--ja)"></span>Wichtig <b>${zaehl.ja}</b></span>` +
+    `<span><span class="punktchen" style="background:var(--spaeter)"></span>Später <b>${zaehl.spaeter}</b></span>` +
+    `<span><span class="punktchen" style="background:var(--idee)"></span>Idee <b>${zaehl.idee}</b></span>` +
+    `<span><span class="punktchen" style="background:var(--nein)"></span>Nein <b>${zaehl.nein}</b></span>` +
+    (hatHinweise()
+      ? `<span><span class="punktchen" style="background:var(--erledigt)"></span>Erledigt <b>${zaehl.erledigt}</b></span>` +
+        `<span><span class="punktchen" style="background:var(--hilfe)"></span>Brauche Hilfe <b>${zaehl.hilfe}</b></span>`
+      : "") +
+    `<span><span class="punktchen" style="background:var(--rand)"></span>Offen <b>${zaehl.offen}</b> von ${n}</span>` +
+    (offenEntsch ? `<span>⚖ Offene Entscheidungen <b>${offenEntsch}</b></span>` : "") +
+    (zaehl.kommentar ? `<span>✎ Kommentare <b>${zaehl.kommentar}</b></span>` : "");
+}
+
+/* ---------- Ausgabe ---------- */
+function alsMarkdown(){
+  const folge = sichtbar();
+  const entsch = LISTE.gruppen.filter(g => g.nurEines && folge.gruppen.has(g.name));
+  const normale = sichtbareP().filter(p => !p.eines && !p.hinweis);
+  const hinweise = sichtbareP().filter(p => p.hinweis);
+  const entfallen = alleP().filter(p => !folge.ids.has(p.id));
+  const zeilen = [`# ${LISTE.titel}`, ""];
+  if (LISTE.untertitel) zeilen.push(LISTE.untertitel, "");
+
+  // Unbekannte Wahl (z. B. ein Punkt wechselte zwischen zwei Fassungen die Art) zählt als offen.
+  const gew = { ja:[], spaeter:[], idee:[], nein:[], offen:[] };
+  normale.forEach(p => (gew[z(p.id).w] || gew.offen).push(p));
+  const hin = { erledigt:[], hilfe:[], offen:[] };
+  hinweise.forEach(p => (hin[z(p.id).w] || hin.offen).push(p));
+  if (normale.length)
+    zeilen.push(`**Auswahl:** ${gew.ja.length}× wichtig · ${gew.spaeter.length}× später · ${gew.idee.length}× Idee · ${gew.nein.length}× nein · ${gew.offen.length}× offen (von ${normale.length})`, "");
+  if (hinweise.length)
+    zeilen.push(`**Hinweise (nur du):** ${hin.erledigt.length}× erledigt/verstanden · ${hin.hilfe.length}× brauche Hilfe · ${hin.offen.length}× offen (von ${hinweise.length})`, "");
+  if (entsch.length){
+    const getroffen = entsch.filter(g => g.punkte.some(p => z(p.id).w === "ja")).length;
+    zeilen.push(`**Entscheidungen (je nur ein Weg möglich):** ${getroffen} von ${entsch.length} getroffen`, "");
+  }
+
+  // Zuerst die Weggabelungen — sie bestimmen die Richtung.
+  if (entsch.length){
+    zeilen.push(`## Entscheidungen — je nur ein Weg`, "");
+    entsch.forEach(g => {
+      const gewaehlt = g.punkte.find(p => z(p.id).w === "ja");
+      const rest = g.punkte.filter(p => !gewaehlt || p.id !== gewaehlt.id);
+      zeilen.push(`### ${g.name}`);
+      if (g.frage) zeilen.push(g.frage, "");
+      zeilen.push(gewaehlt
+        ? `- [x] **Gewählt: ${gewaehlt.id} — ${gewaehlt.titel}**`
+        : `- [ ] **Noch nicht entschieden.**`);
+      if (gewaehlt && gewaehlt.tun) zeilen.push(`      Möglich: ${gewaehlt.tun}`);
+      if (gewaehlt && gewaehlt.quelle) zeilen.push(`      Quelle: \`${gewaehlt.quelle}\``);
+      if (rest.length) zeilen.push(`      Nicht gewählt: ${rest.map(p => `${p.id} (${p.titel})`).join(" · ")}`);
+      const gk = z(gKey(g)).k.trim();
+      if (gk) zeilen.push(`      💬 **Kommentar zur Entscheidung:** ${gk.replace(/\n+/g, " ")}`);
+      g.punkte.forEach(p => {
+        const k = z(p.id).k.trim();
+        if (k) zeilen.push(`      💬 **Kommentar zu ${p.id}:** ${k.replace(/\n+/g, " ")}`);
+      });
+      zeilen.push("");
+    });
+  }
+
+  const block = (arr, ueber, haken = " ", mitDetails = true) => {
+    if (!arr.length) return;
+    zeilen.push(`## ${ueber} (${arr.length})`, "");
+    arr.forEach(p => {
+      const s = z(p.id);
+      zeilen.push(`- [${haken}] **${p.id} — ${p.titel}**${p.risiko ? ` _(${p.risiko})_` : ""}${p.gruppe ? ` · ${p.gruppe}` : ""}`);
+      if (mitDetails && p.tun) zeilen.push(`      ${p.hinweis ? "Zu tun" : "Möglich"}: ${p.tun}`);
+      if (mitDetails && p.quelle) zeilen.push(`      Quelle: \`${p.quelle}\``);
+      if (s.k.trim()) zeilen.push(`      💬 **Kommentar:** ${s.k.trim().replace(/\n+/g, " ")}`);
+    });
+    zeilen.push("");
+  };
+  block(hin.hilfe, "Brauche Hilfe — hier bitte unterstützen");
+  block(gew.ja, "Wichtig — bitte angehen", "x");
+  block(gew.spaeter, "Später");
+  block(gew.idee, "Idee — aufheben und weiterdenken, nicht jetzt umsetzen");
+  block(gew.nein, "Nicht nötig");
+  block(gew.offen, "Noch offen / nicht entschieden");
+  block(hin.offen, "Hinweise noch nicht abgehakt");
+  block(hin.erledigt, "Erledigt / verstanden — abgehakt", "x", false);
+  if (entfallen.length)
+    zeilen.push(`**Entfallen, weil die Voraussetzung nicht gewählt ist:** ${entfallen.map(p => `${p.id} (${p.titel})`).join(" · ")}`, "");
+  if (LISTE.meta) zeilen.push("---", LISTE.meta);
+  return zeilen.join("\n");
+}
+function alsJson(){
+  return JSON.stringify({ liste: LISTE.titel, stand: new Date().toISOString().slice(0,10), auswahl: zustand }, null, 2);
+}
+function dialogFuellen(){
+  const md_ = dlgModus === "md";
+  $("#d-text").value = md_ ? alsMarkdown() : alsJson();
+  $("#d-text").readOnly = false;
+  $("#d-info").textContent = md_
+    ? "Diesen Text kopieren und Claude in den Chat geben — daraus wird gearbeitet."
+    : "Sicherung deiner Auswahl. Über „Auswahl einlesen“ lässt sie sich später wiederherstellen.";
+  $("#d-uebernehmen").style.display = "none";
+  $("#d-tabs").querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.tab === dlgModus)));
+}
+
+/* ---------- Bedienung ---------- */
+function start(){
+  laden();
+  aufbauen();
+  zeichnen();
+
+  const gesp = localStorage.getItem(STORE_KEY + ":thema");
+  if (gesp) document.documentElement.dataset.thema = gesp;
+  else if (matchMedia("(prefers-color-scheme: dark)").matches) document.documentElement.dataset.thema = "dunkel";
+
+  $("#b-thema").addEventListener("click", () => {
+    const neu = document.documentElement.dataset.thema === "dunkel" ? "hell" : "dunkel";
+    document.documentElement.dataset.thema = neu;
+    localStorage.setItem(STORE_KEY + ":thema", neu);
+  });
+  $("#b-drucken").addEventListener("click", () => window.print());
+
+  document.querySelectorAll(".filter .chip").forEach(c => c.addEventListener("click", () => {
+    filter = c.dataset.f;
+    document.querySelectorAll(".filter .chip").forEach(o => o.setAttribute("aria-pressed", String(o === c)));
+    zeichnen();
+  }));
+  $("#suche").addEventListener("input", e => { suchtext = e.target.value.trim().toLowerCase(); zeichnen(); });
+
+  $("#b-export").addEventListener("click", () => { dlgModus = "md"; $("#d-titel").textContent = "Auswahl ausgeben"; dialogFuellen(); $("#dlg").showModal(); });
+  $("#d-zu").addEventListener("click", () => $("#dlg").close());
+  $("#d-tabs").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; dlgModus = c.dataset.tab; dialogFuellen(); });
+
+  $("#d-kopieren").addEventListener("click", async () => {
+    const t = $("#d-text");
+    try { await navigator.clipboard.writeText(t.value); toast("kopiert"); }
+    catch(e){ t.select(); document.execCommand("copy"); toast("kopiert"); }
+  });
+  $("#d-datei").addEventListener("click", () => {
+    const md_ = dlgModus === "md";
+    const name = (LISTE.titel || "Liste").replace(/[^\wÄÖÜäöüß -]+/g,"").trim().replace(/\s+/g,"_")
+               + (md_ ? "_Auswahl.md" : "_Auswahl.json");
+    const blob = new Blob([$("#d-text").value], {type: md_ ? "text/markdown;charset=utf-8" : "application/json;charset=utf-8"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = name; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  });
+
+  $("#b-import").addEventListener("click", () => {
+    dlgModus = "json";
+    $("#d-titel").textContent = "Auswahl einlesen";
+    $("#d-text").value = "";
+    $("#d-info").textContent = "Zuvor gesicherten JSON-Text hier einfügen und auf „Einlesen und übernehmen“ klicken.";
+    $("#d-tabs").querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed","false"));
+    $("#d-uebernehmen").style.display = "";
+    $("#dlg").showModal();
+    $("#d-text").focus();
+  });
+  $("#d-uebernehmen").addEventListener("click", () => {
+    try {
+      const o = JSON.parse($("#d-text").value);
+      const a = o.auswahl || o;
+      if (typeof a !== "object") throw 0;
+      zustand = {};
+      Object.keys(a).forEach(k => { zustand[k] = { w: a[k].w || "", k: a[k].k || "" }; });
+      localStorage.setItem(STORE_KEY, JSON.stringify(zustand));
+      $("#dlg").close(); aufbauen(); zeichnen(); toast("übernommen");
+    } catch(e){ toast("Das war kein gültiger JSON-Text"); }
+  });
+
+  $("#b-reset").addEventListener("click", () => {
+    if (!confirm("Alle Haken und Kommentare in dieser Liste löschen?")) return;
+    zustand = {}; localStorage.removeItem(STORE_KEY);
+    aufbauen(); zeichnen(); toast("zurückgesetzt");
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "/" && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) { e.preventDefault(); $("#suche").focus(); }
+  });
+}
+start();
+</script>
+</body>
+</html>

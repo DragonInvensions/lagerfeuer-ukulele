@@ -1,0 +1,48 @@
+{
+  "format": "liedspur/1",
+  "id": "ducktales",
+  "titel": "DuckTales",
+  "untertitel": "Mark Mueller, 1987 · Titellied",
+  "gemeinfrei": false,
+  "stufe": 4,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":150}
+  ],
+  "schlagmuster": "Achtel durch",
+  "abschnitte": [
+    {"ab":0,"name":"Strophe"},
+    {"ab":64,"name":"Refrain"}
+  ],
+  "zeilen": [0,16,32,48,64,80],
+  "akkorde": [
+    {"ab":0,"akk":"C"},
+    {"ab":4,"akk":"C7"},
+    {"ab":8,"akk":"F"},
+    {"ab":12,"akk":"C"},
+    {"ab":16,"akk":"F"},
+    {"ab":20,"akk":"C"},
+    {"ab":24,"akk":"G"},
+    {"ab":32,"akk":"C"},
+    {"ab":36,"akk":"C7"},
+    {"ab":40,"akk":"F"},
+    {"ab":44,"akk":"C"},
+    {"ab":48,"akk":"F"},
+    {"ab":52,"akk":"C"},
+    {"ab":56,"akk":"G"},
+    {"ab":60,"akk":"C"},
+    {"ab":64,"akk":"F"},
+    {"ab":68,"akk":"G"},
+    {"ab":72,"akk":"C"},
+    {"ab":76,"akk":"Am"},
+    {"ab":80,"akk":"F"},
+    {"ab":84,"akk":"G"},
+    {"ab":88,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 96,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Schnell, dicht, und mit dem <b>C7</b> gleich im zweiten Takt — genau der Akkord, der dem Lied seinen Achtziger-Cartoon-Schwung gibt. Er ist leicht: ein C, bei dem der Zeigefinger zusätzlich in den 1. Bund der A-Saite geht. Achtelmuster durchziehen und nicht langsamer werden.",
+  "textsuche": "DuckTales Titellied deutsch Text"
+}

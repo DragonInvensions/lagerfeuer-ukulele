@@ -1,0 +1,47 @@
+{
+  "format": "liedspur/1",
+  "id": "letitbe",
+  "titel": "Let It Be",
+  "untertitel": "The Beatles, 1970",
+  "gemeinfrei": false,
+  "stufe": 3,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":72}
+  ],
+  "schlagmuster": "Balladenschlag",
+  "abschnitte": [
+    {"ab":0,"name":"Strophe"},
+    {"ab":64,"name":"Refrain"}
+  ],
+  "zeilen": [0,16,32,48,64,80],
+  "akkorde": [
+    {"ab":0,"akk":"C"},
+    {"ab":4,"akk":"G"},
+    {"ab":8,"akk":"Am"},
+    {"ab":12,"akk":"F"},
+    {"ab":16,"akk":"C"},
+    {"ab":20,"akk":"G"},
+    {"ab":24,"akk":"F"},
+    {"ab":28,"akk":"C"},
+    {"ab":36,"akk":"G"},
+    {"ab":40,"akk":"Am"},
+    {"ab":44,"akk":"F"},
+    {"ab":48,"akk":"C"},
+    {"ab":52,"akk":"G"},
+    {"ab":56,"akk":"F"},
+    {"ab":60,"akk":"C"},
+    {"ab":64,"akk":"Am"},
+    {"ab":68,"akk":"G"},
+    {"ab":72,"akk":"F"},
+    {"ab":76,"akk":"C"},
+    {"ab":84,"akk":"G"},
+    {"ab":88,"akk":"F"},
+    {"ab":92,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 96,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Dieselben vier Akkorde wie oben, aber in zwei verschiedenen Reihenfolgen — Strophe und Refrain unterscheiden sich nur darin, wo sie anfangen. Der Refrain beginnt auf <b>Am</b> statt auf C, und genau das erzeugt den Umschwung. Ein gutes Beispiel dafür, dass Musik oft nicht aus mehr Material besteht, sondern aus derselben Sache in anderer Reihenfolge."
+}

@@ -1,0 +1,43 @@
+{
+  "format": "liedspur/1",
+  "id": "bienemaja",
+  "titel": "Die Biene Maja",
+  "untertitel": "Karel Svoboda / Karel Gott · Titellied",
+  "gemeinfrei": false,
+  "stufe": 3,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":120}
+  ],
+  "schlagmuster": "Der Klassiker",
+  "abschnitte": [
+    {"ab":0,"name":"Strophe"},
+    {"ab":48,"name":"Refrain"}
+  ],
+  "zeilen": [0,16,32,48,64],
+  "akkorde": [
+    {"ab":0,"akk":"C"},
+    {"ab":8,"akk":"G"},
+    {"ab":12,"akk":"C"},
+    {"ab":24,"akk":"G"},
+    {"ab":28,"akk":"C"},
+    {"ab":32,"akk":"F"},
+    {"ab":36,"akk":"C"},
+    {"ab":40,"akk":"G"},
+    {"ab":44,"akk":"C"},
+    {"ab":48,"akk":"G"},
+    {"ab":52,"akk":"C"},
+    {"ab":56,"akk":"Dm"},
+    {"ab":60,"akk":"G7"},
+    {"ab":64,"akk":"C"},
+    {"ab":68,"akk":"F"},
+    {"ab":72,"akk":"G7"},
+    {"ab":76,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 80,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Im Original steht das Lied in D-Dur; hier nach C geschoben, damit du ohne Barré auskommst. Mit dem <b>+2</b> auf dem Transponier-Knopf bist du zurück im Original — dann brauchst du D, A, G, Em, und das Lied liegt für viele Stimmen bequemer.",
+  "textsuche": "Biene Maja Karel Gott Text"
+}

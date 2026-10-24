@@ -1,0 +1,42 @@
+{
+  "format": "liedspur/1",
+  "id": "rainbow",
+  "titel": "Somewhere Over The Rainbow",
+  "untertitel": "Arlen/Harburg 1939 · in der Fassung von IZ",
+  "gemeinfrei": false,
+  "stufe": 4,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":84}
+  ],
+  "schlagmuster": "Der Klassiker",
+  "abschnitte": [
+    {"ab":0,"name":"Vorspiel"},
+    {"ab":32,"name":"Strophe"}
+  ],
+  "zeilen": [0,16,32,48,64,80],
+  "akkorde": [
+    {"ab":0,"akk":"C"},
+    {"ab":4,"akk":"Em"},
+    {"ab":8,"akk":"Am"},
+    {"ab":12,"akk":"F"},
+    {"ab":16,"akk":"C"},
+    {"ab":20,"akk":"G"},
+    {"ab":24,"akk":"Am"},
+    {"ab":28,"akk":"F"},
+    {"ab":32,"akk":"C"},
+    {"ab":40,"akk":"Em"},
+    {"ab":48,"akk":"Am"},
+    {"ab":56,"akk":"F"},
+    {"ab":64,"akk":"C"},
+    {"ab":72,"akk":"G"},
+    {"ab":80,"akk":"Am"},
+    {"ab":84,"akk":"F"},
+    {"ab":88,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 96,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Die hawaiianische Fassung von Israel Kamakawiwoʻole hat dieses Lied zur inoffiziellen Hymne der Ukulele gemacht. Das Vorspiel <b>C – Em – Am – F</b> ist der berühmteste Ukulelen-Anfang überhaupt — vier Takte, die jeder sofort erkennt. Wenn du nur ein einziges Vorspiel auswendig lernst, dann dieses."
+}

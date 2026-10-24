@@ -1,0 +1,52 @@
+{
+  "format": "liedspur/1",
+  "id": "bobbaumeister",
+  "titel": "Bob der Baumeister",
+  "untertitel": "Paul K. Joyce, 2001 · Titellied („Yo, wir schaffen das!“)",
+  "gemeinfrei": false,
+  "stufe": 2,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":136}
+  ],
+  "schlagmuster": "Achtel durch",
+  "abschnitte": [
+    {"ab":0,"name":"Strophe"},
+    {"ab":64,"name":"Refrain (Ruf und Antwort)"}
+  ],
+  "zeilen": [0,16,32,48,64,72,80,88],
+  "akkorde": [
+    {"ab":0,"akk":"F"},
+    {"ab":4,"akk":"C"},
+    {"ab":8,"akk":"F"},
+    {"ab":12,"akk":"C"},
+    {"ab":16,"akk":"F"},
+    {"ab":20,"akk":"C"},
+    {"ab":24,"akk":"G"},
+    {"ab":28,"akk":"C"},
+    {"ab":32,"akk":"F"},
+    {"ab":36,"akk":"C"},
+    {"ab":40,"akk":"F"},
+    {"ab":44,"akk":"C"},
+    {"ab":48,"akk":"F"},
+    {"ab":52,"akk":"C"},
+    {"ab":56,"akk":"G"},
+    {"ab":60,"akk":"C"},
+    {"ab":72,"akk":"F"},
+    {"ab":76,"akk":"G"},
+    {"ab":80,"akk":"C"},
+    {"ab":88,"akk":"G"},
+    {"ab":92,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 96,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Ein Lied, das fast nur zwischen <b>F und C</b> hin- und herspringt — Subdominante und Tonika, mehr braucht es nicht. Genau zweimal pro Strophe kommt stattdessen ein <b>G</b>, und zwar immer an derselben Stelle (Zeile 2 und Zeile 4). Wenn du das hörst, hast du das Lied verstanden.<br><br>Der Refrain ist Ruf und Antwort: einer fragt, alle antworten. Damit funktioniert es mit Kindern am Lagerfeuer sofort, auch wenn niemand den Text auswendig kann. Tempo hoch halten und die Achtel durchziehen — das Lied lebt vom Schwung, nicht von der Genauigkeit.",
+  "quellen": [
+    {"t":"Akkorde (A-Dur) — e-chords.com","u":"https://www.e-chords.com/chords/misc-cartoons/bob-der-baumeister-theme"}
+  ],
+  "akkordeGeprueft": true,
+  "textsuche": "Bob der Baumeister Yo wir schaffen das Text deutsch",
+  "texthinweis": "Suche nach dem deutschen Text von „Yo, wir schaffen das!“ — vier Strophenzeilen, dann der Ruf-und-Antwort-Refrain."
+}

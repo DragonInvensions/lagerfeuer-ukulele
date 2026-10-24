@@ -1,0 +1,45 @@
+{
+  "format": "liedspur/1",
+  "id": "pippi",
+  "titel": "Hey Pippi Langstrumpf",
+  "untertitel": "Pippi Langstrumpf · Titellied",
+  "gemeinfrei": false,
+  "stufe": 3,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":132}
+  ],
+  "schlagmuster": "Der Wandertakt",
+  "abschnitte": [
+    {"ab":0,"name":"Strophe"},
+    {"ab":64,"name":"Refrain"}
+  ],
+  "zeilen": [0,16,32,48,64,80],
+  "akkorde": [
+    {"ab":0,"akk":"C"},
+    {"ab":4,"akk":"Dm"},
+    {"ab":8,"akk":"G"},
+    {"ab":12,"akk":"C"},
+    {"ab":20,"akk":"Dm"},
+    {"ab":24,"akk":"G"},
+    {"ab":28,"akk":"C"},
+    {"ab":36,"akk":"Dm"},
+    {"ab":40,"akk":"G"},
+    {"ab":44,"akk":"C"},
+    {"ab":52,"akk":"Dm"},
+    {"ab":56,"akk":"G"},
+    {"ab":60,"akk":"C"},
+    {"ab":68,"akk":"F"},
+    {"ab":72,"akk":"G"},
+    {"ab":76,"akk":"C"},
+    {"ab":84,"akk":"F"},
+    {"ab":88,"akk":"G"},
+    {"ab":92,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 96,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Schnell, laut, ohne Rücksicht. Das <b>Dm</b> in der Strophe ist neu: Es ist ein F, bei dem zusätzlich der Ringfinger auf den 2. Bund der C-Saite geht. Der Refrain („falleri, fallera“) läuft über C – F – G – C und ist das, was alle mitsingen — den solltest du auswendig können.",
+  "textsuche": "Hey Pippi Langstrumpf Text"
+}

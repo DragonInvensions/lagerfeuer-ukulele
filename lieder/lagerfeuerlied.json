@@ -1,0 +1,55 @@
+{
+  "format": "liedspur/1",
+  "id": "lagerfeuerlied",
+  "titel": "Das Lagerfeuerlied-Lied",
+  "untertitel": "The Campfire Song Song · SpongeBob Schwammkopf",
+  "gemeinfrei": false,
+  "stufe": 2,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":116},
+    {"ab":64,"bpm":232}
+  ],
+  "schlagmuster": "Der Wandertakt",
+  "abschnitte": [
+    {"ab":0,"name":"Teil A — gemütlich"},
+    {"ab":64,"name":"Teil B — doppeltes Tempo, gleiche Akkorde"},
+    {"ab":128,"name":"Schluss"}
+  ],
+  "zeilen": [0,16,32,48,64,80,96,112,128],
+  "akkorde": [
+    {"ab":0,"akk":"C"},
+    {"ab":4,"akk":"F"},
+    {"ab":8,"akk":"C"},
+    {"ab":20,"akk":"F"},
+    {"ab":24,"akk":"C"},
+    {"ab":36,"akk":"F"},
+    {"ab":40,"akk":"C"},
+    {"ab":48,"akk":"D7"},
+    {"ab":56,"akk":"G7"},
+    {"ab":64,"akk":"C"},
+    {"ab":68,"akk":"F"},
+    {"ab":72,"akk":"C"},
+    {"ab":84,"akk":"F"},
+    {"ab":88,"akk":"C"},
+    {"ab":100,"akk":"F"},
+    {"ab":104,"akk":"C"},
+    {"ab":112,"akk":"D7"},
+    {"ab":120,"akk":"G7"},
+    {"ab":128,"akk":"C"},
+    {"ab":136,"akk":"G7"},
+    {"ab":140,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 144,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "<b>Der Witz des Liedes ist das Tempo.</b> Teil A spielst du gemütlich, Teil B mit exakt denselben Akkorden doppelt so schnell — und Teil C, wenn du dich traust, nochmal schneller. Nimm dir deshalb ein Ausgangstempo, das sich zu langsam anfühlt: Was du beim ersten Durchgang zu schnell ansetzt, killt dich beim zweiten.<br><br>Der Grundwechsel ist <b>C → F → C</b>, dreimal hintereinander, dann einmal <b>D7 → G7</b> als Spannungsbogen zum Schluss der Strophe. D7 ist hier der einzige neue Griff — er kommt nur an einer einzigen Stelle vor, das schaffst du.",
+  "quellen": [
+    {"t":"Akkorde abgeglichen mit UkuleleChordsSongs (Tonart C) und Scorpex Uke (Tonart G, transponiert)","u":"https://ukulelechordssongs.blogspot.com/2017/05/ukulele-chords-campfire-song-song-by-spongebob.html"}
+  ],
+  "akkordeGeprueft": true,
+  "stern": true,
+  "textsuche": "SpongeBob Das Lagerfeuerlied Lied deutsch",
+  "texthinweis": "Die deutsche Synchronfassung heisst „Das Lagerfeuerlied-Lied“ — such danach, nicht nach dem englischen Titel."
+}

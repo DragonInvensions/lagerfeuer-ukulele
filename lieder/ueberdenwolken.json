@@ -1,0 +1,47 @@
+{
+  "format": "liedspur/1",
+  "id": "ueberdenwolken",
+  "titel": "Über den Wolken",
+  "untertitel": "Reinhard Mey, 1974",
+  "gemeinfrei": false,
+  "stufe": 4,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":96}
+  ],
+  "schlagmuster": "Der Klassiker",
+  "abschnitte": [
+    {"ab":0,"name":"Strophe"},
+    {"ab":64,"name":"Refrain"}
+  ],
+  "zeilen": [0,16,32,48,64,80],
+  "akkorde": [
+    {"ab":0,"akk":"C"},
+    {"ab":4,"akk":"G"},
+    {"ab":8,"akk":"F"},
+    {"ab":12,"akk":"C"},
+    {"ab":20,"akk":"G"},
+    {"ab":24,"akk":"F"},
+    {"ab":28,"akk":"C"},
+    {"ab":32,"akk":"F"},
+    {"ab":36,"akk":"C"},
+    {"ab":40,"akk":"G"},
+    {"ab":48,"akk":"C"},
+    {"ab":52,"akk":"G"},
+    {"ab":56,"akk":"F"},
+    {"ab":60,"akk":"C"},
+    {"ab":64,"akk":"F"},
+    {"ab":68,"akk":"C"},
+    {"ab":72,"akk":"G"},
+    {"ab":76,"akk":"C"},
+    {"ab":80,"akk":"F"},
+    {"ab":84,"akk":"C"},
+    {"ab":88,"akk":"G"},
+    {"ab":92,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 96,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "Das deutsche Gegenstück zu Country Roads: Sobald der Refrain kommt, singt der ganze Platz. Im Original in D; hier nach C geschoben. Die Strophe wandert ruhig <b>C – G – F – C</b>, der Refrain hebt mit <b>F</b> ab. Genau da wird es laut — spiel den Refrain deutlich kräftiger als die Strophe."
+}

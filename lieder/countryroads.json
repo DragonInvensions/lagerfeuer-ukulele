@@ -1,0 +1,36 @@
+{
+  "format": "liedspur/1",
+  "id": "countryroads",
+  "titel": "Country Roads",
+  "untertitel": "John Denver, 1971",
+  "gemeinfrei": false,
+  "stufe": 4,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":84}
+  ],
+  "schlagmuster": "Balladenschlag",
+  "abschnitte": [
+    {"ab":0,"name":"Strophe"},
+    {"ab":48,"name":"Refrain"}
+  ],
+  "zeilen": [0,16,32,48,64],
+  "akkorde": [
+    {"ab":0,"akk":"C"},
+    {"ab":8,"akk":"Am"},
+    {"ab":16,"akk":"G"},
+    {"ab":24,"akk":"F"},
+    {"ab":32,"akk":"C"},
+    {"ab":52,"akk":"G"},
+    {"ab":56,"akk":"Am"},
+    {"ab":60,"akk":"F"},
+    {"ab":64,"akk":"C"},
+    {"ab":68,"akk":"G"},
+    {"ab":72,"akk":"C"}
+  ],
+  "silben": [],
+  "laenge": 80,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "<b>Das Lagerfeuerlied schlechthin</b> — wenn du irgendwo auf der Welt diese ersten vier Takte anspielst, singt jemand mit. Im Original in G; hier nach C, damit du bei den vier Zauberakkorden bleibst. Die Strophe hält jeden Akkord zwei volle Takte (also acht Schläge) — das gibt dir viel Zeit zum Wechseln und macht das Lied leichter, als es klingt. Der Refrain wird dann schneller in der Harmonie: <b>C – G – Am – F</b>, ein Akkord pro Takt."
+}

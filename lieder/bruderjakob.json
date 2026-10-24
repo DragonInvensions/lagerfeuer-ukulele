@@ -1,0 +1,59 @@
+{
+  "format": "liedspur/1",
+  "id": "bruderjakob",
+  "titel": "Bruder Jakob",
+  "untertitel": "Traditionell, Kanon · gemeinfrei",
+  "gemeinfrei": true,
+  "stufe": 1,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":96}
+  ],
+  "schlagmuster": "Der Wandertakt",
+  "abschnitte": [
+    {"ab":0,"name":"Kanon"}
+  ],
+  "zeilen": [0,8,16,24],
+  "akkorde": [
+    {"ab":0,"akk":"C"}
+  ],
+  "silben": [
+    {"ab":0,"lang":1,"text":"Bru-"},
+    {"ab":1,"lang":1,"text":"der"},
+    {"ab":2,"lang":1,"text":"Ja-"},
+    {"ab":3,"lang":1,"text":"kob,"},
+    {"ab":4,"lang":1,"text":"Bru-"},
+    {"ab":5,"lang":1,"text":"der"},
+    {"ab":6,"lang":1,"text":"Ja-"},
+    {"ab":7,"lang":1,"text":"kob,"},
+    {"ab":8,"lang":1.333,"text":"schläfst"},
+    {"ab":9.333,"lang":1.334,"text":"du"},
+    {"ab":10.667,"lang":1.333,"text":"noch?"},
+    {"ab":12,"lang":1.333,"text":"Schläfst"},
+    {"ab":13.333,"lang":1.334,"text":"du"},
+    {"ab":14.667,"lang":1.333,"text":"noch?"},
+    {"ab":16,"lang":0.667,"text":"Hörst"},
+    {"ab":16.667,"lang":0.666,"text":"du"},
+    {"ab":17.333,"lang":0.667,"text":"nicht"},
+    {"ab":18,"lang":0.667,"text":"die"},
+    {"ab":18.667,"lang":0.666,"text":"Glo-"},
+    {"ab":19.333,"lang":0.667,"text":"cken,"},
+    {"ab":20,"lang":0.667,"text":"hörst"},
+    {"ab":20.667,"lang":0.666,"text":"du"},
+    {"ab":21.333,"lang":0.667,"text":"nicht"},
+    {"ab":22,"lang":0.667,"text":"die"},
+    {"ab":22.667,"lang":0.666,"text":"Glo-"},
+    {"ab":23.333,"lang":0.667,"text":"cken?"},
+    {"ab":24,"lang":1.333,"text":"Ding"},
+    {"ab":25.333,"lang":1.334,"text":"dang"},
+    {"ab":26.667,"lang":1.333,"text":"dong,"},
+    {"ab":28,"lang":1.333,"text":"ding"},
+    {"ab":29.333,"lang":1.334,"text":"dang"},
+    {"ab":30.667,"lang":1.333,"text":"dong."}
+  ],
+  "laenge": 32,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "<b>Ein einziger Griff, das ganze Lied.</b> Das ist kein Trostpreis — dein Ziel ist, vier Runden am Stück durchzuhalten, ohne auf die Hand zu schauen und ohne dass der Takt schwankt. Wer das kann, hat die halbe Schlaghand schon gelernt. Bonus: Zu viert als Kanon, jede Stimme setzt zwei Takte später ein — die Akkorde passen trotzdem, weil es immer C bleibt.",
+  "akkordeGeprueft": true
+}

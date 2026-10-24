@@ -1,0 +1,40 @@
+{
+  "format": "liedspur/1",
+  "id": "imyours",
+  "titel": "I'm Yours",
+  "untertitel": "Jason Mraz, 2008",
+  "gemeinfrei": false,
+  "stufe": 3,
+  "tonart": "C",
+  "takt": [4,4],
+  "tempo": [
+    {"ab":0,"bpm":150}
+  ],
+  "schlagmuster": "Der Klassiker",
+  "abschnitte": [
+    {"ab":0,"name":"Durchgehend"}
+  ],
+  "zeilen": [0,16,32,48],
+  "akkorde": [
+    {"ab":0,"akk":"C"},
+    {"ab":4,"akk":"G"},
+    {"ab":8,"akk":"Am"},
+    {"ab":12,"akk":"F"},
+    {"ab":16,"akk":"C"},
+    {"ab":20,"akk":"G"},
+    {"ab":24,"akk":"Am"},
+    {"ab":28,"akk":"F"},
+    {"ab":32,"akk":"C"},
+    {"ab":36,"akk":"G"},
+    {"ab":40,"akk":"Am"},
+    {"ab":44,"akk":"F"},
+    {"ab":48,"akk":"C"},
+    {"ab":52,"akk":"G"},
+    {"ab":56,"akk":"Am"},
+    {"ab":60,"akk":"F"}
+  ],
+  "silben": [],
+  "laenge": 64,
+  "silbenZeit": "geschaetzt",
+  "hinweis": "<b>Die vier Zauberakkorde in Reinform</b> — C – G – Am – F, von vorne bis hinten, ohne eine einzige Ausnahme. Genau deshalb hat dieses Lied eine ganze Ukulelen-Generation großgezogen. Wenn du es kannst, kannst du die Progression; und wenn du die Progression kannst, kannst du am Lagerfeuer bei fast allem einsteigen, was jemand anstimmt."
+}

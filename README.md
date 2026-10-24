@@ -10,7 +10,7 @@ HTML-Datei. Kein Server, keine Abhängigkeiten, kein Internet nötig.
 - **8 Kapitel Handwerk** — Instrument und Stimmung, Griffbilder lesen, die ersten drei
   Griffe, Rhythmus, die Lagerfeuer-Griffe, Barré, Transponieren, und wie man tatsächlich
   vor Menschen spielt.
-- **26 Lieder** in vier Schwierigkeitsstufen, jeweils mit Takt-Raster, Griffbildern,
+- **42 Lieder** in vier Schwierigkeitsstufen, jeweils mit Takt-Raster, Griffbildern,
   Schlagmuster und Transponier-Knopf.
 - **28 Griffbilder**, aus einer Akkorddatenbank als SVG erzeugt — mit Fingersatz-Nummern.
 - **6 Schlagmuster mit Klick-Player** — man hört den Takt und sieht, welcher Schlag dran ist.
