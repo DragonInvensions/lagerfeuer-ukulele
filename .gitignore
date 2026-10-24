@@ -15,3 +15,7 @@ Thumbs.db
 # Python
 __pycache__/
 *.pyc
+
+# Impeccable: Entwurfsrunden und Pruefbilder
+.impeccable/mocks/
+.impeccable/review/

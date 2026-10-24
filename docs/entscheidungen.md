@@ -51,5 +51,17 @@ mit `"gemeinfrei": false` Text enthält. Mitgespielt wird zum eingebetteten offi
 **Warum:** Jakobs Wahl (P2, A2). Alle Geräte sehen sofort dieselben Lieder, ohne Kauf und ohne Download.
 **Verworfen:** Liedpakete per Datei-Import (P1); eigene Musikdatei (A1) oder beides (A3).
 **Offen:** Anmeldeweg (Anmeldedienst mit Google oder eigenes Passwort), Adresse auf Jarvis, ob GitHub Pages danach abgeschaltet
-wird. Woher die Auswertung am PC (B4) ihre Audiodatei nimmt, ist noch nicht entschieden. Sie braucht eine Datei, YouTube liefert nur
-den Player.
+wird.
+
+## 25.10.2026 – Audio für die Auswertung am PC per yt-dlp von YouTube
+
+**Entscheidung:** Die Pipeline (B4) lädt das Audio des offiziellen Videos per `yt-dlp` herunter, nur zur Auswertung auf dem PC.
+Die Datei bleibt lokal und wird weder gespeichert noch ausgeliefert. Mitgespielt wird weiter zum eingebetteten Video.
+**Warum:** Jakobs Wahl. Kostenlos und ohne Kauf je Lied. Ihm ist bekannt, dass das gegen YouTubes Nutzungsbedingungen verstößt.
+**Verworfen:** das Lied je ~1 € kaufen; die Pipeline weglassen.
+
+## 25.10.2026 – Zielgruppe und Gestaltungsweg
+
+**Entscheidung:** Die App ist für Jakob und seine Mitsänger, nicht für Fremde (kein Einstieg für Neue). Hauptlage ist das Handy
+am Lagerfeuer. Gestaltet wird mit dem Skill `impeccable`, direkt als Code (`.impeccable/config.json`). Produktwahrheit steht in
+`PRODUCT.md`.
