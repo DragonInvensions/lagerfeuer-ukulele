@@ -1,5 +1,6 @@
 /* Server der Lagerfeuer-Ukulele: liefert App und oeffentliche Lieder aus und – nur nach Anmeldung –
    die privaten Liedtexte. Anmeldung: Jakobs Passwort oder ein Einmal-Link (siehe zugang.js).
+   Mitsingen-Runden (runden.js) reichen Jakobs Liedstelle live an die Handys der Freunde weiter.
 
    Start: node server/server.js
    Umgebung: UKULELE_PORT (4810), UKULELE_DATEN (Ordner fuer Zugang und Texte, nie im Repo),
@@ -10,6 +11,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { zugangAnlegen, ROLLEN } from "./zugang.js";
 import { texteAblage, textspurPruefen } from "./texte.js";
+import { rundenAnlegen, standAusEingabe, TOKEN_MUSTER } from "./runden.js";
 
 const WURZEL = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ORDNER = { "/": path.join(WURZEL, "app"), "/lieder/": path.join(WURZEL, "lieder") };
@@ -32,6 +34,17 @@ export function dateiFuer(adresse) {
 
 async function oeffentlichesLied(id) {
   return JSON.parse(await fs.readFile(path.join(ORDNER["/lieder/"], `${id}.json`), "utf8"));
+}
+
+/* Fuer Ids, die von aussen kommen: erst die Form pruefen, dann ob es das Lied gibt */
+async function liedOderNull(id) {
+  if (typeof id !== "string" || !/^[a-z0-9-]{1,60}$/.test(id)) return null;
+  try {
+    return await oeffentlichesLied(id);
+  } catch (fehler) {
+    if (fehler.code === "ENOENT") return null;
+    throw fehler;
+  }
 }
 
 async function liederUebersicht(mitPrivatemText) {
@@ -65,6 +78,7 @@ export function serverStarten({
 } = {}) {
   const zugang = zugangAnlegen(daten);
   const texte = texteAblage(daten);
+  const runden = rundenAnlegen();
   const bremse = bremseAnlegen();
   const absender = (anfrage) => (hinterProxy ? String(anfrage.headers["x-forwarded-for"] ?? "").split(",")[0].trim() : "") || anfrage.socket.remoteAddress;
 
@@ -138,8 +152,8 @@ export function serverStarten({
       }
       if (anfrage.method === "PUT") {
         if (rolle !== ROLLEN.verwalter) return json(antwort, 403, { fehler: "Gäste dürfen Texte nur lesen." });
-        let lied;
-        try { lied = await oeffentlichesLied(id); } catch { return json(antwort, 404, { fehler: "Dieses Lied gibt es nicht." }); }
+        const lied = await liedOderNull(id);
+        if (!lied) return json(antwort, 404, { fehler: "Dieses Lied gibt es nicht." });
         if (lied.gemeinfrei) return json(antwort, 400, { fehler: "Gemeinfreie Lieder haben ihren Text schon im Lied." });
         const spur = await koerper(anfrage);
         const fehler = textspurPruefen(lied, spur);
@@ -148,7 +162,62 @@ export function serverStarten({
         return json(antwort, 200, { gespeichert: id });
       }
     }
+
+    if (pfad === "/api/runde" && anfrage.method === "POST") {
+      if (rolle !== ROLLEN.verwalter) return json(antwort, 403, { fehler: "Nur mit Passwort angemeldet." });
+      const { lied } = await koerper(anfrage);
+      if (!(await liedOderNull(lied))) return json(antwort, 404, { fehler: "Dieses Lied gibt es nicht." });
+      return json(antwort, 200, { token: runden.anlegen(lied) });
+    }
+    const rundenAdresse = new RegExp(`^/api/runde/(${TOKEN_MUSTER})(/strom|/text/([a-z0-9-]{1,60}))?$`).exec(pfad);
+    if (rundenAdresse) return rundeBedienen(anfrage, antwort, rolle, rundenAdresse[1], rundenAdresse[2], rundenAdresse[3]);
+
     return json(antwort, 404, { fehler: "Unbekannte Adresse" });
+  }
+
+  /* Lesen darf jeder mit dem Runden-Link, steuern nur Jakob. Den Text gibt es nur fuer das Lied, das gerade laeuft;
+     dass der Abruf das Lied nennt, verhindert, dass ein Liedwechsel dazwischen den falschen Text liefert. */
+  async function rundeBedienen(anfrage, antwort, rolle, token, teil, textLied) {
+    if (teil === "/strom" && anfrage.method === "GET") return stromOeffnen(antwort, token);
+    const stand = runden.stand(token);
+    if (!stand) return json(antwort, 404, { fehler: "Diese Runde ist vorbei." });
+    if (textLied && anfrage.method === "GET") {
+      if (textLied !== stand.lied) return json(antwort, 409, { fehler: "Dieses Lied läuft in der Runde gerade nicht." });
+      const spur = await texte.lesen(stand.lied);
+      return spur ? json(antwort, 200, spur) : json(antwort, 404, { fehler: "Für dieses Lied gibt es keinen eigenen Text." });
+    }
+    if (!teil && anfrage.method === "GET") return json(antwort, 200, { stand, serverZeit: Date.now() });
+    if (teil || !["PUT", "DELETE"].includes(anfrage.method)) return json(antwort, 404, { fehler: "Unbekannte Adresse" });
+    if (rolle !== ROLLEN.verwalter) return json(antwort, 403, { fehler: "Nur der Spielleiter steuert die Runde." });
+    if (anfrage.method === "DELETE") {
+      runden.beenden(token);
+      return json(antwort, 200, { beendet: true });
+    }
+    const { stand: neu, fehler } = standAusEingabe(await koerper(anfrage), Date.now());
+    if (fehler) return json(antwort, 400, { fehler });
+    if (neu.lied !== stand.lied && !(await liedOderNull(neu.lied))) return json(antwort, 404, { fehler: "Dieses Lied gibt es nicht." });
+    runden.melden(token, neu);
+    return json(antwort, 200, { serverZeit: Date.now() });
+  }
+
+  /* Live-Strom (Server-Sent Events): erst der aktuelle Stand, dann jede Meldung; ein Kommentar alle 25 s haelt
+     Caddy und Mobilfunk-Router davon ab, die ruhige Verbindung zu kappen. */
+  function stromOeffnen(antwort, token) {
+    const zuhoerer = {
+      senden: (stand) => antwort.write(`data: ${JSON.stringify(stand)}\n\n`),
+      ende: () => antwort.end("event: ende\ndata: {}\n\n"),
+    };
+    const abmelden = runden.zuhoeren(token, zuhoerer);
+    if (!abmelden) return json(antwort, 404, { fehler: "Diese Runde ist vorbei." });
+    if (abmelden === "voll") return json(antwort, 503, { fehler: "Diese Runde ist voll." });
+    antwort.writeHead(200, { "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-cache, no-transform",
+      "X-Content-Type-Options": "nosniff" });
+    zuhoerer.senden(runden.stand(token));
+    const herzschlag = setInterval(() => antwort.write(": weiter\n\n"), 25 * 1000);
+    antwort.on("close", () => {
+      clearInterval(herzschlag);
+      abmelden();
+    });
   }
 
   async function antworten(anfrage, antwort) {

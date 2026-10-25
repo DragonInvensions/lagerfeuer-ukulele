@@ -206,6 +206,15 @@ components:
     textColor: "{colors.leise}"
     rounded: "{rounded.sm}"
     padding: "2px 6px"
+  sing-along-dialog:
+    backgroundColor: "{colors.seite}"
+    textColor: "{colors.papier}"
+    rounded: "{rounded.lg}"
+    padding: "22px"
+  qr-card:
+    backgroundColor: "{colors.papier}"
+    textColor: "{colors.grund}"
+    rounded: "{rounded.md}"
 ---
 
 # Design System: Lagerfeuer-Ukulele
@@ -240,10 +249,10 @@ Eine warme Nachtpalette aus Schwarz, Ruß und Elfenbein, dazu zwei Signalfarben 
 - **Glutgelb** (#f0c419): das Gesungene und das Nächste. Genau zwei Aufgaben: die Füllung der Silbe, die gerade gesungen wird (sie wächst mit der Zeit von links nach rechts), und der nächste Akkord (sein Block im Lesefaden, die Zeile „dann G7 · in 1 Schlag“ und sein kleines Griffbild samt Rahmen im letzten Schlag). Dazu die Einzähl-Zahl: Beim Einzählen zählt die Liednummer den Takt in Gelb 1-2-3-4. Kontrast 11,29:1 auf dem Grund.
 
 ### Neutral
-- **Feuernacht** (#141110): Grund der ganzen App, auch Browser-Leiste (`theme-color`) und Spur des Scrollbalkens.
+- **Feuernacht** (#141110): Grund der ganzen App, auch Browser-Leiste (`theme-color`) und Spur des Scrollbalkens; die Module des QR-Codes.
 - **Rußseite** (#1f1a18): die Seite über dem Grund: Lesefaden, Griffbild-Kachel, feste Leiste, Hover des Zurück-Pfeils.
 - **Gehobene Seite** (#2a2320): Hover und gedrückter Zustand der Umschalter und Tempo-Tasten.
-- **Dünndruck-Elfenbein** (#efe9dd): Schrift, Symbole, Linien des Griffbilds, Wiederholungszeichen, Fokusring und Rand des gedrückten Umschalters. 15,54:1 auf dem Grund.
+- **Dünndruck-Elfenbein** (#efe9dd): Schrift, Symbole, Linien des Griffbilds, Wiederholungszeichen, Fokusring und Rand des gedrückten Umschalters; die Fläche der QR-Karte. 15,54:1 auf dem Grund.
 - **Leises Elfenbein** (#c9c0b3): die kommende Zeile und die Akkordbuchstaben der Nachbarzeilen. 10,45:1 auf dem Grund.
 - **Asche** (#9a8f83): alles, was nur orientiert: Untertitel, Takt-Zähler, vorige Zeile, vergangene Akkorde, ruhende Schlagzellen, Hinweise, Lade- und Fehlerzustand. 5,93:1 auf dem Grund, 5,44:1 auf der Seite.
 - **Haarlinie** (#3a312c): Takt- und Schlagstriche, Trennlinien der Liste, Ränder der Bedienelemente, ruhende Schlag-Unterstreichung, gesperrte Tempo-Taste. Die Richtungsvorgabe nannte #332b27; gebaut und gültig ist der etwas hellere Wert.
@@ -270,7 +279,7 @@ Archivo wird selbst ausgeliefert: eine variable Datei für 400 bis 800 (`app/sch
 ### Hierarchy
 - **Display** (800, 64px, 0.9, -0.03em, Tabellenziffern): die Liednummer im Kopf des Mitspielens; beim Einzählen zählt sie den Takt.
 - **Headline** (800, 46px, 1, -0.02em): der Name des laufenden Akkords neben dem Griffbild. Im Feuermodus 60px, am Laptop clamp(46px, 7.5vh, 88px).
-- **Lyric current** (600, clamp(30px, 8.6vw, 40px), 1.1, ausgeglichener Umbruch): die Zeile, die gerade gesungen wird. Im Feuermodus clamp(36px, 10.5vw, 52px), am Laptop clamp(40px, 6.4vh, 66px).
+- **Lyric current** (600, clamp(30px, 8.6vw, 40px), 1.1, ausgeglichener Umbruch): die Zeile, die gerade gesungen wird. Im Feuermodus und in der Mitsing-Ansicht der Freunde clamp(36px, 10.5vw, 52px), am Laptop clamp(40px, 6.4vh, 66px).
 - **Title** (800, 21px, 1.15, -0.01em): der Liedtitel im Kopf (ausgeglichener Umbruch) und die Akkordnamen in den Blöcken des Lesefadens.
 - **Lyric next** (400, 21px, 1.1): die kommende Zeile in Leisem Elfenbein; am Laptop clamp(21px, 3.2vh, 32px).
 - **Lyric previous** (400, 19px, 1.1): die vorige Zeile in Asche, schwach, aber lesbar.
@@ -331,7 +340,7 @@ Wenige, große, ruhige Ziele; nur eines ist rot.
 
 ### Navigation
 - **Liederliste:** Kopf mit App-Zeichen (44px) und Titel (26px, 800, -0.02em). Je Stufe eine Überschrift in der Schriftfassung des Rots (15px, 800). Jede Zeile ist ein Link als Raster 2.4ch / 1fr / auto mit 14px Lücke, 12px Innenabstand oben und unten und einer 1px-Haarlinie darunter: rote Nummer rechtsbündig (24px, 800, Tabellenziffern), Titel 18px in 600, darunter der Untertitel 13px in 400 und Asche, rechts gegebenenfalls die Marke.
-- **Mitspielen:** der Zurück-Pfeil links im Kopf führt zur Liste. Bedienung während des Spielens liegt nur in der festen Leiste: Rußseite mit 1px-Haarlinie oben, Start, Tempo, Schleife, Feuer mittig mit 10px Lücke.
+- **Mitspielen:** der Zurück-Pfeil links im Kopf führt zur Liste. Bedienung während des Spielens liegt nur in der festen Leiste: Rußseite mit 1px-Haarlinie oben, Start, Tempo, Schleife, Feuer mittig mit 10px Lücke. Rechts im Kopf sitzt, nur mit Passwort angemeldet, der Umschalter „Mitsingen“: Er wird einmal vor dem Spielen bedient, nicht währenddessen, und gehört deshalb nicht in die Leiste.
 
 ### Lesefaden (Signature Component)
 Der Akkord-Zeitstrahl, das Wiedererkennungsstück der App.
@@ -361,6 +370,12 @@ Der Akkord-Zeitstrahl, das Wiedererkennungsstück der App.
 - Felder auf Rußseite, 1.5px Haarlinienrand, 10px Rundung, Innenabstand 12px 14px, Schrift Archivo in Elfenbein; Beschriftung 14px in 600 und Leisem Elfenbein darüber. Fokus wie überall: Ring in Elfenbein.
 - Das Textfeld für den Liedtext ist mindestens 14 Zeilen hoch, Zeilenabstand 1.6. Darunter die Vorschau als nummerierte Liste wie im Liederbuch: rote Zeilennummer (Schriftfassung), Akkordfolge 13px in 800, die Silben mit Trennstrichen in 17px; Zeilen ohne Text kursiv in Asche.
 - Kopfknöpfe der Liste („Anmelden“, „Gerät einladen“, „Abmelden“): mindestens 40px hoch, 1.5px Haarlinienrand, 10px Rundung, 13px in 600. Der Einmal-Link erscheint in einer Kachel auf Rußseite mit Feld und „Kopieren“.
+
+### Mitsingen (Runde für Freunde)
+- **Knopf:** ein Umschalter (Symbol aus drei Eckquadraten, „Mitsingen“) rechts im Kopf des Mitspielens. Gedrückt (Elfenbein-Rand, Gehobene Seite), solange eine Runde läuft; die Runde folgt Jakob von Lied zu Lied.
+- **Dialog:** nativer `<dialog>`, Rußseite mit 1px-Haarlinie, 12px Rundung, 22px Innenabstand, höchstens 420px breit; dahinter Feuernacht zu 85 %. Titel 21px in 800, darunter die Anleitung (15px, Leises Elfenbein), die QR-Karte, die Link-Zeile mit „Kopieren“, ein Hinweis in Meta (wer den Code hat, sieht das laufende Lied samt Text) und rechts unten zwei Textknöpfe „Runde beenden“ und „Fertig“. Kein Rot: Der Dialog ist Einrichtung, nicht Spiel.
+- **QR-Karte:** Elfenbein mit Modulen in Feuernacht, 4 Module helle Ruhezone im Bild, 10px Rundung, so breit wie der Dialog. Auf dem Handy rund 6,5px je Modul, damit Freunde über den Tisch scannen.
+- **Ansicht der Freunde:** derselbe Kopf (Zurück, rote Liednummer, Titel), unter dem Titel der Zustand in Meta („Läuft“, „Läuft · Übungstempo 80 %“, „Pausiert“, „Lied wird geladen …“, „Verbindung weg, verbinde neu …“, „Die Runde ist beendet.“). Darunter nur der Liedtext, senkrecht mittig, die klingende Zeile in Feuermodus-Größe. Beim Einzählen zählt die Nummer wie bei Jakob in Gelb. Keine Leiste: Wer mitliest, bedient nichts; der Bildschirm bleibt wach.
 
 ### Zustände
 - Laden und Fehler stehen mittig bei 40 % der Höhe in Asche; der Fehler bietet einen Textknopf zurück zur Liste.

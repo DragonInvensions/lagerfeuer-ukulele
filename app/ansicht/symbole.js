@@ -11,6 +11,7 @@ const PFADE = {
   auf: '<path d="M12 20V5M6.5 10.5L12 5l5.5 5.5"/>',
   chunk: '<path d="M7 7l10 10M17 7L7 17"/>',
   pausenschlag: '<circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/>',
+  mitsingen: '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2M20 14v1M14 20h1M17 17v3h3"/>',
 };
 
 export function symbol(name, beschriftung = "") {

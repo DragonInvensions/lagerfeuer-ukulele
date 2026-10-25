@@ -7,6 +7,7 @@ import { liedLaden, liedNummer } from "../daten/lieder.js";
 import { rolle } from "../daten/zugang.js";
 import { metronomUhr } from "../uhren/metronom.js";
 import { fadenAnlegen, griffAnlegen, textAnlegen, schlagAnlegen } from "./spuren.js";
+import { rundenleitungAnlegen } from "./rundenleitung.js";
 import { symbol } from "./symbole.js";
 
 const TEMPI = [0.5, 0.6, 0.7, 0.8, 0.9, 1];
@@ -35,18 +36,25 @@ export async function mitspielenZeigen(wurzel, id) {
     schlagAnlegen(teil("schlag"), muster),
   ];
   const zustand = { tempoStufe: 3, schleife: null, feuer: false, wachbleiben: null, bild: 0 };
+  /* Mitsingen leiten kann nur, wer mit Passwort angemeldet ist; Freunde lesen ueber den Runden-Link mit */
+  const leitung = wer === "verwalter"
+    ? rundenleitungAnlegen(teil("rundenknopf"), teil("rundendialog"),
+      () => ({ lied: lied.id, position: uhr.position(), faktor: TEMPI[zustand.tempoStufe], laeuft: uhr.laeuft }))
+    : null;
 
   function anzeigen() {
     let position = uhr.position();
     if (zustand.schleife && position >= zustand.schleife.bis) {
       uhr.springen(zustand.schleife.von);
       position = zustand.schleife.von;
+      leitung?.melden();
     }
     if (position >= lied.laenge) {
       uhr.anhalten();
       uhr.springen(-uhr.einzaehlen);
       startKnopfZeigen();
       position = -uhr.einzaehlen;
+      leitung?.melden();
     }
     uhr.klaengeEinplanen();
     for (const spur of spuren) spur.zeigen(position);
@@ -85,11 +93,13 @@ export async function mitspielenZeigen(wurzel, id) {
       zustand.bild = requestAnimationFrame(bildschleife);
     }
     startKnopfZeigen();
+    leitung?.melden();
   }
 
   function tempoAendern(schritt) {
     zustand.tempoStufe = Math.min(Math.max(zustand.tempoStufe + schritt, 0), TEMPI.length - 1);
     uhr.tempoSetzen(TEMPI[zustand.tempoStufe]);
+    if (schritt) leitung?.melden();
     teil("tempowert").textContent = `${Math.round(TEMPI[zustand.tempoStufe] * 100)} %`;
     teil("langsamer").disabled = zustand.tempoStufe === 0;
     teil("schneller").disabled = zustand.tempoStufe === TEMPI.length - 1;
@@ -166,6 +176,7 @@ export async function mitspielenZeigen(wurzel, id) {
 
   return function aufraeumen() {
     cancelAnimationFrame(zustand.bild);
+    leitung?.beenden();
     uhr.beenden();
     zustand.wachbleiben?.release().catch(() => {});
     document.body.classList.remove("feuer");
@@ -202,6 +213,8 @@ function geruestHTML(lied, nummer, wer) {
         <h1>${esc(lied.titel)}</h1>
         <p>Stufe ${lied.stufe} · ${tonartText(lied.tonart)} · <span class="abschnitt"></span></p>
       </div>
+      ${wer === "verwalter" ? `<button class="rundenknopf umschalter" type="button" aria-pressed="false" aria-haspopup="dialog">${symbol("mitsingen")}<span>Mitsingen</span></button>
+      <dialog class="rundendialog" aria-label="Mitsingen"></dialog>` : ""}
     </header>
     <section class="faden" aria-label="Akkorde im Zeitverlauf"><div class="streifen"></div><i class="nadel" aria-hidden="true"></i></section>
     <section class="griff" aria-live="polite">

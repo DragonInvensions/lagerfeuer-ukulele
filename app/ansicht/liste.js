@@ -3,6 +3,7 @@
 import { esc } from "./html.js";
 import { liederListe, listeVergessen } from "../daten/lieder.js";
 import { rolle, abmelden, einmalLinkErzeugen } from "../daten/zugang.js";
+import { linkzeileHTML, linkzeileAnbinden } from "./linkzeile.js";
 
 export async function listeZeigen(wurzel) {
   wurzel.innerHTML = `<p class="zustand">Lieder werden geladen …</p>`;
@@ -63,18 +64,8 @@ async function einladungZeigen(bereich) {
     const link = await einmalLinkErzeugen("Einladung aus der Liederliste");
     bereich.innerHTML = `
       <p><b>Einmal-Link</b> · gilt für ein Gerät und 14 Tage. Wer ihn öffnet, kann alle Liedtexte lesen, aber nichts ändern.</p>
-      <p class="linkzeile"><input class="linkfeld" type="text" readonly value="${esc(link)}" aria-label="Einmal-Link">
-      <button class="kopfknopf kopieren" type="button">Kopieren</button></p>`;
-    const feld = bereich.querySelector(".linkfeld");
-    bereich.querySelector(".kopieren").addEventListener("click", async (ereignis) => {
-      try {
-        await navigator.clipboard.writeText(feld.value);
-        ereignis.target.textContent = "Kopiert";
-      } catch {
-        feld.select();
-        ereignis.target.textContent = "Markiert";
-      }
-    });
+      ${linkzeileHTML(link, "Einmal-Link")}`;
+    linkzeileAnbinden(bereich);
   } catch (fehler) {
     bereich.textContent = `Kein Link erzeugt: ${fehler.message}`;
   }

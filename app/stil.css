@@ -192,6 +192,31 @@ a { text-underline-offset: 3px; }
 .feuer .zeile.aktuelle { font-size: clamp(36px, 10.5vw, 52px); }
 .feuer .akkname { font-size: 60px; }
 
+/* ---------- Mitsingen ---------- */
+/* Jakobs Knopf sitzt im Kopf: Er wird einmal vor dem Spielen bedient, nicht waehrenddessen */
+.kopf .rundenknopf { margin-left: auto; flex: none; }
+
+/* Der QR-Code so gross, dass Freunde ihn ueber das Feuer hinweg scannen; die helle Ruhezone gehoert zum Bild */
+.rundendialog {
+  width: min(420px, calc(100vw - 2 * var(--rand))); max-height: calc(100dvh - 32px); margin: auto; padding: 22px;
+  color: var(--papier); background: var(--seite); border: 1px solid var(--strich); border-radius: 12px;
+}
+.rundendialog[open] { display: grid; gap: 14px; }
+.rundendialog::backdrop { background: rgb(20 17 16 / .85); }
+.rundendialog h2 { font-size: 21px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; }
+.qr { display: block; width: 100%; height: auto; border-radius: 10px; }
+.qr rect { fill: var(--papier); }
+.qr path { fill: var(--grund); }
+.dialogknoepfe { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+
+/* Freunde lesen nur mit: der Text bekommt den ganzen Bildschirm, so gross wie im Feuermodus */
+.mitsingen { display: flex; flex-direction: column; min-height: 100dvh; padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+.mitsingen .text { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.mitsingen .zeile.aktuelle { font-size: clamp(36px, 10.5vw, 52px); }
+@media (min-width: 900px) and (min-height: 700px) {
+  .mitsingen .zeile.aktuelle { font-size: clamp(40px, 6.4vh, 66px); }
+}
+
 /* ---------- Liste ---------- */
 .liste { padding: max(20px, env(safe-area-inset-top)) var(--rand) 48px; }
 .listenkopf { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }

@@ -98,3 +98,66 @@ test("Schutz: fremde Herkunft, falsche Art, Bremse beim Durchprobieren", async (
     server.close();
   }
 });
+
+/* Liest Server-Sent Events Block fuer Block; null, wenn der Strom zu ist */
+function ereignisLeser(antwort) {
+  const leser = antwort.body.pipeThrough(new TextDecoderStream()).getReader();
+  let puffer = "";
+  return async function naechstes() {
+    for (;;) {
+      const ende = puffer.indexOf("\n\n");
+      if (ende >= 0) {
+        const block = puffer.slice(0, ende);
+        puffer = puffer.slice(ende + 2);
+        return block;
+      }
+      const { value, done } = await leser.read();
+      if (done) return null;
+      puffer += value;
+    }
+  };
+}
+
+test("Mitsingen-Runde: Jakob steuert, Freunde mit dem Link hoeren live mit", async () => {
+  const { server, holen } = await testServer();
+  try {
+    assert.equal((await holen("/api/runde", { method: "POST", body: JSON.stringify({ lied: "hosezerrissen" }) })).status, 403);
+    const verwalter = cookieAus(await holen("/api/anmelden", { method: "POST", body: JSON.stringify({ passwort: PASSWORT }) }));
+    assert.equal((await holen("/api/runde", { method: "POST", cookie: verwalter, body: JSON.stringify({ lied: "../zugang" }) })).status, 404);
+    const { token } = await (await holen("/api/runde", { method: "POST", cookie: verwalter, body: JSON.stringify({ lied: "hosezerrissen" }) })).json();
+
+    const strom = await holen(`/api/runde/${token}/strom`);
+    assert.equal(strom.headers.get("content-type"), "text/event-stream; charset=utf-8");
+    const naechstes = ereignisLeser(strom);
+    assert.equal(JSON.parse((await naechstes()).slice(6)).lied, "hosezerrissen", "erst der aktuelle Stand");
+
+    const stand = { lied: "hosezerrissen", position: 12, faktor: 1, laeuft: true };
+    assert.equal((await holen(`/api/runde/${token}`, { method: "PUT", body: JSON.stringify(stand) })).status, 403, "ohne Anmeldung nicht steuern");
+    assert.equal((await holen(`/api/runde/${token}`, { method: "PUT", cookie: verwalter, body: JSON.stringify(stand), headers: { Origin: "https://boese.example" } })).status, 403);
+    assert.equal((await holen(`/api/runde/${token}`, { method: "PUT", cookie: verwalter, body: JSON.stringify({ ...stand, faktor: 9 }) })).status, 400);
+    const gemeldet = await holen(`/api/runde/${token}`, { method: "PUT", cookie: verwalter, body: JSON.stringify(stand) });
+    assert.equal(gemeldet.status, 200);
+    assert.ok(Number.isFinite((await gemeldet.json()).serverZeit));
+    assert.equal(JSON.parse((await naechstes()).slice(6)).position, 12, "Meldung kommt live an");
+    assert.equal((await (await holen(`/api/runde/${token}`)).json()).stand.position, 12);
+
+    /* Text des laufenden Lieds: Freunde brauchen keine Anmeldung, nur den Runden-Link */
+    assert.equal((await holen(`/api/runde/${token}/text/hosezerrissen`)).status, 404, "noch kein Text abgelegt");
+    const lied = await (await holen("/lieder/hosezerrissen.json")).json();
+    const { spur } = textAufZeilen(lied, "Ich hab die Hose mir zerrissen");
+    await holen("/api/texte/hosezerrissen", { method: "PUT", cookie: verwalter, body: JSON.stringify(spur) });
+    assert.equal((await (await holen(`/api/runde/${token}/text/hosezerrissen`)).json()).silben[0].text, spur.silben[0].text);
+    assert.equal((await holen(`/api/runde/${token}/text/entchen`)).status, 409, "nur das Lied, das gerade laeuft");
+    assert.equal((await holen("/api/texte/hosezerrissen")).status, 401, "der Text-Speicher selbst bleibt zu");
+
+    assert.equal((await holen(`/api/runde/${token}`, { method: "DELETE", cookie: verwalter })).status, 200);
+    assert.equal(await naechstes(), "event: ende\ndata: {}");
+    assert.equal(await naechstes(), null, "der Strom ist zu");
+    assert.equal((await holen(`/api/runde/${token}`)).status, 404);
+    assert.equal((await holen(`/api/runde/${token}/text/hosezerrissen`)).status, 404, "nach dem Ende kein Text mehr");
+    assert.equal((await holen(`/api/runde/${token}/strom`)).status, 404);
+    assert.equal((await holen("/api/runde/zukurz/strom")).status, 404);
+  } finally {
+    server.close();
+  }
+});

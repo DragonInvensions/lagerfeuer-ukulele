@@ -79,3 +79,20 @@ zum Merge `feature/neuaufbau`, danach `main`.
 Trennung in zwei Spuren hält die Regel ein, dass geschützter Text nie ins öffentliche Repo kommt.
 **Verworfen:** Google-Anmeldung über den Anmeldedienst; Texte im Gerätespeicher statt auf Jarvis (P1); eine Bibliothek für
 Silbentrennung (für Liedtexte reichen Regeln, falsche Trennungen korrigiert Jakob mit Bindestrichen).
+
+## 25.10.2026 – Mitsingen per QR-Code: Runden-Link, Live-Strom, eigener QR-Erzeuger
+
+**Entscheidung:** Jakob startet im Mitspielen eine **Runde** und zeigt einen QR-Code. Wer ihn scannt, liest den Text im Takt
+mit, ohne Anmeldung. Der Runden-Link ist der Zugang: 128 Bit zufällig, er zeigt nur das Lied, das Jakob gerade spielt (auch den
+geschützten Text), und gilt, bis Jakob die Runde beendet oder sechs Stunden Ruhe sind. Runden liegen nur im Speicher des
+Servers (höchstens drei, je 30 Zuhörer); ein Neustart beendet sie. Jakobs Handy meldet seinen Stand (Lied, Stelle, Tempo,
+läuft) bei jeder Änderung und alle zwei Sekunden. Der Server reicht ihn per Server-Sent Events weiter. Jedes Handy rechnet die
+Stelle selbst weiter und misst dazu seinen Versatz zur Server-Uhr aus den Antwortzeiten. Den QR-Code erzeugt die App selbst
+(`app/kern/qr.js`, Byte-Modus, Fehlerkorrektur M, Version 1 bis 10).
+**Warum:** Jakobs Wunsch („mach das mit QR code synchronisiert“). Am Feuer soll niemand ein Passwort tippen. Der Runden-Link
+gibt weniger frei als ein Einmal-Link (der alle Texte 14 Tage öffnet). Nur Änderungen zu schicken und lokal weiterzurechnen hält
+die Handys im Gleichlauf (gemessen: unter 10 ms Abstand), auch wenn die Verbindung kurz hakt. Der eigene QR-Erzeuger ist rund
+200 Zeilen: Gegen OpenCVs Erzeuger stimmt er Modul für Modul, und beide OpenCV-Leser lesen ihn.
+**Verworfen:** WebSocket (der Weg geht nur vom Server zu den Freunden, dafür reicht SSE ohne Zusatzcode); Abfragen im
+Sekundentakt (zu grob für Silben); Freunde per Einmal-Link anmelden; ein QR-Paket von npm oder ein QR-Dienst im Netz (neue
+Abhängigkeit bzw. der Link ginge an einen fremden Server); die Runde in einer Datei speichern (eine Runde lebt einen Abend lang).
