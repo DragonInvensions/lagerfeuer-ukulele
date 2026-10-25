@@ -357,6 +357,11 @@ Der Akkord-Zeitstrahl, das Wiedererkennungsstück der App.
 ### Schlagzeile
 - Eine Zelle je Achtel, alle gleich breit, 4px Lücke, 50px hoch, Symbol 26px (ab, auf, Chunk, Pausenpunkt) über einer 3px-Unterstreichung in Haarlinie. Die Zelle, die gerade dran ist, zeigt ihr Symbol in Elfenbein und ihre Unterstreichung in Rot. Kein Kasten, keine Füllung.
 
+### Formulare (Anmelden, Text einfügen)
+- Felder auf Rußseite, 1.5px Haarlinienrand, 10px Rundung, Innenabstand 12px 14px, Schrift Archivo in Elfenbein; Beschriftung 14px in 600 und Leisem Elfenbein darüber. Fokus wie überall: Ring in Elfenbein.
+- Das Textfeld für den Liedtext ist mindestens 14 Zeilen hoch, Zeilenabstand 1.6. Darunter die Vorschau als nummerierte Liste wie im Liederbuch: rote Zeilennummer (Schriftfassung), Akkordfolge 13px in 800, die Silben mit Trennstrichen in 17px; Zeilen ohne Text kursiv in Asche.
+- Kopfknöpfe der Liste („Anmelden“, „Gerät einladen“, „Abmelden“): mindestens 40px hoch, 1.5px Haarlinienrand, 10px Rundung, 13px in 600. Der Einmal-Link erscheint in einer Kachel auf Rußseite mit Feld und „Kopieren“.
+
 ### Zustände
 - Laden und Fehler stehen mittig bei 40 % der Höhe in Asche; der Fehler bietet einen Textknopf zurück zur Liste.
 

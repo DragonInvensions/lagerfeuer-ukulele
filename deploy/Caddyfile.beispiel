@@ -1,0 +1,13 @@
+# Block fuer /etc/caddy/Caddyfile auf Jarvis. Der Node-Dienst hoert nur auf 127.0.0.1.
+ukulele.167-233-249-92.sslip.io {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:4810 {
+		# Ohne das saehe die Anmelde-Bremse nur die Adresse von Caddy und wuerfe alle in einen Topf
+		header_up X-Forwarded-For {remote_host}
+	}
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Robots-Tag "noindex, nofollow"
+		-Server
+	}
+}

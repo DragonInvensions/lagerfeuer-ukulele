@@ -65,3 +65,17 @@ Die Datei bleibt lokal und wird weder gespeichert noch ausgeliefert. Mitgespielt
 **Entscheidung:** Die App ist für Jakob und seine Mitsänger, nicht für Fremde (kein Einstieg für Neue). Hauptlage ist das Handy
 am Lagerfeuer. Gestaltet wird mit dem Skill `impeccable`, direkt als Code (`.impeccable/config.json`). Produktwahrheit steht in
 `PRODUCT.md`.
+
+## 25.10.2026 – Private Liedtexte: eigenes Passwort, Einmal-Links, Textspur auf Jarvis
+
+**Entscheidung:** Jakob meldet sich mit einem eigenen Passwort an (scrypt, signierter Cookie, wie beim Hörpult). Für
+andere Geräte und Freunde erzeugt er Einmal-Links: einmal einlösbar, 14 Tage gültig, das Gerät wird zum Gast und darf Texte
+nur lesen. Der Text eines geschützten Liedes ist eine eigene **Textspur** (`textspur/1`, nur Silben, Zeilen, Silbenzeit) in
+`/data/ukulele/texte/<id>.json` auf Jarvis. Die App legt sie beim Laden über die öffentliche Liedspur. Eingefügt wird sie in
+der App („Text einfügen“): eine Zeile je Liedzeile, Silbentrennung nach einfachen deutschen Regeln, Zeiten erst geschätzt.
+Auf Jarvis läuft der Dienst unter `ukulele.167-233-249-92.sslip.io` und folgt per Timer dem Zweig aus `UKULELE_ZWEIG`, bis
+zum Merge `feature/neuaufbau`, danach `main`.
+**Warum:** Jakobs Wahl. Ein eigenes Passwort geht sofort; beim Anmeldedienst fehlt noch der Google-Schlüssel. Die
+Trennung in zwei Spuren hält die Regel ein, dass geschützter Text nie ins öffentliche Repo kommt.
+**Verworfen:** Google-Anmeldung über den Anmeldedienst; Texte im Gerätespeicher statt auf Jarvis (P1); eine Bibliothek für
+Silbentrennung (für Liedtexte reichen Regeln, falsche Trennungen korrigiert Jakob mit Bindestrichen).

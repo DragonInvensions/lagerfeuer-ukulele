@@ -1,0 +1,21 @@
+[Unit]
+Description=Lagerfeuer-Ukulele – Mitspiel-App mit privaten Liedtexten
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/projects/lagerfeuer-ukulele
+EnvironmentFile=%h/.config/ukulele/ukulele.env
+ExecStart=/usr/bin/node %h/projects/lagerfeuer-ukulele/server/server.js
+Restart=always
+RestartSec=5
+StandardOutput=append:%h/logs/ukulele.log
+StandardError=append:%h/logs/ukulele.log
+
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

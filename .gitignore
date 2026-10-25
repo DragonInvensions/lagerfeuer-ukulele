@@ -19,3 +19,6 @@ __pycache__/
 # Impeccable: Entwurfsrunden und Pruefbilder
 .impeccable/mocks/
 .impeccable/review/
+
+# Lokale Daten des Servers (Zugang, private Liedtexte) - nie ins oeffentliche Repo
+.daten/

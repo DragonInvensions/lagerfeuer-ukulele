@@ -53,6 +53,11 @@ button { font: inherit; color: inherit; }
 #app { max-width: 640px; margin: 0 auto; }
 .zustand { padding: 40vh var(--rand) 0; color: var(--leise); text-align: center; display: grid; gap: 20px; justify-items: center; }
 .knopf { display: inline-block; padding: 12px 18px; border: 1.5px solid var(--strich); border-radius: 10px; text-decoration: none; font-weight: 600; }
+.knopf { background: none; cursor: pointer; min-height: 44px; }
+.knopf:hover { background: var(--seite-hoch); }
+.leise { color: var(--leise); font-size: 14px; }
+a { text-underline-offset: 3px; }
+.hinweis a, .leise a, .status a, .suche a { color: var(--papier); font-weight: 600; }
 
 /* ---------- Mitspielen ---------- */
 /* Der Text bekommt den freien Raum in der Mitte, die Schlag-Zeile sitzt direkt ueber der Leiste */
@@ -192,6 +197,46 @@ button { font: inherit; color: inherit; }
 .listenkopf { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
 .listenkopf img { border-radius: 10px; }
 .listenkopf h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+.kopfaktionen { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.kopfknopf {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 12px;
+  border: 1.5px solid var(--strich); border-radius: 10px; background: none;
+  font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer;
+}
+.kopfknopf:hover { background: var(--seite-hoch); }
+.einladung { display: grid; gap: 10px; padding: 14px; margin-bottom: 8px; background: var(--seite); border-radius: 12px; font-size: 14px; }
+.einladung[hidden] { display: none; }
+.linkzeile { display: flex; gap: 8px; }
+.linkfeld { flex: 1; min-width: 0; }
+
+/* ---------- Formulare: Anmelden und Text einfuegen ---------- */
+.anmelden, .texteingabe { padding: max(16px, env(safe-area-inset-top)) var(--rand) 48px; display: grid; gap: 16px; align-content: start; }
+.anmelden { max-width: 460px; margin: 0 auto; }
+.seitenkopf { display: flex; align-items: flex-start; gap: 12px; }
+.seitenkopf h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; padding-top: 6px; }
+.seitenkopf .titel p { font-size: 14px; color: var(--leise); margin-top: 4px; }
+.formular { display: grid; gap: 10px; }
+label, .feldname { font-size: 14px; font-weight: 600; color: var(--papier-leise); }
+input, textarea {
+  font: inherit; color: var(--papier); background: var(--seite);
+  border: 1.5px solid var(--strich); border-radius: 10px; padding: 12px 14px;
+}
+input::placeholder, textarea::placeholder { color: var(--leise); }
+textarea { width: 100%; min-height: 14em; line-height: 1.6; resize: vertical; }
+.fehler:empty, .hinweise:empty, .status:empty { display: none; }
+.fehler { color: var(--rot-schrift); font-size: 14px; font-weight: 600; }
+.meldung { padding: 12px 14px; background: var(--seite); border-radius: 12px; font-size: 14px; }
+.anleitung { display: grid; gap: 8px; font-size: 15px; color: var(--papier-leise); max-width: 70ch; }
+.hinweise { font-size: 14px; color: var(--papier); padding: 10px 14px; border: 1.5px solid var(--strich); border-radius: 10px; }
+.aktionen { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.status { font-size: 14px; color: var(--papier-leise); }
+.vorschaukopf { font-size: 15px; font-weight: 800; color: var(--rot-schrift); margin-top: 12px; }
+.vorschau { margin: 0; padding: 0; list-style: none; counter-reset: zeile; }
+.vorschau li { display: grid; grid-template-columns: 2.4ch 1fr; column-gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--strich); counter-increment: zeile; }
+.vorschau li::before { content: counter(zeile); grid-row: span 2; font-weight: 800; color: var(--rot-schrift); text-align: right; font-variant-numeric: tabular-nums; }
+.vorschau .akkorde { font-size: 13px; font-weight: 800; color: var(--papier-leise); word-spacing: .4em; }
+.vorschau .silben { font-size: 17px; }
+.vorschau .silben.leer { color: var(--leise); font-style: italic; }
 .liste h2 { font-size: 15px; font-weight: 800; color: var(--rot-schrift); margin: 30px 0 6px; }
 .lieder { list-style: none; margin: 0; padding: 0; }
 .lieder a { display: grid; grid-template-columns: 2.4ch 1fr auto; align-items: baseline; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--strich); text-decoration: none; }

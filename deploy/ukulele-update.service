@@ -1,0 +1,11 @@
+[Unit]
+Description=Lagerfeuer-Ukulele – neuen Stand holen und Dienst neu starten
+
+[Service]
+Type=oneshot
+Environment=HOME=%h
+EnvironmentFile=%h/.config/ukulele/ukulele.env
+WorkingDirectory=%h/projects/lagerfeuer-ukulele
+ExecStart=/usr/bin/bash %h/projects/lagerfeuer-ukulele/deploy/update.sh
+StandardOutput=append:%h/logs/ukulele-update.log
+StandardError=append:%h/logs/ukulele-update.log

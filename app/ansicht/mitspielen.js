@@ -4,6 +4,7 @@ import { viertelProTakt, taktUndSchlag } from "../kern/liedspur.js";
 import { schlagmusterNamens } from "../kern/schlagmuster.js";
 import { KLANGMODI } from "../kern/taktgeber.js";
 import { liedLaden, liedNummer } from "../daten/lieder.js";
+import { rolle } from "../daten/zugang.js";
 import { metronomUhr } from "../uhren/metronom.js";
 import { fadenAnlegen, griffAnlegen, textAnlegen, schlagAnlegen } from "./spuren.js";
 import { symbol } from "./symbole.js";
@@ -13,14 +14,14 @@ const KLANG_SPEICHER = "ukulele.klang";
 
 export async function mitspielenZeigen(wurzel, id) {
   wurzel.innerHTML = `<p class="zustand">Lied wird geladen …</p>`;
-  let lied, nummer;
+  let lied, nummer, wer;
   try {
-    [lied, nummer] = await Promise.all([liedLaden(id), liedNummer(id)]);
+    [lied, nummer, wer] = await Promise.all([liedLaden(id), liedNummer(id), rolle()]);
   } catch (fehler) {
     wurzel.innerHTML = `<div class="zustand"><p>${esc(fehler.message)}.</p><a class="knopf" href="#/">Zur Liederliste</a></div>`;
     return () => {};
   }
-  wurzel.innerHTML = geruestHTML(lied, nummer);
+  wurzel.innerHTML = geruestHTML(lied, nummer, wer);
   document.title = `${lied.titel} · Lagerfeuer-Ukulele`;
 
   const teil = (name) => wurzel.querySelector(`.${name}`);
@@ -179,7 +180,18 @@ function tonartText(tonart) {
   return tonart.endsWith("m") ? `${tonart.slice(0, -1).toLowerCase()}-Moll` : `${tonart}-Dur`;
 }
 
-function geruestHTML(lied, nummer) {
+/* Was unter dem Liedtext steht, haengt davon ab, ob es Text gibt und wer angemeldet ist */
+function texthinweisHTML(lied, wer) {
+  if (lied.gemeinfrei) return "";
+  if (lied.silben.length === 0) {
+    if (!wer) return `<p class="hinweis">Der Text dieses Liedes ist geschützt. <a href="#/anmelden">Melde dich an</a>, dann steht er hier. Bis dahin zeigt die Zeile die Akkordfolge.</p>`;
+    if (wer === "verwalter") return `<p class="hinweis">Für dieses Lied ist noch kein Text hinterlegt. <a href="#/lied/${lied.id}/text">Text einfügen</a></p>`;
+    return `<p class="hinweis">Für dieses Lied ist noch kein Text hinterlegt. Bis dahin zeigt die Zeile die Akkordfolge.</p>`;
+  }
+  return wer === "verwalter" ? `<p class="hinweis"><a href="#/lied/${lied.id}/text">Text bearbeiten</a></p>` : "";
+}
+
+function geruestHTML(lied, nummer, wer) {
   const ohneText = lied.silben.length === 0;
   return `
   <article class="mitspielen" data-takt="${viertelProTakt(lied)}">
@@ -201,7 +213,7 @@ function geruestHTML(lied, nummer) {
       <p class="zeile vorige"></p>
       <p class="zeile aktuelle"></p>
       <p class="zeile kommende"></p>
-      ${ohneText ? `<p class="hinweis">Der Text dieses Liedes ist geschützt und kommt nach der Anmeldung. Bis dahin zeigt die Zeile die Akkordfolge.</p>` : ""}
+      ${texthinweisHTML(lied, wer)}
     </section>
     <div class="schlagkopf">
       <p class="zaehler"></p>
