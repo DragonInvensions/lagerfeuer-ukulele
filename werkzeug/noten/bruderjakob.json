@@ -1,0 +1,12 @@
+{
+  "quelle": {
+    "t": "Rhythmus nach dem Notensatz des Wikibooks-Liederbuchs (CC BY-SA, 4/4, Melodie von „Brother John“)",
+    "u": "https://de.wikibooks.org/wiki/Liederbuch/_Bruder_Jakob_f%C3%BCr_Ukulele"
+  },
+  "muster": {
+    "A": "1 1 1 1 | 1 1 1 1",
+    "B": "1 1 2 | 1 1 2",
+    "C": "1/2 1/2 1/2 1/2 1 1 | 1/2 1/2 1/2 1/2 1 1"
+  },
+  "zeilen": ["A", "B", "C", "B"]
+}

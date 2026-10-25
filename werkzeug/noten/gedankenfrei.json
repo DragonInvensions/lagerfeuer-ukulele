@@ -1,0 +1,19 @@
+{
+  "quelle": {
+    "t": "Rhythmus nach dem Notensatz der deutschen Wikipedia (CC BY-SA, C-Dur, 3/4 mit Viertel-Auftakt); Strophen 2–5 nach dem Versmaß unterlegt",
+    "u": "https://de.wikipedia.org/wiki/Die_Gedanken_sind_frei"
+  },
+  "muster": {
+    "A": "1/2 1/2 ^ 1 1 1 | 2 p1",
+    "B": "1 ^ 1 1 1 | 1 1 p1",
+    "C": "1 ^ 1 1 1 | 2 p1",
+    "D": "1 ^ 1 1 1/2 1/2 | 2 p1"
+  },
+  "zeilen": [
+    "A", "B", "C", "B", "B", "B", "C", "A",
+    "D", "B", "D", "B", "B", "B", "C", "A",
+    "C", "B", "C", "B", "B", "B", "C", "A",
+    "B", "B", "B", "B", "B", "B", "C", "A",
+    "C", "B", "C", "B", "B", "B", "C", "A"
+  ]
+}

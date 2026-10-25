@@ -1,0 +1,387 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-25T00:12:46.854Z",
+  "title": "Design System: Lagerfeuer-Ukulele",
+  "extensions": {
+    "colorMeta": {
+      "rot": {
+        "role": "primary",
+        "displayName": "Mundorgel-Rot",
+        "canonical": "#d2342a",
+        "tonalRamp": [
+          "oklch(15% 0.057 28.6)",
+          "oklch(26% 0.095 28.6)",
+          "oklch(37% 0.133 28.6)",
+          "oklch(48% 0.172 28.6)",
+          "oklch(59% 0.182 28.6)",
+          "oklch(70% 0.144 28.6)",
+          "oklch(82% 0.102 28.6)",
+          "oklch(95% 0.057 28.6)"
+        ]
+      },
+      "rot-schrift": {
+        "role": "primary",
+        "displayName": "Mundorgel-Rot, Schriftfassung (Kontrast-Anpassung, keine zweite Akzentfarbe)",
+        "canonical": "#f0705f",
+        "tonalRamp": [
+          "oklch(15% 0.047 29.5)",
+          "oklch(26% 0.078 29.5)",
+          "oklch(37% 0.109 29.5)",
+          "oklch(48% 0.141 29.5)",
+          "oklch(59% 0.150 29.5)",
+          "oklch(70% 0.118 29.5)",
+          "oklch(82% 0.084 29.5)",
+          "oklch(95% 0.047 29.5)"
+        ]
+      },
+      "gelb": {
+        "role": "secondary",
+        "displayName": "Glutgelb",
+        "canonical": "#f0c419",
+        "tonalRamp": [
+          "oklch(15% 0.048 91.9)",
+          "oklch(26% 0.081 91.9)",
+          "oklch(37% 0.114 91.9)",
+          "oklch(48% 0.146 91.9)",
+          "oklch(59% 0.155 91.9)",
+          "oklch(70% 0.122 91.9)",
+          "oklch(82% 0.087 91.9)",
+          "oklch(95% 0.048 91.9)"
+        ]
+      },
+      "grund": {
+        "role": "neutral",
+        "displayName": "Feuernacht",
+        "canonical": "#141110",
+        "tonalRamp": [
+          "oklch(15% 0.002 39.3)",
+          "oklch(26% 0.003 39.3)",
+          "oklch(37% 0.004 39.3)",
+          "oklch(48% 0.005 39.3)",
+          "oklch(59% 0.006 39.3)",
+          "oklch(70% 0.004 39.3)",
+          "oklch(82% 0.003 39.3)",
+          "oklch(95% 0.002 39.3)"
+        ]
+      },
+      "seite": {
+        "role": "neutral",
+        "displayName": "Rußseite",
+        "canonical": "#1f1a18",
+        "tonalRamp": [
+          "oklch(15% 0.003 43.1)",
+          "oklch(26% 0.004 43.1)",
+          "oklch(37% 0.006 43.1)",
+          "oklch(48% 0.008 43.1)",
+          "oklch(59% 0.008 43.1)",
+          "oklch(70% 0.007 43.1)",
+          "oklch(82% 0.005 43.1)",
+          "oklch(95% 0.003 43.1)"
+        ]
+      },
+      "seite-hoch": {
+        "role": "neutral",
+        "displayName": "Gehobene Seite",
+        "canonical": "#2a2320",
+        "tonalRamp": [
+          "oklch(15% 0.003 44.6)",
+          "oklch(26% 0.006 44.6)",
+          "oklch(37% 0.008 44.6)",
+          "oklch(48% 0.011 44.6)",
+          "oklch(59% 0.011 44.6)",
+          "oklch(70% 0.009 44.6)",
+          "oklch(82% 0.006 44.6)",
+          "oklch(95% 0.003 44.6)"
+        ]
+      },
+      "papier": {
+        "role": "neutral",
+        "displayName": "Dünndruck-Elfenbein",
+        "canonical": "#efe9dd",
+        "tonalRamp": [
+          "oklch(15% 0.005 84.6)",
+          "oklch(26% 0.008 84.6)",
+          "oklch(37% 0.012 84.6)",
+          "oklch(48% 0.015 84.6)",
+          "oklch(59% 0.016 84.6)",
+          "oklch(70% 0.012 84.6)",
+          "oklch(82% 0.009 84.6)",
+          "oklch(95% 0.005 84.6)"
+        ]
+      },
+      "papier-leise": {
+        "role": "neutral",
+        "displayName": "Leises Elfenbein",
+        "canonical": "#c9c0b3",
+        "tonalRamp": [
+          "oklch(15% 0.006 77.3)",
+          "oklch(26% 0.010 77.3)",
+          "oklch(37% 0.014 77.3)",
+          "oklch(48% 0.018 77.3)",
+          "oklch(59% 0.020 77.3)",
+          "oklch(70% 0.015 77.3)",
+          "oklch(82% 0.011 77.3)",
+          "oklch(95% 0.006 77.3)"
+        ]
+      },
+      "leise": {
+        "role": "neutral",
+        "displayName": "Asche",
+        "canonical": "#9a8f83",
+        "tonalRamp": [
+          "oklch(15% 0.006 69.9)",
+          "oklch(26% 0.011 69.9)",
+          "oklch(37% 0.015 69.9)",
+          "oklch(48% 0.019 69.9)",
+          "oklch(59% 0.020 69.9)",
+          "oklch(70% 0.016 69.9)",
+          "oklch(82% 0.011 69.9)",
+          "oklch(95% 0.006 69.9)"
+        ]
+      },
+      "strich": {
+        "role": "neutral",
+        "displayName": "Haarlinie",
+        "canonical": "#3a312c",
+        "tonalRamp": [
+          "oklch(15% 0.005 50.9)",
+          "oklch(26% 0.008 50.9)",
+          "oklch(37% 0.011 50.9)",
+          "oklch(48% 0.014 50.9)",
+          "oklch(59% 0.015 50.9)",
+          "oklch(70% 0.012 50.9)",
+          "oklch(82% 0.008 50.9)",
+          "oklch(95% 0.005 50.9)"
+        ]
+      },
+      "punkt-schrift": {
+        "role": "neutral",
+        "displayName": "Reinweiß auf Rot",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0.000 0)",
+          "oklch(26% 0.000 0)",
+          "oklch(37% 0.000 0)",
+          "oklch(48% 0.000 0)",
+          "oklch(59% 0.000 0)",
+          "oklch(70% 0.000 0)",
+          "oklch(82% 0.000 0)",
+          "oklch(95% 0.000 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Liednummer",
+        "purpose": "Liednummer im Kopf des Mitspielens; zählt beim Einzählen den Takt in Gelb."
+      },
+      "headline": {
+        "displayName": "Akkordname",
+        "purpose": "Name des laufenden Akkords neben dem Griffbild."
+      },
+      "lyric-current": {
+        "displayName": "Klingende Zeile",
+        "purpose": "Die Liedzeile, die gerade gesungen wird; ihre Silben füllen sich gelb."
+      },
+      "title": {
+        "displayName": "Titel",
+        "purpose": "Liedtitel im Kopf und Akkordnamen im Lesefaden."
+      },
+      "lyric-next": {
+        "displayName": "Kommende Zeile",
+        "purpose": "Die nächste Liedzeile in Leisem Elfenbein."
+      },
+      "lyric-previous": {
+        "displayName": "Vorige Zeile",
+        "purpose": "Die vorige Liedzeile in Asche, schwach, aber lesbar."
+      },
+      "chord-letter": {
+        "displayName": "Akkordbuchstabe",
+        "purpose": "Akkord über der Silbe der klingenden Zeile, rot; nie unter 19px."
+      },
+      "body": {
+        "displayName": "Grundschrift",
+        "purpose": "Grundschrift und Tempoanzeige (dort in 600)."
+      },
+      "label": {
+        "displayName": "Als Nächstes",
+        "purpose": "„dann X · in n Schlägen“ in Gelb."
+      },
+      "meta": {
+        "displayName": "Auskunft",
+        "purpose": "Stufe · Tonart · Abschnitt, Takt-Zähler, Hinweise."
+      },
+      "caption": {
+        "displayName": "Beschriftung",
+        "purpose": "Beschriftung der Umschalter in der Leiste."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "faden-gleiten",
+        "value": "transform: translate3d(x, 0, 0) je Bild (requestAnimationFrame), an die Musikuhr gebunden; kein CSS-Übergang",
+        "purpose": "Der Lesefaden gleitet stetig unter der Nadel durch. Die einzige stetige Bewegung; sie ist der Spielkopf, keine Dekoration."
+      },
+      {
+        "name": "silben-fuellung",
+        "value": "clip-path: inset(0 calc(100% - var(--fuellung)) 0 0)",
+        "purpose": "Die gesungene Silbe füllt sich von links mit Glutgelb; dieselbe Uhr wie der Lesefaden."
+      },
+      {
+        "name": "umschalten",
+        "value": "none",
+        "purpose": "Alle übrigen Zustandswechsel (Akkordblock, Schlagzelle, Umschalter, Hover) schalten sofort, ohne transition."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "laptop",
+        "value": "(min-width: 900px) and (min-height: 700px)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Startknopf",
+      "kind": "button",
+      "refersTo": "button-start",
+      "description": "Das einzige rote Bedienelement: Start und Pause in der festen Leiste.",
+      "html": "<button class=\"ds-start\" type=\"button\" aria-label=\"Abspielen\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 5.5v13l10.5-6.5z\" fill=\"currentColor\"/></svg></button>",
+      "css": ".ds-start { width: 72px; height: 72px; border: 0; border-radius: 50%; background: var(--rot, #d2342a); color: #fff; display: grid; place-items: center; cursor: pointer; } .ds-start .ds-symbol { width: 30px; height: 30px; } .ds-start:hover { background: #e03c31; } .ds-start:focus-visible { outline: 3px solid var(--papier, #efe9dd); outline-offset: 3px; }"
+    },
+    {
+      "name": "Umschalter",
+      "kind": "button",
+      "refersTo": "toggle",
+      "description": "Schleife und Feuermodus; gedrückt mit Elfenbein-Rand auf der Gehobenen Seite, nie rot oder gelb.",
+      "html": "<div class=\"ds-reihe\"><button class=\"ds-toggle\" type=\"button\" aria-pressed=\"true\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 11a7.5 7.5 0 0 1 13-4.6L20 9M20 4v5h-5\"/><path d=\"M19.5 13a7.5 7.5 0 0 1-13 4.6L4 15M4 20v-5h5\"/></svg><span>Schleife</span></button><button class=\"ds-toggle\" type=\"button\" aria-pressed=\"false\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3c.8 3.2 5 5.4 5 10.3a5 5 0 0 1-10 0c0-2.2 1-3.7 2.2-4.8.4 2.1 1.4 3.2 2.9 3.4-1.4-2.9-1-5.9-.1-8.9z\"/></svg><span>Feuer</span></button></div>",
+      "css": ".ds-reihe { display: flex; gap: 10px; } .ds-toggle { display: grid; justify-items: center; gap: 2px; min-width: 64px; height: 52px; padding: 5px 8px; border: 1.5px solid var(--strich, #3a312c); border-radius: 12px; background: none; color: var(--papier, #efe9dd); font: 600 12px/1.4 Archivo, \"Helvetica Neue\", Arial, sans-serif; cursor: pointer; } .ds-toggle .ds-symbol { width: 22px; height: 22px; } .ds-toggle:hover { background: var(--seite-hoch, #2a2320); } .ds-toggle[aria-pressed=\"true\"] { border-color: var(--papier, #efe9dd); background: var(--seite-hoch, #2a2320); } .ds-toggle:focus-visible { outline: 3px solid var(--papier, #efe9dd); outline-offset: 3px; }"
+    },
+    {
+      "name": "Tempo",
+      "kind": "custom",
+      "refersTo": "tempo-stepper",
+      "description": "Tempo in Stufen von 50 bis 100 %; am Anschlag ist die Taste gesperrt.",
+      "html": "<div class=\"ds-tempo\" role=\"group\" aria-label=\"Tempo\"><button type=\"button\" aria-label=\"Langsamer\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 12h12\"/></svg></button><span class=\"ds-tempowert\">100 %</span><button type=\"button\" aria-label=\"Schneller\" disabled><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 12h12M12 6v12\"/></svg></button></div>",
+      "css": ".ds-tempo { display: inline-flex; align-items: center; height: 52px; border: 1.5px solid var(--strich, #3a312c); border-radius: 12px; color: var(--papier, #efe9dd); font: 600 17px/1.4 Archivo, \"Helvetica Neue\", Arial, sans-serif; } .ds-tempo button { width: 44px; height: 100%; border: 0; border-radius: 10px; background: none; color: inherit; display: grid; place-items: center; cursor: pointer; } .ds-tempo .ds-symbol { width: 24px; height: 24px; } .ds-tempo button:not(:disabled):hover { background: var(--seite-hoch, #2a2320); } .ds-tempo button:disabled { color: var(--strich, #3a312c); cursor: default; } .ds-tempo button:focus-visible { outline: 3px solid var(--papier, #efe9dd); outline-offset: 3px; } .ds-tempowert { min-width: 4.2ch; text-align: center; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Lesefaden",
+      "kind": "custom",
+      "refersTo": "thread",
+      "description": "Signatur: Akkordblöcke so breit wie ihre Dauer gleiten unter der roten Nadel durch; der laufende Akkord ist die einzige rote Platte, der nächste steht in Gelb.",
+      "html": "<section class=\"ds-faden\" aria-label=\"Akkorde im Zeitverlauf\"><div class=\"ds-streifen\"><i class=\"ds-schlag\" style=\"left:10px\"></i><i class=\"ds-takt\" style=\"left:40px\"></i><i class=\"ds-schlag\" style=\"left:70px\"></i><i class=\"ds-schlag\" style=\"left:100px\"></i><i class=\"ds-schlag\" style=\"left:130px\"></i><i class=\"ds-takt\" style=\"left:160px\"></i><i class=\"ds-schlag\" style=\"left:190px\"></i><i class=\"ds-schlag\" style=\"left:220px\"></i><i class=\"ds-schlag\" style=\"left:250px\"></i><i class=\"ds-takt\" style=\"left:280px\"></i><i class=\"ds-schlag\" style=\"left:310px\"></i><i class=\"ds-schlag\" style=\"left:340px\"></i><i class=\"ds-schlag\" style=\"left:370px\"></i><i class=\"ds-takt\" style=\"left:400px\"></i><span class=\"ds-block ds-vorbei\" style=\"left:-80px;width:120px\">F</span><span class=\"ds-block ds-jetzt\" style=\"left:40px;width:120px;padding-left:49px\">C</span><span class=\"ds-block ds-dann\" style=\"left:160px;width:120px\">G7</span><span class=\"ds-block\" style=\"left:280px;width:120px\">C</span></div><i class=\"ds-nadel\" aria-hidden=\"true\"></i></section>",
+      "css": ".ds-faden { position: relative; height: 60px; overflow: hidden; background: var(--seite, #1f1a18); border-top: 3px solid var(--rot, #d2342a); color: var(--papier, #efe9dd); font-family: Archivo, \"Helvetica Neue\", Arial, sans-serif; } .ds-streifen { position: absolute; inset: 0; } .ds-takt, .ds-schlag { position: absolute; top: 0; width: 1px; background: var(--strich, #3a312c); } .ds-takt { bottom: 0; } .ds-schlag { height: 8px; } .ds-block { position: absolute; top: 9px; height: 42px; display: flex; align-items: center; padding-left: 10px; font-size: 21px; font-weight: 800; white-space: nowrap; overflow: hidden; border-left: 2px solid var(--strich, #3a312c); } .ds-vorbei { top: 25px; height: 26px; font-size: 15px; color: var(--leise, #9a8f83); } .ds-jetzt { background: var(--rot, #d2342a); color: #fff; border-left-color: var(--rot, #d2342a); } .ds-dann { color: var(--gelb, #f0c419); } .ds-nadel { position: absolute; top: 0; left: 22%; transform: translateX(-9px); border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 12px solid var(--rot, #d2342a); }"
+    },
+    {
+      "name": "Griff jetzt und gleich",
+      "kind": "card",
+      "refersTo": "chord-diagram",
+      "description": "Griffbild des laufenden Akkords mit roten Fingerpunkten, daneben groß der Name, darunter der nächste Akkord in Gelb.",
+      "html": "<section class=\"ds-griff\"><div class=\"ds-griffbild\"><svg width=\"77.5\" height=\"92.5\" viewBox=\"0 0 77.5 92.5\" role=\"img\" aria-label=\"Griffbild C\"><rect x=\"11.25\" y=\"15\" width=\"55\" height=\"3.75\" fill=\"currentColor\"/><line x1=\"11.25\" y1=\"18.75\" x2=\"66.25\" y2=\"18.75\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".4\"/><line x1=\"11.25\" y1=\"35\" x2=\"66.25\" y2=\"35\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".4\"/><line x1=\"11.25\" y1=\"51.25\" x2=\"66.25\" y2=\"51.25\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".4\"/><line x1=\"11.25\" y1=\"67.5\" x2=\"66.25\" y2=\"67.5\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".4\"/><line x1=\"11.25\" y1=\"83.75\" x2=\"66.25\" y2=\"83.75\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".4\"/><line x1=\"11.25\" y1=\"18.75\" x2=\"11.25\" y2=\"83.75\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".6\"/><circle cx=\"11.25\" cy=\"9.375\" r=\"3.25\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".7\"/><line x1=\"29.583333333333332\" y1=\"18.75\" x2=\"29.583333333333332\" y2=\"83.75\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".6\"/><circle cx=\"29.583333333333332\" cy=\"9.375\" r=\"3.25\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".7\"/><line x1=\"47.916666666666664\" y1=\"18.75\" x2=\"47.916666666666664\" y2=\"83.75\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".6\"/><circle cx=\"47.916666666666664\" cy=\"9.375\" r=\"3.25\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".7\"/><line x1=\"66.25\" y1=\"18.75\" x2=\"66.25\" y2=\"83.75\" stroke=\"currentColor\" stroke-width=\"1.25\" opacity=\".6\"/><circle cx=\"66.25\" cy=\"59.375\" r=\"5.75\" fill=\"var(--punkt, #d2342a)\"/><text x=\"66.25\" y=\"62.375\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"800\" fill=\"var(--punkt-schrift, #fff)\">3</text></svg></div><div><span class=\"ds-akkname\">C</span><p class=\"ds-dann\">dann G7 · in 1 Schlag</p></div><p class=\"ds-zaehler\">Takt 2 · 4</p></section>",
+      "css": ".ds-griff { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; color: var(--papier, #efe9dd); font-family: Archivo, \"Helvetica Neue\", Arial, sans-serif; } .ds-griffbild { background: var(--seite, #1f1a18); border-radius: 12px; padding: 8px 8px 4px; line-height: 0; } .ds-akkname { font-size: 46px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; } .ds-dann { margin: 6px 0 0; color: var(--gelb, #f0c419); font-size: 15px; font-weight: 600; } .ds-zaehler { margin: 0; align-self: start; padding-top: 6px; color: var(--leise, #9a8f83); font-size: 14px; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Liedtext",
+      "kind": "custom",
+      "refersTo": "lyric-current",
+      "description": "Signatur: Akkord über der Silbe; die klingende Zeile trägt rote Akkordbuchstaben und füllt die gesungene Silbe gelb.",
+      "html": "<section class=\"ds-text\" aria-label=\"Liedtext\"><p class=\"ds-zeile ds-vorige\"><span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:100%\"><b class=\"ds-akk\">C</b><span>Al</span><span class=\"ds-f\" aria-hidden=\"true\">Al</span></span><span class=\"ds-silbe\" style=\"--fuellung:100%\"><span>le</span><span class=\"ds-f\" aria-hidden=\"true\">le</span></span></span> <span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:100%\"><span>mei</span><span class=\"ds-f\" aria-hidden=\"true\">mei</span></span><span class=\"ds-silbe\" style=\"--fuellung:100%\"><span>ne</span><span class=\"ds-f\" aria-hidden=\"true\">ne</span></span></span> <span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:100%\"><span>Ent</span><span class=\"ds-f\" aria-hidden=\"true\">Ent</span></span><span class=\"ds-silbe\" style=\"--fuellung:100%\"><span>chen</span><span class=\"ds-f\" aria-hidden=\"true\">chen</span></span></span></p><p class=\"ds-zeile ds-aktuelle\"><span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:100%\"><b class=\"ds-akk\">G7</b><span>schwim</span><span class=\"ds-f\" aria-hidden=\"true\">schwim</span></span><span class=\"ds-silbe\" style=\"--fuellung:100%\"><span>men</span><span class=\"ds-f\" aria-hidden=\"true\">men</span></span></span> <span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:45%\"><span>auf</span><span class=\"ds-f\" aria-hidden=\"true\">auf</span></span></span> <span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:0%\"><span>dem</span><span class=\"ds-f\" aria-hidden=\"true\">dem</span></span></span> <span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:0%\"><b class=\"ds-akk\">C</b><span>See,</span><span class=\"ds-f\" aria-hidden=\"true\">See,</span></span></span></p><p class=\"ds-zeile ds-kommende\"><span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:0%\"><b class=\"ds-akk\">C</b><span>schwim</span><span class=\"ds-f\" aria-hidden=\"true\">schwim</span></span><span class=\"ds-silbe\" style=\"--fuellung:0%\"><span>men</span><span class=\"ds-f\" aria-hidden=\"true\">men</span></span></span> <span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:0%\"><span>auf</span><span class=\"ds-f\" aria-hidden=\"true\">auf</span></span></span> <span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:0%\"><span>dem</span><span class=\"ds-f\" aria-hidden=\"true\">dem</span></span></span> <span class=\"ds-wort\"><span class=\"ds-silbe\" style=\"--fuellung:0%\"><span>See</span><span class=\"ds-f\" aria-hidden=\"true\">See</span></span></span></p></section>",
+      "css": ".ds-text { color: var(--papier, #efe9dd); font-family: Archivo, \"Helvetica Neue\", Arial, sans-serif; } .ds-zeile { position: relative; min-height: 1.3em; margin: 0; line-height: 1.1; --akkordzeile: .82em; } .ds-vorige { font-size: 19px; color: var(--leise, #9a8f83); } .ds-aktuelle { margin-top: 14px; font-size: clamp(30px, 8.6vw, 40px); font-weight: 600; text-wrap: balance; --akkordzeile: max(24px, .64em); } .ds-kommende { margin-top: 16px; font-size: 21px; color: var(--papier-leise, #c9c0b3); } .ds-wort { display: inline-block; max-width: 100%; } .ds-silbe { position: relative; display: inline-block; white-space: pre; padding-top: var(--akkordzeile); } .ds-akk { position: absolute; left: 0; top: 0; font-size: .7em; font-weight: 800; line-height: 1; color: var(--papier-leise, #c9c0b3); } .ds-aktuelle .ds-akk { font-size: max(19px, .5em); color: var(--rot, #d2342a); } .ds-f { position: absolute; inset: 0; padding-top: var(--akkordzeile); color: var(--gelb, #f0c419); clip-path: inset(0 calc(100% - var(--fuellung, 0%)) 0 0); } .ds-zeile:not(.ds-aktuelle) .ds-f { display: none; }"
+    },
+    {
+      "name": "Schlagzeile",
+      "kind": "custom",
+      "refersTo": "strum-cell",
+      "description": "Eine Zelle je Achtel über einer Unterstreichung; die laufende Zelle zeigt ihr Symbol in Elfenbein und ihre Unterstreichung in Rot.",
+      "html": "<section class=\"ds-schlag\" aria-label=\"Schlagmuster\"><span class=\"ds-zelle\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 4v15M6.5 13.5L12 19l5.5-5.5\"/></svg></span><span class=\"ds-zelle\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"1.8\" fill=\"currentColor\" stroke=\"none\"/></svg></span><span class=\"ds-zelle\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 4v15M6.5 13.5L12 19l5.5-5.5\"/></svg></span><span class=\"ds-zelle\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"1.8\" fill=\"currentColor\" stroke=\"none\"/></svg></span><span class=\"ds-zelle ds-an\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 4v15M6.5 13.5L12 19l5.5-5.5\"/></svg></span><span class=\"ds-zelle\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"1.8\" fill=\"currentColor\" stroke=\"none\"/></svg></span><span class=\"ds-zelle\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 4v15M6.5 13.5L12 19l5.5-5.5\"/></svg></span><span class=\"ds-zelle\"><svg class=\"ds-symbol\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"1.8\" fill=\"currentColor\" stroke=\"none\"/></svg></span></section>",
+      "css": ".ds-schlag { display: flex; gap: 4px; } .ds-zelle { flex: 1; display: grid; place-items: center; height: 50px; color: var(--leise, #9a8f83); border-bottom: 3px solid var(--strich, #3a312c); } .ds-zelle .ds-symbol { width: 26px; height: 26px; } .ds-zelle.ds-an { color: var(--papier, #efe9dd); border-bottom-color: var(--rot, #d2342a); }"
+    },
+    {
+      "name": "Liederliste",
+      "kind": "nav",
+      "refersTo": "song-row",
+      "description": "Nummeriert wie im Liederbuch, nach Stufe gegliedert; Stufen-Überschrift in der Schriftfassung des Rots, Marke für Lieder ohne Text.",
+      "html": "<section class=\"ds-liste\"><h2 class=\"ds-stufe\">Stufe 2</h2><ol class=\"ds-lieder\"><li><a href=\"#\"><span class=\"ds-nr\">6</span><span class=\"ds-liedtitel\">Auf de schwäb'sche Eisebahne<small>Schwäbisches Volkslied · gemeinfrei</small></span></a></li><li><a href=\"#\"><span class=\"ds-nr\">7</span><span class=\"ds-liedtitel\">Bob der Baumeister<small>Paul K. Joyce, 2001 · Titellied</small></span><span class=\"ds-marke\">nur Akkorde</span></a></li></ol></section>",
+      "css": ".ds-liste { color: var(--papier, #efe9dd); font-family: Archivo, \"Helvetica Neue\", Arial, sans-serif; } .ds-stufe { margin: 0 0 6px; font-size: 15px; font-weight: 800; color: var(--rot-schrift, #f0705f); } .ds-lieder { list-style: none; margin: 0; padding: 0; } .ds-lieder a { display: grid; grid-template-columns: 2.4ch 1fr auto; align-items: baseline; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--strich, #3a312c); color: inherit; text-decoration: none; } .ds-lieder a:focus-visible { outline: 3px solid var(--papier, #efe9dd); outline-offset: 3px; border-radius: 6px; } .ds-nr { font-size: 24px; font-weight: 800; line-height: .9; letter-spacing: -0.03em; text-align: right; color: var(--rot, #d2342a); font-variant-numeric: tabular-nums; } .ds-liedtitel { font-size: 18px; font-weight: 600; } .ds-liedtitel small { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; color: var(--leise, #9a8f83); } .ds-marke { font-size: 12px; color: var(--leise, #9a8f83); border: 1px solid var(--strich, #3a312c); border-radius: 6px; padding: 2px 6px; white-space: nowrap; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Mundorgel bei Nacht",
+    "overview": "Das Liederbuch vom Lagerfeuer, in der Hand gehalten und im Dunkeln gelesen. Wie in der Mundorgel steht der Akkord über der Silbe, auf der gewechselt wird; anders als auf Papier bewegt sich die Seite im Takt. Die Fläche ist warmes Schwarz, die Schrift dünnes Elfenbein, und genau zwei Signalfarben tragen die Zeit: Rot für das, was jetzt klingt, Gelb für das Gesungene und das Nächste.\n\nMaß und Dichte kommen vom Einsatzort: Telefon auf dem Knie oder am Ständer, eine Armlänge entfernt, beide Hände an der Ukulele. Was gelesen werden muss, ist groß und fett; was nur Orientierung gibt, tritt in Asche zurück. Gedrückt wird fast nur der rote Startknopf in der festen Leiste unten.\n\nAbgelehnt sind die Karaoke-Neonautobahn (Leuchten, Verläufe, Bahnen in Perspektive) und das cremefarbene Papier-Liederbuch. Bewegung gibt es genau einmal: Der Lesefaden gleitet stetig unter der Nadel durch, und die gesungene Silbe füllt sich mit Gelb. Alles andere schaltet ohne Animation.",
+    "keyCharacteristics": [
+      "Warmes Schwarz als Grund, drei Tonstufen statt Schatten.",
+      "Rot heißt „jetzt“, Gelb heißt „gesungen“ und „als Nächstes“; keine weitere Akzentfarbe.",
+      "Eine Schrift, Archivo, in drei Gewichten; Akkordbuchstaben immer 800.",
+      "Akkord über der Silbe, und die Seite läuft im Takt.",
+      "Eine einzige stetige Bewegung, sonst hartes Umschalten.",
+      "Lesbar aus Armlänge im Dunkeln; ein Akkordwechsel zeigt sich nie nur über Farbe."
+    ],
+    "rules": [
+      {
+        "name": "The One Red Plate Rule",
+        "body": "Rot heißt „jetzt“ oder „dieses Lied“, nie Schmuck. Im Lesefaden gibt es genau eine rote Platte, den laufenden Akkord; jede zusätzliche rote Fläche außer dem Startknopf nimmt ihr die Eindeutigkeit.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Reds Rule",
+        "body": "Mundorgel-Rot (#d2342a) trägt nur Flächen und Schrift ab 19px fett, denn mit 3,82:1 auf dem Grund besteht es nur als große Schrift. Rote Schrift darunter nimmt die Schriftfassung (#f0705f, 6,43:1). Die Schriftfassung ist eine Kontrast-Anpassung, keine zweite Akzentfarbe: nie als Fläche, nie für eine neue Aufgabe.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sung-and-Next Rule",
+        "body": "Gelb hat genau zwei Aufgaben, die gesungene Silbe und den nächsten Akkord, dazu die Einzähl-Zahl. Gedrückte Umschalter und Fokusringe sind Elfenbein, nie Gelb.",
+        "section": "colors"
+      },
+      {
+        "name": "The Chord Above Syllable Rule",
+        "body": "Der Akkordbuchstabe steht über genau der Silbe, auf der gewechselt wird, immer in 800. Jede Silbe trägt ihre eigene Akkordzeile, damit umbrochene Zeilen nicht ineinanderlaufen; ein Wort bricht als Ganzes um, nur ein Wort, das länger als die Zeile ist, bricht an seinen Silben.",
+        "section": "typography"
+      },
+      {
+        "name": "The Three Weights Rule",
+        "body": "Archivo nur in 400, 600 und 800: 800 für Zahlen, Akkorde und Titel, 600 für die klingende Zeile und die Bedienung, 400 für Fließtext und Nachbarzeilen. Was zählt (Liednummer, Tempo, Takt), steht in Tabellenziffern, damit nichts springt.",
+        "section": "typography"
+      },
+      {
+        "name": "The Fire Mode Rule",
+        "body": "Der Feuermodus nimmt weg, statt hinzuzufügen: vorige Zeile, Schlagzeile, Takt-Zähler und Hinweis verschwinden, klingende Zeile und Akkordname werden größer. Farben und Formen bleiben gleich.",
+        "section": "layout"
+      },
+      {
+        "name": "The Thumb Bar Rule",
+        "body": "Was man beim Spielen drückt, liegt in der festen Leiste unten, mittig gruppiert. Der Startknopf ist das größte Ziel (72px), kein anderes Ziel ist kleiner als 44px.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Night Rule",
+        "body": "Ebenen unterscheiden sich nur durch Ton und Linie. Ein Schatten oder ein Leuchten macht aus der Nacht eine Karaoke-Bühne.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Glide Rule",
+        "body": "Der Lesefaden ist das Einzige, das stetig gleitet, an die Musikuhr gebunden und je Bild verschoben; die gelbe Silbenfüllung ist dieselbe Uhr im Text. Alles andere schaltet ohne Übergang. Diese Bewegung ist der Spielkopf selbst, keine Dekoration; dekorative Bewegung kommt nicht dazu.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do Rot nur für seine Aufgaben einsetzen: Liednummer, die eine rote Platte des laufenden Akkords samt Fingerpunkten im Griffbild, Lesefaden mit Nadel, Startknopf, Akkordbuchstaben der klingenden Zeile, Unterstreichung der laufenden Schlagzelle.",
+      "Do rote Schrift unter 19px in der Schriftfassung (#f0705f, 6,43:1) setzen; Mundorgel-Rot (#d2342a) trägt nur Flächen und Schrift ab 19px fett.",
+      "Do Gelb nur für die gesungene Silbe, den nächsten Akkord und die Einzähl-Zahl verwenden.",
+      "Do gedrückte Zustände mit Elfenbein-Rand auf der Gehobenen Seite zeigen und Fokus mit dem 3px-Ring in Elfenbein (3px Abstand).",
+      "Do einen Akkordwechsel immer auch über Ort und Text zeigen: Platte unter der Nadel, neuer Name, „dann X · in n Schlägen“.",
+      "Do zählende Zahlen in Tabellenziffern setzen.",
+      "Do am Laptop über die Bildschirmhöhe skalieren, am Telefon über die Breite."
+    ],
+    "donts": [
+      "Don't Rot für weitere Aufgaben verwenden, auch nicht für Hinweise, Fehler oder Links; jede zusätzliche rote Fläche schwächt die eine Platte.",
+      "Don't Gelb eine dritte Aufgabe geben: weder Hover noch gedrückter Zustand, Fokus oder Links.",
+      "Don't Schatten, Verläufe oder Leuchten verwenden; keine Karaoke-Neonautobahn.",
+      "Don't den Grund hell oder cremefarben machen; das Papier-Liederbuch wird umgedreht, nicht nachgebaut.",
+      "Don't Zustandswechsel animieren (Blenden, Gleiten, Federn); stetig bewegt sich nur der Lesefaden.",
+      "Don't eine zweite Schrift oder ein viertes Gewicht einführen.",
+      "Don't Zeitblöcke runden oder in Karten verpacken; Zeit ist ein Lineal."
+    ]
+  }
+}

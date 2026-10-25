@@ -1,0 +1,15 @@
+{
+  "quelle": {
+    "t": "Rhythmus nach dem Notensatz des Wikibooks-Liederbuchs (CC BY-SA, 6/8 in Achteln), Notenwerte verdoppelt; der Pausentakt nach „mir“, „wir“ und „bumm“ fehlt in dieser Fassung, dort ist der Schlusston gekürzt",
+    "u": "https://de.wikibooks.org/wiki/Liederbuch/_Ich_geh_mit_meiner_Laterne"
+  },
+  "muster": {
+    "A1": "1 ^ 2 1 | 1 1 1 | 3 | 2 p1",
+    "A2": "1 ^ 3/2 1/2 1 | 1 1 1 | 2 p1",
+    "A4": "1 ^ 3/2 1/2 1 | 2 1 | 2 p1",
+    "B": "1 ^ 2 1 | 2 1 | 2 1 | 2 p1",
+    "R": "1 ^ 1 1 1 | 1 1 1 | 2 p1",
+    "Schluss": "1 ^ 1 1 1 | 1 1 1 | 3"
+  },
+  "zeilen": ["A1", "A2", "A1", "A4", "B", "R", "B", "R", "B", "R", "B", "R", "B", "R", "B", "Schluss"]
+}

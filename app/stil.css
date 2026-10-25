@@ -1,0 +1,173 @@
+/* Mundorgel bei Nacht: das Liederbuch vom Lagerfeuer, fuer die Dunkelheit umgedreht.
+   Rot gehoert nur Liednummer, aktuellem Akkord, Lesefaden und Start; Gelb nur dem Gesungenen und dem Naechsten. */
+:root {
+  --grund: #141110;
+  --seite: #1f1a18;
+  --seite-hoch: #2a2320;
+  --papier: #efe9dd;
+  --papier-leise: #c9c0b3;
+  --leise: #9a8f83;
+  --strich: #3a312c;
+  --rot: #d2342a;           /* Flaechen und grosse Schrift: 3,8:1 auf dem Grund */
+  --rot-schrift: #f0705f;   /* kleine rote Schrift unter 19px: 6,4:1 auf dem Grund */
+  --rot-hover: #e03c31;
+  --gelb: #f0c419;
+  --punkt: var(--rot);
+  --punkt-schrift: #fff;
+  --schrift: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --rand: clamp(16px, 5vw, 28px);
+  --leiste-hoehe: 104px;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--grund); scrollbar-color: var(--strich) var(--grund); }
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--grund);
+  color: var(--papier);
+  font-family: var(--schrift);
+  font-size: 17px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  caret-color: var(--papier);
+}
+::selection { background: var(--rot); color: #fff; }
+:focus-visible { outline: 3px solid var(--papier); outline-offset: 3px; border-radius: 6px; }
+h1, h2, p { margin: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+.symbol { width: 24px; height: 24px; flex: none; }
+
+#app { max-width: 640px; margin: 0 auto; }
+.zustand { padding: 40vh var(--rand) 0; color: var(--leise); text-align: center; display: grid; gap: 20px; justify-items: center; }
+.knopf { display: inline-block; padding: 12px 18px; border: 1.5px solid var(--strich); border-radius: 10px; text-decoration: none; font-weight: 600; }
+
+/* ---------- Mitspielen ---------- */
+/* Der Text bekommt den freien Raum in der Mitte, die Schlag-Zeile sitzt direkt ueber der Leiste */
+.mitspielen {
+  display: flex; flex-direction: column; min-height: 100dvh;
+  padding-bottom: calc(var(--leiste-hoehe) + env(safe-area-inset-bottom) + 14px);
+}
+.mitspielen .text { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+.kopf { display: flex; align-items: flex-start; gap: 12px; padding: max(16px, env(safe-area-inset-top)) var(--rand) 4px; }
+.zurueck { display: grid; place-items: center; width: 44px; height: 44px; margin: 4px 0 0 -12px; color: var(--leise); border-radius: 10px; }
+.zurueck:hover { color: var(--papier); background: var(--seite); }
+.nr {
+  min-width: 1.4em;
+  font-size: 64px; font-weight: 800; line-height: .9; letter-spacing: -0.03em;
+  color: var(--rot); font-variant-numeric: tabular-nums;
+}
+.nr.einzaehlen { color: var(--gelb); }
+.titel { flex: 1; padding-top: 6px; min-width: 0; }
+.titel h1 { font-size: 21px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; text-wrap: balance; }
+.titel p { font-size: 14px; color: var(--leise); margin-top: 4px; }
+
+/* Lesefaden: Akkorde laufen unter der roten Nadel durch */
+.faden { position: relative; height: 60px; margin-top: 18px; overflow: hidden; background: var(--seite); border-top: 3px solid var(--rot); }
+.streifen { position: absolute; inset: 0; will-change: transform; }
+.taktstrich, .schlagstrich { position: absolute; top: 0; width: 1px; background: var(--strich); }
+.taktstrich { bottom: 0; }
+.schlagstrich { height: 8px; }
+.block {
+  position: absolute; top: 9px; height: 42px;
+  display: flex; align-items: center; padding-left: 10px;
+  font-size: 21px; font-weight: 800; white-space: nowrap; overflow: hidden;
+  border-left: 2px solid var(--strich);
+}
+.block.vorbei { color: var(--leise); top: 25px; height: 26px; font-size: 15px; }
+.block.jetzt { background: var(--rot); color: #fff; border-left-color: var(--rot); }
+.block.dann { color: var(--gelb); }
+.nadel {
+  position: absolute; top: 0; left: 22%; transform: translateX(-9px);
+  border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 12px solid var(--rot);
+}
+
+.griff { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; padding: 20px var(--rand) 0; }
+.griffbild { background: var(--seite); border-radius: 12px; padding: 8px 8px 4px; color: var(--papier); line-height: 0; }
+.akkname { font-size: 46px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+.dann { color: var(--gelb); font-size: 15px; font-weight: 600; margin-top: 6px; }
+.zaehler { align-self: start; color: var(--leise); font-size: 14px; font-variant-numeric: tabular-nums; text-align: right; padding-top: 6px; }
+
+/* Text: Akkordbuchstabe ueber der Silbe, auf der gewechselt wird.
+   Jede Silbe traegt ihre eigene Akkordzeile, damit umbrochene Zeilen nicht ineinanderlaufen. */
+.text { padding: 22px var(--rand) 0; }
+.zeile { position: relative; min-height: 1.3em; line-height: 1.1; --akkordzeile: .82em; }
+.zeile.vorige { font-size: 19px; color: var(--leise); }
+.zeile.aktuelle { font-size: clamp(30px, 8.6vw, 40px); font-weight: 600; margin-top: 14px; text-wrap: balance; --akkordzeile: max(24px, .64em); }
+.zeile.kommende { font-size: 21px; color: var(--papier-leise); margin-top: 16px; }
+/* Ein Wort wandert als Ganzes in die naechste Zeile; nur ein Wort laenger als die Zeile bricht an seinen Silben */
+.wort { display: inline-block; max-width: 100%; }
+.silbe { position: relative; display: inline-block; white-space: pre; padding-top: var(--akkordzeile); }
+/* Rot nur fuer die Akkorde der Zeile, die gerade klingt; die Nachbarzeilen zeigen ihre Akkorde gedaempft */
+.silbe .akk { position: absolute; left: 0; top: 0; font-size: .7em; font-weight: 800; line-height: 1; color: var(--papier-leise); }
+.zeile.aktuelle .akk { font-size: max(19px, .5em); color: var(--rot); }
+.silbe .f { position: absolute; inset: 0; padding-top: var(--akkordzeile); color: var(--gelb); clip-path: inset(0 calc(100% - var(--fuellung, 0%)) 0 0); }
+.zeile:not(.aktuelle) .f { display: none; }
+.nurakkord { font-weight: 800; margin-right: .5em; }
+.hinweis { margin-top: 22px; font-size: 14px; color: var(--leise); max-width: 46ch; }
+
+.schlag { display: flex; gap: 4px; padding: 26px var(--rand) 0; }
+.zelle { flex: 1; display: grid; place-items: center; height: 50px; color: var(--leise); border-bottom: 3px solid var(--strich); }
+.zelle .symbol { width: 26px; height: 26px; }
+.zelle.an { color: var(--papier); border-bottom-color: var(--rot); }
+
+/* Feste Leiste: Start ist das Einzige, was man am Feuer drueckt */
+.leiste {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px var(--rand) calc(16px + env(safe-area-inset-bottom));
+  background: var(--seite); border-top: 1px solid var(--strich);
+}
+.leiste > * { flex: none; }
+.start { width: 72px; height: 72px; border: 0; border-radius: 50%; background: var(--rot); color: #fff; display: grid; place-items: center; cursor: pointer; }
+.start .symbol { width: 30px; height: 30px; }
+.start:hover { background: var(--rot-hover); }
+.tempo { display: flex; align-items: center; border: 1.5px solid var(--strich); border-radius: 12px; height: 52px; }
+.tempo button { width: 44px; height: 100%; border: 0; background: none; display: grid; place-items: center; cursor: pointer; border-radius: 10px; }
+.tempo button:disabled { color: var(--strich); cursor: default; }
+.tempowert { min-width: 4.2ch; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+.umschalter {
+  display: grid; justify-items: center; gap: 2px; min-width: 64px; height: 52px; padding: 5px 8px;
+  border: 1.5px solid var(--strich); border-radius: 12px; background: none; font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.umschalter .symbol { width: 22px; height: 22px; }
+.umschalter[aria-pressed="true"] { border-color: var(--papier); background: var(--seite-hoch); }
+.umschalter:hover, .tempo button:not(:disabled):hover { background: var(--seite-hoch); }
+
+/* Schleife: Wiederholungszeichen wie im Liederbuch auf dem Lesefaden */
+.wiederholung { position: absolute; top: 8px; bottom: 8px; width: 4px; background: var(--papier); }
+.wiederholung::before, .wiederholung::after { content: ""; position: absolute; left: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--papier); }
+.wiederholung::before { top: 30%; }
+.wiederholung::after { bottom: 30%; }
+.wiederholung.ende { transform: translateX(-100%) scaleX(-1); }
+
+/* Am Laptop zuhause: der Text waechst mit der Hoehe des Bildschirms */
+@media (min-width: 900px) and (min-height: 700px) {
+  #app { max-width: 860px; }
+  .zeile.aktuelle { font-size: clamp(40px, 6.4vh, 66px); }
+  .zeile.kommende { font-size: clamp(21px, 3.2vh, 32px); }
+  .akkname { font-size: clamp(46px, 7.5vh, 88px); }
+  .griffbild svg { width: clamp(78px, 12vh, 128px); height: auto; }
+}
+
+/* Feuermodus: nur Akkord, Griff und Zeile, noch groesser */
+.feuer .zeile.vorige, .feuer .schlag, .feuer .zaehler, .feuer .hinweis { display: none; }
+.feuer .zeile.aktuelle { font-size: clamp(36px, 10.5vw, 52px); }
+.feuer .akkname { font-size: 60px; }
+
+/* ---------- Liste ---------- */
+.liste { padding: max(20px, env(safe-area-inset-top)) var(--rand) 48px; }
+.listenkopf { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.listenkopf img { border-radius: 10px; }
+.listenkopf h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+.liste h2 { font-size: 15px; font-weight: 800; color: var(--rot-schrift); margin: 30px 0 6px; }
+.lieder { list-style: none; margin: 0; padding: 0; }
+.lieder a { display: grid; grid-template-columns: 2.4ch 1fr auto; align-items: baseline; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--strich); text-decoration: none; }
+.lieder a:hover { background: var(--seite); }
+.lieder .nr { font-size: 24px; min-width: 0; text-align: right; }
+.liedtitel { font-size: 18px; font-weight: 600; }
+.liedtitel small { display: block; font-size: 13px; font-weight: 400; color: var(--leise); margin-top: 2px; }
+.marke { font-size: 12px; color: var(--leise); border: 1px solid var(--strich); border-radius: 6px; padding: 2px 6px; white-space: nowrap; }

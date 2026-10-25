@@ -1,0 +1,13 @@
+{
+  "quelle": {
+    "t": "Rhythmus nach dem Notensatz der deutschen Wikipedia (CC BY-SA, 2/4 in Achteln), Notenwerte verdoppelt",
+    "u": "https://de.wikipedia.org/wiki/H%C3%A4nschen_klein"
+  },
+  "muster": {
+    "A1": "1 1 2 | 1 1 2 | 1 1 1 1 | 1 1 2",
+    "A2": "1 1 2 | 1 1 2 | 1 1 1 1 | 2 p2",
+    "B": "1 1 1 1 | 1 1 2 | 1 1 1 1 | 1 1 2",
+    "A3": "1 1 2 | 1 1 2 | 1 1 1 1 | 4"
+  },
+  "zeilen": ["A1", "A2", "B", "A3", "A1", "A2", "B", "A3", "A1", "A2", "B", "A3"]
+}

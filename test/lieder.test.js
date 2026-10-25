@@ -7,6 +7,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { pruefen } from "../app/kern/liedspur.js";
+import { griff } from "../app/kern/griffe.js";
+import { SCHLAGMUSTER } from "../app/kern/schlagmuster.js";
 
 const ORDNER = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "lieder");
 const dateien = fs.readdirSync(ORDNER).filter((datei) => datei.endsWith(".json"));
@@ -19,6 +21,11 @@ for (const datei of dateien) {
   test(`${datei}: gueltige Liedspur`, () => {
     assert.deepEqual(pruefen(lied), []);
     assert.equal(`${lied.id}.json`, datei, "Dateiname muss der id entsprechen");
+  });
+
+  test(`${datei}: jeder Akkord hat ein Griffbild, das Schlagmuster ist bekannt`, () => {
+    assert.deepEqual(lied.akkorde.map((akkord) => akkord.akk).filter((name) => !griff(name)), []);
+    assert.ok(SCHLAGMUSTER.some((muster) => muster.name === lied.schlagmuster), `unbekanntes Schlagmuster ${lied.schlagmuster}`);
   });
 
   test(`${datei}: Rhythmus aus Noten nennt seine Quelle`, () => {

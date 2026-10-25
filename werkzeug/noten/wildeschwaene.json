@@ -1,0 +1,22 @@
+{
+  "quelle": {
+    "t": "Rhythmus nach dem Notensatz der deutschen Wikipedia (CC BY-SA, 4/4), Notenwerte verdoppelt",
+    "u": "https://de.wikipedia.org/wiki/Zogen_einst_f%C3%BCnf_wilde_Schw%C3%A4ne"
+  },
+  "muster": {
+    "Zeile1": "2 2 | 2 2 | 2 2 | 2 2",
+    "Zeile2": "2 2 | 2 2 | 2 2 | 4",
+    "Sing": "4 | 4 | 2 2 | 4",
+    "Ja": "2 1 1 | 2 2 | 4 | 4",
+    "Ja-Keins": "2 2 | 2 2 | 4 | 4",
+    "Ja-gesehen": "2 1 1 | 2 2 | 2 2 | 4",
+    "Schluss": "2 1 1 | 2 2 | 4 | ~2 p2",
+    "Schluss-Keins": "2 2 | 2 2 | 4 | ~2 p2"
+  },
+  "zeilen": [
+    "Zeile1", "Zeile2", "Zeile1", "Zeile2", "Sing", "Ja", "Sing", "Schluss",
+    "Zeile1", "Zeile2", "Sing", "Ja", "Sing", "Schluss",
+    "Zeile1", "Zeile2", "Sing", "Ja-Keins", "Sing", "Schluss-Keins",
+    "Sing", "Ja-gesehen", "Sing", "Schluss"
+  ]
+}

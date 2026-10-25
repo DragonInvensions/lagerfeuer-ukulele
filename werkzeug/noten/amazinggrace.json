@@ -1,0 +1,28 @@
+{
+  "quelle": {
+    "t": "Rhythmus nach dem Notensatz der deutschen Wikipedia (CC BY-SA, 3/4, Auftakt Viertel); „me“ und „see“ werden wie in der üblichen 16-taktigen Fassung über den zusätzlichen Takt gehalten",
+    "u": "https://de.wikipedia.org/wiki/Amazing_Grace"
+  },
+  "muster": {
+    "A": "1 ^ 2 1 | 2 1 | 2 1 | 2 p1",
+    "B": "1 ^ 2 1 | 2 1 | 3 | ~2 p1"
+  },
+  "zeilen": [
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B"
+  ]
+}
