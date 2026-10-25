@@ -233,11 +233,11 @@ Abgelehnt sind die Karaoke-Neonautobahn (Leuchten, Verläufe, Bahnen in Perspekt
 Eine warme Nachtpalette aus Schwarz, Ruß und Elfenbein, dazu zwei Signalfarben mit jeweils festen Aufgaben.
 
 ### Primary
-- **Mundorgel-Rot** (#d2342a): das Signal für „jetzt“ und die Kennung des Liedes. Seine Aufgaben, abschließend: die Liednummer (im Kopf 64px, in der Liste 24px), der laufende Akkord als einzige rote Platte im Lesefaden, der Lesefaden selbst (3px-Oberkante) mit seiner Nadel, der Startknopf und die Akkordbuchstaben der Zeile, die gerade klingt. Zum selben „jetzt“ gehören die Fingerpunkte im Griffbild des laufenden Akkords und die Unterstreichung der Schlagzelle, die gerade dran ist; die Textauswahl ist ebenfalls rot hinterlegt. Kontrast 3,82:1 auf dem Grund und 3,50:1 auf der Seite: genug für Flächen, Grafik und große Schrift, nicht für kleine.
+- **Mundorgel-Rot** (#d2342a): das Signal für „jetzt“ und die Kennung des Liedes. Seine Aufgaben, abschließend: die Liednummer (im Kopf 64px, in der Liste 24px), der laufende Akkord als einzige rote Platte im Lesefaden, der Lesefaden selbst (3px-Oberkante) mit seiner Nadel, der Startknopf und die Akkordbuchstaben der Zeile, die gerade klingt. Zum selben „jetzt“ gehören die Fingerpunkte im Griffbild des laufenden Akkords (die des nächsten Akkords sind gelb) und die Unterstreichung der Schlagzelle, die gerade dran ist; die Textauswahl ist ebenfalls rot hinterlegt. Kontrast 3,82:1 auf dem Grund und 3,50:1 auf der Seite: genug für Flächen, Grafik und große Schrift, nicht für kleine.
 - **Mundorgel-Rot, Schriftfassung** (#f0705f): dieselbe Farbe, für Lesbarkeit aufgehellt, keine zweite Akzentfarbe. Nur für rote Schrift unter 19px, 6,43:1 auf dem Grund. Heute trägt sie einzig die Stufen-Überschriften der Liederliste.
 
 ### Secondary
-- **Glutgelb** (#f0c419): das Gesungene und das Nächste. Genau zwei Aufgaben: die Füllung der Silbe, die gerade gesungen wird (sie wächst mit der Zeit von links nach rechts), und der nächste Akkord (sein Block im Lesefaden und die Zeile „dann G7 · in 1 Schlag“). Dazu die Einzähl-Zahl: Beim Einzählen zählt die Liednummer den Takt in Gelb 1-2-3-4. Kontrast 11,29:1 auf dem Grund.
+- **Glutgelb** (#f0c419): das Gesungene und das Nächste. Genau zwei Aufgaben: die Füllung der Silbe, die gerade gesungen wird (sie wächst mit der Zeit von links nach rechts), und der nächste Akkord (sein Block im Lesefaden, die Zeile „dann G7 · in 1 Schlag“ und sein kleines Griffbild samt Rahmen im letzten Schlag). Dazu die Einzähl-Zahl: Beim Einzählen zählt die Liednummer den Takt in Gelb 1-2-3-4. Kontrast 11,29:1 auf dem Grund.
 
 ### Neutral
 - **Feuernacht** (#141110): Grund der ganzen App, auch Browser-Leiste (`theme-color`) und Spur des Scrollbalkens.
@@ -289,12 +289,12 @@ Archivo wird selbst ausgeliefert: eine variable Datei für 400 bis 800 (`app/sch
 
 Eine Spalte, mobil zuerst, höchstens 640px breit und mittig. Am Laptop (ab 900px Breite und 700px Höhe) wird sie 860px breit, und Text, Akkordname und Griffbild wachsen mit der Höhe des Bildschirms, nicht mit seiner Breite. Der Seitenrand ist überall `rand` (clamp(16px, 5vw, 28px)); nur der Lesefaden läuft randlos über die volle Breite. Kopf und feste Leiste halten die Safe-Area-Ränder ein.
 
-Das Mitspielen ist ein Stapel von Spuren auf einem Takt, von oben nach unten: Kopf (Zurück-Pfeil, Liednummer, Titel mit Stufe · Tonart · Abschnitt), Lesefaden, Griff (Griffbild, Akkordname mit „dann …“, Takt-Zähler rechts oben; Raster auto / 1fr / auto mit 18px Lücke), Liedtext, Schlagzeile. Der Liedtext bekommt den freien Raum und steht senkrecht mittig; die Schlagzeile sitzt direkt über der festen Leiste, für die unten `leiste-hoehe` plus Safe-Area plus 14px frei bleibt.
+Das Mitspielen ist ein Stapel von Spuren auf einem Takt, von oben nach unten: Kopf (Zurück-Pfeil, Liednummer, Titel mit Stufe · Tonart · Abschnitt), Lesefaden, Griff (Griffbild, Akkordname mit „dann …“, rechts das Griffbild des nächsten Akkords; Raster auto / 1fr / auto mit 18px Lücke), Liedtext, Schlagkopf (Takt-Zähler links, Taktgeber-Wahl rechts), Schlagzeile. Der Liedtext bekommt den freien Raum und steht senkrecht mittig; die Schlagzeile sitzt direkt über der festen Leiste, für die unten `leiste-hoehe` plus Safe-Area plus 14px frei bleibt.
 
 Die Abstände folgen der Lesefolge, keinem starren Raster: 4px zwischen Schlagzellen, 10px zwischen den Elementen der Leiste, 14 bis 16px zwischen den Textzeilen, 18 bis 26px zwischen den Spuren, 30px vor jeder Stufe der Liederliste.
 
 ### Named Rules
-**The Fire Mode Rule.** Der Feuermodus nimmt weg, statt hinzuzufügen: vorige Zeile, Schlagzeile, Takt-Zähler und Hinweis verschwinden, klingende Zeile und Akkordname werden größer. Farben und Formen bleiben gleich.
+**The Fire Mode Rule.** Der Feuermodus nimmt weg, statt hinzuzufügen: vorige Zeile, Schlagkopf, Schlagzeile und Hinweis verschwinden, klingende Zeile und Akkordname werden größer. Der nächste Griff bleibt sichtbar, denn am Feuer zählt er am meisten. Den Klang ändert der Feuermodus nicht; es gilt die Taktgeber-Wahl. Farben und Formen bleiben gleich.
 
 **The Thumb Bar Rule.** Was man beim Spielen drückt, liegt in der festen Leiste unten, mittig gruppiert. Der Startknopf ist das größte Ziel (72px), kein anderes Ziel ist kleiner als 44px.
 
@@ -342,12 +342,17 @@ Der Akkord-Zeitstrahl, das Wiedererkennungsstück der App.
 
 ### Griff jetzt und gleich
 - Griffbild-Kachel: Rußseite, 12px Rundung, Innenabstand 8px 8px 4px. Saiten G C E A von links, Sattel oben als Balken in Elfenbein; Bundstäbe Elfenbein mit 40 % Deckkraft, Saiten 60 %, leere Saiten als Ring mit 70 %; Fingerpunkte rot mit weißer Fingernummer in 800. Gezeichnet in 77.5 × 92.5px, am Laptop clamp(78px, 12vh, 128px) breit.
-- Daneben der Akkordname (Headline), darunter „dann X · in n Schlägen“ in Gelb (Label), am Liedende „Schluss“. Rechts oben der Takt-Zähler in Asche („Takt 2 · 4“, beim Einzählen „einzählen“).
+- Daneben der Akkordname (Headline), darunter „dann X · in n Schlägen“ in Gelb (Label), am Liedende „Schluss“.
+- **Nächster Griff:** rechts das Griffbild des nächsten Akkords, kleiner (59 × 70px), ohne Fläche in einem 1.5px-Haarlinienrahmen mit 12px Rundung; Name darüber in Gelb (15px, 800), Linien in Leisem Elfenbein, Fingerpunkte Gelb mit Fingernummer in Feuernacht. Im letzten Schlag vor dem Wechsel wird der Rahmen gelb. Am Liedende verschwindet er.
 
 ### Liedtext
 - Drei Zeilen: vorige (Lyric previous, Asche), klingende (Lyric current, 14px Abstand darüber), kommende (Lyric next, Leises Elfenbein, 16px Abstand darüber). Die Akkordzeile über den Silben ist 0.82em hoch, in der klingenden Zeile max(24px, 0.64em).
 - Die gesungene Silbe füllt sich von links mit Gelb, nur in der klingenden Zeile.
 - Lieder ohne freigegebenen Text zeigen dieselbe Zeile als Akkordfolge (jeder Wechsel ein Wort in 800, mit gelber Füllung) und darunter einen Hinweis in Meta.
+
+### Schlagkopf und Taktgeber
+- Eine Zeile über der Schlagzeile: links der Takt-Zähler in Asche („Takt 2 · 4“, beim Einzählen „einzählen“), rechts die Taktgeber-Wahl als Gruppe aus drei Knöpfen „Aus · Takt · Ab/Auf“: 1.5px Haarlinienrahmen mit 10px Rundung, Knöpfe mindestens 40px hoch, 13px in 600 und Asche. Der gewählte Knopf trägt die Gehobene Seite und einen Rand in Elfenbein, wie die Umschalter. Das Gerät merkt sich die Wahl.
+- Klang: „Takt“ klickt jedes Viertel, die Eins höher; „Ab/Auf“ spielt das Schlagmuster, ein tiefer, voller Ton für ab, ein heller, kurzer für auf, ein gedämpftes Klacken für Chunk, die Eins jeweils lauter. Eingezählt wird immer mit Takt-Klicks.
 
 ### Schlagzeile
 - Eine Zelle je Achtel, alle gleich breit, 4px Lücke, 50px hoch, Symbol 26px (ab, auf, Chunk, Pausenpunkt) über einer 3px-Unterstreichung in Haarlinie. Die Zelle, die gerade dran ist, zeigt ihr Symbol in Elfenbein und ihre Unterstreichung in Rot. Kein Kasten, keine Füllung.

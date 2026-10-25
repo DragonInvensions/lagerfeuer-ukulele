@@ -2,12 +2,14 @@
 import { esc } from "./html.js";
 import { viertelProTakt, taktUndSchlag } from "../kern/liedspur.js";
 import { schlagmusterNamens } from "../kern/schlagmuster.js";
+import { KLANGMODI } from "../kern/taktgeber.js";
 import { liedLaden, liedNummer } from "../daten/lieder.js";
 import { metronomUhr } from "../uhren/metronom.js";
 import { fadenAnlegen, griffAnlegen, textAnlegen, schlagAnlegen } from "./spuren.js";
 import { symbol } from "./symbole.js";
 
 const TEMPI = [0.5, 0.6, 0.7, 0.8, 0.9, 1];
+const KLANG_SPEICHER = "ukulele.klang";
 
 export async function mitspielenZeigen(wurzel, id) {
   wurzel.innerHTML = `<p class="zustand">Lied wird geladen …</p>`;
@@ -22,13 +24,14 @@ export async function mitspielenZeigen(wurzel, id) {
   document.title = `${lied.titel} · Lagerfeuer-Ukulele`;
 
   const teil = (name) => wurzel.querySelector(`.${name}`);
-  const uhr = metronomUhr(lied);
+  const muster = schlagmusterNamens(lied.schlagmuster);
+  const uhr = metronomUhr(lied, muster);
   const halbtoene = 0;
   const spuren = [
     fadenAnlegen(teil("faden"), lied, halbtoene),
     griffAnlegen(teil("griff"), lied, halbtoene),
     textAnlegen(teil("text"), lied, halbtoene),
-    schlagAnlegen(teil("schlag"), schlagmusterNamens(lied.schlagmuster)),
+    schlagAnlegen(teil("schlag"), muster),
   ];
   const zustand = { tempoStufe: 3, schleife: null, feuer: false, wachbleiben: null, bild: 0 };
 
@@ -44,7 +47,7 @@ export async function mitspielenZeigen(wurzel, id) {
       startKnopfZeigen();
       position = -uhr.einzaehlen;
     }
-    uhr.klicksEinplanen();
+    uhr.klaengeEinplanen();
     for (const spur of spuren) spur.zeigen(position);
     kopfZeigen(position);
   }
@@ -111,10 +114,24 @@ export async function mitspielenZeigen(wurzel, id) {
     zustand.feuer = !zustand.feuer;
     document.body.classList.toggle("feuer", zustand.feuer);
     teil("feuermodus").setAttribute("aria-pressed", String(zustand.feuer));
-    uhr.klickSetzen(!zustand.feuer);
     if (zustand.feuer) await wachHalten(); else zustand.wachbleiben?.release().catch(() => {});
     spuren[0].neuBauen();
     anzeigen();
+  }
+
+  /* Taktgeber: Aus, Takt-Klick oder Ab/Auf nach dem Schlagmuster; die Wahl merkt sich das Geraet */
+  function klangWaehlen(modus) {
+    uhr.modusSetzen(modus);
+    wurzel.querySelectorAll(".klangwahl button").forEach((knopf) => knopf.setAttribute("aria-pressed", String(knopf.dataset.modus === modus)));
+    try { localStorage.setItem(KLANG_SPEICHER, modus); } catch (fehler) { console.info("Klangwahl nicht gespeichert:", fehler.message); }
+  }
+  function gemerkterKlang() {
+    try {
+      const gemerkt = localStorage.getItem(KLANG_SPEICHER);
+      return KLANGMODI.includes(gemerkt) ? gemerkt : "takt";
+    } catch {
+      return "takt";
+    }
   }
 
   /* Am Feuer soll der Bildschirm nicht ausgehen; ohne Wake Lock geht es trotzdem weiter */
@@ -136,11 +153,13 @@ export async function mitspielenZeigen(wurzel, id) {
   teil("schneller").addEventListener("click", () => tempoAendern(1));
   teil("schleife").addEventListener("click", schleifeUmschalten);
   teil("feuermodus").addEventListener("click", feuerUmschalten);
+  wurzel.querySelectorAll(".klangwahl button").forEach((knopf) => knopf.addEventListener("click", () => klangWaehlen(knopf.dataset.modus)));
   document.addEventListener("keydown", taste);
   document.addEventListener("visibilitychange", sichtbarkeit);
   window.addEventListener("resize", groesse);
 
   tempoAendern(0);
+  klangWaehlen(gemerkterKlang());
   startKnopfZeigen();
   anzeigen();
 
@@ -176,7 +195,7 @@ function geruestHTML(lied, nummer) {
     <section class="griff" aria-live="polite">
       <div class="griffbild"></div>
       <div class="griffname"><span class="akkname"></span><p class="dann"></p></div>
-      <p class="zaehler"></p>
+      <div class="griffbild-dann" hidden></div>
     </section>
     <section class="text${ohneText ? " ohnetext" : ""}" aria-label="Liedtext">
       <p class="zeile vorige"></p>
@@ -184,6 +203,14 @@ function geruestHTML(lied, nummer) {
       <p class="zeile kommende"></p>
       ${ohneText ? `<p class="hinweis">Der Text dieses Liedes ist geschützt und kommt nach der Anmeldung. Bis dahin zeigt die Zeile die Akkordfolge.</p>` : ""}
     </section>
+    <div class="schlagkopf">
+      <p class="zaehler"></p>
+      <div class="klangwahl" role="group" aria-label="Taktgeber">
+        <button type="button" data-modus="aus" aria-pressed="false">Aus</button>
+        <button type="button" data-modus="takt" aria-pressed="false">Takt</button>
+        <button type="button" data-modus="schlag" aria-pressed="false">Ab/Auf</button>
+      </div>
+    </div>
     <section class="schlag" aria-label="Schlagmuster: ${esc(lied.schlagmuster)}"></section>
     <footer class="leiste">
       <button class="start" type="button"></button>

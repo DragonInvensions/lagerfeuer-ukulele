@@ -63,23 +63,34 @@ export function fadenAnlegen(element, lied, halbtoene) {
   };
 }
 
-/* ---------- Griff jetzt und gleich ---------- */
+/* ---------- Griff jetzt und gleich ----------
+   Neben dem laufenden Griff steht der naechste schon als kleines Griffbild, damit die Hand weiss, wohin sie muss.
+   Im letzten Schlag vor dem Wechsel wird er hervorgehoben. */
 export function griffAnlegen(element, lied, halbtoene) {
   const bild = element.querySelector(".griffbild"), name = element.querySelector(".akkname"), dann = element.querySelector(".dann");
-  let gezeigt = null, gezeigtDann = "";
+  const bildDann = element.querySelector(".griffbild-dann");
+  let gezeigt = null, gezeigtDann = "", gezeigterNaechster = undefined;
   return {
     zeigen(position) {
-      const jetzt = transponiere(akkordBei(lied, Math.max(position, 0)).akk, halbtoene);
-      const naechster = naechsterAkkord(lied, Math.max(position, 0));
+      const ab = Math.max(position, 0);
+      const jetzt = transponiere(akkordBei(lied, ab).akk, halbtoene);
+      const naechster = naechsterAkkord(lied, ab);
+      const naechsterName = naechster ? transponiere(naechster.akk, halbtoene) : null;
       if (jetzt !== gezeigt) {
         bild.innerHTML = griffbildSVG(jetzt, 1.25);
         name.textContent = jetzt;
         gezeigt = jetzt;
       }
+      if (naechsterName !== gezeigterNaechster) {
+        bildDann.innerHTML = naechsterName ? `<span class="dann-name">${esc(naechsterName)}</span>${griffbildSVG(naechsterName, 0.95)}` : "";
+        bildDann.hidden = !naechsterName;
+        gezeigterNaechster = naechsterName;
+      }
       let text = "Schluss";
       if (naechster) {
-        const schlaege = Math.ceil(naechster.ab - Math.max(position, 0) - 1e-6);
-        text = `dann ${transponiere(naechster.akk, halbtoene)} · in ${schlaege} ${schlaege === 1 ? "Schlag" : "Schlägen"}`;
+        const schlaege = Math.ceil(naechster.ab - ab - 1e-6);
+        text = `dann ${naechsterName} · in ${schlaege} ${schlaege === 1 ? "Schlag" : "Schlägen"}`;
+        bildDann.classList.toggle("bald", position >= 0 && naechster.ab - position <= 1);
       }
       if (text !== gezeigtDann) { dann.textContent = text; gezeigtDann = text; }
     },

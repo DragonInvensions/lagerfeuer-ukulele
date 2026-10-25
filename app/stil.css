@@ -99,7 +99,17 @@ button { font: inherit; color: inherit; }
 .griffbild { background: var(--seite); border-radius: 12px; padding: 8px 8px 4px; color: var(--papier); line-height: 0; }
 .akkname { font-size: 46px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
 .dann { color: var(--gelb); font-size: 15px; font-weight: 600; margin-top: 6px; }
-.zaehler { align-self: start; color: var(--leise); font-size: 14px; font-variant-numeric: tabular-nums; text-align: right; padding-top: 6px; }
+/* Der naechste Griff steht schon daneben, kleiner und gelb; im letzten Schlag vor dem Wechsel gelb umrandet */
+.griffbild-dann {
+  display: grid; justify-items: center; gap: 2px; padding: 6px 6px 2px; line-height: 0;
+  border: 1.5px solid var(--strich); border-radius: 12px; color: var(--papier-leise);
+  --punkt: var(--gelb); --punkt-schrift: var(--grund);
+}
+.griffbild-dann[hidden] { display: none; }
+.griffbild-dann.bald { border-color: var(--gelb); }
+.dann-name { font-size: 15px; font-weight: 800; line-height: 1.2; color: var(--gelb); }
+
+.zaehler { color: var(--leise); font-size: 14px; font-variant-numeric: tabular-nums; }
 
 /* Text: Akkordbuchstabe ueber der Silbe, auf der gewechselt wird.
    Jede Silbe traegt ihre eigene Akkordzeile, damit umbrochene Zeilen nicht ineinanderlaufen. */
@@ -119,7 +129,16 @@ button { font: inherit; color: inherit; }
 .nurakkord { font-weight: 800; margin-right: .5em; }
 .hinweis { margin-top: 22px; font-size: 14px; color: var(--leise); max-width: 46ch; }
 
-.schlag { display: flex; gap: 4px; padding: 26px var(--rand) 0; }
+/* Ueber der Schlag-Zeile: Taktzaehler und die Wahl des Taktgebers */
+.schlagkopf { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px var(--rand) 0; }
+.klangwahl { display: flex; border: 1.5px solid var(--strich); border-radius: 10px; padding: 2px; }
+.klangwahl button {
+  min-height: 40px; padding: 0 12px; border: 1.5px solid transparent; border-radius: 6px; background: none;
+  font-size: 13px; font-weight: 600; color: var(--leise); cursor: pointer;
+}
+.klangwahl button:hover { color: var(--papier); }
+.klangwahl button[aria-pressed="true"] { background: var(--seite-hoch); color: var(--papier); border-color: var(--papier); }
+.schlag { display: flex; gap: 4px; padding: 10px var(--rand) 0; }
 .zelle { flex: 1; display: grid; place-items: center; height: 50px; color: var(--leise); border-bottom: 3px solid var(--strich); }
 .zelle .symbol { width: 26px; height: 26px; }
 .zelle.an { color: var(--papier); border-bottom-color: var(--rot); }
@@ -164,7 +183,7 @@ button { font: inherit; color: inherit; }
 }
 
 /* Feuermodus: nur Akkord, Griff und Zeile, noch groesser */
-.feuer .zeile.vorige, .feuer .schlag, .feuer .zaehler, .feuer .hinweis { display: none; }
+.feuer .zeile.vorige, .feuer .schlag, .feuer .schlagkopf, .feuer .hinweis { display: none; }
 .feuer .zeile.aktuelle { font-size: clamp(36px, 10.5vw, 52px); }
 .feuer .akkname { font-size: 60px; }
 
