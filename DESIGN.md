@@ -263,6 +263,8 @@ Alle Neutraltöne sind warm (Farbton in OKLCH etwa 40 bis 85 Grad). Das dunkelgr
 **Display Font:** Archivo (mit Helvetica Neue, Arial, sans-serif)
 **Body Font:** Archivo (dieselbe Familie)
 
+Archivo wird selbst ausgeliefert: eine variable Datei für 400 bis 800 (`app/schrift/archivo.woff2`, lateinischer Zeichensatz, SIL OFL 1.1 in `app/schrift/OFL.txt`), nie über einen fremden Server. So läuft die App offline am Feuer, und kein Handy der Mitsänger fragt bei Google an.
+
 **Character:** Eine kräftige Grotesk mit offenen, breiten Formen, die in 800 auch auf Armlänge als Zeichen steht und in 400 ruhig liest. Hierarchie entsteht aus Größe, Gewicht und Farbe, nie aus einer zweiten Schrift.
 
 ### Hierarchy

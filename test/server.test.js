@@ -21,6 +21,9 @@ test("Liederliste und ein Lied kommen aus dem Server", async () => {
     assert.equal(entchen.status, 200);
     assert.equal((await entchen.json()).id, "entchen");
     assert.equal((await fetch(`${adresse}/gibtsnicht.js`)).status, 404);
+    const schrift = await fetch(`${adresse}/schrift/archivo.woff2`);
+    assert.equal(schrift.status, 200);
+    assert.equal(schrift.headers.get("content-type"), "font/woff2");
   } finally {
     server.close();
   }

@@ -1,3 +1,13 @@
+/* Archivo, selbst ausgeliefert, damit es offline am Feuer laeuft und kein Handy bei Google anfragt.
+   Eine variable Datei fuer 400 bis 800, lateinischer Zeichensatz von Google Fonts; Lizenz SIL OFL 1.1 in schrift/OFL.txt. */
+@font-face {
+  font-family: "Archivo";
+  src: url("schrift/archivo.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Mundorgel bei Nacht: das Liederbuch vom Lagerfeuer, fuer die Dunkelheit umgedreht.
    Rot gehoert nur Liednummer, aktuellem Akkord, Lesefaden und Start; Gelb nur dem Gesungenen und dem Naechsten. */
 :root {
