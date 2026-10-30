@@ -51,5 +51,6 @@
   "akkordeGeprueft": true,
   "stern": true,
   "textsuche": "SpongeBob Das Lagerfeuerlied Lied deutsch",
-  "texthinweis": "Die deutsche Synchronfassung heisst „Das Lagerfeuerlied-Lied“ — such danach, nicht nach dem englischen Titel."
+  "texthinweis": "Die deutsche Synchronfassung heisst „Das Lagerfeuerlied-Lied“ — such danach, nicht nach dem englischen Titel.",
+  "textquellen": ["https://lyricstranslate.com/en/spongebob-squarepants-ost-das-lagerfeuerlied-lied-lyrics.html","https://www.songtexte.com/songtext/spongebob-schwammkopf/das-lagerfeuerlied-lied-3be23c80.html"]
 }

@@ -30,5 +30,6 @@
   "laenge": 64,
   "silbenZeit": "geschaetzt",
   "hinweis": "Vier Takte, die sich das ganze Lied lang wiederholen — <b>C – Am – F – G</b>, jeder Akkord zwei Takte. Mehr passiert nicht. Deshalb ist es das perfekte Lied, um endlich sauber zu wechseln, ohne nachdenken zu müssen, was als Nächstes kommt.",
-  "textsuche": "Stand By Me Ben E. King"
+  "textsuche": "Stand By Me Ben E. King",
+  "textquellen": ["https://lyricstranslate.com/en/Ben-E-King-Stand-me-lyrics.html","https://www.songtexte.com/songtext/ben-e-kingandthe-drifters/stand-by-me-h1b98b10c.html"]
 }

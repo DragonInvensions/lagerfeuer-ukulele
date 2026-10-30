@@ -59,6 +59,7 @@
   ],
   "akkordeGeprueft": true,
   "stern": true,
-  "textsuche": "SpongeBob Ich hab die Hose mir zerrissen deutsch",
-  "texthinweis": "Deutscher Titel der Synchronfassung; die Untertitel der Folge sind die genaueste Quelle."
+  "textsuche": "Der Riss in der Hose SpongeBob",
+  "texthinweis": "Deutscher Titel der Synchronfassung; die Untertitel der Folge sind die genaueste Quelle.",
+  "textquellen": ["https://www.songtexte.com/songtext/spongebob-schwammkopf/der-riss-in-der-hose-33e23c8d.html","https://lyricstranslate.com/en/spongebob-squarepants-ost-der-riss-der-hose-lyrics.html"]
 }

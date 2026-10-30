@@ -39,5 +39,6 @@
   "laenge": 80,
   "silbenZeit": "geschaetzt",
   "hinweis": "Im Original steht das Lied in D-Dur; hier nach C geschoben, damit du ohne Barré auskommst. Mit dem <b>+2</b> auf dem Transponier-Knopf bist du zurück im Original — dann brauchst du D, A, G, Em, und das Lied liegt für viele Stimmen bequemer.",
-  "textsuche": "Biene Maja Karel Gott Text"
+  "textsuche": "Biene Maja Karel Gott Text",
+  "textquellen": ["https://www.songtexte.com/songtext/karel-gott/biene-maja-7bf32664.html","https://lyricstranslate.com/en/Karel-Gott-Die-Biene-Maja-lyrics.html"]
 }

@@ -33,5 +33,6 @@
   "laenge": 80,
   "silbenZeit": "geschaetzt",
   "hinweis": "<b>Das Lagerfeuerlied schlechthin</b> — wenn du irgendwo auf der Welt diese ersten vier Takte anspielst, singt jemand mit. Im Original in G; hier nach C, damit du bei den vier Zauberakkorden bleibst. Die Strophe hält jeden Akkord zwei volle Takte (also acht Schläge) — das gibt dir viel Zeit zum Wechseln und macht das Lied leichter, als es klingt. Der Refrain wird dann schneller in der Harmonie: <b>C – G – Am – F</b>, ein Akkord pro Takt.",
-  "textsuche": "Take Me Home Country Roads John Denver"
+  "textsuche": "Take Me Home Country Roads John Denver",
+  "textquellen": ["https://www.songtexte.com/songtext/john-denver/take-me-home-country-roads-6bc0262a.html"]
 }

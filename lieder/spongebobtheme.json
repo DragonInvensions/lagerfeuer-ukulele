@@ -44,5 +44,6 @@
   "akkordeGeprueft": true,
   "stern": true,
   "textsuche": "SpongeBob Schwammkopf Titelsong deutsch Ananas",
-  "texthinweis": "Deutsche Fassung: die Ruf-und-Antwort-Zeilen sind kuerzer als im Original."
+  "texthinweis": "Deutsche Fassung: die Ruf-und-Antwort-Zeilen sind kuerzer als im Original.",
+  "textquellen": ["https://lyricstranslate.com/en/spongebob-squarepants-ost-spongebob-schwammkopf-opening-theme-lyrics.html","https://www.songtexte.com/songtext/spongebob-schwammkopf/spongebob-der-titelsong-3be23c8c.html"]
 }

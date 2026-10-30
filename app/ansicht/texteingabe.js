@@ -1,8 +1,8 @@
-/* Text einfuegen: Jakob fuegt den Liedtext eines geschuetzten Liedes ein, die App trennt die Silben,
-   legt jede Zeile auf ihre Liedzeile und speichert die Textspur privat auf Jarvis.
+/* Text einfuegen: Jakob fuegt den Liedtext eines geschuetzten Liedes ein, "An die Noten anpassen" bringt ihn
+   auf die Teile und Zeilen der Liedspur, die App trennt die Silben und speichert die Textspur privat auf Jarvis.
    Die Vorschau zeigt je Liedzeile die Akkorde und die Silben, so wie sie gespeichert wuerden. */
-import { akkordBei, zeilenEnde } from "../kern/liedspur.js";
-import { textAufZeilen, textAusSpur } from "../kern/textspur.js";
+import { akkordBei, zeilenEnde, abschnittDerZeilen } from "../kern/liedspur.js";
+import { textAufZeilen, textAusSpur, textAnNoten } from "../kern/textspur.js";
 import { liedLaden, liedNummer, liederListe, textspurLaden, textspurSpeichern } from "../daten/lieder.js";
 import { rolle } from "../daten/zugang.js";
 import { esc } from "./html.js";
@@ -27,13 +27,15 @@ export async function texteingabeZeigen(wurzel, id) {
   }
   document.title = `Text einfügen · ${lied.titel}`;
   const suche = encodeURIComponent(lied.textsuche ?? lied.titel);
-  /* Zu jeder Liedzeile der Teil des Liedes, in dem sie beginnt: sagt, welche Teile des Textes hineingehoeren */
-  const teile = lied.zeilen.map((start) => [...(lied.abschnitte ?? [])].reverse().find((teil) => teil.ab <= start + 1e-9)?.name ?? "");
-  const teilfolge = teile.reduce((folge, name) => {
-    if (folge.at(-1)?.name === name) folge.at(-1).zeilen++; else folge.push({ name, zeilen: 1 });
+  const quellen = (lied.textquellen ?? []).filter((adresse) => adresse.startsWith("https://"))
+    .map((adresse) => `<a href="${esc(adresse)}" target="_blank" rel="noopener">${esc(new URL(adresse).hostname.replace(/^www\./, ""))}</a>`);
+  /* Zu jeder Liedzeile ihr Teil (Strophe, Refrain, …): sagt, welche Teile des Textes hineingehoeren */
+  const teile = abschnittDerZeilen(lied);
+  const teilfolge = teile.reduce((folge, teil) => {
+    if (folge.length && folge.at(-1).teil === teil) folge.at(-1).zeilen++; else folge.push({ teil, zeilen: 1 });
     return folge;
   }, []);
-  const teilText = teilfolge.map((teil) => `${teil.name || "Zeilen"} ${teil.zeilen}`).join(" · ");
+  const teilText = teilfolge.map(({ teil, zeilen }) => `${teil?.name ?? "Zeilen"} ${zeilen}`).join(" · ");
   wurzel.innerHTML = `
   <article class="texteingabe">
     <header class="seitenkopf">
@@ -42,10 +44,10 @@ export async function texteingabeZeigen(wurzel, id) {
       <div class="titel"><h1>Text einfügen</h1><p>${esc(lied.titel)} · ${lied.zeilen.length} Liedzeilen</p></div>
     </header>
     <section class="anleitung">
-      <p>Die Liedspur hat ${lied.zeilen.length} Zeilen: <b>${esc(teilText)}</b>. Kopiere genau diese Teile und füge sie ein; Überschriften wie [Refrain] und Reste der Liedseite fallen von selbst weg.</p>
-      <p>Eine Textzeile je Liedzeile. Bricht der Text anders um als die Vorschau unten, verbinde oder trenne Zeilen, bis die Akkorde passen. Die Silben trennt die App selbst; wo sie falsch trennt, setz Bindestriche (<b>Sponge-Bob</b>). Mit <b>|</b> verteilst du eine Zeile auf die Takte, ein Teil mehr als Takte wird zum Auftakt.</p>
+      <p>Die Liedspur hat ${lied.zeilen.length} Zeilen: <b>${esc(teilText)}</b>. Füge den ganzen Liedtext ein, so wie er auf der Liedseite steht, und tippe auf <b>An die Noten anpassen</b>: Die App sucht die passenden Teile heraus und verteilt die Wörter auf die Liedzeilen.</p>
+      <p>Prüfe danach die Vorschau unten; passt ein Wort nicht zu seinem Akkord, verschiebe es im Feld. Eine Zeile nur mit <b>-</b> bleibt ohne Text. Die Silben trennt die App selbst; wo sie falsch trennt, setz Bindestriche (<b>Sponge-Bob</b>). Mit <b>|</b> verteilst du eine Zeile auf die Takte, ein Teil mehr als Takte wird zum Auftakt.</p>
       ${lied.texthinweis ? `<p class="leise">${esc(lied.texthinweis)}</p>` : ""}
-      <p class="suche">Text suchen bei
+      <p class="suche">${quellen.length ? `Text öffnen: ${quellen.join(" · ")} · ` : ""}Suchen bei
         <a href="https://genius.com/search?q=${suche}" target="_blank" rel="noopener">Genius</a> ·
         <a href="https://www.musixmatch.com/de/search/${suche}" target="_blank" rel="noopener">Musixmatch</a></p>
     </section>
@@ -53,6 +55,7 @@ export async function texteingabeZeigen(wurzel, id) {
     <textarea id="liedtext" rows="10" spellcheck="false" autocapitalize="sentences">${esc(vorhanden ? textAusSpur(lied, vorhanden) : "")}</textarea>
     <p class="hinweise" aria-live="polite"></p>
     <div class="aktionen">
+      <button class="knopf anpassen" type="button">An die Noten anpassen</button>
       <button class="knopf speichern" type="button">Text speichern</button>
       <p class="status" role="status"></p>
     </div>
@@ -76,7 +79,7 @@ export async function texteingabeZeigen(wurzel, id) {
     vorschau.innerHTML = lied.zeilen.map((_, i) => {
       const von = spur.zeilen[i], bis = spur.zeilen[i + 1] ?? lied.laenge;
       const silben = spur.silben.filter((silbe) => silbe.ab >= von && silbe.ab < bis).map((silbe) => silbe.text).join(" ").replace(/- /g, "-");
-      const teilname = teile[i] && teile[i] !== teile[i - 1] ? `<b class="teilname">${esc(teile[i])}</b> ` : "";
+      const teilname = teile[i] && teile[i] !== teile[i - 1] ? `<b class="teilname">${esc(teile[i].name)}</b> ` : "";
       return `<li><span class="akkorde">${teilname}${esc(akkordfolge(i))}</span><span class="${silben ? "silben" : "silben leer"}">${silben ? esc(silben) : "ohne Text"}</span></li>`;
     }).join("");
   }
@@ -103,7 +106,17 @@ export async function texteingabeZeigen(wurzel, id) {
     }
   }
 
+  /* Der angepasste Text ersetzt das Feld, damit Jakob ihn vor dem Speichern noch verschieben kann */
+  function anpassen() {
+    const angepasst = textAnNoten(lied, feld.value);
+    feld.value = angepasst.text;
+    status.textContent = "";
+    aktualisieren();
+    hinweise.textContent = [...angepasst.hinweise, ...ergebnis.hinweise].join(" ");
+  }
+
   feld.addEventListener("input", () => { status.textContent = ""; aktualisieren(); });
+  wurzel.querySelector(".anpassen").addEventListener("click", anpassen);
   wurzel.querySelector(".speichern").addEventListener("click", speichern);
   aktualisieren();
   return () => {};

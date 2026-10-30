@@ -1,7 +1,7 @@
 /* Textspur: der Text eines geschuetzten Liedes, getrennt von der oeffentlichen Liedspur.
    Sie liegt nur privat auf Jarvis und wird beim Laden ueber die Akkorde gelegt.
    Hier: Silben trennen, eingefuegten Text auf Zeilen und Takte legen, Textspur anwenden. */
-import { viertelProTakt } from "./liedspur.js";
+import { viertelProTakt, zeilenEnde, abschnittDerZeilen } from "./liedspur.js";
 
 export const FORMAT_TEXTSPUR = "textspur/1";
 const AUFTAKT_SILBE = 0.5; /* shortcut: Auftaktsilben als Achtel, bis Noten oder UltraStar sie genau setzen */
@@ -14,9 +14,9 @@ export function textspurAnwenden(lied, spur) {
 /* ---------- Silbentrennung ----------
    Einfache deutsche Regeln, gedacht fuers Singen, nicht fuer den Buchsatz:
    ein Konsonant geht zur naechsten Silbe (Ho-se), von mehreren nur der letzte (Was-ser, Kin-der);
-   ch, ck, sch, ph, th, qu bleiben zusammen (Zu-cker, Mäd-chen); ei, ai, au, eu, äu, ie und
-   Doppelvokale werden nicht getrennt (Feu-er). Woerter mit Bindestrich bleiben, wie sie sind. */
-const VOKALGRUPPEN = ["äu", "ei", "ai", "au", "eu", "ie", "aa", "ee", "oo"];
+   ch, ck, sch, ph, th, qu bleiben zusammen (Zu-cker, Mäd-chen); ei, ai, au, eu, äu, ie, ey, ay, oy und
+   Doppelvokale werden nicht getrennt (Feu-er, Hey, Bay-ern). Woerter mit Bindestrich bleiben, wie sie sind. */
+const VOKALGRUPPEN = ["äu", "ei", "ai", "au", "eu", "ie", "ey", "ay", "oy", "aa", "ee", "oo"];
 const KONSONANTGRUPPEN = ["sch", "ch", "ck", "ph", "th", "qu"];
 const VOKAL = /[aeiouäöüyéèáàâ]/;
 
@@ -64,13 +64,15 @@ export function silbenAusText(text) {
 }
 
 /* ---------- Eingefuegten Text auf die Liedzeilen legen ----------
-   Eine Textzeile je Liedzeile, Leerzeilen zaehlen nicht. Mit "|" laesst sich eine Zeile auf die
+   Eine Textzeile je Liedzeile, Leerzeilen zaehlen nicht; eine Zeile nur mit "-" bleibt ohne Text
+   (etwa ein Vorspiel). Mit "|" laesst sich eine Zeile auf die
    Takte verteilen; ein Abschnitt mehr als Takte ist der Auftakt (wie im alten Taktraster).
    Die Silben werden innerhalb ihres Abschnitts gleichmaessig verteilt: Zeit "geschaetzt". */
 
 /* Was Liedseiten beim Kopieren mitliefern, ist kein Liedtext: Abschnitts-Ueberschriften wie [Refrain],
    Seitenkopf und -fuss von Genius und Musixmatch. So genuegt Kopieren und Einfuegen ohne Nacharbeit. */
 const SEITENRESTE = [/^\[.*\]$/, /^\d+\s*Contributors?/i, /\sLyrics$/, /^You might also like$/i, /^Lyrics powered by/i, /^Writer\(s\):/i];
+export const OHNE_TEXT = "-";
 
 export function liedtextZeilen(text) {
   return text.split(/\r?\n/)
@@ -92,7 +94,8 @@ export function textAufZeilen(lied, text) {
   const zeilen = anfaenge.map((anfang, i) => {
     const ende = anfaenge[i + 1] ?? lied.laenge;
     const takte = Math.max(1, Math.round((ende - anfang) / proTakt));
-    const abschnitte = (textzeilen[i] ?? "").includes("|") ? textzeilen[i].split("|") : [textzeilen[i] ?? ""];
+    const zeilentext = textzeilen[i] === OHNE_TEXT ? "" : textzeilen[i] ?? "";
+    const abschnitte = zeilentext.includes("|") ? zeilentext.split("|") : [zeilentext];
     let auftakt = [];
     if (abschnitte.length > takte) {
       const vorne = abschnitte.splice(0, abschnitte.length - takte + 1);
@@ -126,13 +129,125 @@ export function textAufZeilen(lied, text) {
   return { spur, hinweise };
 }
 
-/* Fuer das Bearbeiten: eine Textspur zurueck in Textzeilen mit Bindestrichen */
+/* ---------- Einen ganzen Liedtext an die Noten anpassen ----------
+   1. Den Text in Teile zerlegen: an Ueberschriften wie [Refrain] oder, wenn es keine gibt, an Leerzeilen.
+   2. Jedem Teil der Noten (Strophe, Refrain, …) das passende Textstueck zuordnen.
+   3. Die Woerter nach Silben so auf die Liedzeilen verteilen, wie die Zeilen lang sind, bevorzugt
+      an den Zeilenenden und Satzzeichen des Originals. Das Ergebnis prueft Jakob in der Vorschau. */
+const TEILARTEN = [
+  [null, /durchgehend/i], ["vorrefrain", /pre-?chorus|vor-?refrain/i], ["nachrefrain", /post-?chorus/i],
+  ["refrain", /refrain|chorus|hook|kehrreim/i], ["strophe", /strophe|vers/i], ["bridge", /bridge|zwischenteil/i],
+  ["vorspiel", /intro|vorspiel/i], ["schluss", /outro|schluss|ende\b/i],
+];
+const teilArt = (name) => (TEILARTEN.find(([, muster]) => muster.test(name ?? "")) ?? [null])[0];
+const ZEILENENDE_BONUS = 3, SATZZEICHEN_BONUS = 1.5; /* in Silben: so weit darf ein Umbruch vom Soll abweichen, um dort zu liegen */
+
+export function textAnNoten(lied, text) {
+  const teile = textTeile(text), gruppen = notenGruppen(lied), hinweise = [];
+  const mitUeberschriften = teile.some((teil) => teil.mitUeberschrift);
+  if (!mitUeberschriften && teile.length <= 1) return { text: (teile[0]?.zeilen ?? []).join("\n"), hinweise };
+
+  const benutzt = new Set();
+  let zuletzt = -1;
+  const zeilen = gruppen.flatMap((gruppe) => {
+    const index = passenderTeil(teile, gruppe, benutzt, zuletzt, mitUeberschriften);
+    if (index < 0) {
+      hinweise.push(`Für „${gruppe.name}“ fand sich im Text kein passender Teil; die Zeilen bleiben frei (${OHNE_TEXT}).`);
+      return gruppe.laengen.map(() => OHNE_TEXT);
+    }
+    benutzt.add(index);
+    zuletzt = Math.max(zuletzt, index);
+    return aufZeilenVerteilen(teile[index].zeilen, gruppe.laengen).map((zeile) => zeile || OHNE_TEXT);
+  });
+  return { text: zeilen.join("\n"), hinweise };
+}
+
+/* Mit Ueberschriften trennen nur diese die Teile (Liedseiten setzen Leerzeilen auch mitten hinein) */
+function textTeile(text) {
+  const mitUeberschriften = /^\s*\[.*\]\s*$/m.test(text);
+  const teile = [];
+  let ueberschrift = null, offen = null;
+  for (const roh of text.split(/\r?\n/)) {
+    const kopf = /^\s*\[(.*)\]\s*$/.exec(roh);
+    if (kopf) {
+      ueberschrift = kopf[1];
+      offen = null;
+      continue;
+    }
+    const [zeile] = liedtextZeilen(roh);
+    if (!zeile) {
+      if (!mitUeberschriften) offen = null;
+      continue;
+    }
+    if (!offen) {
+      offen = { art: teilArt(ueberschrift), mitUeberschrift: ueberschrift !== null, zeilen: [] };
+      teile.push(offen);
+    }
+    offen.zeilen.push(zeile);
+  }
+  return teile;
+}
+
+/* Liedzeilen nach ihrem Abschnitt gruppiert; aufeinanderfolgende Refrain-Abschnitte sind Haelften desselben Refrains,
+   aufeinanderfolgende Strophen dagegen verschiedene Strophen */
+function notenGruppen(lied) {
+  const gruppen = [];
+  abschnittDerZeilen(lied).forEach((abschnitt, i) => {
+    const art = teilArt(abschnitt?.name), letzte = gruppen.at(-1), laenge = zeilenEnde(lied, i) - lied.zeilen[i];
+    if (letzte && (letzte.abschnitt === abschnitt || (art === "refrain" && letzte.art === "refrain"))) letzte.laengen.push(laenge);
+    else gruppen.push({ abschnitt, name: abschnitt?.name ?? "Lied", art, laengen: [laenge] });
+  });
+  return gruppen;
+}
+
+function passenderTeil(teile, gruppe, benutzt, zuletzt, mitUeberschriften) {
+  const frei = (index) => !benutzt.has(index);
+  if (mitUeberschriften && gruppe.art) {
+    const gleicheArt = teile.map((_, index) => index).filter((index) => teile[index].art === gruppe.art);
+    /* Ein Refrain wiederholt sich: Ist keiner mehr frei, gilt derselbe noch einmal */
+    return gleicheArt.find(frei) ?? (gruppe.art === "refrain" && gleicheArt.length ? gleicheArt[0] : -1);
+  }
+  return teile.findIndex((_, index) => index > zuletzt && frei(index));
+}
+
+function aufZeilenVerteilen(zeilen, laengen) {
+  if (zeilen.length === laengen.length) return zeilen;
+  const woerter = zeilen.flatMap((zeile) => zeile.split(/\s+/).map((wort, i, alle) => ({
+    wort, silben: silbenAusText(wort).length || 1, zeilenende: i === alle.length - 1,
+  })));
+  const alleSilben = woerter.reduce((summe, wort) => summe + wort.silben, 0);
+  const alleLaenge = laengen.reduce((summe, laenge) => summe + laenge, 0);
+  const ergebnis = [];
+  let start = 0, bisherSilben = 0, bisherLaenge = 0;
+  for (let k = 0; k < laengen.length - 1; k++) {
+    bisherLaenge += laengen[k];
+    const soll = (alleSilben * bisherLaenge) / alleLaenge, nochZeilen = laengen.length - 1 - k;
+    let beste = null, summe = bisherSilben;
+    for (let ende = start; ende < woerter.length - nochZeilen; ende++) {
+      summe += woerter[ende].silben;
+      const bonus = woerter[ende].zeilenende ? ZEILENENDE_BONUS : /[,;:.!?]$/.test(woerter[ende].wort) ? SATZZEICHEN_BONUS : 0;
+      const kosten = Math.abs(summe - soll) - bonus;
+      if (!beste || kosten < beste.kosten) beste = { ende, kosten, summe };
+    }
+    if (!beste) {
+      ergebnis.push("");
+      continue;
+    }
+    ergebnis.push(woerter.slice(start, beste.ende + 1).map((eintrag) => eintrag.wort).join(" "));
+    start = beste.ende + 1;
+    bisherSilben = beste.summe;
+  }
+  ergebnis.push(woerter.slice(start).map((eintrag) => eintrag.wort).join(" "));
+  return ergebnis;
+}
+
+/* Fuer das Bearbeiten: eine Textspur zurueck in Textzeilen mit Bindestrichen; Zeilen ohne Text als "-" */
 export function textAusSpur(lied, spur) {
   const angewendet = textspurAnwenden(lied, spur);
   return angewendet.zeilen.map((start, i) => {
     const ende = angewendet.zeilen[i + 1] ?? angewendet.laenge;
     return angewendet.silben.filter((silbe) => silbe.ab >= start && silbe.ab < ende)
-      .map((silbe) => silbe.text).join(" ").replace(/- /g, "-");
+      .map((silbe) => silbe.text).join(" ").replace(/- /g, "-") || OHNE_TEXT;
   }).join("\n");
 }
 

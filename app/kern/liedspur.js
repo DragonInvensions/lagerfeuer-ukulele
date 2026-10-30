@@ -90,6 +90,12 @@ export function zeilenEnde(lied, index) {
   return index + 1 < lied.zeilen.length ? lied.zeilen[index + 1] : lied.laenge;
 }
 
+/* Zu jeder Zeile der Abschnitt (Strophe, Refrain, …), in dem sie beginnt; null ohne Abschnitte */
+export function abschnittDerZeilen(lied) {
+  const abschnitte = lied.abschnitte ?? [];
+  return lied.zeilen.map((start) => abschnitte.findLast((abschnitt) => abschnitt.ab <= start + 1e-9) ?? null);
+}
+
 export function silbenDerZeile(lied, index) {
   const von = lied.zeilen[index], bis = zeilenEnde(lied, index);
   return lied.silben.filter((silbe) => silbe.ab >= von && silbe.ab < bis);

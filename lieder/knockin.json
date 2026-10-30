@@ -34,5 +34,6 @@
   "silbenZeit": "geschaetzt",
   "hinweis": "Zwei Zeilen, mehr ist es nicht: <b>G – D – Am</b>, dann <b>G – D – C</b>. Das ganze Lied besteht aus diesen beiden im Wechsel, Strophe wie Refrain. Sehr langsam spielen — die Pausen zwischen den Schlägen tragen das Lied. Wer es zu schnell nimmt, macht daraus einen Marsch.",
   "akkordeGeprueft": true,
-  "textsuche": "Knockin' on Heaven's Door Bob Dylan"
+  "textsuche": "Knockin' on Heaven's Door Bob Dylan",
+  "textquellen": ["https://www.bobdylan.com/songs/knockin-heavens-door/","https://www.songtexte.com/songtext/bob-dylan/knockin-on-heavens-door-23d5e817.html"]
 }

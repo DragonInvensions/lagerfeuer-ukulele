@@ -48,3 +48,12 @@ test("Alle meine Entchen: gleiche Notenwerte bleiben gleich lang", () => {
   assert.equal(erste("schwim-").lang, erste("Al-").lang);
   assert.equal(erste("See,").ab - erste("schwim-").ab, erste("Ent-").ab - erste("Al-").ab);
 });
+
+test("Geschuetzte Lieder verweisen auf Textseiten, nur ueber https", () => {
+  for (const datei of dateien) {
+    const lied = JSON.parse(fs.readFileSync(path.join(ORDNER, datei), "utf8"));
+    if (lied.gemeinfrei) continue;
+    assert.ok(lied.textquellen?.length, `${datei}: keine Textseite`);
+    for (const adresse of lied.textquellen) assert.match(adresse, /^https:\/\/[^\s"<>]+$/, datei);
+  }
+});
