@@ -67,9 +67,20 @@ export function silbenAusText(text) {
    Eine Textzeile je Liedzeile, Leerzeilen zaehlen nicht. Mit "|" laesst sich eine Zeile auf die
    Takte verteilen; ein Abschnitt mehr als Takte ist der Auftakt (wie im alten Taktraster).
    Die Silben werden innerhalb ihres Abschnitts gleichmaessig verteilt: Zeit "geschaetzt". */
+
+/* Was Liedseiten beim Kopieren mitliefern, ist kein Liedtext: Abschnitts-Ueberschriften wie [Refrain],
+   Seitenkopf und -fuss von Genius und Musixmatch. So genuegt Kopieren und Einfuegen ohne Nacharbeit. */
+const SEITENRESTE = [/^\[.*\]$/, /^\d+\s*Contributors?/i, /\sLyrics$/, /^You might also like$/i, /^Lyrics powered by/i, /^Writer\(s\):/i];
+
+export function liedtextZeilen(text) {
+  return text.split(/\r?\n/)
+    .map((zeile) => zeile.trim().replace(/\d*Embed$/, "").trim())
+    .filter((zeile) => zeile && !SEITENRESTE.some((muster) => muster.test(zeile)));
+}
+
 export function textAufZeilen(lied, text) {
   const proTakt = viertelProTakt(lied);
-  const textzeilen = text.split(/\r?\n/).map((zeile) => zeile.trim()).filter(Boolean);
+  const textzeilen = liedtextZeilen(text);
   const anfaenge = lied.zeilen.map((start) => Math.ceil(start / proTakt - 1e-9) * proTakt + 0);
   const hinweise = [];
   if (textzeilen.length > anfaenge.length) {

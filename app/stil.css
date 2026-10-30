@@ -260,6 +260,9 @@ textarea { width: 100%; min-height: 14em; line-height: 1.6; resize: vertical; }
 .vorschau li { display: grid; grid-template-columns: 2.4ch 1fr; column-gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--strich); counter-increment: zeile; }
 .vorschau li::before { content: counter(zeile); grid-row: span 2; font-weight: 800; color: var(--rot-schrift); text-align: right; font-variant-numeric: tabular-nums; }
 .vorschau .akkorde { font-size: 13px; font-weight: 800; color: var(--papier-leise); word-spacing: .4em; }
+/* Der Teil des Liedes, mit dem eine Zeile beginnt: sagt beim Einfuegen, welches Stueck Text hierher gehoert */
+.vorschau .teilname { color: var(--papier); word-spacing: normal; margin-right: .4em; }
+.textauftrag { margin-bottom: 14px; }
 .vorschau .silben { font-size: 17px; }
 .vorschau .silben.leer { color: var(--leise); font-style: italic; }
 .liste h2 { font-size: 15px; font-weight: 800; color: var(--rot-schrift); margin: 30px 0 6px; }

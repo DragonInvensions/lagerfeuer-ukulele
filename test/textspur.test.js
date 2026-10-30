@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { silbenTrennen, silbenAusText, textAufZeilen, textAusSpur, textspurAnwenden } from "../app/kern/textspur.js";
+import { silbenTrennen, silbenAusText, textAufZeilen, textAusSpur, textspurAnwenden, liedtextZeilen } from "../app/kern/textspur.js";
 import { pruefen, FORMAT } from "../app/kern/liedspur.js";
 
 test("Silbentrennung nach einfachen deutschen Regeln", () => {
@@ -58,4 +58,23 @@ test("Textspur zurueck in Text fuers Bearbeiten", () => {
   const lied = geschuetztesLied();
   const { spur } = textAufZeilen(lied, "Ich hab die Hose\nmir zerrissen");
   assert.equal(textAusSpur(lied, spur), "Ich hab die Ho-se\nmir zer-ris-sen");
+});
+
+test("Von Liedseiten eingefuegter Text wird gesaeubert: Ueberschriften und Seitenreste fallen weg", () => {
+  const eingefuegt = [
+    "12 ContributorsTranslationsDeutsch",
+    "Probe Lyrics",
+    "[Strophe 1]",
+    "Erste Zeile hier",
+    "",
+    "[Refrain: Alle]",
+    "  Zweite Zeile da  ",
+    "You might also like",
+    "Dritte Zeile dort3Embed",
+    "Lyrics powered by www.musixmatch.com",
+    "Writer(s): Jemand",
+  ].join("\r\n");
+  assert.deepEqual(liedtextZeilen(eingefuegt), ["Erste Zeile hier", "Zweite Zeile da", "Dritte Zeile dort"]);
+  const { spur } = textAufZeilen(geschuetztesLied(), eingefuegt);
+  assert.equal(spur.silben[0].text, "Ers-");
 });

@@ -26,6 +26,7 @@ export async function listeZeigen(wurzel) {
       <img src="icon.svg" alt="" width="44" height="44"><h1>Lagerfeuer-Ukulele</h1>
       <div class="kopfaktionen">${kopfaktionenHTML(wer)}</div>
     </header>
+    ${textauftragHTML(lieder, wer)}
     <section class="einladung" hidden aria-live="polite"></section>
     ${stufen.map((stufe) => `
       <section aria-labelledby="stufe-${stufe}">
@@ -54,6 +55,14 @@ function kopfaktionenHTML(wer) {
   if (!wer) return `<a class="kopfknopf" href="#/anmelden">Anmelden</a>`;
   return `${wer === "verwalter" ? `<button class="kopfknopf einladen" type="button">Gerät einladen</button>` : ""}
     <button class="kopfknopf abmelden" type="button">Abmelden</button>`;
+}
+
+/* Mit Passwort: wie vielen geschuetzten Liedern der Text fehlt, und der Einstieg ins Ergaenzen */
+function textauftragHTML(lieder, wer) {
+  if (wer !== "verwalter") return "";
+  const fehlend = lieder.filter((lied) => !lied.mitText && !lied.gemeinfrei);
+  if (!fehlend.length) return "";
+  return `<p class="leise textauftrag">${fehlend.length === 1 ? "Einem Lied fehlt" : `${fehlend.length} Liedern fehlt`} noch der Text. <a href="#/lied/${fehlend[0].id}/text">Jetzt ergänzen</a></p>`;
 }
 
 /* Einmal-Link fuer ein Geraet: gilt einmal und 14 Tage, das Geraet kann danach alle Texte lesen */

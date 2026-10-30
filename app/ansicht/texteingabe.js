@@ -3,7 +3,7 @@
    Die Vorschau zeigt je Liedzeile die Akkorde und die Silben, so wie sie gespeichert wuerden. */
 import { akkordBei, zeilenEnde } from "../kern/liedspur.js";
 import { textAufZeilen, textAusSpur } from "../kern/textspur.js";
-import { liedLaden, liedNummer, textspurLaden, textspurSpeichern } from "../daten/lieder.js";
+import { liedLaden, liedNummer, liederListe, textspurLaden, textspurSpeichern } from "../daten/lieder.js";
 import { rolle } from "../daten/zugang.js";
 import { esc } from "./html.js";
 import { symbol } from "./symbole.js";
@@ -27,6 +27,13 @@ export async function texteingabeZeigen(wurzel, id) {
   }
   document.title = `Text einfügen · ${lied.titel}`;
   const suche = encodeURIComponent(lied.textsuche ?? lied.titel);
+  /* Zu jeder Liedzeile der Teil des Liedes, in dem sie beginnt: sagt, welche Teile des Textes hineingehoeren */
+  const teile = lied.zeilen.map((start) => [...(lied.abschnitte ?? [])].reverse().find((teil) => teil.ab <= start + 1e-9)?.name ?? "");
+  const teilfolge = teile.reduce((folge, name) => {
+    if (folge.at(-1)?.name === name) folge.at(-1).zeilen++; else folge.push({ name, zeilen: 1 });
+    return folge;
+  }, []);
+  const teilText = teilfolge.map((teil) => `${teil.name || "Zeilen"} ${teil.zeilen}`).join(" · ");
   wurzel.innerHTML = `
   <article class="texteingabe">
     <header class="seitenkopf">
@@ -35,7 +42,8 @@ export async function texteingabeZeigen(wurzel, id) {
       <div class="titel"><h1>Text einfügen</h1><p>${esc(lied.titel)} · ${lied.zeilen.length} Liedzeilen</p></div>
     </header>
     <section class="anleitung">
-      <p>Eine Textzeile je Liedzeile, Leerzeilen zählen nicht. Die Silben trennt die App selbst; wo sie falsch trennt, setz Bindestriche (<b>Sponge-Bob</b>). Mit <b>|</b> verteilst du eine Zeile auf die Takte, ein Teil mehr als Takte wird zum Auftakt.</p>
+      <p>Die Liedspur hat ${lied.zeilen.length} Zeilen: <b>${esc(teilText)}</b>. Kopiere genau diese Teile und füge sie ein; Überschriften wie [Refrain] und Reste der Liedseite fallen von selbst weg.</p>
+      <p>Eine Textzeile je Liedzeile. Bricht der Text anders um als die Vorschau unten, verbinde oder trenne Zeilen, bis die Akkorde passen. Die Silben trennt die App selbst; wo sie falsch trennt, setz Bindestriche (<b>Sponge-Bob</b>). Mit <b>|</b> verteilst du eine Zeile auf die Takte, ein Teil mehr als Takte wird zum Auftakt.</p>
       ${lied.texthinweis ? `<p class="leise">${esc(lied.texthinweis)}</p>` : ""}
       <p class="suche">Text suchen bei
         <a href="https://genius.com/search?q=${suche}" target="_blank" rel="noopener">Genius</a> ·
@@ -68,16 +76,30 @@ export async function texteingabeZeigen(wurzel, id) {
     vorschau.innerHTML = lied.zeilen.map((_, i) => {
       const von = spur.zeilen[i], bis = spur.zeilen[i + 1] ?? lied.laenge;
       const silben = spur.silben.filter((silbe) => silbe.ab >= von && silbe.ab < bis).map((silbe) => silbe.text).join(" ").replace(/- /g, "-");
-      return `<li><span class="akkorde">${esc(akkordfolge(i))}</span><span class="${silben ? "silben" : "silben leer"}">${silben ? esc(silben) : "ohne Text"}</span></li>`;
+      const teilname = teile[i] && teile[i] !== teile[i - 1] ? `<b class="teilname">${esc(teile[i])}</b> ` : "";
+      return `<li><span class="akkorde">${teilname}${esc(akkordfolge(i))}</span><span class="${silben ? "silben" : "silben leer"}">${silben ? esc(silben) : "ohne Text"}</span></li>`;
     }).join("");
+  }
+  /* Nach dem Speichern gleich zum naechsten Lied ohne Text, damit alle in einem Rutsch gehen */
+  async function naechstesOhneText() {
+    const lieder = await liederListe();
+    const hier = lieder.findIndex((eintrag) => eintrag.id === id);
+    return [...lieder.slice(hier + 1), ...lieder.slice(0, hier)].find((eintrag) => !eintrag.mitText && !eintrag.gemeinfrei);
   }
   async function speichern() {
     status.textContent = "Wird gespeichert …";
     try {
       await textspurSpeichern(id, ergebnis.spur);
-      status.innerHTML = `Gespeichert. <a href="#/lied/${id}">Zum Lied</a>`;
     } catch (fehler) {
       status.textContent = `Nicht gespeichert: ${fehler.message}`;
+      return;
+    }
+    status.innerHTML = `Gespeichert. <a href="#/lied/${id}">Zum Lied</a>`;
+    try {
+      const naechstes = await naechstesOhneText();
+      status.innerHTML += naechstes ? ` · <a href="#/lied/${naechstes.id}/text">Weiter: ${esc(naechstes.titel)}</a>` : " · Alle Lieder haben jetzt Text.";
+    } catch (fehler) {
+      console.info("Naechstes Lied ohne Text nicht ermittelt:", fehler.message);
     }
   }
 
